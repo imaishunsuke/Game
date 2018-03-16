@@ -1,6 +1,7 @@
 #pragma once
 
 #include "tkEngine/graphics/effect/tkEffect.h"
+#include "testLevel.h"
 
 class Fade;
 class testMirror;
@@ -32,5 +33,6 @@ private:
 	testMirror* m_mirror = nullptr;
 	testGameCamera* m_gameCamera = nullptr;
 	testBackGround* m_background = nullptr;
+	testLevel m_level;
 };
 
