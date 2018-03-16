@@ -3,7 +3,7 @@
 #include "tkEngine/graphics/effect/tkEffect.h"
 
 class Fade;
-class Mirror;
+class testMirror;
 class testGameCamera;
 class testBackGround;
 
@@ -29,7 +29,7 @@ private:
 	Fade* m_fade = nullptr;
 	bool m_isWaitFadeout = false;
 	float m_waitTimer = 0.0f;
-	Mirror* m_mirror = nullptr;
+	testMirror* m_mirror = nullptr;
 	testGameCamera* m_gameCamera = nullptr;
 	testBackGround* m_background = nullptr;
 };

@@ -40,6 +40,7 @@
     <ClCompile Include="testGame.cpp" />
     <ClCompile Include="testGameCamera.cpp" />
     <ClCompile Include="testBackGround.cpp" />
+    <ClCompile Include="testMirror.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -53,6 +54,7 @@
     <ClInclude Include="testGame.h" />
     <ClInclude Include="testGameCamera.h" />
     <ClInclude Include="testBackGround.h" />
+    <ClInclude Include="testMirror.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">

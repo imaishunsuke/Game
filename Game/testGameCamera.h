@@ -1,5 +1,5 @@
 #pragma once
-#include "Mirror.h"
+#include "testMirror.h"
 #include "tkEngine/camera/tkSpringCamera.h"
 
 class testGameCamera : public IGameObject
@@ -15,6 +15,6 @@ public:
 	CSpringCamera m_springCamera;
 	CVector3 m_toCameraPos = CVector3::Zero;
 private:
-	Mirror* m_mirror;
+	testMirror* m_mirror;
 };
 

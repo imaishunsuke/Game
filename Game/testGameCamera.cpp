@@ -16,7 +16,7 @@ bool testGameCamera::Start()
 	/*m_springCamera.SetPosition({ 0.0f,15.0f,50.0f });
 	m_springCamera.SetTarget({ 0.0f,15.0f,0.0f });*/
 	//ミラーのインスタンスを探す
-	m_mirror = FindGO<Mirror>("Mirror");
+	m_mirror = FindGO<testMirror>("testMirror");
 	//springCamera.SetTarget(m_mirror->m_position);
 	MainCamera().SetNear(1.0f);
 	MainCamera().SetFar(1000.0f);

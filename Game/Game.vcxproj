@@ -634,6 +634,7 @@
     <ClCompile Include="testBackGround.cpp" />
     <ClCompile Include="testGame.cpp" />
     <ClCompile Include="testGameCamera.cpp" />
+    <ClCompile Include="testMirror.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -641,6 +642,7 @@
     <ClInclude Include="testBackGround.h" />
     <ClInclude Include="testGame.h" />
     <ClInclude Include="testGameCamera.h" />
+    <ClInclude Include="testMirror.h" />
     <ClInclude Include="Title.h" />
     <CustomBuild Include="Assets\shader\LightingFunction.h" />
     <CustomBuild Include="Assets\shader\modelCB.h" />
