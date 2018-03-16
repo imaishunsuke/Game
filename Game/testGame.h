@@ -3,12 +3,15 @@
 #include "tkEngine/graphics/effect/tkEffect.h"
 
 class Fade;
+class Mirror;
+class testGameCamera;
+class testBackGround;
 
-class Game : public IGameObject
+class testGame : public IGameObject
 {
 public:
-	Game();
-	~Game();
+	testGame();
+	~testGame();
 	bool Start();
 	void Update();
 	void Render(CRenderContext& rc);
@@ -26,4 +29,8 @@ private:
 	Fade* m_fade = nullptr;
 	bool m_isWaitFadeout = false;
 	float m_waitTimer = 0.0f;
+	Mirror* m_mirror = nullptr;
+	testGameCamera* m_gameCamera = nullptr;
+	testBackGround* m_background = nullptr;
 };
+

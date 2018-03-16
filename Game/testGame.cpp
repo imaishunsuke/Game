@@ -1,40 +1,46 @@
 #include "stdafx.h"
-#include "Game.h"
+#include "testGame.h"
 #include "Fade.h"
 #include "Title.h"
-//#include "Mirror.h"
-
-
-Game::Game()
+#include "Mirror.h"
+#include "testGameCamera.h"
+#include "testBackGround.h"
+testGame::testGame()
 {
 }
 
 
-Game::~Game()
+testGame::~testGame()
 {
 }
-void Game::OnDestroy()
+void testGame::OnDestroy()
 {
+	DeleteGO(m_gameCamera);
 	DeleteGO(m_skinModelRender);
+	DeleteGO(m_mirror);
+	DeleteGO(m_background);
 }
-bool Game::Start()
+bool testGame::Start()
 {
+	m_gameCamera = NewGO<testGameCamera>(0);
+	m_background = NewGO<testBackGround>(0);
 	//ÉJÉÅÉâÇê›íËÅB
-	MainCamera().SetTarget({ 0.0f, 10.0f, 0.0f });
-	MainCamera().SetNear(0.1f);
-	MainCamera().SetFar(100.0f);
-	MainCamera().SetPosition({ 30.0f, 10.0f, 0.0f });
-	MainCamera().Update();
+	//MainCamera().SetTarget({ 0.0f, 10.0f, 0.0f });
+	//MainCamera().SetNear(0.1f);
+	//MainCamera().SetFar(100.0f);
+	//MainCamera().SetPosition({ 30.0f, 10.0f, 0.0f });
+	//MainCamera().Update();
 
-	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
-	m_skinModelRender->Init(L"modelData/unityChan.cmo");
-	m_skinModelRender->SetScale({ 0.1f, 0.1f, 0.1f });
+	//m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
+	//m_skinModelRender->Init(L"modelData/unityChan.cmo");
+	//m_skinModelRender->SetScale({ 0.1f, 0.1f, 0.1f });
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
+	m_mirror = NewGO<Mirror>(0, "Mirror");
 	return true;
 }
-void Game::Update()
+void testGame::Update()
 {
 	switch (m_state) {
 	case enState_FadeIn:
@@ -50,7 +56,7 @@ void Game::Update()
 			GraphicsEngine().GetTonemap().Reset();
 		}
 	}
-		 break;
+						 break;
 	}
 	if (m_isWaitFadeout)
 	{
@@ -66,7 +72,7 @@ void Game::Update()
 		}
 	}
 }
-void Game::Render(CRenderContext& rc)
+void testGame::Render(CRenderContext& rc)
 {
 	(void)rc;
 }
