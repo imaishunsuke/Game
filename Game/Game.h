@@ -3,6 +3,7 @@
 #include "tkEngine/graphics/effect/tkEffect.h"
 
 class Fade;
+class Mirror;
 
 class Game : public IGameObject
 {
@@ -24,6 +25,7 @@ private:
 	};
 	EnState m_state = enState_FadeIn;
 	Fade* m_fade = nullptr;
+	Mirror* m_mirror = nullptr;
 	bool m_isWaitFadeout = false;
 	float m_waitTimer = 0.0f;
 };

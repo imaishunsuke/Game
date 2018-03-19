@@ -11,39 +11,57 @@ Mirror::~Mirror()
 }
 bool Mirror::Start()
 {
-	m_skinModelData.Load(L"modelData/unityChan.cmo");
+	m_skinModelData.Load(L"modelData/mirror.cmo");
 	m_skinModel.Init(m_skinModelData);
-	//キャラクターコントローラーの初期化
-	m_charaCon.Init(
-		3.0f,
-		7.0f,
-		m_position
-	);
+
 	return true;
 }
 void Mirror::Update()
 {
-	m_moveSpeed.y += -20.0f;
-	float lStick_x = Pad(0).GetLStickXF();
-	float lStick_y = Pad(0).GetLStickYF();
-	//カメラの前方向と右方向を取得
-	CVector3 cameraForward = MainCamera().GetForward();
-	CVector3 cameraRight = MainCamera().GetRight();
-	cameraForward.y = 0.0f;
-	cameraForward.Normalize();
-	cameraRight.y = 0.0f;
-	cameraRight.Normalize();
-	m_moveSpeed.x = 0.0f;
-	m_moveSpeed.z = 0.0f;
-	m_moveSpeed += cameraForward * lStick_y * 50.0f;
-	m_moveSpeed += cameraRight * lStick_x * 50.0f;
-	//キャラクターを任意の方向に向かせるための変数
-	float angle = 0;
-	angle = atan2f(m_moveSpeed.x, m_moveSpeed.z);
-	CQuaternion qRot;
-	m_rotation.SetRotation(CVector3::AxisY, angle);
-	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
-	m_skinModel.Update(m_position, m_rotation, m_scale);
+	//クォータニオンを初期化
+	CQuaternion qRot = CQuaternion::Identity;
+	
+	//回転処理
+	CVector3 stick;
+	stick.x = -Pad(0).GetRStickXF();
+	stick.y = Pad(0).GetRStickYF();
+	stick.z = 0.0f;
+	stick = stick * 10;
+
+	//上限
+	if (m_anglex >50.0f)
+	{
+		m_anglex = 50.0f;
+	}
+	if (m_anglex < -50.0f)
+	{
+		m_anglex = -50.0f;
+	}
+	if (m_angley >50.0f)
+	{
+		m_angley = 50.0f;
+	}
+	if (m_angley < -50.0f)
+	{
+		m_angley = -50.0f;
+	}
+	m_anglex += stick.x;
+	
+	//加算
+	if (m_anglex <= 50 && m_anglex >= -50) {
+		qRot.SetRotationDeg(CVector3::AxisY, stick.x);
+		
+		m_rotation.Multiply(qRot);
+	}
+	m_angley += stick.y;
+	if (m_angley <= 50 && m_angley >= -50) {
+		qRot.SetRotationDeg(CVector3::AxisX, stick.y);
+	
+		m_rotation.Multiply(qRot);
+	}
+
+	//ワールド行列更新
+	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
 void Mirror::Render(CRenderContext& rc)
 {
