@@ -619,9 +619,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="background.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Mirror.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -634,18 +637,17 @@
     <ClCompile Include="testBackGround.cpp" />
     <ClCompile Include="testGame.cpp" />
     <ClCompile Include="testGameCamera.cpp" />
-    <ClCompile Include="testLevel.cpp" />
-    <ClCompile Include="testMapChip.cpp" />
     <ClCompile Include="testMirror.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="background.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="MapChip.h" />
     <ClInclude Include="Mirror.h" />
     <ClInclude Include="testBackGround.h" />
     <ClInclude Include="testGame.h" />
     <ClInclude Include="testGameCamera.h" />
-    <ClInclude Include="testLevel.h" />
-    <ClInclude Include="testMapChip.h" />
     <ClInclude Include="testMirror.h" />
     <ClInclude Include="Title.h" />
     <CustomBuild Include="Assets\shader\LightingFunction.h" />
@@ -660,8 +662,11 @@
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\protbackground1.FBX" />
+    <MeshContentTask Include="Assets\modelData\protobj1.FBX" />
+    <MeshContentTask Include="Assets\modelData\protobj2.FBX" />
+    <MeshContentTask Include="Assets\modelData\protobj3.FBX" />
     <MeshContentTask Include="Assets\modelData\testGround.FBX" />
-    <MeshContentTask Include="Assets\modelData\testobj.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
   </ItemGroup>
   <ItemGroup>
@@ -740,7 +745,17 @@
     <ImageContentTask Include="Assets\sprite\fade.png" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Assets\testLevel\testobj.tks">
+    <CustomBuild Include="Assets\level\protobj1.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\level\protobj2.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\level\protobj3.tks">
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>

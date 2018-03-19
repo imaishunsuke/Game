@@ -2,6 +2,8 @@
 #include "Game.h"
 #include "Fade.h"
 #include "Title.h"
+#include"Level.h"
+#include"background.h"
 //#include "Mirror.h"
 
 
@@ -16,13 +18,14 @@ Game::~Game()
 void Game::OnDestroy()
 {
 	DeleteGO(m_skinModelRender);
+	DeleteGO(m_background);
 }
 bool Game::Start()
 {
 	//カメラを設定。
 	MainCamera().SetTarget({ 0.0f, 10.0f, 0.0f });
 	MainCamera().SetNear(0.1f);
-	MainCamera().SetFar(100.0f);
+	MainCamera().SetFar(1000.0f);
 	MainCamera().SetPosition({ 30.0f, 10.0f, 0.0f });
 	MainCamera().Update();
 
@@ -32,6 +35,12 @@ bool Game::Start()
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
+	//background作成
+	m_background=NewGO<background>(0, "background");
+	//レベルを構築する。
+	m_level.Build(L"level/protobj1.tks");
+	m_level.Build(L"level/protobj2.tks");
+	m_level.Build(L"level/protobj3.tks");
 	return true;
 }
 void Game::Update()
@@ -65,6 +74,11 @@ void Game::Update()
 			m_fade->StartFadeOut();
 		}
 	}
+	if (Pad(0).IsPress(enButtonUp)) {
+		m_position += {0.0,1.0,0.0};
+	}
+	MainCamera().SetPosition(m_position);
+	MainCamera().Update();
 }
 void Game::Render(CRenderContext& rc)
 {

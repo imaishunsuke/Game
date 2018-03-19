@@ -5,7 +5,6 @@
 #include "testMirror.h"
 #include "testGameCamera.h"
 #include "testBackGround.h"
-#include "testLevel.h"
 testGame::testGame()
 {
 }
@@ -39,7 +38,6 @@ bool testGame::Start()
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
 	m_mirror = NewGO<testMirror>(0, "testMirror");
-	m_level.Build(L"testLevel/testobj.tks");
 	return true;
 }
 void testGame::Update()
