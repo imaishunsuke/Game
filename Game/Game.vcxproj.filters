@@ -29,6 +29,9 @@
     <Filter Include="Assets\effect\Texture">
       <UniqueIdentifier>{8b31e80d-a444-4ef6-a616-be60a9d00e35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\level">
+      <UniqueIdentifier>{4c6c76bb-99d9-462f-b043-007d84ee035b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -41,6 +44,9 @@
     <ClCompile Include="testGameCamera.cpp" />
     <ClCompile Include="testBackGround.cpp" />
     <ClCompile Include="testMirror.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="MapChip.cpp" />
+    <ClCompile Include="background.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -55,6 +61,9 @@
     <ClInclude Include="testGameCamera.h" />
     <ClInclude Include="testBackGround.h" />
     <ClInclude Include="testMirror.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="MapChip.h" />
+    <ClInclude Include="background.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -68,7 +77,16 @@
     <MeshContentTask Include="Assets\modelData\testGround.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\mirror.FBX">
+    <MeshContentTask Include="Assets\modelData\protobj1.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\protbackground1.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\protobj2.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\protobj3.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -180,6 +198,15 @@
     </CustomBuild>
     <CustomBuild Include="Assets\effect\Texture\wind02.png">
       <Filter>Assets\effect\Texture</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\protobj1.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\protobj2.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\protobj3.tks">
+      <Filter>Assets\level</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

@@ -17,14 +17,14 @@ bool testMirror::Start()
 	//キャラクターコントローラーの初期化
 	m_charaCon.Init(
 		3.0f,
-		5.0f,
+		7.0f,
 		m_position
 	);
 	return true;
 }
 void testMirror::Update()
 {
-	m_moveSpeed.y += -30.0f;
+	m_moveSpeed.y += -20.0f;
 	float lStick_x = Pad(0).GetLStickXF();
 	float lStick_y = Pad(0).GetLStickYF();
 	//カメラの前方向と右方向を取得
