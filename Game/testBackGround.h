@@ -16,7 +16,7 @@ public:
 	CSkinModelData m_skinModelData;
 	CSkinModel m_skinModel;
 	CVector3 m_position = CVector3::Zero;
-	CVector3 m_scale = { 1.5f,1.0f,1.5f };
+	CVector3 m_scale = CVector3::One;
 	CMeshCollider m_meshCollider;
 	CRigidBody m_rigidBody;
 };

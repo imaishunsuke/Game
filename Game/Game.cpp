@@ -26,9 +26,9 @@ bool Game::Start()
 	MainCamera().SetPosition({ 30.0f, 10.0f, 0.0f });
 	MainCamera().Update();
 
-	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
+	/*m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
 	m_skinModelRender->Init(L"modelData/unityChan.cmo");
-	m_skinModelRender->SetScale({ 0.1f, 0.1f, 0.1f });
+	m_skinModelRender->SetScale({ 0.1f, 0.1f, 0.1f });*/
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;

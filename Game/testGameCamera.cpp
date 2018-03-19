@@ -20,7 +20,7 @@ bool testGameCamera::Start()
 	//springCamera.SetTarget(m_mirror->m_position);
 	MainCamera().SetNear(1.0f);
 	MainCamera().SetFar(1000.0f);
-	MainCamera().SetPosition({ 0.0f, 15.0f, 50.0f });
+	MainCamera().SetPosition({ 0.0f, 25.0f, 70.0f });
 	MainCamera().SetTarget({ 0.0f,15.0f,0.0f });
 	//‚Î‚ËƒJƒƒ‰‚Ì‰Šú‰»
 	m_springCamera.Init(

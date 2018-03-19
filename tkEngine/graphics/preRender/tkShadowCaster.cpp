@@ -25,6 +25,7 @@ namespace tkEngine{
 		if (!m_skinModel) {
 			return;
 		}
-		m_skinModel->Draw(renderContext, mLVP, CMatrix::Identity);
+		//imai ˆø”‚ð’Ç‰Á‚µ‚½
+		m_skinModel->Draw(renderContext, mLVP, CMatrix::Identity,CMatrix::Identity, CMatrix::Identity);
 	}
 }

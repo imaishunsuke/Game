@@ -1,7 +1,8 @@
 #pragma once
 #include "tkEngine/character/tkCharacterController.h"
+using namespace tkEngine;
 
-class testMirror : public IGameObject
+class testMirror : public tkEngine::IGameObject
 {
 public:
 	testMirror();
@@ -13,9 +14,12 @@ public:
 	CSkinModel m_skinModel;
 	CSkinModelData m_skinModelData;
 	CVector3 m_position = CVector3::Zero;
+	CVector3 m_target = CVector3::Zero;
 	CVector3 m_moveSpeed = CVector3::Zero;
 	CQuaternion m_rotation = CQuaternion::Identity;
 	CVector3 m_scale = { 0.2f,0.2f,0.2f };
 	CCharacterController m_charaCon;
+	CMatrix m_mirrorViewMatrix;
+	CMatrix m_mirrorProjectionMatrix;
 };
 
