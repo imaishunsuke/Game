@@ -4,6 +4,7 @@
 
 class Fade;
 class background;
+class Mirror;
 
 class Game : public IGameObject
 {
@@ -30,4 +31,5 @@ private:
 	Level m_level;
 	background*m_background = nullptr;
 	CVector3 m_position= { 30.0f, 10.0f, 0.0f };
+	Mirror* m_mirror = nullptr;
 };
