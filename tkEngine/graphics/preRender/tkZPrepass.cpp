@@ -6,6 +6,8 @@
 #include "tkEngine/graphics/preRender/tkZPrepass.h"
 #include "tkEngine/graphics/tkCamera.h"
 
+extern tkEngine::CMatrix g_mirrorViewMatrix;
+extern tkEngine::CMatrix g_mirrorProjectionMatrix;
 namespace tkEngine{
 	namespace {
 		static const int RESERVE_SKIN_MODEL_LIST = 512;
@@ -53,8 +55,15 @@ namespace tkEngine{
 		float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; //red,green,blue,alpha
 		rc.ClearRenderTargetView(0, ClearColor);
 
+		//　今井　引数を追加した
 		for (auto skinModel : m_skinModels) {
-			skinModel->Draw(rc, MainCamera().GetViewMatrix(), MainCamera().GetProjectionMatrix());
+			skinModel->Draw(
+				rc, 
+				MainCamera().GetViewMatrix(), 
+				MainCamera().GetProjectionMatrix(),
+				g_mirrorViewMatrix, 
+				g_mirrorProjectionMatrix
+			);
 		}
 		m_skinModels.clear();
 		//レンダリングターゲットを差し戻す。

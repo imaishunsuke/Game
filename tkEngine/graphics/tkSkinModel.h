@@ -5,8 +5,9 @@
 #pragma once
 
 #include "tkEngine/graphics/preRender/tkShadowCaster.h"
+class testMirror;
 
-namespace tkEngine{
+namespace tkEngine {
 	class CSkinModelData;
 	/*!
 	 *@brief	スキンモデル。
@@ -14,7 +15,7 @@ namespace tkEngine{
 	 * スキンあり、なしモデルの表示をサポートするクラス。</br>
 	 * 複数のインスタンスを一度の関数コールで描画することができるインスタンシング描画もサポートしている。</br>
 	 */
-	class CSkinModel : Noncopyable{
+	class CSkinModel : Noncopyable {
 	public:
 		/*!
 		*@brief	FBXの上方向。
@@ -52,8 +53,8 @@ namespace tkEngine{
 		*@param[in]		enUpdateAxis	fbxの上方向。
 		*/
 		void Update(
-			const CVector3& trans, 
-			const CQuaternion& rot, 
+			const CVector3& trans,
+			const CQuaternion& rot,
 			const CVector3& scale,
 			EnFbxUpAxis enUpdateAxis = enFbxUpAxisZ
 		);
@@ -96,10 +97,15 @@ namespace tkEngine{
 		*@param[in]	viewMatrix		ビュー行列。
 		*@param[in]	projMatrix		プロジェクション行列。
 		*/
+		/*for 今井 mirrorViewMatrix ミラーのビュー行列を追加
+				   mirrorProjectionMatrix ミラーのプロジェクション行列を追加
+				   */
 		void Draw(
-			CRenderContext& renderContext, 
-			const CMatrix& viewMatrix, 
-			const CMatrix& projMatrix
+			CRenderContext& renderContext,
+			const CMatrix& viewMatrix,
+			const CMatrix& projMatrix,
+			const CMatrix& mMirrorView,
+			const CMatrix& mMirrorProj
 		);
 		/*!
 		*@brief	メッシュの検索。
@@ -171,6 +177,9 @@ namespace tkEngine{
 			CMatrix mWorld;
 			CMatrix mView;
 			CMatrix mProj;
+			//for 今井 mMirrorViewとmMirrorPorjを追加
+			CMatrix mMirrorView;
+			CMatrix mMirrorProj;
 			CVector4 screenParam;
 			int isShadowReceiver;
 		};
@@ -186,5 +195,7 @@ namespace tkEngine{
 		CStructuredBuffer	m_instancingDataSB;				//!<インスタンシング描画用のストラクチャーバッファ。
 		int m_maxInstance = 1;								//!<インスタンスの最大数
 		int m_numInstance = 0;								//!<インスタンスの数。
+
+		testMirror* m_mirror;
 	};
 }

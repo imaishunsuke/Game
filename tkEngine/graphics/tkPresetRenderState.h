@@ -28,6 +28,7 @@ namespace tkEngine{
 															//!<深度テスト、深度書き込みともに有効なステートです。
 		static ID3D11DepthStencilState* spriteRender;		//!<2D描画する時の基本的な深度ステンシルステート。
 															//!<深度テスト、深度書き込みともに無効なステートです。
+		static ID3D11DepthStencilState* gBufferRender;		//!<G-Bufferを書き込むときに深度ステンシルステート。
 		/*!
 		* @brief	初期化。
 		*@param[in]	ge		グラフィックエンジン

@@ -5,7 +5,7 @@
 #include "tkEngine/tkEnginePreCompile.h"
 #include "tkEngine/graphics/preRender/tkGBufferRender.h"
 #include "tkEngine/graphics/tkSkinModelShaderConst.h"
-
+#include "tkEngine/graphics/tkPresetRenderState.h"
 namespace tkEngine{
 	/*!
 	 * @brief	コンストラクタ。
@@ -99,10 +99,13 @@ namespace tkEngine{
 		//Shadowバッファをクリア。
 		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 		rc.ClearRenderTargetView(1, clearColor);
-
+		ID3D11DepthStencilState* oldDepthStencil = rc.GetDepthStencilState();
+		rc.OMSetDepthStencilState(DepthStencilState::gBufferRender, 0);
+		// 今井　引数を追加した
 		for (auto& skinModel : m_skinModels) {
-			skinModel->Draw(rc, MainCamera().GetViewMatrix(), MainCamera().GetProjectionMatrix());
+			skinModel->Draw(rc, MainCamera().GetViewMatrix(), MainCamera().GetProjectionMatrix(),CMatrix::Identity, CMatrix::Identity);
 		}
+		rc.OMSetDepthStencilState(oldDepthStencil, 0);
 		//MSAAリゾルブ。
 		for (auto& rt : renderTargets) {
 			rt->ResovleMSAATexture(rc);
