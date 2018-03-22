@@ -14,4 +14,3 @@ public:
 	std::list<testMapChip*> m_mapChipList;		//マップチップ
 };
 
-

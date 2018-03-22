@@ -25,5 +25,6 @@ public:
 	CQuaternion m_rotation;
 	CMeshCollider m_meshCollider;
 	CRigidBody m_rigidBody;
+	testMirror* m_mirror =NULL;
 };
 

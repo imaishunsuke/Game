@@ -32,6 +32,9 @@
     <Filter Include="Assets\level">
       <UniqueIdentifier>{4c6c76bb-99d9-462f-b043-007d84ee035b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\testLevel">
+      <UniqueIdentifier>{be9331e5-b62a-4b74-a8fd-8b24baae6de7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -47,6 +50,8 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="testLevel.cpp" />
+    <ClCompile Include="testMapChip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -64,6 +69,8 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="background.h" />
+    <ClInclude Include="testLevel.h" />
+    <ClInclude Include="testMapChip.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -87,6 +94,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\protobj3.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\testobj.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -208,6 +218,9 @@
     <CustomBuild Include="Assets\level\protobj3.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
+    <CustomBuild Include="Assets\testLevel\testobj.tks">
+      <Filter>Assets\testLevel</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\title.png">
@@ -216,5 +229,10 @@
     <ImageContentTask Include="Assets\sprite\fade.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\modelData\testobj.png">
+      <Filter>Assets\modelData</Filter>
+    </Image>
   </ItemGroup>
 </Project>

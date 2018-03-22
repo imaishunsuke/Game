@@ -18,5 +18,6 @@ public:
 	CQuaternion m_rotation=CQuaternion::Identity;
 	CVector3 m_scale = { 0.2f,0.2f,0.2f };
 	CCharacterController m_charaCon;
+	testMirror* m_mirror = NULL;
 };
 

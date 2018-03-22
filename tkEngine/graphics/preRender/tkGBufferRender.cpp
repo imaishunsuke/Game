@@ -6,6 +6,7 @@
 #include "tkEngine/graphics/preRender/tkGBufferRender.h"
 #include "tkEngine/graphics/tkSkinModelShaderConst.h"
 #include "tkEngine/graphics/tkPresetRenderState.h"
+#include "Game/testMirror.h"
 namespace tkEngine{
 	/*!
 	 * @brief	コンストラクタ。
@@ -101,10 +102,21 @@ namespace tkEngine{
 		rc.ClearRenderTargetView(1, clearColor);
 		ID3D11DepthStencilState* oldDepthStencil = rc.GetDepthStencilState();
 		rc.OMSetDepthStencilState(DepthStencilState::gBufferRender, 0);
+
 		// 今井　引数を追加した
-		for (auto& skinModel : m_skinModels) {
-			skinModel->Draw(rc, MainCamera().GetViewMatrix(), MainCamera().GetProjectionMatrix(),CMatrix::Identity, CMatrix::Identity);
+		if (m_mirror == NULL)
+		{
+			m_mirror = FindGO<testMirror>("testMirror");
 		}
+		for (auto& skinModel : m_skinModels) {
+			skinModel->Draw(rc, 
+				MainCamera().GetViewMatrix(),
+				MainCamera().GetProjectionMatrix(),
+				CMatrix::Identity, 
+				CMatrix::Identity,
+				testMirror::GetInstance().alphaflag);
+		}
+
 		rc.OMSetDepthStencilState(oldDepthStencil, 0);
 		//MSAAリゾルブ。
 		for (auto& rt : renderTargets) {

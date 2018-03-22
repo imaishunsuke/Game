@@ -44,3 +44,4 @@ void testLevel::Build(const wchar_t* levelDataFilePath)
 		m_mapChipList.push_back(testmapChip);
 	}
 }
+

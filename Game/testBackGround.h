@@ -19,5 +19,6 @@ public:
 	CVector3 m_scale = CVector3::One;
 	CMeshCollider m_meshCollider;
 	CRigidBody m_rigidBody;
+	testMirror* m_mirror = NULL;
 };
 

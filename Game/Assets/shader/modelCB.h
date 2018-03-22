@@ -13,6 +13,7 @@ cbuffer VSPSCb : register(b0){
 	//ここにmMirrorView,mMirrorProjを追加する。
 	float4x4 mMirrorView;
 	float4x4 mMirrorProj;
+	int		 alphaflag;
 	float4 screenParam;		// スクリーンパラメータ(near, far, screenWidth, screenHeight)
 	int isShadowReceiver;	//シャドウレシーバー？
 };

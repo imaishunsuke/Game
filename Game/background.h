@@ -24,5 +24,6 @@ public:
 	CVector3 m_position = CVector3::Zero;	//座標。
 	CMeshCollider m_meshCollider;	//メッシュコライダー。
 	CRigidBody m_rigidBody;			//剛体。
+	testMirror* m_mirror = NULL;
 };
 
