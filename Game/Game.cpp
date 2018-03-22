@@ -4,7 +4,7 @@
 #include "Title.h"
 #include"Level.h"
 #include"background.h"
-//#include "Mirror.h"
+#include "Mirror.h"
 
 
 Game::Game()
@@ -19,6 +19,7 @@ void Game::OnDestroy()
 {
 	DeleteGO(m_skinModelRender);
 	DeleteGO(m_background);
+	DeleteGO(m_mirror);
 }
 bool Game::Start()
 {
@@ -41,6 +42,8 @@ bool Game::Start()
 	m_level.Build(L"level/protobj1.tks");
 	m_level.Build(L"level/protobj2.tks");
 	m_level.Build(L"level/protobj3.tks");
+	//É~ÉâÅ[çÏê¨
+	m_mirror = NewGO<Mirror>(0, "Mirror");
 	return true;
 }
 void Game::Update()
