@@ -5,7 +5,7 @@
 #pragma once
 
 #include "tkEngine/graphics/preRender/tkShadowCaster.h"
-class testMirror;
+class Mirror;
 
 namespace tkEngine {
 	class CSkinModelData;
@@ -198,6 +198,6 @@ namespace tkEngine {
 		int m_maxInstance = 1;								//!<インスタンスの最大数
 		int m_numInstance = 0;								//!<インスタンスの数。
 
-		testMirror* m_mirror = NULL;
+		Mirror* m_mirror = NULL;
 	};
 }

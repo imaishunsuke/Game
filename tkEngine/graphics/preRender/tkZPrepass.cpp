@@ -5,7 +5,7 @@
 #include "tkEngine/tkEnginePreCompile.h"
 #include "tkEngine/graphics/preRender/tkZPrepass.h"
 #include "tkEngine/graphics/tkCamera.h"
-#include "Game/testMirror.h"
+#include "Game/Mirror.h"
 
 //extern tkEngine::CMatrix g_mirrorViewMatrix;
 //extern tkEngine::CMatrix g_mirrorProjectionMatrix;
@@ -58,7 +58,7 @@ namespace tkEngine{
 
 		//ç°à‰Å@FindGOÇí«â¡
 		if (m_mirror == NULL) {
-			m_mirror = FindGO<testMirror>("testMirror");
+			m_mirror = FindGO<Mirror>("Mirror");
 		}
 		//Å@ç°à‰Å@à¯êîÇí«â¡ÇµÇΩ
 		for (auto skinModel : m_skinModels) {
@@ -68,7 +68,7 @@ namespace tkEngine{
 				MainCamera().GetProjectionMatrix(),
 				m_mirror->m_mirrorViewMatrix,
 				m_mirror->m_mirrorProjectionMatrix,
-				testMirror::GetInstance().alphaflag
+				Mirror::GetInstance().alphaflag
 			);
 		}
 		m_skinModels.clear();

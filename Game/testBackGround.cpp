@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "testBackGround.h"
-#include "testMirror.h"
+#include "Mirror.h"
 
 testBackGround::testBackGround()
 {
@@ -40,7 +40,7 @@ void testBackGround::Update()
 void testBackGround::Render(CRenderContext& rc)
 {
 	if (m_mirror == NULL) {
-		m_mirror = FindGO<testMirror>("testMirror");
+		m_mirror = FindGO<Mirror>("Mirror");
 	}
 	m_mirror->alphaflag = 1;
 	m_skinModel.Draw(

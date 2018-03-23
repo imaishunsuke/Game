@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "testMirror.h"
-
+#include "Mirror.h"
 
 testMirror::testMirror()
 {
@@ -72,9 +72,13 @@ void testMirror::Render(CRenderContext& rc)
 	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, 1.0f, 0.1f, 10000.0f);
 	/*g_mirrorViewMatrix = m_mirrorViewMatrix;
 	g_mirrorProjectionMatrix = m_mirrorProjectionMatrix;*/
+	if (m_mirror == NULL) {
+		m_mirror = FindGO<Mirror>("Mirror");
+	}
+	alphaflag = 1;
 	m_skinModel.Draw(rc, MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		m_mirrorViewMatrix,
 		m_mirrorProjectionMatrix,
-		alphaflag);
+		m_mirror->alphaflag);
 }

@@ -668,6 +668,7 @@
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\mirror.FBX" />
     <MeshContentTask Include="Assets\modelData\protbackground1.FBX" />
+    <MeshContentTask Include="Assets\modelData\protobj.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj1.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj2.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj3.FBX" />

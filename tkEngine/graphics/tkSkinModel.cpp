@@ -7,8 +7,8 @@
 #include "tkEngine/graphics/tkSkinModelData.h"
 #include "tkEngine/tkEngine.h"
 #include "tkEngine/graphics/tkSkinModelShaderConst.h"
-#include "Game/testMirror.h"
-#include "tkEngine/math/tkMatrix.h"
+#include "Game/Mirror.h"
+//#include "tkEngine/math/tkMatrix.h"
 
 namespace tkEngine{
 	CSkinModel::CSkinModel()
@@ -108,13 +108,13 @@ namespace tkEngine{
 	void CSkinModel::Draw(CRenderContext& renderContext)
 	{
 		if (m_mirror == NULL) {
-			m_mirror = FindGO<testMirror>("testMirror");
+			m_mirror = FindGO<Mirror>("Mirror");
 		}
 		Draw(renderContext,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			m_mirror->m_mirrorViewMatrix, m_mirror->m_mirrorProjectionMatrix,
-			testMirror::GetInstance().alphaflag);
+			Mirror::GetInstance().alphaflag);
 	}
 	void CSkinModel::Draw(
 		CRenderContext& renderContext,

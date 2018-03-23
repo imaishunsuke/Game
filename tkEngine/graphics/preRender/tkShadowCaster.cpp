@@ -3,7 +3,7 @@
  */
 #include "tkEngine/tkEnginePreCompile.h"
 #include "tkEngine/graphics/preRender/tkShadowCaster.h"
-#include "Game/testMirror.h"
+#include "Game/Mirror.h"
 namespace tkEngine{
 
 ////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ namespace tkEngine{
 		}
 		if (m_mirror == NULL)
 		{
-			m_mirror = FindGO<testMirror>("testMirror");
+			m_mirror = FindGO<Mirror>("Mirror");
 		}
 		//¡ˆä ˆø”‚ð’Ç‰Á‚µ‚½
 		m_skinModel->Draw(renderContext, 
@@ -35,6 +35,6 @@ namespace tkEngine{
 			CMatrix::Identity,
 			CMatrix::Identity, 
 			CMatrix::Identity,
-			testMirror::GetInstance().alphaflag);
+			Mirror::GetInstance().alphaflag);
 	}
 }

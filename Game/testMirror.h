@@ -22,7 +22,7 @@ public:
 	CMatrix m_mirrorViewMatrix;
 	CMatrix m_mirrorProjectionMatrix;
 	int  alphaflag = 1;
-
+	Mirror* m_mirror = NULL;
 	static testMirror& GetInstance()
 	{
 		static testMirror* instance = nullptr;

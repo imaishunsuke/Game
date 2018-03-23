@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "testMapChip.h"
-#include "testMirror.h"
+#include "Mirror.h"
 
 testMapChip::testMapChip()
 {
@@ -55,7 +55,7 @@ void testMapChip::Render(CRenderContext& rc)
 {
 //	m_mirror->alphaflag = 1;
 	if (m_mirror == NULL) {
-		m_mirror = FindGO<testMirror>("testMirror");
+		m_mirror = FindGO<Mirror>("Mirror");
 	}
 		m_mirror->alphaflag = 0;
 	m_skinModel.Draw(

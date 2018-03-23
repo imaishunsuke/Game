@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Mirror.h"
-#include"testMirror.h"
+
 
 Mirror::Mirror()
 {
@@ -71,13 +71,28 @@ void Mirror::Update()
 }
 void Mirror::Render(CRenderContext& rc)
 {
-	if (m_mirror == NULL) {
+	CMatrix axis = CMatrix::Identity;									//プレイヤーの任意の軸周りの回転行列を作成
+	axis.MakeRotationFromQuaternion(m_rotation);
+
+	m_target.x = m_position.x + axis.m[2][0] * 10.0f;		//プレイヤーの注視点を設定
+	m_target.y = m_position.y + axis.m[2][1] * 10.0f;
+	m_target.z = m_position.z + axis.m[2][2] * 10.0f;
+
+	CVector3 cameraPos = m_position;
+	cameraPos.x += axis.m[2][0] * 2.0f;
+	cameraPos.y += 50.0f;
+	cameraPos.z += axis.m[2][2] * 2.0f;
+
+	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
+	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, 1.0f, 0.1f, 10000.0f);
+	/*if (m_mirror == NULL) {
 		m_mirror = FindGO<testMirror>("testMirror");
-	}
+	}*/
+	alphaflag = 1;
 	m_skinModel.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
-		CMatrix::Identity,
-		CMatrix::Identity,
-		m_mirror->alphaflag);
+		m_mirrorViewMatrix,
+		m_mirrorProjectionMatrix,
+		alphaflag);
 }
