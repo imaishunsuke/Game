@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "testMapChip.h"
-
+#include "testMirror.h"
 
 testMapChip::testMapChip()
 {
@@ -42,20 +42,27 @@ void testMapChip::Init(
 }
 bool testMapChip::Start()
 {
+	/*m_mirror = FindGO<testMirror>("testMirror");*/
 	return true;
 }
 void testMapChip::Update()
 {
 	m_skinModel.Update(m_position, m_rotation, m_scale);
 }
-extern CMatrix g_mirrorViewMatrix;
-extern CMatrix g_mirrorProjectionMatrix;
+//extern CMatrix g_mirrorViewMatrix;
+//extern CMatrix g_mirrorProjectionMatrix;
 void testMapChip::Render(CRenderContext& rc)
 {
+//	m_mirror->alphaflag = 1;
+	if (m_mirror == NULL) {
+		m_mirror = FindGO<testMirror>("testMirror");
+	}
+		m_mirror->alphaflag = 0;
 	m_skinModel.Draw(
 		rc, 
 		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
-		g_mirrorViewMatrix,
-		g_mirrorProjectionMatrix);
+		m_mirror->m_mirrorViewMatrix,
+		m_mirror->m_mirrorProjectionMatrix,
+		m_mirror->alphaflag);
 }

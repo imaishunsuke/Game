@@ -21,5 +21,14 @@ public:
 	CCharacterController m_charaCon;
 	CMatrix m_mirrorViewMatrix;
 	CMatrix m_mirrorProjectionMatrix;
-};
+	int  alphaflag = 1;
 
+	static testMirror& GetInstance()
+	{
+		static testMirror* instance = nullptr;
+		if (instance == nullptr) {
+			instance = new testMirror;
+		}
+		return *instance;
+	}
+};

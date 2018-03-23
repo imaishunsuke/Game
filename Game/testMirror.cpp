@@ -50,12 +50,10 @@ void testMirror::Update()
 	}
 	
 	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
-	
-	
 	m_skinModel.Update(m_position, m_rotation, m_scale);
 }
-CMatrix g_mirrorViewMatrix;
-CMatrix g_mirrorProjectionMatrix;
+//CMatrix g_mirrorViewMatrix;
+//CMatrix g_mirrorProjectionMatrix;
 void testMirror::Render(CRenderContext& rc)
 {
 	CMatrix axis = CMatrix::Identity;									//プレイヤーの任意の軸周りの回転行列を作成
@@ -72,7 +70,11 @@ void testMirror::Render(CRenderContext& rc)
 
 	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
 	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, 1.0f, 0.1f, 10000.0f);
-	g_mirrorViewMatrix = m_mirrorViewMatrix;
-	g_mirrorProjectionMatrix = m_mirrorProjectionMatrix;
-	m_skinModel.Draw(rc, MainCamera().GetViewMatrix(), MainCamera().GetProjectionMatrix(),m_mirrorViewMatrix,m_mirrorProjectionMatrix);
+	/*g_mirrorViewMatrix = m_mirrorViewMatrix;
+	g_mirrorProjectionMatrix = m_mirrorProjectionMatrix;*/
+	m_skinModel.Draw(rc, MainCamera().GetViewMatrix(), 
+		MainCamera().GetProjectionMatrix(),
+		m_mirrorViewMatrix,
+		m_mirrorProjectionMatrix,
+		alphaflag);
 }

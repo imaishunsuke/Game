@@ -5,9 +5,10 @@
 #include "tkEngine/tkEnginePreCompile.h"
 #include "tkEngine/graphics/preRender/tkZPrepass.h"
 #include "tkEngine/graphics/tkCamera.h"
+#include "Game/testMirror.h"
 
-extern tkEngine::CMatrix g_mirrorViewMatrix;
-extern tkEngine::CMatrix g_mirrorProjectionMatrix;
+//extern tkEngine::CMatrix g_mirrorViewMatrix;
+//extern tkEngine::CMatrix g_mirrorProjectionMatrix;
 namespace tkEngine{
 	namespace {
 		static const int RESERVE_SKIN_MODEL_LIST = 512;
@@ -55,14 +56,19 @@ namespace tkEngine{
 		float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; //red,green,blue,alpha
 		rc.ClearRenderTargetView(0, ClearColor);
 
+		//ç°à‰Å@FindGOÇí«â¡
+		if (m_mirror == NULL) {
+			m_mirror = FindGO<testMirror>("testMirror");
+		}
 		//Å@ç°à‰Å@à¯êîÇí«â¡ÇµÇΩ
 		for (auto skinModel : m_skinModels) {
 			skinModel->Draw(
-				rc, 
-				MainCamera().GetViewMatrix(), 
+				rc,
+				MainCamera().GetViewMatrix(),
 				MainCamera().GetProjectionMatrix(),
-				g_mirrorViewMatrix, 
-				g_mirrorProjectionMatrix
+				m_mirror->m_mirrorViewMatrix,
+				m_mirror->m_mirrorProjectionMatrix,
+				testMirror::GetInstance().alphaflag
 			);
 		}
 		m_skinModels.clear();

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "background.h"
-
+#include"testMirror.h"
 
 background::background()
 {
@@ -40,5 +40,13 @@ void background::Update()
 }
 void background::Render(CRenderContext& rc)
 {
-	m_skinModel.Draw(rc, MainCamera().GetViewMatrix(), MainCamera().GetProjectionMatrix(),CMatrix::Identity,CMatrix::Identity);
+	if (m_mirror == NULL) {
+		m_mirror = FindGO<testMirror>("testMirror");
+	}
+	m_skinModel.Draw(rc,
+		MainCamera().GetViewMatrix(),
+		MainCamera().GetProjectionMatrix(),
+		CMatrix::Identity,
+		CMatrix::Identity,
+		m_mirror->alphaflag);
 }

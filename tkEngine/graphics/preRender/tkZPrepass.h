@@ -45,5 +45,7 @@ namespace tkEngine{
 	private:
 		std::vector<CSkinModel*>	m_skinModels;			//!<スキンモデルのリスト。
 		CRenderTarget				m_depthBuffer;			//!<深度値を書き込むためのレンダリングターゲット。
+		testMirror*					m_mirror = NULL;
+		//int*						alphaflag;
 	};
 }

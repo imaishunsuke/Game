@@ -15,5 +15,6 @@ public:
 	CQuaternion m_rotation=CQuaternion::Identity;
 	float angleX = 0.0f;
 	float angleY = 0.0f;
+	testMirror* m_mirror = NULL;
 };
 

@@ -5,6 +5,7 @@
 #pragma once
 
 #include "tkEngine/graphics/tkShadowBlur.h"
+class testMirror;
 
 namespace tkEngine{
 	/*!
@@ -54,5 +55,6 @@ namespace tkEngine{
 		CShadowBlur m_shadowBlur;					//!<影マップへのブラー処理。
 		SCBParam m_cbEntity;
 		CConstantBuffer m_cb;
+		testMirror* m_mirror;
 	};
 }

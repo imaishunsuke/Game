@@ -321,7 +321,8 @@ float4 PSMain( PSInput In ) : SV_Target0
 	//鏡スクリーンの座標系に変換する。
 	pos = mul(mMirrorProj, pos);
 	pos.xyz /= pos.w;
-	if (pos.x <= 1.0f && pos.x >= -1.0f
+	if (alphaflag == 0
+		&&pos.x <= 1.0f && pos.x >= -1.0f
 		&& pos.y <= 1.0f && pos.y >= -1.0f
 		&& pos.z >= 0.0f && pos.z < 1.0f
 		) {
@@ -472,7 +473,8 @@ float4 PSMain_RenderDepth( PSInput_RenderToDepth In ) : SV_Target0
 	//鏡スクリーンの座標系に変換する。
 	pos = mul(mMirrorProj, pos);
 	pos.xyz /= pos.w;
-	if (pos.x <= 1.0f && pos.x >= -1.0f
+	if (alphaflag==0 
+		&&pos.x <= 1.0f && pos.x >= -1.0f
 		&& pos.y <= 1.0f && pos.y >= -1.0f
 		&& pos.z >= 0.0f && pos.z < 1.0f
 		) {

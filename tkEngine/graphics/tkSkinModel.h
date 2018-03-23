@@ -105,7 +105,8 @@ namespace tkEngine {
 			const CMatrix& viewMatrix,
 			const CMatrix& projMatrix,
 			const CMatrix& mMirrorView,
-			const CMatrix& mMirrorProj
+			const CMatrix& mMirrorProj,
+			const int&	   alphaflag
 		);
 		/*!
 		*@brief	メッシュの検索。
@@ -180,6 +181,7 @@ namespace tkEngine {
 			//for 今井 mMirrorViewとmMirrorPorjを追加
 			CMatrix mMirrorView;
 			CMatrix mMirrorProj;
+			int		alphaflag;
 			CVector4 screenParam;
 			int isShadowReceiver;
 		};
@@ -196,6 +198,6 @@ namespace tkEngine {
 		int m_maxInstance = 1;								//!<インスタンスの最大数
 		int m_numInstance = 0;								//!<インスタンスの数。
 
-		testMirror* m_mirror;
+		testMirror* m_mirror = NULL;
 	};
 }
