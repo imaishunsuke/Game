@@ -4,10 +4,12 @@
 #include "Title.h"
 #include"Level.h"
 #include"background.h"
+
 #include"Player.h"
 #include"Torokko.h"
 #include"GameCamera.h"
-//#include "Mirror.h"
+#include "Mirror.h"
+
 
 
 Game::Game()
@@ -35,6 +37,20 @@ bool Game::Start()
 	m_player=NewGO<Player>(0,"Player");
 	//カメラ作成
 	m_gamecamera = NewGO<GameCamera>(0, "gamecamera");
+	DeleteGO(m_mirror);
+}
+bool Game::Start()
+{
+	//カメラを設定。
+	/*MainCamera().SetTarget({ 0.0f, 10.0f, 0.0f });
+	MainCamera().SetNear(0.1f);
+	MainCamera().SetFar(1000.0f);
+	MainCamera().SetPosition({ 30.0f, 10.0f, 0.0f });
+	MainCamera().Update();*/
+
+	/*m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
+	m_skinModelRender->Init(L"modelData/unityChan.cmo");
+	m_skinModelRender->SetScale({ 0.1f, 0.1f, 0.1f });*/
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
@@ -44,6 +60,8 @@ bool Game::Start()
 	m_level.Build(L"level/protobj1.tks");
 	m_level.Build(L"level/protobj2.tks");
 	m_level.Build(L"level/protobj3.tks");
+	//ミラー作成
+	m_mirror = NewGO<Mirror>(0, "Mirror");
 	return true;
 }
 void Game::Update()

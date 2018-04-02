@@ -7,6 +7,8 @@
 #include "tkEngine/graphics/tkSkinModelData.h"
 #include "tkEngine/tkEngine.h"
 #include "tkEngine/graphics/tkSkinModelShaderConst.h"
+#include "Game/Mirror.h"
+//#include "tkEngine/math/tkMatrix.h"
 
 namespace tkEngine{
 	CSkinModel::CSkinModel()
@@ -105,12 +107,22 @@ namespace tkEngine{
 	
 	void CSkinModel::Draw(CRenderContext& renderContext)
 	{
-		Draw(renderContext, MainCamera().GetViewMatrix(), MainCamera().GetProjectionMatrix());
+		if (m_mirror == NULL) {
+			m_mirror = FindGO<Mirror>("Mirror");
+		}
+		Draw(renderContext,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			m_mirror->m_mirrorViewMatrix, m_mirror->m_mirrorProjectionMatrix,
+			Mirror::GetInstance().alphaflag);
 	}
 	void CSkinModel::Draw(
-		CRenderContext& renderContext, 
-		const CMatrix& viewMatrix, 
-		const CMatrix& projMatrix
+		CRenderContext& renderContext,
+		const CMatrix& viewMatrix,
+		const CMatrix& projMatrix,
+		const CMatrix& mMirrorView,
+		const CMatrix& mMirrorProj,
+		const int& alphaflag
 	)
 	{
 		
@@ -130,6 +142,10 @@ namespace tkEngine{
 		vsCb.mWorld = m_worldMatrix;
 		vsCb.mProj = projMatrix;
 		vsCb.mView = viewMatrix;
+		//for 今井 ミラービューとミラープロジェクションを設定する。
+		vsCb.mMirrorView = mMirrorView;
+		vsCb.mMirrorProj = mMirrorProj;
+		vsCb.alphaflag = alphaflag;
 		vsCb.screenParam.x = 0.0f;
 		vsCb.screenParam.y = 0.0f;
 		vsCb.screenParam.z = static_cast<float>(GraphicsEngine().GetFrameBufferWidth());

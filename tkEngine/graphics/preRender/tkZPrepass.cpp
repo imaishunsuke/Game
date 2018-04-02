@@ -5,7 +5,10 @@
 #include "tkEngine/tkEnginePreCompile.h"
 #include "tkEngine/graphics/preRender/tkZPrepass.h"
 #include "tkEngine/graphics/tkCamera.h"
+#include "Game/Mirror.h"
 
+//extern tkEngine::CMatrix g_mirrorViewMatrix;
+//extern tkEngine::CMatrix g_mirrorProjectionMatrix;
 namespace tkEngine{
 	namespace {
 		static const int RESERVE_SKIN_MODEL_LIST = 512;
@@ -53,8 +56,20 @@ namespace tkEngine{
 		float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; //red,green,blue,alpha
 		rc.ClearRenderTargetView(0, ClearColor);
 
+		//今井　FindGOを追加
+		if (m_mirror == NULL) {
+			m_mirror = FindGO<Mirror>("Mirror");
+		}
+		//　今井　引数を追加した
 		for (auto skinModel : m_skinModels) {
-			skinModel->Draw(rc, MainCamera().GetViewMatrix(), MainCamera().GetProjectionMatrix());
+			skinModel->Draw(
+				rc,
+				MainCamera().GetViewMatrix(),
+				MainCamera().GetProjectionMatrix(),
+				m_mirror->m_mirrorViewMatrix,
+				m_mirror->m_mirrorProjectionMatrix,
+				Mirror::GetInstance().alphaflag
+			);
 		}
 		m_skinModels.clear();
 		//レンダリングターゲットを差し戻す。

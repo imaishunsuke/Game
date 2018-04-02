@@ -16,11 +16,11 @@ bool testGameCamera::Start()
 	/*m_springCamera.SetPosition({ 0.0f,15.0f,50.0f });
 	m_springCamera.SetTarget({ 0.0f,15.0f,0.0f });*/
 	//ミラーのインスタンスを探す
-	m_mirror = FindGO<testMirror>("testMirror");
+	m_mirror = FindGO<Mirror>("Mirror");
 	//springCamera.SetTarget(m_mirror->m_position);
 	MainCamera().SetNear(1.0f);
 	MainCamera().SetFar(1000.0f);
-	MainCamera().SetPosition({ 0.0f, 15.0f, 50.0f });
+	MainCamera().SetPosition({ 0.0f, 25.0f, 70.0f });
 	MainCamera().SetTarget({ 0.0f,15.0f,0.0f });
 	//ばねカメラの初期化
 	m_springCamera.Init(
@@ -59,5 +59,39 @@ void testGameCamera::Update()
 	CVector3 pos = target + toNewCameraPos;
 	m_springCamera.SetTarget(target);
 	m_springCamera.SetPosition(pos);
+	CVector3 toCameraPosOld = toNewCameraPos;
+	//パッドの入力を使ってカメラを回す
+	float x = Pad(0).GetRStickXF();
+	float y = Pad(0).GetRStickYF();
+	//Y軸周りの回転
+	CQuaternion qRot;
+	qRot.SetRotationDeg(CVector3::AxisY, 2.0f*x);
+	qRot.Multiply(toNewCameraPos);
+	//x軸周りの回転
+	CVector3 axisX;
+	axisX.Cross(CVector3::AxisY, toNewCameraPos);
+	axisX.Normalize();
+	//任意の軸に回転させる
+	qRot.SetRotationDeg(axisX, 2.0f*y);
+	qRot.Multiply(toNewCameraPos);
+	//カメラの回転の上限を設定
+	CVector3 toPosDir = toNewCameraPos;
+	toPosDir.Normalize();
+	if (toPosDir.y < -0.5f) {
+		//カメラの上を制御
+		toNewCameraPos = toCameraPosOld;
+	}
+	else if (toPosDir.y > 0.8f) {
+		//カメラの下を制御
+		toNewCameraPos = toCameraPosOld;
+	}
+	pos = CVector3::Zero;
+	//視点を計算する
+	if (!(x == 0 && y == 0)) {
+		pos = target + toNewCameraPos;
+		m_springCamera.SetTarget(target);
+		m_springCamera.SetPosition(pos);
+	}
+
 	m_springCamera.Update();
 }

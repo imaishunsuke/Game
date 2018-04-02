@@ -4,6 +4,8 @@
  
 #pragma once
 
+class Mirror;
+
 namespace tkEngine{
 	class CSkinModel;
 	/*!
@@ -46,5 +48,6 @@ namespace tkEngine{
 		
 	private:
 		CSkinModel*		m_skinModel;	//!<スキンモデル。
+		Mirror*		m_mirror = NULL;
 	};
 }

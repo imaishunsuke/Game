@@ -46,6 +46,7 @@ struct PSInput{
 struct PSInput_RenderToDepth{
 	float4 Position 	: SV_POSITION;
 	float4 posInProj	: TEXCOORD0;		//正規化座標系での座標。
+	float3 Pos : TEXCOORD1;		//ワールド座標系での頂点座標。
 };
 
 /*!

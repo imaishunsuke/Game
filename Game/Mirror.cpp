@@ -11,41 +11,88 @@ Mirror::~Mirror()
 }
 bool Mirror::Start()
 {
-	m_skinModelData.Load(L"modelData/unityChan.cmo");
+	m_skinModelData.Load(L"modelData/mirror.cmo");
 	m_skinModel.Init(m_skinModelData);
-	//キャラクターコントローラーの初期化
-	m_charaCon.Init(
-		3.0f,
-		7.0f,
-		m_position
-	);
+	
 	return true;
 }
 void Mirror::Update()
 {
-	m_moveSpeed.y += -20.0f;
-	float lStick_x = Pad(0).GetLStickXF();
-	float lStick_y = Pad(0).GetLStickYF();
-	//カメラの前方向と右方向を取得
-	CVector3 cameraForward = MainCamera().GetForward();
-	CVector3 cameraRight = MainCamera().GetRight();
-	cameraForward.y = 0.0f;
-	cameraForward.Normalize();
-	cameraRight.y = 0.0f;
-	cameraRight.Normalize();
-	m_moveSpeed.x = 0.0f;
-	m_moveSpeed.z = 0.0f;
-	m_moveSpeed += cameraForward * lStick_y * 50.0f;
-	m_moveSpeed += cameraRight * lStick_x * 50.0f;
-	//キャラクターを任意の方向に向かせるための変数
-	float angle = 0;
-	angle = atan2f(m_moveSpeed.x, m_moveSpeed.z);
-	CQuaternion qRot;
-	m_rotation.SetRotation(CVector3::AxisY, angle);
-	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
-	m_skinModel.Update(m_position, m_rotation, m_scale);
+	//スティックの入力
+	CVector3 rStick = CVector3::Zero;
+	rStick.x = Pad(0).GetRStickXF();
+	rStick.y = -Pad(0).GetRStickYF();
+	rStick.z = 0.0f;
+	rStick = rStick * 10.0f;
+
+	//回転の上限
+	if (angleX > 50.0f)
+	{
+		angleX = 50.0f;
+	}
+	if (angleX < -50.0f)
+	{
+		angleX = -50.0f;
+	}
+	if (angleY > 50.0f)
+	{
+		angleY = 50.0f;
+	}
+	if (angleY < -50.0f)
+	{
+		angleY = -50.0f;
+	}
+	angleX += rStick.x;
+	angleY += rStick.y;
+	CQuaternion qRot = CQuaternion::Identity;
+	if (angleX <= 50.0f && angleX >= -50.0f) {
+		qRot.SetRotationDeg(CVector3::AxisY, rStick.x);
+		m_rotation.Multiply(qRot);
+	}
+	if (angleY <= 50.0f && angleY >= -50.0f) {
+		qRot.SetRotationDeg(CVector3::AxisX,rStick.y);
+		m_rotation.Multiply(qRot);
+	}
+
+	//回転行列の作成
+	CMatrix forwardMatrix;
+	forwardMatrix.MakeRotationFromQuaternion(qRot);
+
+	//鏡の前方向
+	CVector3 target=CVector3::Zero;
+	target = { forwardMatrix.m[2][0],forwardMatrix.m[2][1] ,forwardMatrix.m[2][2] };
+	
+	//カメラ行列の作成
+	CMatrix mirrorCamera;
+	CVector3 up = { 0.0f,1.0f,0.0f };
+	mirrorCamera.MakeLookAt(m_position, target, up);
+
+	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
 void Mirror::Render(CRenderContext& rc)
 {
-	m_skinModel.Draw(rc, MainCamera().GetViewMatrix(), MainCamera().GetProjectionMatrix());
+	CMatrix axis = CMatrix::Identity;									//プレイヤーの任意の軸周りの回転行列を作成
+	axis.MakeRotationFromQuaternion(m_rotation);
+
+	m_target.x = m_position.x + axis.m[2][0] * 10.0f;		//プレイヤーの注視点を設定
+	m_target.y = m_position.y + axis.m[2][1] * 10.0f;
+	m_target.z = m_position.z + axis.m[2][2] * 10.0f;
+
+	CVector3 cameraPos = m_position;
+	cameraPos.x += axis.m[2][0] * 2.0f;
+	cameraPos.y += 50.0f;
+	cameraPos.z += axis.m[2][2] * 2.0f;
+
+	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
+	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, 1.0f, 0.1f, 10000.0f);
+	/*if (m_mirror == NULL) {
+		m_mirror = FindGO<testMirror>("testMirror");
+	}*/
+	alphaflag = 1;
+	m_skinModel.Draw(rc,
+		MainCamera().GetViewMatrix(),
+		MainCamera().GetProjectionMatrix(),
+		m_mirrorViewMatrix,
+		m_mirrorProjectionMatrix,
+		alphaflag);
 }

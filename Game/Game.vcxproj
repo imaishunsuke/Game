@@ -639,6 +639,8 @@
     <ClCompile Include="testBackGround.cpp" />
     <ClCompile Include="testGame.cpp" />
     <ClCompile Include="testGameCamera.cpp" />
+    <ClCompile Include="testLevel.cpp" />
+    <ClCompile Include="testMapChip.cpp" />
     <ClCompile Include="testMirror.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Torokko.cpp" />
@@ -653,6 +655,8 @@
     <ClInclude Include="testBackGround.h" />
     <ClInclude Include="testGame.h" />
     <ClInclude Include="testGameCamera.h" />
+    <ClInclude Include="testLevel.h" />
+    <ClInclude Include="testMapChip.h" />
     <ClInclude Include="testMirror.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="Torokko.h" />
@@ -668,12 +672,15 @@
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\mirror.FBX" />
     <MeshContentTask Include="Assets\modelData\protbackground1.FBX" />
+    <MeshContentTask Include="Assets\modelData\protobj.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj1.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj2.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj3.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro.FBX" />
     <MeshContentTask Include="Assets\modelData\testGround.FBX" />
+    <MeshContentTask Include="Assets\modelData\testobj.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
   </ItemGroup>
   <ItemGroup>
@@ -762,7 +769,14 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <CustomBuild Include="Assets\modelData\unityChan.tks">
+=======
+    <Image Include="Assets\modelData\testobj.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\testLevel\testobj.tks">
+>>>>>>> 4e781ae99a5671048bba86d7b4d82583f4417a9f
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>

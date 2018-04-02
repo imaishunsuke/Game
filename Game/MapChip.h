@@ -28,4 +28,5 @@ public:
 	CQuaternion m_rotation;				//!<回転。
 	CMeshCollider m_meshCollider;		//!<メッシュコライダー。
 	CRigidBody m_rigidBody;				//!<剛体。
+	Mirror* m_mirror = NULL;
 };

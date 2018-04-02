@@ -1,20 +1,21 @@
 #include "stdafx.h"
-#include "MapChip.h"
-#include"Mirror.h"
+#include "testMapChip.h"
+#include "Mirror.h"
 
-MapChip::MapChip()
+testMapChip::testMapChip()
 {
 }
 
 
-MapChip::~MapChip()
+testMapChip::~testMapChip()
 {
 }
-void MapChip::OnDestroy() {
-	//物理ワールドから削除。
+void testMapChip::OnDestroy()
+{
+	//物理ワールドから削除
 	PhysicsWorld().RemoveRigidBody(m_rigidBody);
 }
-void MapChip::Init(
+void testMapChip::Init(
 	const wchar_t* modelFilePath,
 	CVector3 pos,
 	CVector3 scale,
@@ -26,35 +27,40 @@ void MapChip::Init(
 	m_scale = scale;
 	m_rotation = rotation;
 
-	//メッシュコライダーを作成。
+	//メッシュコライダーを作成
 	m_meshCollider.CreateFromSkinModel(m_skinModel, nullptr);
-	//剛体の情報を作成。
+
+	//剛体情報を作成
 	RigidBodyInfo rbInfo;
 	rbInfo.pos = m_position;
 	rbInfo.rot = m_rotation;
 	rbInfo.collider = &m_meshCollider;
-	rbInfo.mass = 0.0f;							//質量を0にすると動かない剛体になる。
-												//背景などの動かないオブジェクトは0を設定するとよい。
-	m_rigidBody.Create(rbInfo);					//作成した情報を使って剛体を作成する。
-	PhysicsWorld().AddRigidBody(m_rigidBody);	//作成した剛体を物理ワールドに追加する。
+	rbInfo.mass = 0.0f;
 
+	m_rigidBody.Create(rbInfo);
+	PhysicsWorld().AddRigidBody(m_rigidBody);
 }
-bool MapChip::Start()
+bool testMapChip::Start()
 {
+	/*m_mirror = FindGO<testMirror>("testMirror");*/
 	return true;
 }
-void MapChip::Update()
+void testMapChip::Update()
 {
 	m_skinModel.Update(m_position, m_rotation, m_scale);
 }
-void MapChip::Render(CRenderContext& rc)
+//extern CMatrix g_mirrorViewMatrix;
+//extern CMatrix g_mirrorProjectionMatrix;
+void testMapChip::Render(CRenderContext& rc)
 {
+//	m_mirror->alphaflag = 1;
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
-	m_mirror->alphaflag = 0;
-	m_skinModel.Draw(rc,
-		MainCamera().GetViewMatrix(),
+		m_mirror->alphaflag = 0;
+	m_skinModel.Draw(
+		rc, 
+		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		m_mirror->m_mirrorViewMatrix,
 		m_mirror->m_mirrorProjectionMatrix,

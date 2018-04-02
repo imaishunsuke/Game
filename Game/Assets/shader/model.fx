@@ -257,6 +257,7 @@ PSInput_RenderToDepth VSMain_RenderDepth(VSInputNmTxVcTangent In)
 	PSInput_RenderToDepth psInput = (PSInput_RenderToDepth)0;
 	float4 pos;
 	pos = mul(mWorld, In.Position);
+	psInput.Pos = pos;
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
@@ -278,6 +279,7 @@ PSInput_RenderToDepth VSMainInstancing_RenderDepth(
 	PSInput_RenderToDepth psInput = (PSInput_RenderToDepth)0;
 	float4 pos;
 	pos = mul(instanceMatrix[instanceID], In.Position);
+	psInput.Pos = pos;
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
@@ -297,6 +299,7 @@ PSInput_RenderToDepth VSMainSkin_RenderDepth(VSInputNmTxWeights In)
 	float4x4 skinning = CalcSkinMatrix(In);
 	//ワールド座標、法線、接ベクトルを計算。
 	float4 pos = mul(skinning, In.Position);
+	psInput.Pos = pos;
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
 	
@@ -310,6 +313,22 @@ PSInput_RenderToDepth VSMainSkin_RenderDepth(VSInputNmTxWeights In)
 //--------------------------------------------------------------------------------------
 float4 PSMain( PSInput In ) : SV_Target0
 {
+	//for 今井 In.Posに鏡のビュー行列とプロジェクション行列を乗算する。
+	//その座標が-1.0から1.0の間にいたらピクセルキル。
+	float4 pos = float4(In.Pos, 1.0f);
+	//鏡カメラの座標系に変換する。
+	pos = mul(mMirrorView, pos);
+	//鏡スクリーンの座標系に変換する。
+	pos = mul(mMirrorProj, pos);
+	pos.xyz /= pos.w;
+	if (alphaflag == 0
+		&&pos.x <= 1.0f && pos.x >= -1.0f
+		&& pos.y <= 1.0f && pos.y >= -1.0f
+		&& pos.z >= 0.0f && pos.z < 1.0f
+		) {
+		//鏡に映っているのでピクセルキル。
+		discard;
+	}
 #if 0
 	//アルベド。
 	float4 albedo = float4(albedoTexture.Sample(Sampler, In.TexCoord).xyz, 1.0f);
@@ -446,6 +465,22 @@ float4 PSMain( PSInput In ) : SV_Target0
  */
 float4 PSMain_RenderDepth( PSInput_RenderToDepth In ) : SV_Target0
 {
+	//for 今井 In.Posに鏡のビュー行列とプロジェクション行列を乗算する。
+	//その座標が-1.0から1.0の間にいたらピクセルキル。
+	float4 pos = float4(In.Pos, 1.0f);
+	//鏡カメラの座標系に変換する。
+	pos = mul(mMirrorView, pos);
+	//鏡スクリーンの座標系に変換する。
+	pos = mul(mMirrorProj, pos);
+	pos.xyz /= pos.w;
+	if (alphaflag==0 
+		&&pos.x <= 1.0f && pos.x >= -1.0f
+		&& pos.y <= 1.0f && pos.y >= -1.0f
+		&& pos.z >= 0.0f && pos.z < 1.0f
+		) {
+		//鏡に映っているのでピクセルキル。
+		discard;
+	}
 	float z = In.posInProj.z / In.posInProj.w;
 	return z;
 }

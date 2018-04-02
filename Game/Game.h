@@ -7,6 +7,7 @@ class background;
 class Player;
 class Torokko;
 class GameCamera;
+class Mirror;
 
 class Game : public IGameObject
 {
@@ -36,4 +37,5 @@ private:
 	Torokko*m_torokko = nullptr;
 	GameCamera*m_gamecamera = nullptr;
 	CVector3 m_position= { 30.0f, 10.0f, 0.0f };
+	Mirror* m_mirror = nullptr;
 };
