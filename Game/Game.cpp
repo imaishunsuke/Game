@@ -4,6 +4,9 @@
 #include "Title.h"
 #include"Level.h"
 #include"background.h"
+#include"Player.h"
+#include"Torokko.h"
+#include"GameCamera.h"
 //#include "Mirror.h"
 
 
@@ -19,19 +22,19 @@ void Game::OnDestroy()
 {
 	DeleteGO(m_skinModelRender);
 	DeleteGO(m_background);
+	DeleteGO(m_player);
+	DeleteGO(m_torokko);
+	DeleteGO(m_gamecamera);
 }
 bool Game::Start()
 {
-	//カメラを設定。
-	MainCamera().SetTarget({ 0.0f, 10.0f, 0.0f });
-	MainCamera().SetNear(0.1f);
-	MainCamera().SetFar(1000.0f);
-	MainCamera().SetPosition({ 30.0f, 10.0f, 0.0f });
-	MainCamera().Update();
-
-	m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
-	m_skinModelRender->Init(L"modelData/unityChan.cmo");
-	m_skinModelRender->SetScale({ 0.1f, 0.1f, 0.1f });
+	
+	//トロッコ作成
+	m_torokko = NewGO<Torokko>(0, "Trokko");
+	//プレイヤー作成
+	m_player=NewGO<Player>(0,"Player");
+	//カメラ作成
+	m_gamecamera = NewGO<GameCamera>(0, "gamecamera");
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
@@ -74,11 +77,14 @@ void Game::Update()
 			m_fade->StartFadeOut();
 		}
 	}
-	if (Pad(0).IsPress(enButtonUp)) {
-		m_position += {0.0,1.0,0.0};
-	}
-	MainCamera().SetPosition(m_position);
-	MainCamera().Update();
+	//if (Pad(0).IsPress(enButtonUp)) {
+	//	m_position += {0.0,1.0,0.0};
+	//}
+	//if (Pad(0).IsPress(enButtonDown)) {
+	//	m_position -= {0.0, 1.0, 0.0};
+	//}
+	//MainCamera().SetPosition(m_position);
+	//MainCamera().Update();
 }
 void Game::Render(CRenderContext& rc)
 {

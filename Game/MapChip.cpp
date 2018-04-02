@@ -10,6 +10,10 @@ MapChip::MapChip()
 MapChip::~MapChip()
 {
 }
+void MapChip::OnDestroy() {
+	//•¨—ƒ[ƒ‹ƒh‚©‚çíœB
+	PhysicsWorld().RemoveRigidBody(m_rigidBody);
+}
 void MapChip::Init(
 	const wchar_t* modelFilePath,
 	CVector3 pos,

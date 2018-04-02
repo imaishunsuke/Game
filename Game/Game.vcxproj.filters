@@ -47,6 +47,9 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Torokko.cpp" />
+    <ClCompile Include="GameCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -64,6 +67,9 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="background.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Torokko.h" />
+    <ClInclude Include="GameCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -71,9 +77,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Assets\modelData\unityChan.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\testGround.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -87,6 +90,12 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\protobj3.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\prottro.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -126,9 +135,6 @@
     </CustomBuild>
     <CustomBuild Include="Assets\shader\LightingFunction.h">
       <Filter>Assets\shader</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Assets\modelData\unityChan.tks">
-      <Filter>Assets\modelData</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\shader\dithering.fx">
       <Filter>Assets\shader</Filter>
@@ -207,6 +213,9 @@
     </CustomBuild>
     <CustomBuild Include="Assets\level\protobj3.tks">
       <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\modelData\unityChan.tks">
+      <Filter>Assets\modelData</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
