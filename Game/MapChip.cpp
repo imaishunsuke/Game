@@ -10,6 +10,11 @@ MapChip::MapChip()
 MapChip::~MapChip()
 {
 }
+void MapChip::OnDestroy()
+{
+	//物理ワールドから削除
+	PhysicsWorld().RemoveRigidBody(m_rigidBody);
+}
 void MapChip::Init(
 	const wchar_t* modelFilePath,
 	CVector3 pos,
@@ -32,6 +37,7 @@ void MapChip::Init(
 	rbInfo.mass = 0.0f;							//質量を0にすると動かない剛体になる。
 												//背景などの動かないオブジェクトは0を設定するとよい。
 	m_rigidBody.Create(rbInfo);					//作成した情報を使って剛体を作成する。
+	m_rigidBody.GetBody()->setUserIndex(enCollisionAttr_Obstacle);
 	PhysicsWorld().AddRigidBody(m_rigidBody);	//作成した剛体を物理ワールドに追加する。
 
 }
@@ -48,7 +54,12 @@ void MapChip::Render(CRenderContext& rc)
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
-	m_mirror->alphaflag = 0;
+	if (m_mirror->m_isMirror == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
+		m_mirror->alphaflag = 0;
+	}
+	else {
+		m_mirror->alphaflag = 1;
+	}
 	m_skinModel.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),

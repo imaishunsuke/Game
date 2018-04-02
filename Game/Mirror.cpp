@@ -13,11 +13,36 @@ bool Mirror::Start()
 {
 	m_skinModelData.Load(L"modelData/mirror.cmo");
 	m_skinModel.Init(m_skinModelData);
-	
+	m_charaCon.Init(
+		6.0f,
+		3.0f,
+		m_position
+	);
 	return true;
 }
 void Mirror::Update()
 {
+	if (Pad(0).IsPress(enButtonUp)) {
+		m_moveSpeed.z = 5.0f;
+	}else if (Pad(0).IsPress(enButtonLeft)) {
+		m_moveSpeed.x = -5.0f;
+	}else if (Pad(0).IsPress(enButtonRight)) {
+		m_moveSpeed.x = 5.0f;
+	}
+	else if (Pad(0).IsPress(enButtonDown)) {
+		m_moveSpeed.z = -5.0f;
+	}else {
+		m_moveSpeed.x = 0.0f;
+		m_moveSpeed.z = 0.0f;
+	}
+
+	//m_position = m_moveSpeed;
+	if (Pad(0).IsTrigger(enButtonB) && m_isMirror == false) {
+		m_isMirror = true;
+	}
+	else if(Pad(0).IsTrigger(enButtonB) && m_isMirror == true){
+		m_isMirror = false;
+	}
 	//スティックの入力
 	CVector3 rStick = CVector3::Zero;
 	rStick.x = Pad(0).GetRStickXF();
@@ -66,7 +91,7 @@ void Mirror::Update()
 	CMatrix mirrorCamera;
 	CVector3 up = { 0.0f,1.0f,0.0f };
 	mirrorCamera.MakeLookAt(m_position, target, up);
-
+	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
 void Mirror::Render(CRenderContext& rc)
@@ -77,7 +102,10 @@ void Mirror::Render(CRenderContext& rc)
 	m_target.x = m_position.x + axis.m[2][0] * 10.0f;		//プレイヤーの注視点を設定
 	m_target.y = m_position.y + axis.m[2][1] * 10.0f;
 	m_target.z = m_position.z + axis.m[2][2] * 10.0f;
-
+	
+	m_position.x = m_position.x - axis.m[2][0] * 20.0f;		//プレイヤーの注視点を設定
+	/*m_position.y = m_position.y - axis.m[2][1] * 20.0f;*/
+	m_position.z = m_position.z - axis.m[2][2] * 20.0f;
 	CVector3 cameraPos = m_position;
 	cameraPos.x += axis.m[2][0] * 2.0f;
 	cameraPos.y += 50.0f;
