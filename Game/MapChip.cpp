@@ -10,9 +10,8 @@ MapChip::MapChip()
 MapChip::~MapChip()
 {
 }
-void MapChip::OnDestroy()
-{
-	//物理ワールドから削除
+void MapChip::OnDestroy() {
+	//物理ワールドから削除。
 	PhysicsWorld().RemoveRigidBody(m_rigidBody);
 }
 void MapChip::Init(

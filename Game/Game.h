@@ -4,6 +4,9 @@
 
 class Fade;
 class background;
+class Player;
+class Torokko;
+class GameCamera;
 class Mirror;
 
 class Game : public IGameObject
@@ -30,6 +33,9 @@ private:
 	float m_waitTimer = 0.0f;
 	Level m_level;
 	background*m_background = nullptr;
+	Player*m_player = nullptr;
+	Torokko*m_torokko = nullptr;
+	GameCamera*m_gamecamera = nullptr;
 	CVector3 m_position= { 30.0f, 10.0f, 0.0f };
 	Mirror* m_mirror = nullptr;
 };
