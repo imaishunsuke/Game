@@ -11,6 +11,7 @@ Mirror::~Mirror()
 }
 bool Mirror::Start()
 {
+	CVector3 vector =CVector3::Zero;
 	m_skinModelData.Load(L"modelData/mirror.cmo");
 	m_skinModel.Init(m_skinModelData);
 	
@@ -23,10 +24,12 @@ void Mirror::Update()
 	rStick.x = Pad(0).GetRStickXF();
 	rStick.y = -Pad(0).GetRStickYF();
 	rStick.z = 0.0f;
-	rStick = rStick * 10.0f;
+	rStick = rStick * 10;
+	
+	//rStick = rStick * 10.0f;
 
 	//回転の上限
-	if (angleX > 50.0f)
+	/*if (angleX > 50.0f)
 	{
 		angleX = 50.0f;
 	}
@@ -45,16 +48,20 @@ void Mirror::Update()
 	angleX += rStick.x;
 	angleY += rStick.y;
 	CQuaternion qRot = CQuaternion::Identity;
+	//カメラの加算
 	if (angleX <= 50.0f && angleX >= -50.0f) {
 		qRot.SetRotationDeg(CVector3::AxisY, rStick.x);
 		m_rotation.Multiply(qRot);
 	}
+	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	if (angleY <= 50.0f && angleY >= -50.0f) {
+		
 		qRot.SetRotationDeg(CVector3::AxisX,rStick.y);
 		m_rotation.Multiply(qRot);
-	}
+	}*/
 
-	//回転行列の作成
+
+	/*//回転行列の作成
 	CMatrix forwardMatrix;
 	forwardMatrix.MakeRotationFromQuaternion(qRot);
 
@@ -65,8 +72,21 @@ void Mirror::Update()
 	//カメラ行列の作成
 	CMatrix mirrorCamera;
 	CVector3 up = { 0.0f,1.0f,0.0f };
-	mirrorCamera.MakeLookAt(m_position, target, up);
+	mirrorCamera.MakeLookAt(m_position, target, up);*/
+	//加算
 
+	CVector3 mirrortarget = { 0,0,1 };
+
+	CVector3 vector = mirrortarget - m_position; //鏡と架空の注視点とのベクトル
+	vector.Normalize(); //正規化
+	CQuaternion qRot = CQuaternion::Identity;
+	//加算
+	qRot.SetRotationDeg(CVector3::AxisX, vector.x *rStick.x);
+	m_rotation.Multiply(qRot);
+	qRot.SetRotationDeg(CVector3::AxisY, vector.y * rStick.y);
+	m_rotation.Multiply(qRot);
+
+	m_target += rStick;
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
 void Mirror::Render(CRenderContext& rc)
