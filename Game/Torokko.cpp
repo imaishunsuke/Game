@@ -102,6 +102,7 @@ void Torokko::Render(CRenderContext& rc)
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
+	m_mirror->alphaflag = 0;
 	m_skinModel.Draw(rc, 
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
