@@ -6,6 +6,7 @@
 #include "tkEngine/character/tkCharacterController.h"
 #include "tkEngine/Physics/tkCollisionAttr.h"
 #include "tkEngine/tkEngine.h"
+#include "Game/Mirror.h"
 namespace tkEngine {
 
 	namespace {
@@ -65,8 +66,12 @@ namespace tkEngine {
 													//衝突したときに呼ばれるコールバック関数。
 			virtual	btScalar	addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
 			{
-				if (convexResult.m_hitCollisionObject == me) {
-					//自分に衝突した。or 地面に衝突した。
+				Mirror* m_mirror = FindGO<Mirror>("Mirror");
+				if (convexResult.m_hitCollisionObject == me
+					|| ( convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Obstacle && m_mirror->m_isMirror/*ミラーを使っている*/)
+				)
+				{
+					//自分に衝突した。or 障害物に衝突した。
 					return 0.0f;
 				}
 				//衝突点の法線を引っ張ってくる。
