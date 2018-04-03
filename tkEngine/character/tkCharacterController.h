@@ -3,6 +3,7 @@
  */
 
 #pragma once
+class Mirror;
 
 #include "tkEngine/Physics/tkSphereCollider.h"
 #include "tkEngine/Physics/tkCapsuleCollider.h"
@@ -98,5 +99,6 @@ namespace tkEngine{
 		float				m_radius = 0.0f;
 		float				m_height = 0.0f;		
 		CRigidBody			m_rigidBody;					//çÑëÃÅB
+		//Mirror*				m_mirror = NULL;
 	};
 }

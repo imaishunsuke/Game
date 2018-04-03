@@ -21,7 +21,7 @@ public:
 	CCharacterController m_charaCon;
 	CMatrix m_mirrorViewMatrix;
 	CMatrix m_mirrorProjectionMatrix;
-	int  alphaflag = 1;
+	int  alphaflag = 1;									//ミラーに写っている物体を消すフラグ
 	Mirror* m_mirror = NULL;
 	static testMirror& GetInstance()
 	{
