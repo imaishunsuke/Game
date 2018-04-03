@@ -769,14 +769,12 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <CustomBuild Include="Assets\modelData\unityChan.tks">
-=======
-    <Image Include="Assets\modelData\testobj.png" />
+      <FileType>Document</FileType>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\testLevel\testobj.tks">
->>>>>>> 4e781ae99a5671048bba86d7b4d82583f4417a9f
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>

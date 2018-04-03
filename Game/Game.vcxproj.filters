@@ -50,14 +50,11 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="background.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Torokko.cpp" />
     <ClCompile Include="GameCamera.cpp" />
-=======
     <ClCompile Include="testLevel.cpp" />
     <ClCompile Include="testMapChip.cpp" />
->>>>>>> 4e781ae99a5671048bba86d7b4d82583f4417a9f
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -75,14 +72,11 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="background.h" />
-<<<<<<< HEAD
     <ClInclude Include="Player.h" />
     <ClInclude Include="Torokko.h" />
     <ClInclude Include="GameCamera.h" />
-=======
     <ClInclude Include="testLevel.h" />
     <ClInclude Include="testMapChip.h" />
->>>>>>> 4e781ae99a5671048bba86d7b4d82583f4417a9f
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -90,12 +84,9 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-=======
     <MeshContentTask Include="Assets\modelData\protbackground1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
->>>>>>> 4e781ae99a5671048bba86d7b4d82583f4417a9f
     <MeshContentTask Include="Assets\modelData\testGround.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -242,13 +233,11 @@
     <CustomBuild Include="Assets\level\protobj3.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
-<<<<<<< HEAD
     <CustomBuild Include="Assets\modelData\unityChan.tks">
       <Filter>Assets\modelData</Filter>
-=======
+ </CustomBuild>
     <CustomBuild Include="Assets\testLevel\testobj.tks">
       <Filter>Assets\testLevel</Filter>
->>>>>>> 4e781ae99a5671048bba86d7b4d82583f4417a9f
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

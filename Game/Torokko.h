@@ -37,5 +37,6 @@ public:
 	CQuaternion m_rotation = CQuaternion::Identity;		//‰ñ“]
 	CVector3 m_gpos = CVector3::Zero;
 	CFont m_font;
+	Mirror* m_mirror = NULL;
 };
 

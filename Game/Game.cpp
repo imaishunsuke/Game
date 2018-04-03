@@ -27,6 +27,7 @@ void Game::OnDestroy()
 	DeleteGO(m_player);
 	DeleteGO(m_torokko);
 	DeleteGO(m_gamecamera);
+	DeleteGO(m_mirror);
 }
 bool Game::Start()
 {
@@ -37,10 +38,8 @@ bool Game::Start()
 	m_player=NewGO<Player>(0,"Player");
 	//ƒJƒƒ‰ì¬
 	m_gamecamera = NewGO<GameCamera>(0, "gamecamera");
-	DeleteGO(m_mirror);
-}
-bool Game::Start()
-{
+	
+
 	//ƒJƒƒ‰‚ğİ’èB
 	/*MainCamera().SetTarget({ 0.0f, 10.0f, 0.0f });
 	MainCamera().SetNear(0.1f);

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Torokko.h"
 #include "Player.h"
-
+#include "Mirror.h"
 
 Torokko::Torokko()
 {
@@ -99,7 +99,15 @@ void Torokko::Update()
 
 void Torokko::Render(CRenderContext& rc)
 {
-	m_skinModel.Draw(rc, MainCamera().GetViewMatrix(), MainCamera().GetProjectionMatrix());
+	if (m_mirror == NULL) {
+		m_mirror = FindGO<Mirror>("Mirror");
+	}
+	m_skinModel.Draw(rc, 
+		MainCamera().GetViewMatrix(),
+		MainCamera().GetProjectionMatrix(),
+		CMatrix::Identity,
+		CMatrix::Identity,
+		m_mirror->alphaflag);
 }
 void Torokko::PostRender(CRenderContext& rc) {
 	if (flag == 0&&count==0)

@@ -30,4 +30,5 @@ public:
 	CQuaternion m_rotation2 = CQuaternion::Identity;		//‰ñ“]
 	float plposlen;
 	float angle;
+	Mirror* m_mirror = NULL;
 };
