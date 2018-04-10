@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Mirror.h"
+#include "Torokko.h"
 
 
 Mirror::Mirror()
@@ -19,74 +20,73 @@ bool Mirror::Start()
 }
 void Mirror::Update()
 {
+
+	Torokko*toro = FindGO<Torokko>("Trokko");
 	//スティックの入力
 	CVector3 rStick = CVector3::Zero;
 	rStick.x = Pad(0).GetRStickXF();
 	rStick.y = -Pad(0).GetRStickYF();
 	rStick.z = 0.0f;
-	rStick = rStick * 10;
+	rStick = rStick * 5;
 	
-	//rStick = rStick * 10.0f;
+	CMatrix miraxis = CMatrix::Identity;									//プレイヤーの任意の軸周りの回転行列を作成
+	miraxis.MakeRotationFromQuaternion(m_rotation);
 
-	//回転の上限
-	/*if (angleX > 50.0f)
-	{
-		angleX = 50.0f;
-	}
-	if (angleX < -50.0f)
-	{
-		angleX = -50.0f;
-	}
-	if (angleY > 50.0f)
-	{
-		angleY = 50.0f;
-	}
-	if (angleY < -50.0f)
-	{
-		angleY = -50.0f;
-	}
-	angleX += rStick.x;
-	angleY += rStick.y;
+	
+
 	CQuaternion qRot = CQuaternion::Identity;
-	//カメラの加算
-	if (angleX <= 50.0f && angleX >= -50.0f) {
+	
+	//鏡の回転行列
+	CMatrix mirroraxis = CMatrix::Identity;							
+	mirroraxis.MakeRotationFromQuaternion(m_rotation);
+
+	CVector3 mirrorfront = CVector3::Zero;
+
+	//Xの範囲
+
+	//鏡の前方向
+	mirrorfront.x = mirroraxis.m[2][0];		
+	mirrorfront.y = 0.0f;
+	mirrorfront.z = mirroraxis.m[2][2];
+	mirrorfront.Normalize();
+	//トロッコの前方向
+	CVector3 torokkofront = CVector3::Zero;
+	torokkofront.x = toro->m_rot.m[2][0];
+	torokkofront.y = 0.0f;
+	torokkofront.z = toro->m_rot.m[2][2];
+	torokkofront.Normalize();
+	float anglex = 0.0f;
+	anglex = acosf(torokkofront.Dot(mirrorfront));
+	anglex = 180 / 3.14159 * anglex;
+	if (anglex > -90 && anglex < 90)
+	{
+		//加算
 		qRot.SetRotationDeg(CVector3::AxisY, rStick.x);
 		m_rotation.Multiply(qRot);
 	}
-	m_skinModel.Update(m_position, m_rotation, CVector3::One);
-	if (angleY <= 50.0f && angleY >= -50.0f) {
-		
-		qRot.SetRotationDeg(CVector3::AxisX,rStick.y);
-		m_rotation.Multiply(qRot);
-	}*/
-
-
-	/*//回転行列の作成
-	CMatrix forwardMatrix;
-	forwardMatrix.MakeRotationFromQuaternion(qRot);
+	//Xの範囲
 
 	//鏡の前方向
-	CVector3 target=CVector3::Zero;
-	target = { forwardMatrix.m[2][0],forwardMatrix.m[2][1] ,forwardMatrix.m[2][2] };
-	
-	//カメラ行列の作成
-	CMatrix mirrorCamera;
-	CVector3 up = { 0.0f,1.0f,0.0f };
-	mirrorCamera.MakeLookAt(m_position, target, up);*/
-	//加算
+	mirrorfront.x = mirroraxis.m[2][0];
+	mirrorfront.y = mirroraxis.m[2][1];
+	mirrorfront.z = 0.0f;
+	mirrorfront.Normalize();
+	//トロッコの前方向
+	torokkofront.x = toro->m_rot.m[2][0];
+	torokkofront.y = toro->m_rot.m[2][1];
+	torokkofront.z = 0.0f;
+	torokkofront.Normalize();
+	float angley = 0.0f;
+	angley = acosf(torokkofront.Dot(mirrorfront));
+	angley = 180 / 3.14159 * angley;
+	if (angley > -45 && angley < 45)
+	{
+		//加算
+		qRot.SetRotationDeg(CVector3::AxisX, rStick.y);
+		m_rotation.Multiply(qRot);
+	}
 
-	CVector3 mirrortarget = { 0,0,1 };
 
-	CVector3 vector = mirrortarget - m_position; //鏡と架空の注視点とのベクトル
-	vector.Normalize(); //正規化
-	CQuaternion qRot = CQuaternion::Identity;
-	//加算
-	qRot.SetRotationDeg(CVector3::AxisX, vector.x *rStick.x);
-	m_rotation.Multiply(qRot);
-	qRot.SetRotationDeg(CVector3::AxisY, vector.y * rStick.y);
-	m_rotation.Multiply(qRot);
-
-	m_target += rStick;
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
 void Mirror::Render(CRenderContext& rc)

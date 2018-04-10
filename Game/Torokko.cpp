@@ -16,6 +16,15 @@ bool Torokko::Start() {
 	//モデルデータのロード
 	m_skinModelData.Load(L"modelData/prottro.cmo");
 	m_skinModel.Init(m_skinModelData);
+	m_skinModelData1.Load(L"modelData/prottro1.cmo");
+	m_skinModel1.Init(m_skinModelData1);
+	m_skinModelData2.Load(L"modelData/prottro2.cmo");
+	m_skinModel2.Init(m_skinModelData2);
+	m_skinModelData3.Load(L"modelData/prottro3.cmo");
+	m_skinModel3.Init(m_skinModelData3);
+	m_skinModelData4.Load(L"modelData/prottro4.cmo");
+	m_skinModel4.Init(m_skinModelData4);
+
 	m_rotation.Multiply(m_rotation);
 	m_position = { 0.0, 0.0, 0.0 };
 	m_gpos = { 0.0,0.0,5.0 };

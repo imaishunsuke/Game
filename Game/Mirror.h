@@ -14,6 +14,7 @@ public:
 	CSkinModelData m_skinModelData;
 	CVector3 m_position = CVector3::Zero;
 	CVector3 m_target = CVector3::Zero;
+	CVector3 m_mirtarget = CVector3::Zero;
 	CQuaternion m_rotation=CQuaternion::Identity;
 	float angleX = 0.0f;
 	float angleY = 0.0f;
