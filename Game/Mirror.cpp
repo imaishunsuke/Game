@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Mirror.h"
-
+#include"Torokko.h"
 
 Mirror::Mirror()
 {
@@ -13,15 +13,56 @@ bool Mirror::Start()
 {
 	m_skinModelData.Load(L"modelData/mirror.cmo");
 	m_skinModel.Init(m_skinModelData);
-	m_charaCon.Init(
+	/*m_charaCon.Init(
 		6.0f,
 		3.0f,
 		m_position
-	);
+	);*/
+
+	Torokko*toro = FindGO<Torokko>("Trokko");
+	m_position = toro->m_position;
+	diff.x = toro->m_gpos.x - toro->m_position.x;
+	diff.y = toro->m_gpos.y - toro->m_position.y;
+	diff.z = toro->m_gpos.z - toro->m_position.z;
+	Mirlen = diff.Length();
+	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	return true;
+}
+
+void Mirror::Rotation() {
+	Torokko*toro = FindGO<Torokko>("Trokko");
+	m_rot.MakeRotationFromQuaternion(toro->m_rotation);
+	m_position.x = m_rot.m[2][0] * Mirlen + toro->m_position.x;
+	m_position.y = m_rot.m[2][1] * Mirlen + toro->m_position.y;
+	m_position.z = m_rot.m[2][2] * Mirlen + toro->m_position.z;
+
+	/*CVector3 torokkoforward;
+	torokkoforward.x = m_rot.m[2][0];
+	torokkoforward.y = m_rot.m[2][1];
+	torokkoforward.z = m_rot.m[2][2];
+	m_mirrorforwardMatrix.MakeRotationFromQuaternion(m_rotation);
+	CVector3 mirrorLength;
+	mirrorLength.x = m_mirrorforwardMatrix.m[2][0];
+	mirrorLength.y = m_mirrorforwardMatrix.m[2][1];
+	mirrorLength.z = m_mirrorforwardMatrix.m[2][2];
+	
+	float to=torokkoforward.Dot(mirrorLength);
+	float len=torokkoforward.Length() * mirrorLength.Length();
+	angle= acosf(to);*/
+	//qRot.x = toro->m_rotation.x;
+	//qRot.y = toro->m_rotation.y;
+	//qRot.z = toro->m_rotation.z;
+	//qRot.w = toro->m_rotation.w;
+	/* CQuaternion OldRot = CQuaternion::Identity;
+
+	OldRot.SetRotation(CVector3::AxisY, angle);
+	m_rotation.Multiply(OldRot);*/
+	//m_rotation.Multiply(OldRot);
+	//m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
 void Mirror::Update()
 {
+	Rotation();
 	if (Pad(0).IsPress(enButtonUp)) {
 		m_moveSpeed.z = 5.0f;
 	}else if (Pad(0).IsPress(enButtonLeft)) {
@@ -50,7 +91,7 @@ void Mirror::Update()
 	rStick.z = 0.0f;
 	rStick = rStick * 10.0f;
 
-	//âÒì]ÇÃè„å¿
+	////âÒì]ÇÃè„å¿
 	if (angleX > 50.0f)
 	{
 		angleX = 50.0f;
@@ -69,16 +110,32 @@ void Mirror::Update()
 	}
 	angleX += rStick.x;
 	angleY += rStick.y;
-	CQuaternion qRot = CQuaternion::Identity;
+	//m_rotation.Multiply(qRot);
+	qRot = CQuaternion::Identity;
 	if (angleX <= 50.0f && angleX >= -50.0f) {
 		qRot.SetRotationDeg(CVector3::AxisY, rStick.x);
 		m_rotation.Multiply(qRot);
+		qRot2.Multiply(qRot);
+		
 	}
 	if (angleY <= 50.0f && angleY >= -50.0f) {
 		qRot.SetRotationDeg(CVector3::AxisX,rStick.y);
 		m_rotation.Multiply(qRot);
+		qRot2.Multiply(qRot);
 	}
-
+	if (Pad(0).GetRStickXF()) {
+		Torokko*toro = FindGO<Torokko>("Trokko");
+		m_rotation1 = qRot2;
+		fl = 0;
+		
+	}
+	
+	float x = Pad(0).GetLStickXF();
+	if (Pad(0).GetLStickXF()) {
+		Torokko*toro = FindGO<Torokko>("Trokko");
+		m_rotation = toro->m_rotation ;
+		m_rotation.Multiply(m_rotation1);
+	}
 	//âÒì]çsóÒÇÃçÏê¨
 	CMatrix forwardMatrix;
 	forwardMatrix.MakeRotationFromQuaternion(qRot);
@@ -91,7 +148,7 @@ void Mirror::Update()
 	CMatrix mirrorCamera;
 	CVector3 up = { 0.0f,1.0f,0.0f };
 	mirrorCamera.MakeLookAt(m_position, target, up);
-	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
+	//m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
 void Mirror::Render(CRenderContext& rc)

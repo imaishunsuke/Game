@@ -235,7 +235,7 @@
     </CustomBuild>
     <CustomBuild Include="Assets\modelData\unityChan.tks">
       <Filter>Assets\modelData</Filter>
- </CustomBuild>
+    </CustomBuild>
     <CustomBuild Include="Assets\testLevel\testobj.tks">
       <Filter>Assets\testLevel</Filter>
     </CustomBuild>
@@ -247,10 +247,5 @@
     <ImageContentTask Include="Assets\sprite\fade.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\modelData\testobj.png">
-      <Filter>Assets\modelData</Filter>
-    </Image>
   </ItemGroup>
 </Project>
