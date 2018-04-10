@@ -43,13 +43,14 @@ bool Torokko::Start() {
 }
 
 void Torokko::Move() {
+	m_rot.MakeRotationFromQuaternion(m_rotation);
 	if (flag == 1) {
 		x=Pad(0).GetLStickXF();
 	if (x<1)
 		{
 		//スタートの加速
 		if (MoveFlag == 0) {
-			m_rot.MakeRotationFromQuaternion(m_rotation);
+			
 			m_moveSpeed.x += m_rot.m[2][0] * 1;
 			m_moveSpeed.y = m_rot.m[2][1];
 			m_moveSpeed.z += m_rot.m[2][2] * 1;
@@ -61,7 +62,7 @@ void Torokko::Move() {
 			MoveFlag = 1;
 		}
 		if (MoveFlag == 1) {
-			m_rot.MakeRotationFromQuaternion(m_rotation);
+			//m_rot.MakeRotationFromQuaternion(m_rotation);
 			m_moveSpeed.x = m_rot.m[2][0] * 20;
 			m_moveSpeed.y = m_rot.m[2][1];
 			m_moveSpeed.z = m_rot.m[2][2] * 20;
