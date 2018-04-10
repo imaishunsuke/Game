@@ -4,6 +4,7 @@
 #include "Title.h"
 #include"Level.h"
 #include"background.h"
+
 #include"Player.h"
 #include"Torokko.h"
 #include"GameCamera.h"
@@ -25,13 +26,11 @@ void Game::OnDestroy()
 	DeleteGO(m_background);
 	DeleteGO(m_player);
 	DeleteGO(m_torokko);
-	DeleteGO(m_mirror);
 	DeleteGO(m_gamecamera);
-	
+	DeleteGO(m_mirror);
 }
 bool Game::Start()
 {
-	
 	//トロッコ作成
 	m_torokko = NewGO<Torokko>(0, "Trokko");
 	//プレイヤー作成
@@ -84,7 +83,7 @@ void Game::Update()
 	if (m_isWaitFadeout)
 	{
 		if (!m_fade->IsFade()) {
-			NewGO<Title>(0, "Title");
+			NewGO<Title>(0, nullptr);
 			DeleteGO(this);
 		}
 	}
