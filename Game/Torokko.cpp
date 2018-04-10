@@ -16,6 +16,15 @@ bool Torokko::Start() {
 	//モデルデータのロード
 	m_skinModelData.Load(L"modelData/prottro.cmo");
 	m_skinModel.Init(m_skinModelData);
+	m_skinModelData1.Load(L"modelData/prottro1.cmo");
+	m_skinModel1.Init(m_skinModelData1);
+	m_skinModelData2.Load(L"modelData/prottro2.cmo");
+	m_skinModel2.Init(m_skinModelData2);
+	m_skinModelData3.Load(L"modelData/prottro3.cmo");
+	m_skinModel3.Init(m_skinModelData3);
+	m_skinModelData4.Load(L"modelData/prottro4.cmo");
+	m_skinModel4.Init(m_skinModelData4);
+
 	m_rotation.Multiply(m_rotation);
 	m_position = { 0.0, 0.0, 0.0 };
 	m_gpos = { 0.0,0.0,5.0 };
@@ -25,7 +34,7 @@ bool Torokko::Start() {
 	flag = 0;
 	scale = 3.0f;
 	m_charaCon.Init(
-		9.5,		//半径
+		3.0,		//半径
 		1.0f,		//高さ
 		m_position	//初期位置
 	);
@@ -34,13 +43,14 @@ bool Torokko::Start() {
 }
 
 void Torokko::Move() {
+	m_rot.MakeRotationFromQuaternion(m_rotation);
 	if (flag == 1) {
 		x=Pad(0).GetLStickXF();
 	if (x<1)
 		{
 		//スタートの加速
 		if (MoveFlag == 0) {
-			m_rot.MakeRotationFromQuaternion(m_rotation);
+			
 			m_moveSpeed.x += m_rot.m[2][0] * 1;
 			m_moveSpeed.y = m_rot.m[2][1];
 			m_moveSpeed.z += m_rot.m[2][2] * 1;
@@ -52,7 +62,7 @@ void Torokko::Move() {
 			MoveFlag = 1;
 		}
 		if (MoveFlag == 1) {
-			m_rot.MakeRotationFromQuaternion(m_rotation);
+			//m_rot.MakeRotationFromQuaternion(m_rotation);
 			m_moveSpeed.x = m_rot.m[2][0] * 20;
 			m_moveSpeed.y = m_rot.m[2][1];
 			m_moveSpeed.z = m_rot.m[2][2] * 20;
@@ -94,6 +104,13 @@ void Torokko::Update()
 		m_rotation.Multiply(qRot);
 	}
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	m_mirror = FindGO<Mirror>("Mirror");
+	/*Torokko*toro = FindGO<Torokko>("Trokko");
+	m_rotation.x = toro->m_rotation.x;
+	m_rotation.y = toro->m_rotation.y;
+	m_rotation.z = toro->m_rotation.z;
+	m_rotation.w = toro->m_rotation.w;
+	m_mirror->m_skinModel.Update(m_mirror->m_position, m_rotation, CVector3::One);*/
 
 }
 
@@ -102,6 +119,7 @@ void Torokko::Render(CRenderContext& rc)
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
+	m_mirror->alphaflag = 0;
 	m_skinModel.Draw(rc, 
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),

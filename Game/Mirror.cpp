@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Mirror.h"
-
+#include"Torokko.h"
 
 Mirror::Mirror()
 {
@@ -11,18 +11,65 @@ Mirror::~Mirror()
 }
 bool Mirror::Start()
 {
+	CVector3 vector =CVector3::Zero;
 	m_skinModelData.Load(L"modelData/mirror.cmo");
 	m_skinModel.Init(m_skinModelData);
-	m_charaCon.Init(
+	/*m_charaCon.Init(
 		6.0f,
 		3.0f,
 		m_position
-	);
+	);*/
+
+	toro = FindGO<Torokko>("Trokko");
+	//Torokko*toro = FindGO<Torokko>("Trokko");
+	m_position = toro->m_position;
+	diff.x = toro->m_gpos.x - toro->m_position.x;
+	diff.y = toro->m_gpos.y - toro->m_position.y;
+	diff.z = toro->m_gpos.z - toro->m_position.z;
+	Mirlen = diff.Length();
+	m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	
+	
 	return true;
+}
+
+void Mirror::Rotation() {
+	//Torokko*toro = FindGO<Torokko>("Trokko");
+	m_rot.MakeRotationFromQuaternion(toro->m_rotation);
+	m_position.x = m_rot.m[2][0] * Mirlen + toro->m_position.x;
+	m_position.y = m_rot.m[2][1] * Mirlen + toro->m_position.y;
+	m_position.z = m_rot.m[2][2] * Mirlen + toro->m_position.z;
+
+	/*CVector3 torokkoforward;
+	torokkoforward.x = m_rot.m[2][0];
+	torokkoforward.y = m_rot.m[2][1];
+	torokkoforward.z = m_rot.m[2][2];
+	m_mirrorforwardMatrix.MakeRotationFromQuaternion(m_rotation);
+	CVector3 mirrorLength;
+	mirrorLength.x = m_mirrorforwardMatrix.m[2][0];
+	mirrorLength.y = m_mirrorforwardMatrix.m[2][1];
+	mirrorLength.z = m_mirrorforwardMatrix.m[2][2];
+	
+	float to=torokkoforward.Dot(mirrorLength);
+	float len=torokkoforward.Length() * mirrorLength.Length();
+	angle= acosf(to);*/
+	//qRot.x = toro->m_rotation.x;
+	//qRot.y = toro->m_rotation.y;
+	//qRot.z = toro->m_rotation.z;
+	//qRot.w = toro->m_rotation.w;
+	/* CQuaternion OldRot = CQuaternion::Identity;
+
+	OldRot.SetRotation(CVector3::AxisY, angle);
+	m_rotation.Multiply(OldRot);*/
+	//m_rotation.Multiply(OldRot);
+	//m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
 void Mirror::Update()
 {
-	if (Pad(0).IsPress(enButtonUp)) {
+
+	//Torokko*toro = FindGO<Torokko>("Trokko");
+	Rotation();
+	/*if (Pad(0).IsPress(enButtonUp)) {
 		m_moveSpeed.z = 5.0f;
 	}else if (Pad(0).IsPress(enButtonLeft)) {
 		m_moveSpeed.x = -5.0f;
@@ -34,7 +81,7 @@ void Mirror::Update()
 	}else {
 		m_moveSpeed.x = 0.0f;
 		m_moveSpeed.z = 0.0f;
-	}
+	}*/
 
 	//m_position = m_moveSpeed;
 	if (Pad(0).IsTrigger(enButtonB) && m_isMirror == false) {
@@ -48,35 +95,96 @@ void Mirror::Update()
 	rStick.x = Pad(0).GetRStickXF();
 	rStick.y = -Pad(0).GetRStickYF();
 	rStick.z = 0.0f;
-	rStick = rStick * 10.0f;
+	rStick = rStick * 5;
+	
+	CMatrix miraxis = CMatrix::Identity;									//プレイヤーの任意の軸周りの回転行列を作成
+	miraxis.MakeRotationFromQuaternion(m_rotation);
 
-	//回転の上限
-	if (angleX > 50.0f)
+	
+	
+	//鏡の回転行列
+	CMatrix mirroraxis = CMatrix::Identity;							
+	mirroraxis.MakeRotationFromQuaternion(m_rotation);
+
+	CVector3 mirrorfront = CVector3::Zero;
+
+	//Xの範囲
+	m_rot.MakeRotationFromQuaternion(toro->m_rotation);
+	//鏡の前方向
+	mirrorfront.x = mirroraxis.m[2][0];		
+	mirrorfront.y = 0.0f;
+	mirrorfront.z = mirroraxis.m[2][2];
+	mirrorfront.Normalize();
+	//トロッコの前方向
+	CVector3 torokkofront = CVector3::Zero;
+	torokkofront.x = m_rot.m[2][0];
+	torokkofront.y = 0.0f;
+	torokkofront.z = m_rot.m[2][2];
+	torokkofront.Normalize();
+	float anglex = 0.0f;
+	anglex = acosf(torokkofront.Dot(mirrorfront));
+	anglex = 180 / 3.14159 * anglex;
+	if (anglex < -70)
 	{
-		angleX = 50.0f;
+		rStick.x = 0.0f;
+		anglex = -69;
 	}
-	if (angleX < -50.0f)
+	if (anglex > 70)
 	{
-		angleX = -50.0f;
+		rStick.x = 0.0f;
+		anglex = 69;
 	}
-	if (angleY > 50.0f)
+	if (anglex >= -70 && anglex <= 70)
 	{
-		angleY = 50.0f;
-	}
-	if (angleY < -50.0f)
-	{
-		angleY = -50.0f;
-	}
-	angleX += rStick.x;
-	angleY += rStick.y;
-	CQuaternion qRot = CQuaternion::Identity;
-	if (angleX <= 50.0f && angleX >= -50.0f) {
+
+	qRot = CQuaternion::Identity;
 		qRot.SetRotationDeg(CVector3::AxisY, rStick.x);
 		m_rotation.Multiply(qRot);
+		qRot2.Multiply(qRot);
+		
 	}
-	if (angleY <= 50.0f && angleY >= -50.0f) {
-		qRot.SetRotationDeg(CVector3::AxisX,rStick.y);
+	//Yの範囲
+
+	//鏡の前方向
+	mirrorfront.x = mirroraxis.m[2][0];
+	mirrorfront.y = mirroraxis.m[2][1];
+	mirrorfront.z = 0.0f;
+	mirrorfront.Normalize();
+	//トロッコの前方向
+	torokkofront.x = m_rot.m[2][0];
+	torokkofront.y = m_rot.m[2][1];
+	torokkofront.z = 0.0f;
+	torokkofront.Normalize();
+	float angley = 0.0f;
+	angley = acosf(torokkofront.Dot(mirrorfront));
+	angley = 180 / 3.14159 * angley;
+	if (angley < -45) {
+		rStick.y = 0.0f;
+		angley = -45;
+	}
+	if (angley > 45) {
+		rStick.y = 0.0f;
+		angley = 45;
+	}
+	if (angley >= -45 && angley <= 45)
+	{
+		//加算
+		qRot.SetRotationDeg(CVector3::AxisX, rStick.y);
 		m_rotation.Multiply(qRot);
+		qRot2.Multiply(qRot);
+	}
+	if (Pad(0).GetRStickXF()) {
+		//Torokko*toro = FindGO<Torokko>("Trokko");
+		m_rotation1 = qRot2;
+		fl = 0;
+		
+	}
+	
+	float x = Pad(0).GetLStickXF();
+	if (Pad(0).GetLStickXF()) {
+		//Torokko*toro = FindGO<Torokko>("Trokko");
+		m_rotation = toro->m_rotation ;
+		m_rotation.Multiply(m_rotation1);
 	}
 
 	//回転行列の作成
@@ -91,7 +199,7 @@ void Mirror::Update()
 	CMatrix mirrorCamera;
 	CVector3 up = { 0.0f,1.0f,0.0f };
 	mirrorCamera.MakeLookAt(m_position, target, up);
-	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
+	//m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
 void Mirror::Render(CRenderContext& rc)

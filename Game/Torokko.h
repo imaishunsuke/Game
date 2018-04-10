@@ -29,7 +29,16 @@ public:
 	CVector3 diff;
 	float posl;
 	CSkinModel m_skinModel;								//スキンモデル。
-	CSkinModelData m_skinModelData;						//スキンモデルデータ。
+	CSkinModelData m_skinModelData1;						//スキンモデルデータ。
+	CSkinModel m_skinModel1;								
+	CSkinModelData m_skinModelData2;
+	CSkinModel m_skinModel2;
+	CSkinModelData m_skinModelData3;
+	CSkinModel m_skinModel3;
+	CSkinModelData m_skinModelData4;
+	CSkinModel m_skinModel4;
+	CSkinModelData m_skinModelData;
+	CSkinModel m_skinModl;
 	CVector3 m_position = CVector3::Zero;				//座標。
 	CCharacterController m_charaCon;					//キャラクターコントローラー。
 	CVector3 m_moveSpeed = CVector3::Zero;				//移動速度。

@@ -681,6 +681,10 @@
     <MeshContentTask Include="Assets\modelData\protobj2.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj3.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro.FBX" />
+    <MeshContentTask Include="Assets\modelData\prottro1.FBX" />
+    <MeshContentTask Include="Assets\modelData\prottro2.FBX" />
+    <MeshContentTask Include="Assets\modelData\prottro3.FBX" />
+    <MeshContentTask Include="Assets\modelData\prottro4.FBX" />
     <MeshContentTask Include="Assets\modelData\testGround.FBX" />
     <MeshContentTask Include="Assets\modelData\testobj.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
@@ -771,12 +775,12 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Assets\modelData\unityChan.tks">
+    <CustomBuild Include="Assets\testLevel\testobj.tks">
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Assets\testLevel\testobj.tks">
+    <CustomBuild Include="Assets\modelData\unityChan.tks">
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>
