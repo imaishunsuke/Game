@@ -34,7 +34,7 @@ bool Torokko::Start() {
 	flag = 0;
 	scale = 3.0f;
 	m_charaCon.Init(
-		9.5,		//îºåa
+		3.0,		//îºåa
 		1.0f,		//çÇÇ≥
 		m_position	//èâä˙à íu
 	);
@@ -103,6 +103,13 @@ void Torokko::Update()
 		m_rotation.Multiply(qRot);
 	}
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	m_mirror = FindGO<Mirror>("Mirror");
+	/*Torokko*toro = FindGO<Torokko>("Trokko");
+	m_rotation.x = toro->m_rotation.x;
+	m_rotation.y = toro->m_rotation.y;
+	m_rotation.z = toro->m_rotation.z;
+	m_rotation.w = toro->m_rotation.w;
+	m_mirror->m_skinModel.Update(m_mirror->m_position, m_rotation, CVector3::One);*/
 
 }
 
@@ -111,6 +118,7 @@ void Torokko::Render(CRenderContext& rc)
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
+	m_mirror->alphaflag = 0;
 	m_skinModel.Draw(rc, 
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),

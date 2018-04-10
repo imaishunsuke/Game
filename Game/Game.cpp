@@ -25,8 +25,9 @@ void Game::OnDestroy()
 	DeleteGO(m_background);
 	DeleteGO(m_player);
 	DeleteGO(m_torokko);
-	DeleteGO(m_gamecamera);
 	DeleteGO(m_mirror);
+	DeleteGO(m_gamecamera);
+	
 }
 bool Game::Start()
 {
@@ -83,7 +84,7 @@ void Game::Update()
 	if (m_isWaitFadeout)
 	{
 		if (!m_fade->IsFade()) {
-			NewGO<Title>(0, nullptr);
+			NewGO<Title>(0, "Title");
 			DeleteGO(this);
 		}
 	}
