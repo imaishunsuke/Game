@@ -780,6 +780,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Result.png" />
+  </ItemGroup>
+  <ItemGroup>
     <CustomBuild Include="Assets\modelData\unityChan.tks">
       <FileType>Document</FileType>
     </CustomBuild>
