@@ -55,6 +55,7 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="testLevel.cpp" />
     <ClCompile Include="testMapChip.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -77,6 +78,7 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="testLevel.h" />
     <ClInclude Include="testMapChip.h" />
+    <ClInclude Include="ResultScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -88,6 +90,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\testGround.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\testobj.FBX">
@@ -112,21 +117,6 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\unityChan.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\prottro1.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\prottro2.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\prottro3.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\prottro4.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -245,11 +235,11 @@
     <CustomBuild Include="Assets\level\protobj3.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\testLevel\testobj.tks">
-      <Filter>Assets\testLevel</Filter>
-    </CustomBuild>
     <CustomBuild Include="Assets\modelData\unityChan.tks">
       <Filter>Assets\modelData</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\testLevel\testobj.tks">
+      <Filter>Assets\testLevel</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
