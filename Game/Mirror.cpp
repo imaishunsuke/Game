@@ -30,6 +30,7 @@ bool Mirror::Start()
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	
 	
+	
 	return true;
 }
 
@@ -96,12 +97,13 @@ void Mirror::Update()
 	rStick.y = -Pad(0).GetRStickYF();
 	rStick.z = 0.0f;
 	rStick = rStick * 5;
-	
+
+	qRot = CQuaternion::Identity;
+	qRot.SetRotationDeg(CVector3::AxisY, rStick.x);
+	m_rotation.Multiply(qRot);
+	qRot2.Multiply(qRot);
 	CMatrix miraxis = CMatrix::Identity;									//プレイヤーの任意の軸周りの回転行列を作成
 	miraxis.MakeRotationFromQuaternion(m_rotation);
-
-	
-	
 	//鏡の回転行列
 	CMatrix mirroraxis = CMatrix::Identity;							
 	mirroraxis.MakeRotationFromQuaternion(m_rotation);
@@ -124,27 +126,21 @@ void Mirror::Update()
 	float anglex = 0.0f;
 	anglex = acosf(torokkofront.Dot(mirrorfront));
 	anglex = 180 / 3.14159 * anglex;
-	if (anglex < -70)
-	{
-		rStick.x = 0.0f;
-		anglex = -69;
-	}
-	if (anglex > 70)
-	{
-		rStick.x = 0.0f;
-		anglex = 69;
-	}
-	if (anglex >= -70 && anglex <= 70)
-	{
 
-	qRot = CQuaternion::Identity;
-		qRot.SetRotationDeg(CVector3::AxisY, rStick.x);
-		m_rotation.Multiply(qRot);
-		qRot2.Multiply(qRot);
-		
-	}
+
 	//Yの範囲
-
+	if (70<=anglex&& rStick.x != 0)
+	{
+		//anglex = 70;
+		
+		qRot = CQuaternion::Identity;
+		if (rStick.x>0)
+		qRot.SetRotationDeg(CVector3::AxisY,70.0f);
+		else
+			qRot.SetRotationDeg(CVector3::AxisY, -70.0f);
+		m_rotation=qRot;
+		qRot2.Multiply(qRot);
+	}
 	//鏡の前方向
 	mirrorfront.x = mirroraxis.m[2][0];
 	mirrorfront.y = mirroraxis.m[2][1];
