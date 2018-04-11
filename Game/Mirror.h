@@ -26,6 +26,7 @@ public:
 	CVector3 m_mirtarget = CVector3::Zero;
 	CQuaternion m_rotation=CQuaternion::Identity;
 	CQuaternion m_rotation1 = CQuaternion::Identity;//•ÛŠÇ
+	CVector3 mirrormaefront = CVector3::Zero;
 	int fl = 0;//•ÛŠÇƒtƒ‰ƒO
 	float angleX = 0.0f;
 	float angleY = 0.0f;
