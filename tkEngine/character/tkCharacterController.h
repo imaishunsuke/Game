@@ -91,6 +91,8 @@ namespace tkEngine{
 		* @brief	剛体を物理エンジンから削除。。
 		*/
 		void RemoveRigidBoby();
+
+		//int flag = 0;
 	private:
 		CVector3 			m_position = CVector3::Zero;	//座標。
 		bool 				m_isJump = false;				//ジャンプ中？
@@ -99,6 +101,5 @@ namespace tkEngine{
 		float				m_radius = 0.0f;
 		float				m_height = 0.0f;		
 		CRigidBody			m_rigidBody;					//剛体。
-		//Mirror*				m_mirror = NULL;
 	};
 }

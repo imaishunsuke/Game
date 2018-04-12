@@ -8,6 +8,7 @@ class Player;
 class Torokko;
 class GameCamera;
 class Mirror;
+class Goal;
 
 class Game : public IGameObject
 {
@@ -32,10 +33,13 @@ private:
 	bool m_isWaitFadeout = false;
 	float m_waitTimer = 0.0f;
 	Level m_level;
-	background*m_background = nullptr;
-	Player*m_player = nullptr;
-	Torokko*m_torokko = nullptr;
-	GameCamera*m_gamecamera = nullptr;
+	
 	CVector3 m_position= { 30.0f, 10.0f, 0.0f };
+	
+	Player*m_player = nullptr;
+	background*m_background = nullptr;
+	GameCamera*m_gamecamera = nullptr;
+	Torokko*m_torokko = nullptr;
 	Mirror* m_mirror = nullptr;
+	Goal*m_goal = nullptr;
 };

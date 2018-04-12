@@ -4,7 +4,7 @@
 #include "Title.h"
 #include"Level.h"
 #include"background.h"
-
+#include"Goal.h"
 #include"Player.h"
 #include"Torokko.h"
 #include"GameCamera.h"
@@ -28,6 +28,7 @@ void Game::OnDestroy()
 	DeleteGO(m_torokko);
 	DeleteGO(m_gamecamera);
 	DeleteGO(m_mirror);
+	DeleteGO(m_goal);
 }
 bool Game::Start()
 {
@@ -37,6 +38,8 @@ bool Game::Start()
 	m_player=NewGO<Player>(0,"Player");
 	//ƒJƒƒ‰ì¬
 	m_gamecamera = NewGO<GameCamera>(0, "gamecamera");
+
+	m_goal = NewGO<Goal>(0, "Goal");
 	
 
 	//ƒJƒƒ‰‚ğİ’èB

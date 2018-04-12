@@ -2,6 +2,7 @@
 #include "Torokko.h"
 #include "Player.h"
 #include "Mirror.h"
+//#include "tkEngine/character/tkCharacterController.cpp"
 
 Torokko::Torokko()
 {
@@ -38,7 +39,6 @@ bool Torokko::Start() {
 		1.0f,		//çÇÇ≥
 		m_position	//èâä˙à íu
 	);
-	
 	return true;
 }
 
@@ -95,6 +95,14 @@ void Torokko::Move() {
 
 void Torokko::Update()
 {
+	//SweepResultGround po;
+	///*po.addSingleResult();*/
+	//if (po.isHit == true) {
+	//	flag = 0;
+	//};
+	if (dameflag == 1) {
+		flag = 0;
+	}
 	if (flag==1) {
 		Move();
 	}
@@ -103,15 +111,10 @@ void Torokko::Update()
 		qRot.SetRotationDeg(CVector3::AxisY, 5.0f*x);
 		m_rotation.Multiply(qRot);
 	}
+	m_position.y = 0;
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	m_mirror = FindGO<Mirror>("Mirror");
-	/*Torokko*toro = FindGO<Torokko>("Trokko");
-	m_rotation.x = toro->m_rotation.x;
-	m_rotation.y = toro->m_rotation.y;
-	m_rotation.z = toro->m_rotation.z;
-	m_rotation.w = toro->m_rotation.w;
-	m_mirror->m_skinModel.Update(m_mirror->m_position, m_rotation, CVector3::One);*/
-
+	
 }
 
 void Torokko::Render(CRenderContext& rc)
