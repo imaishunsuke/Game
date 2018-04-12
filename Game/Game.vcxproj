@@ -623,6 +623,7 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapChip.cpp" />
@@ -649,6 +650,7 @@
   <ItemGroup>
     <ClInclude Include="background.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Mirror.h" />
@@ -676,6 +678,7 @@
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\mirror.FBX" />
     <MeshContentTask Include="Assets\modelData\protbackground1.FBX" />
+    <MeshContentTask Include="Assets\modelData\protbackground2.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj1.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj2.FBX" />
