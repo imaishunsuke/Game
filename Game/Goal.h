@@ -11,7 +11,6 @@ public:
 	CVector3 m_goalpos = CVector3::Zero;				//座標。
 	CVector3 m_goalpos1 = CVector3::Zero;				//座標。
 	Player*player = nullptr;
-	int gfla = 0;
-	float len = 0;
+	int gflag = 0;										//ゴールフラグ
 };
 
