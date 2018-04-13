@@ -14,7 +14,5 @@ public:
 	CQuaternion m_rotation = CQuaternion::Identity;
 	CSpringCamera m_springCamera;
 	CVector3 m_toCameraPos = CVector3::Zero;
-	
-private:
-	Player*m_player;
+	Player*m_player=nullptr;
 };

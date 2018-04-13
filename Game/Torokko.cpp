@@ -2,7 +2,6 @@
 #include "Torokko.h"
 #include "Player.h"
 #include "Mirror.h"
-//#include "tkEngine/character/tkCharacterController.cpp"
 
 Torokko::Torokko()
 {
@@ -39,6 +38,7 @@ bool Torokko::Start() {
 		1.0f,		//çÇÇ≥
 		m_position	//èâä˙à íu
 	);
+	m_mirror = FindGO<Mirror>("Mirror");
 	return true;
 }
 
@@ -62,7 +62,6 @@ void Torokko::Move() {
 			MoveFlag = 1;
 		}
 		if (MoveFlag == 1) {
-			//m_rot.MakeRotationFromQuaternion(m_rotation);
 			m_moveSpeed.x = m_rot.m[2][0] * 20;
 			m_moveSpeed.y = m_rot.m[2][1];
 			m_moveSpeed.z = m_rot.m[2][2] * 20;
@@ -95,14 +94,17 @@ void Torokko::Move() {
 
 void Torokko::Update()
 {
-	//SweepResultGround po;
-	///*po.addSingleResult();*/
-	//if (po.isHit == true) {
-	//	flag = 0;
-	//};
 	if (dameflag == 1) {
-		flag = 0;
+		if (nlcount<1) {
+			lifecount = lifecount + 1;
+		}
+		nlcount++;
+		if (nlcount >= 60) {
+			nlcount = 0;
+		}
+		dameflag = 0;
 	}
+
 	if (flag==1) {
 		Move();
 	}
@@ -112,23 +114,68 @@ void Torokko::Update()
 		m_rotation.Multiply(qRot);
 	}
 	m_position.y = 0;
-	m_skinModel.Update(m_position, m_rotation, CVector3::One);
-	m_mirror = FindGO<Mirror>("Mirror");
-	
+	if (lifecount == 0) {
+		m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	}
+	if (lifecount == 1) {
+		m_skinModel1.Update(m_position, m_rotation, CVector3::One);
+	}
+	if (lifecount == 2) {
+		m_skinModel2.Update(m_position, m_rotation, CVector3::One);
+	}
+	if (lifecount == 3) {
+		m_skinModel3.Update(m_position, m_rotation, CVector3::One);
+	}
+	if (lifecount == 4) {
+		m_skinModel4.Update(m_position, m_rotation, CVector3::One);
+	}
 }
 
 void Torokko::Render(CRenderContext& rc)
 {
 	if (m_mirror == NULL) {
-		m_mirror = FindGO<Mirror>("Mirror");
 	}
 	m_mirror->alphaflag = 0;
-	m_skinModel.Draw(rc, 
-		MainCamera().GetViewMatrix(),
-		MainCamera().GetProjectionMatrix(),
-		CMatrix::Identity,
-		CMatrix::Identity,
-		m_mirror->alphaflag);
+	if (lifecount == 0) {
+		m_skinModel.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			m_mirror->alphaflag);
+	}
+	if (lifecount == 1) {
+		m_skinModel1.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			m_mirror->alphaflag);
+	}
+	if (lifecount == 2) {
+		m_skinModel2.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			m_mirror->alphaflag);
+	}
+	if (lifecount == 3) {
+		m_skinModel3.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			m_mirror->alphaflag);
+	}
+	if (lifecount == 4) {
+		m_skinModel4.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			m_mirror->alphaflag);
+	}
 }
 void Torokko::PostRender(CRenderContext& rc) {
 	if (flag == 0&&count==0)

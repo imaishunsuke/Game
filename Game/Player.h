@@ -1,5 +1,5 @@
 #pragma once
-
+class Torokko;
 
 class Player:public IGameObject
 {
@@ -31,4 +31,5 @@ public:
 	float plposlen;
 	float angle;
 	Mirror* m_mirror = NULL;
+	Torokko*toro = nullptr;
 };
