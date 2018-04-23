@@ -2,14 +2,14 @@
 #include "Game.h"
 #include "Fade.h"
 #include "Title.h"
-#include"Level.h"
-#include"background.h"
-#include"Goal.h"
-#include"Player.h"
-#include"Torokko.h"
-#include"GameCamera.h"
+#include "Level.h"
+#include "background.h"
+#include "Goal.h"
+#include "Player.h"
+#include "Torokko.h"
+#include "GameCamera.h"
 #include "Mirror.h"
-
+#include "ResultScene.h"
 
 
 Game::Game()
@@ -32,6 +32,10 @@ void Game::OnDestroy()
 }
 bool Game::Start()
 {
+	//background作成
+	m_background=NewGO<background>(0, "background");
+	//リザルト画面作成
+	m_Result = NewGO<ResultScene>(0, "Result");
 	//トロッコ作成
 	m_torokko = NewGO<Torokko>(0, "Trokko");
 	//プレイヤー作成
@@ -40,8 +44,7 @@ bool Game::Start()
 	m_gamecamera = NewGO<GameCamera>(0, "gamecamera");
 	//ゴール作成
 	m_goal = NewGO<Goal>(0, "Goal");
-	//background作成
-	m_background=NewGO<background>(0, "background");
+	
 	//ミラー作成
 	m_mirror = NewGO<Mirror>(0, "Mirror");
 	
@@ -53,7 +56,7 @@ bool Game::Start()
 	m_level.Build(L"level/protobj1.tks");
 	m_level.Build(L"level/protobj2.tks");
 	m_level.Build(L"level/protobj3.tks");
-	
+	m_level.Build(L"level/plane1.tks");
 	return true;
 }
 void Game::Update()

@@ -2,6 +2,8 @@
 #include "tkEngine/character/tkCharacterController.h"
 class Mirror;
 class Player;
+class Goal;
+
 class Torokko:public IGameObject
 {
 public:
@@ -53,5 +55,6 @@ public:
 	CFont m_font;
 	Mirror* m_mirror = NULL;
 	Player* m_player = NULL;
+	Goal* m_goal = nullptr;
 };
 

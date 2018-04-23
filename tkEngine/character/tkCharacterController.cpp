@@ -7,7 +7,7 @@
 #include "tkEngine/Physics/tkCollisionAttr.h"
 #include "tkEngine/tkEngine.h"
 #include "Game/Mirror.h"
-#include"Game/Torokko.h"
+#include "Game/Torokko.h"
 namespace tkEngine {
 
 	namespace {
@@ -74,8 +74,8 @@ namespace tkEngine {
 				)
 				{
 					//自分に衝突した。or 障害物に衝突した。
-					return 0.0f;
-					toro->dameflag = 0;
+					//toro->dameflag = 0;
+					return 0.0f;	
 				}
 				//衝突点の法線を引っ張ってくる。
 				CVector3 hitNormalTmp;
