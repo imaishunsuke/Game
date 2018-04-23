@@ -747,7 +747,7 @@ std::unique_ptr<Model> DirectX::Model::CreateFromCMO(
         throw std::exception( "CreateFromCMO" );
     }
 
-    auto model = CreateFromCMO( 
+    auto model =dd CreateFromCMO( 
 		d3dDevice, data.get(), dataSize, 
 		fxFactory, ccw, pmalpha, 
 		onFindBoneData);

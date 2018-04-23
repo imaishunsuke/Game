@@ -1,5 +1,6 @@
 #pragma once
 class Torokko;
+class Goal;
 
 class Player:public IGameObject
 {
@@ -44,4 +45,5 @@ public:
 	float hpdscale=1;
 	Mirror* m_mirror = NULL;
 	Torokko*toro = nullptr;
+	Goal* m_goal = nullptr;
 };
