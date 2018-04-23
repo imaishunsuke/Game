@@ -56,7 +56,7 @@ bool Game::Start()
 	m_level.Build(L"level/protobj1.tks");
 	m_level.Build(L"level/protobj2.tks");
 	m_level.Build(L"level/protobj3.tks");
-	//m_level.Build(L"level/plane1.tks");
+	m_level.Build(L"level/plane1.tks");
 	return true;
 }
 void Game::Update()
