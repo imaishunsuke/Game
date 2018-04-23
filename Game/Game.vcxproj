@@ -623,6 +623,7 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
@@ -650,6 +651,7 @@
   <ItemGroup>
     <ClInclude Include="background.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MapChip.h" />
@@ -802,6 +804,9 @@
     <CustomBuild Include="Assets\level\plane1.tks">
       <FileType>Document</FileType>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\GameOver.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

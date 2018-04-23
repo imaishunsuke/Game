@@ -57,6 +57,7 @@
     <ClCompile Include="testMapChip.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="Goal.cpp" />
+    <ClCompile Include="GameOver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -81,6 +82,7 @@
     <ClInclude Include="testMapChip.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Goal.h" />
+    <ClInclude Include="GameOver.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -282,9 +284,12 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\hpd.png">
-     <Filter>Assets\sprite</Filter>
+      <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\Result.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\GameOver.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

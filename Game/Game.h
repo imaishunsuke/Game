@@ -36,12 +36,13 @@ private:
 	Level m_level;
 	
 	CVector3 m_position= { 30.0f, 10.0f, 0.0f };
-	
+	int GameOverFlag = 0;
 	Player*m_player = nullptr;
 	background*m_background = nullptr;
 	GameCamera*m_gamecamera = nullptr;
 	Torokko*m_torokko = nullptr;
 	Mirror* m_mirror = nullptr;
 	Goal*m_goal = nullptr;
-	ResultScene* m_Result = nullptr;
+	ResultScene* m_result = nullptr;
+	Torokko* m_toro = nullptr;
 };
