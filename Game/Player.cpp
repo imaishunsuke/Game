@@ -2,6 +2,7 @@
 #include "Player.h"
 #include"Torokko.h"
 #include"Mirror.h"
+#include"Goal.h"
 
 Player::Player()
 {
@@ -28,6 +29,7 @@ bool Player::Start() {
 	m_hbsprite.Init(m_hbtexture, 490, 70);
 	m_mirror = FindGO<Mirror>("Mirror");
 	toro = FindGO<Torokko>("Trokko");
+	m_goal = FindGO<Goal>("Goal");
 	m_position = toro->m_position;
 	diff.x = toro->m_gpos.x - toro->m_position.x;
 	diff.y = toro->m_gpos.y - toro->m_position.y;
@@ -88,18 +90,19 @@ void Player::Render(CRenderContext& rc)
 		
 }
 void Player::PostRender(CRenderContext& rc) {
-	
-	//HP barテクスチャ描画
-	m_hbsprite.Draw(rc,
-		MainCamera2D().GetViewMatrix(),
-		MainCamera2D().GetProjectionMatrix());
+	if (m_goal->gflag == 0) {
+		//HP barテクスチャ描画
+		m_hbsprite.Draw(rc,
+			MainCamera2D().GetViewMatrix(),
+			MainCamera2D().GetProjectionMatrix());
 
-	//HPダメージ時テクスチャ描画
-	m_hdsprite.Draw(rc,
-		MainCamera2D().GetViewMatrix(),
-		MainCamera2D().GetProjectionMatrix());
-	//HPテクスチャ描画
-	m_hsprite.Draw(rc,
-		MainCamera2D().GetViewMatrix(),
-		MainCamera2D().GetProjectionMatrix());
+		//HPダメージ時テクスチャ描画
+		m_hdsprite.Draw(rc,
+			MainCamera2D().GetViewMatrix(),
+			MainCamera2D().GetProjectionMatrix());
+		//HPテクスチャ描画
+		m_hsprite.Draw(rc,
+			MainCamera2D().GetViewMatrix(),
+			MainCamera2D().GetProjectionMatrix());
+	}
 }
