@@ -1,6 +1,7 @@
 #pragma once
 #include "tkEngine/character/tkCharacterController.h"
 class Mirror;
+class Goal;
 class Torokko:public IGameObject
 {
 public:
@@ -50,5 +51,6 @@ public:
 	CVector3 m_gpos = CVector3::Zero;
 	CFont m_font;
 	Mirror* m_mirror = NULL;
+	Goal* m_goal = nullptr;
 };
 

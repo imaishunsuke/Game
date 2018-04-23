@@ -2,6 +2,7 @@
 #include "Torokko.h"
 #include "Player.h"
 #include "Mirror.h"
+#include"Goal.h"
 
 Torokko::Torokko()
 {
@@ -39,6 +40,7 @@ bool Torokko::Start() {
 		m_position	//èâä˙à íu
 	);
 	m_mirror = FindGO<Mirror>("Mirror");
+	m_goal = FindGO<Goal>("Goal");
 	return true;
 }
 
@@ -109,9 +111,12 @@ void Torokko::Update()
 		Move();
 	}
 	float x = Pad(0).GetLStickXF();
-	if (Pad(0).GetLStickXF()) {
-		qRot.SetRotationDeg(CVector3::AxisY, 5.0f*x);
-		m_rotation.Multiply(qRot);
+	if (m_goal->gflag == 0) {
+
+		if (Pad(0).GetLStickXF()) {
+			qRot.SetRotationDeg(CVector3::AxisY, 5.0f*x);
+			m_rotation.Multiply(qRot);
+		}
 	}
 	m_position.y = 0;
 	if (lifecount == 0) {

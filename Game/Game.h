@@ -9,6 +9,7 @@ class Torokko;
 class GameCamera;
 class Mirror;
 class Goal;
+class ResultScene;
 
 class Game : public IGameObject
 {
@@ -42,4 +43,5 @@ private:
 	Torokko*m_torokko = nullptr;
 	Mirror* m_mirror = nullptr;
 	Goal*m_goal = nullptr;
+	ResultScene* m_Result = nullptr;
 };

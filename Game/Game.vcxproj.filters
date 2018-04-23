@@ -136,6 +136,9 @@
     <MeshContentTask Include="Assets\modelData\plane.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\plane1.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\shader\tonemap.fx">
@@ -257,6 +260,9 @@
     </CustomBuild>
     <CustomBuild Include="Assets\modelData\unityChan.tks">
       <Filter>Assets\modelData</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\plane1.tks">
+      <Filter>Assets\level</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
