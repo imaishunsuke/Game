@@ -10,9 +10,8 @@ public:
 	void PostRender(CRenderContext& rc) override;
 private:
 	bool m_isWaitFadeout = false;
+	Fade* m_fade = nullptr;
 	CShaderResourceView m_texture;
 	CSprite m_sprite;
-	Fade* m_fade = nullptr;
-
 };
 
