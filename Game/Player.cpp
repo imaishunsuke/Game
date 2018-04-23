@@ -17,6 +17,15 @@ bool Player::Start() {
 	m_skinModelData.Load(L"modelData/unityChan.cmo");
 	m_skinModel.Init(m_skinModelData);
 	m_rotation.Multiply(m_rotation);
+	//hpテクスチャ
+	m_htexture.CreateFromDDSTextureFromFile(L"sprite/hp.dds");
+	m_hsprite.Init(m_htexture, 460, 40);
+	//hpdテクスチャ
+	m_hdtexture.CreateFromDDSTextureFromFile(L"sprite/hpd.dds");
+	m_hdsprite.Init(m_hdtexture, 460, 40);
+	//hp barテクスチャ
+	m_hbtexture.CreateFromDDSTextureFromFile(L"sprite/hpmp_bar.dds");
+	m_hbsprite.Init(m_hbtexture, 490, 70);
 	m_mirror = FindGO<Mirror>("Mirror");
 	toro = FindGO<Torokko>("Trokko");
 	m_position = toro->m_position;
@@ -45,12 +54,30 @@ void Player::Rotation() {
 void Player::Update()
 {
 	Rotation();
+	if (toro->dameflag == 1) {
+		if ((toro->lifecount==0 && toro->nlcount==0)
+			|| (toro->lifecount == 1 && toro->nlcount == 0)
+			|| (toro->lifecount == 2 && toro->nlcount == 0)
+			|| (toro->lifecount == 3 && toro->nlcount == 0)
+			|| (toro->lifecount == 4 && toro->nlcount == 0))
+		{
+			hpscale = hpscale - 0.1;
+		}
+	
+	}
+	if (hpdscale > hpscale) {
+		hpdscale = hpdscale - 0.01;
+		m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });
+	}
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
-
+	m_hsprite.Update(m_hposition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{hpscale,1.0,1.0 }, { 0.0,1.0 });
+	m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{hpdscale,1.0,1.0}, { 0.0,1.0 });
+	m_hbsprite.Update(m_hbposition = { -640.0,360.0,0 }, CQuaternion::Identity, CVector3::One, { 0.0,1.0 });
 }
 
 void Player::Render(CRenderContext& rc)
 {
+	//プレイヤー描画
 	m_mirror->alphaflag = 0;
 	m_skinModel.Draw(rc, 
 		MainCamera().GetViewMatrix(), 
@@ -58,4 +85,21 @@ void Player::Render(CRenderContext& rc)
 		CMatrix::Identity,
 		CMatrix::Identity,
 		m_mirror->alphaflag);
+		
+}
+void Player::PostRender(CRenderContext& rc) {
+	
+	//HP barテクスチャ描画
+	m_hbsprite.Draw(rc,
+		MainCamera2D().GetViewMatrix(),
+		MainCamera2D().GetProjectionMatrix());
+
+	//HPダメージ時テクスチャ描画
+	m_hdsprite.Draw(rc,
+		MainCamera2D().GetViewMatrix(),
+		MainCamera2D().GetProjectionMatrix());
+	//HPテクスチャ描画
+	m_hsprite.Draw(rc,
+		MainCamera2D().GetViewMatrix(),
+		MainCamera2D().GetProjectionMatrix());
 }
