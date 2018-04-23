@@ -793,6 +793,12 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\hp.png" />
+    <ImageContentTask Include="Assets\sprite\hpmp_bar.png" />
+    <ImageContentTask Include="Assets\sprite\mp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\hpd.png" />
     <CustomBuild Include="Assets\level\plane1.tks">
       <FileType>Document</FileType>
     </CustomBuild>

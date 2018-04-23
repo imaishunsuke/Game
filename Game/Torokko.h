@@ -1,7 +1,9 @@
 #pragma once
 #include "tkEngine/character/tkCharacterController.h"
 class Mirror;
+class Player;
 class Goal;
+
 class Torokko:public IGameObject
 {
 public:
@@ -27,8 +29,9 @@ public:
 	int flag = 1;										
 	int MoveFlag = 0;									//スタート時の加速のフラグ
 	int dameflag = 0;									//ダメージフラグ
-	int lifecount = 0;									//ライフカウンタ
-	int nlcount = 0;									//無敵カウンタ
+	int life;											//HPゲージ
+	int lifecount = 0;									//ライフカウンタ(モデル差し替え)
+	float nlcount = 1;									//無敵カウンタ
 	CMatrix m_rot;
 	CVector3 diff;
 	float posl;
@@ -51,6 +54,7 @@ public:
 	CVector3 m_gpos = CVector3::Zero;
 	CFont m_font;
 	Mirror* m_mirror = NULL;
+	Player* m_player = NULL;
 	Goal* m_goal = nullptr;
 };
 

@@ -40,6 +40,7 @@ bool Torokko::Start() {
 		m_position	//èâä˙à íu
 	);
 	m_mirror = FindGO<Mirror>("Mirror");
+	m_player = FindGO<Player>("Player");
 	m_goal = FindGO<Goal>("Goal");
 	return true;
 }
@@ -96,17 +97,30 @@ void Torokko::Move() {
 
 void Torokko::Update()
 {
+	
 	if (dameflag == 1) {
-		if (nlcount<1) {
-			lifecount = lifecount + 1;
+		if (nlcount<=0) {	
+			nlcount = 0.01;
 		}
-		nlcount++;
-		if (nlcount >= 60) {
-			nlcount = 0;
+		//lifecountÇ™5Ç…Ç»Ç¡ÇΩÇÁÉQÅ[ÉÄÉIÅ[ÉoÅ[
+		if ((lifecount == 0 && m_player->hpscale <= 0.8)
+			||(lifecount == 1 && m_player->hpscale <= 0.6)
+			|| (lifecount == 2 && m_player->hpscale <= 0.4)
+			|| (lifecount == 3 && m_player->hpscale <= 0.2)
+			|| (lifecount == 4 && m_player->hpscale <= 0.0))
+		{
+			lifecount = lifecount + 1;
 		}
 		dameflag = 0;
 	}
-
+	//ÇQïbä‘ñ≥ìG
+	if (nlcount > 0) {
+		nlcount = nlcount + GameTime().GetFrameDeltaTime();
+		if (2 <= nlcount) {
+			nlcount = 0;
+			dameflag = 0;
+		}
+	}
 	if (flag==1) {
 		Move();
 	}

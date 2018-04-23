@@ -272,6 +272,18 @@
     <ImageContentTask Include="Assets\sprite\fade.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\hp.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\hpmp_bar.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\mp.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\hpd.png">
+     <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\Result.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
