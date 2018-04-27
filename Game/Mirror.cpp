@@ -14,6 +14,19 @@ bool Mirror::Start()
 	CVector3 vector =CVector3::Zero;
 	m_skinModelData.Load(L"modelData/mirror.cmo");
 	m_skinModel.Init(m_skinModelData);
+
+	m_mtexture.CreateFromDDSTextureFromFile(L"sprite/mirror.dds");
+	m_msprite.Init(m_mtexture, 80, 120);
+
+	m_mptexture.CreateFromDDSTextureFromFile(L"sprite/mp.dds");
+	m_mpsprite.Init(m_mptexture, 310, 30);
+	m_mprotation.SetRotationDeg(CVector3::AxisZ, -90);
+
+	m_mpbtexture.CreateFromDDSTextureFromFile(L"sprite/hpmp_bar.dds");
+	m_mpbsprite.Init(m_mpbtexture, 330, 50);
+	
+	
+	
 	/*m_charaCon.Init(
 		6.0f,
 		3.0f,
@@ -45,7 +58,7 @@ void Mirror::Update()
 {
 	Rotation();
 
-	if (Pad(0).IsTrigger(enButtonB) && m_isMirror == false) {
+	if (Pad(0).IsTrigger(enButtonB) && m_isMirror == false&&mpscale>0) {
 		m_isMirror = true;
 	}
 	else if(Pad(0).IsTrigger(enButtonB) && m_isMirror == true){
@@ -153,6 +166,26 @@ void Mirror::Update()
 	mirrorCamera.MakeLookAt(m_position, target, up);
 	//m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
+
+	if (m_isMirror == true&&toro->flag==1&& mpflag == 0) {
+		mpscale -= GameTime().GetFrameDeltaTime()*0.05;
+	}
+
+	if (mpscale <= 0) {
+		mpscale = 0;
+		mpflag = 1;
+		m_isMirror = false;
+	}
+	if (mpflag==1)
+	{
+		mpscale += GameTime().GetFrameDeltaTime()*0.05;
+		if (mpscale >= 1) {
+			mpflag = 0;
+		}
+	}
+	m_msprite.Update({640.0,100.0,0.0 }, CQuaternion::Identity, CVector3{ 1.0,1.0,1.0 }, { 1.0,1.0 });
+	m_mpsprite.Update({ 615.0,-350.0,0.0 }, m_mprotation, CVector3{ mpscale,1.0,1.0 }, { 1.0,1.0 });
+	m_mpbsprite.Update({ 625.0,-360.0,0.0 }, m_mprotation, CVector3{ 1.0,1.0,1.0 }, { 1.0,1.0 });
 }
 void Mirror::Render(CRenderContext& rc)
 {
@@ -179,4 +212,16 @@ void Mirror::Render(CRenderContext& rc)
 		m_mirrorViewMatrix,
 		m_mirrorProjectionMatrix,
 		alphaflag);
+}
+
+void Mirror::PostRender(CRenderContext& rc) {
+	m_msprite.Draw(rc,
+		MainCamera2D().GetViewMatrix(),
+		MainCamera2D().GetProjectionMatrix());
+	m_mpbsprite.Draw(rc,
+		MainCamera2D().GetViewMatrix(),
+		MainCamera2D().GetProjectionMatrix());
+	m_mpsprite.Draw(rc,
+		MainCamera2D().GetViewMatrix(),
+		MainCamera2D().GetProjectionMatrix());
 }

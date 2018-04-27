@@ -52,10 +52,16 @@ void Player::Rotation() {
 
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
-
+void Player::Dead() {
+	//ˆ³€”»’è
+	if (Pad(0).IsTrigger(enButtonX)) {
+		toro->lifecount = 5;
+	}
+}
 void Player::Update()
 {
 	Rotation();
+	Dead();
 	if (toro->dameflag == 1) {
 		if ((toro->lifecount==0 && toro->nlcount==0)
 			|| (toro->lifecount == 1 && toro->nlcount == 0)

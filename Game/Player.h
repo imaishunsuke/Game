@@ -20,6 +20,7 @@ public:
 	void Move();
 	void Turn();
 	void Rotation();
+	void Dead();
 	
 	//ƒƒ“ƒo•Ï”
 	CMatrix m_rot;
