@@ -644,6 +644,9 @@
     <ClCompile Include="testMapChip.cpp" />
     <ClCompile Include="testMirror.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="titlecamera.cpp" />
+    <ClCompile Include="TitleGame.cpp" />
+    <ClCompile Include="titletorokko.cpp" />
     <ClCompile Include="Torokko.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -661,6 +664,9 @@
     <ClInclude Include="testMapChip.h" />
     <ClInclude Include="testMirror.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="titlecamera.h" />
+    <ClInclude Include="TitleGame.h" />
+    <ClInclude Include="titletorokko.h" />
     <ClInclude Include="Torokko.h" />
     <CustomBuild Include="Assets\shader\LightingFunction.h" />
     <CustomBuild Include="Assets\shader\modelCB.h" />
@@ -687,6 +693,7 @@
     <MeshContentTask Include="Assets\modelData\prottro4.FBX" />
     <MeshContentTask Include="Assets\modelData\testGround.FBX" />
     <MeshContentTask Include="Assets\modelData\testobj.FBX" />
+    <MeshContentTask Include="Assets\modelData\titletorokko.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
   </ItemGroup>
   <ItemGroup>

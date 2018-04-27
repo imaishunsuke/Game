@@ -56,6 +56,9 @@
     <ClCompile Include="testLevel.cpp" />
     <ClCompile Include="testMapChip.cpp" />
     <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="titletorokko.cpp" />
+    <ClCompile Include="titlecamera.cpp" />
+    <ClCompile Include="TitleGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -79,6 +82,9 @@
     <ClInclude Include="testLevel.h" />
     <ClInclude Include="testMapChip.h" />
     <ClInclude Include="ResultScene.h" />
+    <ClInclude Include="titletorokko.h" />
+    <ClInclude Include="titlecamera.h" />
+    <ClInclude Include="TitleGame.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -117,6 +123,21 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\prottro4.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\prottro3.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\prottro2.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\prottro1.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\titletorokko.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

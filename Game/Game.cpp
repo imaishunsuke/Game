@@ -4,11 +4,12 @@
 #include "Title.h"
 #include"Level.h"
 #include"background.h"
-
 #include"Player.h"
 #include"Torokko.h"
 #include"GameCamera.h"
 #include "Mirror.h"
+#include "titletorokko.h"
+#include "titlecamera.h"
 
 
 
@@ -84,6 +85,8 @@ void Game::Update()
 	{
 		if (!m_fade->IsFade()) {
 			NewGO<Title>(0, nullptr);
+			/*NewGO<titlecamera>(0, nullptr);
+			NewGO<titletorokko>(0, "titletorokko");*/
 			DeleteGO(this);
 		}
 	}
