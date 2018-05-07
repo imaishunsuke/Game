@@ -6,6 +6,7 @@
 class MapChip : public IGameObject
 {
 public:
+
 	MapChip();
 	~MapChip();
 	void Init(

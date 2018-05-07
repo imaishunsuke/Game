@@ -57,13 +57,13 @@ bool Game::Start()
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
-	m_toro = FindGO<Torokko>("Trokko");
+	m_pl = FindGO<Player>("Player");
 	//ƒŒƒxƒ‹‚ð\’z‚·‚éB
 	m_level.Build(L"level/protobj1.tks");
 	m_level.Build(L"level/protobj2.tks");
 	m_level.Build(L"level/protobj3.tks");
 	m_level.Build(L"level/plane1.tks");
-	m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
+	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
 	return true;
 }
 void Game::Update()
@@ -92,7 +92,7 @@ void Game::Update()
 		}
 	}
 	else {
-		if (m_toro->lifecount == 5) {
+		if (m_pl->lifecount == 5) {
 			m_isWaitFadeout = true;
 			m_fade->StartFadeOut();
 			GameOverFlag = 1;

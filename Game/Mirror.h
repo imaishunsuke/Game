@@ -2,7 +2,7 @@
 #include "tkEngine/character/tkCharacterController.h"
 using namespace tkEngine;
 
-class Torokko;
+class Player;
 
 class Mirror : public tkEngine::IGameObject
 {
@@ -61,7 +61,7 @@ public:
 		}
 		return *instance;
 	}
-	Torokko* toro = NULL;
+	Player* pl = NULL;
 	float angle = 0;
 };
 

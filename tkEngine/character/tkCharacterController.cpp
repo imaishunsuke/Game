@@ -65,7 +65,7 @@ namespace tkEngine {
 			CVector3 hitNormal = CVector3::Zero;	//衝突点の法線。
 			btCollisionObject* me = nullptr;		//自分自身。自分自身との衝突を除外するためのメンバ。
 			int ignoreCollisionAttr;				//無視するコリジョン属性のビットパターン。
-			Torokko* toro = nullptr;
+			Player* pl = nullptr;
 			Mirror* m_mirror = nullptr;
 													//衝突したときに呼ばれるコールバック関数。
 			virtual	btScalar	addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
@@ -157,8 +157,8 @@ namespace tkEngine {
 	}
 	const CVector3& CCharacterController::Execute(float deltaTime, CVector3& moveSpeed, ColliderType type)
 	{
-		if (m_toroko == nullptr) {
-			m_toroko = FindGO<Torokko>("Trokko");
+		if (m_player == nullptr) {
+			m_player = FindGO<Player>("Player");
 		}
 		if (m_mirror == nullptr) {
 			m_mirror = FindGO<Mirror>("Mirror");
@@ -220,7 +220,7 @@ namespace tkEngine {
 				callback.me = m_rigidBody.GetBody();
 				callback.startPos = posTmp;
 				callback.ignoreCollisionAttr = m_ignoreCollisionAttrs;
-				callback.toro = m_toroko;
+				callback.pl = m_player;
 				callback.m_mirror = m_mirror;
 				if (type == Capsule) {
 					//衝突検出。

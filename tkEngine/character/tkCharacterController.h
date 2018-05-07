@@ -4,7 +4,7 @@
 
 #pragma once
 class Mirror;
-class Torokko;
+class Player;
 
 #include "tkEngine/Physics/tkSphereCollider.h"
 #include "tkEngine/Physics/tkCapsuleCollider.h"
@@ -124,7 +124,7 @@ namespace tkEngine{
 		CSphereCollider		m_sphereCollider;
 		CRigidBody			m_rigidBody;					//剛体。
 		int					m_ignoreCollisionAttrs = 2;		//ビットが立っている属性のコリジョンとのあたり判定を無視する。
-		Torokko* m_toroko = nullptr;
+		Player* m_player = nullptr;
 		Mirror* m_mirror = nullptr;
 	};
 }
