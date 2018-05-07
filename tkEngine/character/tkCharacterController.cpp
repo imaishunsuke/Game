@@ -157,8 +157,9 @@ namespace tkEngine {
 	}
 	const CVector3& CCharacterController::Execute(float deltaTime, CVector3& moveSpeed, ColliderType type)
 	{
-		if (m_pl == nullptr) {
-			m_pl = FindGO<Player>("Player");
+
+		if (m_player == nullptr) {
+			m_player = FindGO<Player>("Player");
 		}
 		if (m_mirror == nullptr) {
 			m_mirror = FindGO<Mirror>("Mirror");
@@ -220,7 +221,7 @@ namespace tkEngine {
 				callback.me = m_rigidBody.GetBody();
 				callback.startPos = posTmp;
 				callback.ignoreCollisionAttr = m_ignoreCollisionAttrs;
-				callback.pl = m_pl;
+				callback.pl = m_player;
 				callback.m_mirror = m_mirror;
 				if (type == Capsule) {
 					//è’ìÀåüèoÅB

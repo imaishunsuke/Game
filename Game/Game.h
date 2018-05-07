@@ -47,6 +47,6 @@ private:
 	Mirror* m_mirror = nullptr;
 	Goal*m_goal = nullptr;
 	ResultScene* m_result = nullptr;
-	Torokko* m_toro = nullptr;
+	Player*m_pl = nullptr;
 	EnemyBall* m_enemyball = nullptr;
 };
