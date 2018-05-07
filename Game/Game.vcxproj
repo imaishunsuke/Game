@@ -620,7 +620,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="background.cpp" />
-    <ClCompile Include="DirectionLight.cpp" />
+    <ClCompile Include="LightLevel.cpp" />
     <ClCompile Include="Enemybace.cpp" />
     <ClCompile Include="EnemyBall.cpp" />
     <ClCompile Include="Fade.cpp" />
@@ -654,7 +654,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
-    <ClInclude Include="DirectionLight.h" />
+    <ClInclude Include="LightLevel.h" />
     <ClInclude Include="Enemybace.h" />
     <ClInclude Include="EnemyBall.h" />
     <ClInclude Include="GameCamera.h" />
