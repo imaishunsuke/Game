@@ -7,7 +7,7 @@
 #include "tkEngine/Physics/tkCollisionAttr.h"
 #include "tkEngine/tkEngine.h"
 #include "Game/Mirror.h"
-#include "Game/Torokko.h"
+#include "Game/Player.h"
 namespace tkEngine {
 
 	namespace {
@@ -67,7 +67,7 @@ namespace tkEngine {
 													//衝突したときに呼ばれるコールバック関数。
 			virtual	btScalar	addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
 			{
-				Torokko*toro = FindGO<Torokko>("Trokko");
+				Player*pl = FindGO<Player>("Player");
 				Mirror* m_mirror = FindGO<Mirror>("Mirror");
 				if (convexResult.m_hitCollisionObject == me
 					|| ( convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Obstacle && m_mirror->m_isMirror/*ミラーを使っている*/)
@@ -86,7 +86,7 @@ namespace tkEngine {
 					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character	//もしくはコリジョン属性がキャラクタなので壁とみなす。
 					) {
 					isHit = true;
-					toro->dameflag = 1;
+					pl->dameflag = 1;
 					CVector3 hitPosTmp;
 					hitPosTmp.Set(convexResult.m_hitPointLocal);
 					//交点との距離を調べる。

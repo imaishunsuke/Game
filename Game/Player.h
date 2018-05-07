@@ -44,6 +44,7 @@ public:
 	float angle;
 	float hpscale=1;
 	float hpdscale=1;
+	int dameflag = 0;									//ダメージフラグ
 	Mirror* m_mirror = NULL;
 	Torokko*toro = nullptr;
 	Goal* m_goal = nullptr;
