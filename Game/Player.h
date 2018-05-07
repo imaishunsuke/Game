@@ -28,6 +28,8 @@ public:
 	CMatrix m_rot;
 	CSkinModel m_skinModel;								//スキンモデル。
 	CSkinModelData m_skinModelData;						//スキンモデルデータ。
+	CShaderResourceView m_specularMap;
+	CShaderResourceView m_normalMap;
 	CCharacterController m_charaCon;					//キャラクターコントローラー。
 	CCharacterController::ColliderType m_collidertype = CCharacterController::Capsule;
 	CVector3 m_moveSpeed = CVector3::Zero;				//移動速度。
@@ -45,7 +47,6 @@ public:
 	CQuaternion qRot = CQuaternion::Identity;
 	CQuaternion m_rotation = CQuaternion::Identity;		//回転
 	CQuaternion m_rotation2 = CQuaternion::Identity;		//回転
-	CCharacterController::ColliderType m_collidertype = CCharacterController::Capsule;
 	CFont m_font;										//文字
 	CVector3 m_gpos = CVector3::Zero;
 

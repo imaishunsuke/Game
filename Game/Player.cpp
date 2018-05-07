@@ -17,6 +17,13 @@ bool Player::Start() {
 	//モデルデータのロード
 	m_skinModelData.Load(L"modelData/unityChan.cmo");
 	m_skinModel.Init(m_skinModelData);
+	////法線マップとスペキュラマップをロード
+	//m_specularMap.CreateFromDDSTextureFromFile(L"sprite/utc_spec.dds");
+	//m_normalMap.CreateFromDDSTextureFromFile(L"sprite/utc_normal.dds");
+	//m_skinModel.FindMaterial([&](auto material) {
+	//	material->SetNormalMap(m_normalMap.GetBody());
+	//	//material->SetSpecularMap(m_specularMap.GetBody());
+	//});
 	m_rotation.Multiply(m_rotation);
 	//hpテクスチャ
 	m_htexture.CreateFromDDSTextureFromFile(L"sprite/hp.dds");
@@ -31,6 +38,7 @@ bool Player::Start() {
 	m_charaCon.Init(
 		3.0,		//半径
 		1.0f,		//高さ
+		-220,
 		m_position,	//初期位置
 		m_collidertype
 	);
@@ -47,7 +55,7 @@ bool Player::Start() {
 	diff.z = toro->m_gpos.z - toro->m_position.z;
 	plposlen=diff.Length();*/
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
-	
+	m_skinModel.SetShadowCasterFlag(true);
 	return true;
 }
 void Player::Move() {
