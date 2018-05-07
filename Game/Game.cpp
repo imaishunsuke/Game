@@ -11,6 +11,8 @@
 #include "Mirror.h"
 #include "ResultScene.h"
 #include "GameOver.h"
+#include "EnemyBall.h"
+#include "DirectionLight.h"
 
 Game::Game()
 {
@@ -30,11 +32,14 @@ void Game::OnDestroy()
 	DeleteGO(m_mirror);
 	DeleteGO(m_goal);
 	DeleteGO(m_result);
+	DeleteGO(m_enemyball);
 }
 bool Game::Start()
 {
 	//background作成
 	m_background=NewGO<background>(0, "background");
+	//EnemyBall作成
+	m_enemyball = NewGO<EnemyBall>(0, "EnemyBall");
 	//リザルト画面作成
 	m_result = NewGO<ResultScene>(0, "Result");
 	//トロッコ作成
@@ -58,6 +63,7 @@ bool Game::Start()
 	m_level.Build(L"level/protobj2.tks");
 	m_level.Build(L"level/protobj3.tks");
 	m_level.Build(L"level/plane1.tks");
+	m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
 	return true;
 }
 void Game::Update()
