@@ -11,6 +11,9 @@
 #include "Mirror.h"
 #include "ResultScene.h"
 #include "GameOver.h"
+#include "EnemyBall.h"
+#include "LightLevel.h"
+
 
 Game::Game()
 {
@@ -30,15 +33,18 @@ void Game::OnDestroy()
 	DeleteGO(m_mirror);
 	DeleteGO(m_goal);
 	DeleteGO(m_result);
+	DeleteGO(m_enemyball);
 }
 bool Game::Start()
 {
 	//background作成
 	m_background=NewGO<background>(0, "background");
+	//EnemyBall作成
+	m_enemyball = NewGO<EnemyBall>(0, "EnemyBall");
 	//リザルト画面作成
 	m_result = NewGO<ResultScene>(0, "Result");
 	//トロッコ作成
-	m_torokko = NewGO<Torokko>(0, "Trokko");
+	//m_torokko = NewGO<Torokko>(0, "Trokko");
 	//プレイヤー作成
 	m_player=NewGO<Player>(0,"Player");
 	//カメラ作成
@@ -53,11 +59,14 @@ bool Game::Start()
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
 	m_toro = FindGO<Torokko>("Trokko");
+	//m_toro = FindGO<Torokko>("Trokko");
+	m_pl = FindGO<Player>("Player");
 	//レベルを構築する。
 	m_level.Build(L"level/protobj1.tks");
 	m_level.Build(L"level/protobj2.tks");
 	m_level.Build(L"level/protobj3.tks");
 	m_level.Build(L"level/plane1.tks");
+	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
 	return true;
 }
 void Game::Update()
@@ -86,7 +95,8 @@ void Game::Update()
 		}
 	}
 	else {
-		if (m_toro->lifecount == 5) {
+		if (m_pl->lifecount == 5) {
+
 			m_isWaitFadeout = true;
 			m_fade->StartFadeOut();
 			GameOverFlag = 1;

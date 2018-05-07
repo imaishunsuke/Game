@@ -620,12 +620,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="background.cpp" />
+    <ClCompile Include="LightLevel.cpp" />
+    <ClCompile Include="Enemybace.cpp" />
+    <ClCompile Include="EnemyBall.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LightChip.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Mirror.cpp" />
@@ -653,10 +657,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
+    <ClInclude Include="LightLevel.h" />
+    <ClInclude Include="Enemybace.h" />
+    <ClInclude Include="EnemyBall.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="LightChip.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Mirror.h" />
     <ClInclude Include="Player.h" />
@@ -684,6 +692,8 @@
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\light\dlig_[00]_[255]_[255]_[255].FBX" />
+    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX" />
     <MeshContentTask Include="Assets\modelData\mirror.FBX" />
     <MeshContentTask Include="Assets\modelData\plane.FBX" />
     <MeshContentTask Include="Assets\modelData\plane1.FBX" />
@@ -698,6 +708,8 @@
     <MeshContentTask Include="Assets\modelData\prottro2.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro3.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro4.FBX" />
+    <MeshContentTask Include="Assets\modelData\stage.FBX" />
+    <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX" />
     <MeshContentTask Include="Assets\modelData\testGround.FBX" />
     <MeshContentTask Include="Assets\modelData\testobj.FBX" />
     <MeshContentTask Include="Assets\modelData\titletorokko.FBX" />
@@ -814,6 +826,15 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\title.png" />
+    <CustomBuild Include="Assets\light\ptlig_[00]_[255]_[255]_[255]_[40].tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
+ </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\mirror.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\modelData\utc_nomal.tga" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

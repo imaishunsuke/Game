@@ -37,7 +37,9 @@ bool Torokko::Start() {
 	m_charaCon.Init(
 		3.0,		//半径
 		1.0f,		//高さ
-		m_position	//初期位置
+		-220,
+		m_position,	//初期位置
+		m_collidertype
 	);
 	m_mirror = FindGO<Mirror>("Mirror");
 	m_player = FindGO<Player>("Player");
@@ -59,45 +61,44 @@ void Torokko::Move() {
 			m_moveSpeed.z += m_rot.m[2][2] * 1;
 		}
 		if (MoveFlag==0
-			&&m_moveSpeed.x >= 19.0 
-			|| m_moveSpeed.z >= 19.0)
+			&&m_moveSpeed.x >= 49.0 
+			|| m_moveSpeed.z >= 49.0)
 		{
 			MoveFlag = 1;
 		}
 		if (MoveFlag == 1) {
-			m_moveSpeed.x = m_rot.m[2][0] * 20;
+			m_moveSpeed.x = m_rot.m[2][0] * 50;
 			m_moveSpeed.y = m_rot.m[2][1];
-			m_moveSpeed.z = m_rot.m[2][2] * 20;
+			m_moveSpeed.z = m_rot.m[2][2] * 50;
 		}
 	}
 		//移動速度最大値
-		if (m_moveSpeed.z >= 20.0) {
+		if (m_moveSpeed.z >= 50.0) {
 			
-			m_moveSpeed.z = 20.0;
+			m_moveSpeed.z = 50.0;
 		}
 		if (m_moveSpeed.x >= 20.0)
 		{
-			m_moveSpeed.x = 20.0;
+			m_moveSpeed.x = 50.0;
 		}
-		if (m_moveSpeed.z <= -20.0)
+		if (m_moveSpeed.z <= -50.0)
 		{
-			m_moveSpeed.z = -20.0;
+			m_moveSpeed.z = -50.0;
 		}
-		if (m_moveSpeed.x <= -20.0) {
-			m_moveSpeed.x = -20.0;
+		if (m_moveSpeed.x <= -50.0) {
+			m_moveSpeed.x = -50.0;
 		}
 	if (x >= 1) {
 		m_moveSpeed.x = m_rot.m[2][0]* 15;
 		m_moveSpeed.y = m_rot.m[2][1];
 		m_moveSpeed.z = m_rot.m[2][2] * 15;
 	}
-		m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
+	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed,m_collidertype);
 	}
 }
 
 void Torokko::Update()
 {
-	
 	if (dameflag == 1) {
 		if (nlcount<=0) {	
 			nlcount = 0.01;

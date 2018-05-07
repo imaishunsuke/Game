@@ -2,7 +2,7 @@
 #include "tkEngine/character/tkCharacterController.h"
 using namespace tkEngine;
 
-class Torokko;
+class Player;
 
 class Mirror : public tkEngine::IGameObject
 {
@@ -13,6 +13,7 @@ public:
 	void Rotation();
 	void Update();
 	void Render(CRenderContext& rc);
+	void PostRender(CRenderContext& rc);
 	//メンバ変数
 	CMatrix m_rot;
 	CMatrix m_mirrorforwardMatrix;
@@ -34,7 +35,18 @@ public:
 	CQuaternion m_vRotation = CQuaternion::Identity;//ミラー制御の角度を求めるための保管
 	CQuaternion m_vTorokkoRotation = CQuaternion::Identity;
 	CVector3 mirrormaefront = CVector3::Zero;
+
+	CSprite m_mpsprite;									//スプライト
+	CShaderResourceView m_mptexture;					//ミラーMPテクスチャ。
+	CSprite m_mpbsprite;									//スプライト
+	CQuaternion m_mprotation = CQuaternion::Identity;
+	CShaderResourceView m_mpbtexture;					//ミラーMPbarテクスチャ。
+	CSprite m_msprite;									//スプライト
+	CQuaternion m_mpbrotation = CQuaternion::Identity;
+	CShaderResourceView m_mtexture;						//ミラーMirrorテクスチャ。
+	float mpscale=1.0;
 	int fl = 0;//保管フラグ
+	int mpflag = 0;
 	float angleX = 0.0f;
 	float angleY = 0.0f;
 	float m_vAngle = 0.0f;		//仮想の角度
@@ -59,7 +71,7 @@ public:
 		}
 		return *instance;
 	}
-	Torokko* toro = NULL;
+	Player* pl = NULL;
 	float angle = 0;
 };
 

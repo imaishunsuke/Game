@@ -35,6 +35,9 @@
     <Filter Include="Assets\testLevel">
       <UniqueIdentifier>{be9331e5-b62a-4b74-a8fd-8b24baae6de7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\light">
+      <UniqueIdentifier>{7cab6d42-2bfc-4ac7-af39-91c6af022ff0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -61,6 +64,12 @@
     <ClCompile Include="TitleGame.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="Goal.cpp" />
+    <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="Enemybace.cpp" />
+    <ClCompile Include="EnemyBall.cpp" />
+    <ClCompile Include="LightChip.cpp" />
+    <ClCompile Include="LightLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -89,6 +98,12 @@
     <ClInclude Include="TitleGame.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="Goal.h" />
+    <ClInclude Include="GameOver.h" />
+    <ClInclude Include="Enemybace.h" />
+    <ClInclude Include="EnemyBall.h" />
+    <ClInclude Include="LightChip.h" />
+    <ClInclude Include="LightLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -157,6 +172,30 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\plane1.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\prottro4.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\protbackground2.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\plane.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\plane1.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\light\dlig_[00]_[255]_[255]_[255].FBX">
+      <Filter>Assets\light</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -284,6 +323,9 @@
     <CustomBuild Include="Assets\level\plane1.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
+    <CustomBuild Include="Assets\light\ptlig_[00]_[255]_[255]_[255]_[40].tks">
+      <Filter>Assets\light</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\fade.png">
@@ -308,6 +350,30 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\title.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\hp.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\hpmp_bar.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\mp.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\hpd.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Result.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\GameOver.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\mirror.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\utc_nomal.tga">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

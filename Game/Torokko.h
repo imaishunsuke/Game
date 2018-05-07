@@ -48,6 +48,7 @@ public:
 	
 	CVector3 m_position = CVector3::Zero;				//座標。
 	CCharacterController m_charaCon;					//キャラクターコントローラー。
+	CCharacterController::ColliderType m_collidertype = CCharacterController::Capsule;
 	CVector3 m_moveSpeed = CVector3::Zero;				//移動速度。
 	CQuaternion qRot = CQuaternion::Identity;
 	CQuaternion m_rotation = CQuaternion::Identity;		//回転

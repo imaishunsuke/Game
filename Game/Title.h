@@ -30,6 +30,7 @@ private:
 	//titlecamera* m_titlecamera = nullptr;
 
 	//Fade* m_fade = nullptr;
+	Fade* m_fade = nullptr;
 	CShaderResourceView m_texture;
 	CSprite m_sprite;
 };
