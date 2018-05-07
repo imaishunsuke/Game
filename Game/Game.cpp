@@ -12,7 +12,7 @@
 #include "ResultScene.h"
 #include "GameOver.h"
 #include "EnemyBall.h"
-#include "DirectionLight.h"
+#include "LightLevel.h"
 
 Game::Game()
 {
@@ -63,7 +63,7 @@ bool Game::Start()
 	m_level.Build(L"level/protobj2.tks");
 	m_level.Build(L"level/protobj3.tks");
 	m_level.Build(L"level/plane1.tks");
-	m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
+	m_ptLight.ptLightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
 	return true;
 }
 void Game::Update()

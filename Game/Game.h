@@ -1,6 +1,6 @@
 #pragma once
-#include"Level.h"
-#include"DirectionLight.h"
+#include "Level.h"
+#include "LightLevel.h"
 #include "tkEngine/graphics/effect/tkEffect.h"
 
 class Fade;
@@ -36,7 +36,7 @@ private:
 	bool m_isWaitFadeout = false;
 	float m_waitTimer = 0.0f;
 	Level m_level;
-	DirectionLight m_ptLight;
+	LightLevel m_ptLight;
 	
 	CVector3 m_position= { 30.0f, 10.0f, 0.0f };
 	int GameOverFlag = 0;

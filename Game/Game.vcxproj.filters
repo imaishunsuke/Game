@@ -63,8 +63,8 @@
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Enemybace.cpp" />
     <ClCompile Include="EnemyBall.cpp" />
-    <ClCompile Include="DirectionLight.cpp" />
     <ClCompile Include="LightChip.cpp" />
+    <ClCompile Include="LightLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -92,8 +92,8 @@
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Enemybace.h" />
     <ClInclude Include="EnemyBall.h" />
-    <ClInclude Include="DirectionLight.h" />
     <ClInclude Include="LightChip.h" />
+    <ClInclude Include="LightLevel.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">

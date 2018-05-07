@@ -17,8 +17,9 @@ void LightChip::OnDestroy()
 	{
 		DeleteGO(ptLight);
 	}
+	for (auto dirLight : m_directionLightList);
 }
-void LightChip::Init(
+void LightChip::ptLightInit(
 	const wchar_t* modelDataFilePath,
 	CVector3 pos,				//座標
 	CVector3 color,				//カラー
@@ -27,7 +28,7 @@ void LightChip::Init(
 	prefab::CPointLight* ptLight = NewGO<prefab::CPointLight>(0);
 	//ポイントライトの座標を指定
 	ptLight->SetPosition(pos);
-	//ライトの方向を設定
+	//ライトのカラーを設定
 	ptLight->SetColor(color);
 	//ポイントライトの減衰パラメータを設定
 	CVector3 attn = CVector3::Zero;
@@ -36,6 +37,19 @@ void LightChip::Init(
 	ptLight->SetAttn(attn);
 	//ポイントライトのリストに積む
 	m_pointLightList.push_back(ptLight);
+}
+void LightChip::dirLightInit(
+	const wchar_t* modelFilePath,
+	CVector3 color
+	) {
+	prefab::CDirectionLight* dirLight;
+	dirLight = NewGO<prefab::CDirectionLight>(0);
+	//ライトの方向を設定
+	dirLight->SetDirection({ 0.707f,-0.707f,0.0f });
+	//ライトの色を設定
+	dirLight->SetColor(color);
+	GraphicsEngine().GetShadowMap().SetLightDirection({ 0.0,-1.0f,0.0f });
+	m_directionLightList.push_back(dirLight);
 }
 bool LightChip::Start()
 {
