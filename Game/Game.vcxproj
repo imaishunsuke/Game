@@ -829,12 +829,12 @@
     <CustomBuild Include="Assets\light\ptlig_[00]_[255]_[255]_[255]_[40].tks">
       <FileType>Document</FileType>
     </CustomBuild>
- </ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\mirror.png" />
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Assets\modelData\utc_nomal.tga" />
+    <Image Include="Assets\modelData\utc_nomal.tga" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
