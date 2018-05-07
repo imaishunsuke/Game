@@ -110,9 +110,10 @@ namespace tkEngine {
 			}
 		};
 	}
-	void CCharacterController::Init(float radius, float height, const CVector3& position,ColliderType type)
+	void CCharacterController::Init(float radius, float height, float gravity, const CVector3& position,ColliderType type)
 	{
 		m_position = position;
+		m_gravity = gravity;
 		RigidBodyInfo rbInfo;
 		switch (type)
 		{
@@ -157,12 +158,15 @@ namespace tkEngine {
 	}
 	const CVector3& CCharacterController::Execute(float deltaTime, CVector3& moveSpeed, ColliderType type)
 	{
+
 		if (m_player == nullptr) {
 			m_player = FindGO<Player>("Player");
 		}
 		if (m_mirror == nullptr) {
 			m_mirror = FindGO<Mirror>("Mirror");
 		}
+		//速度に重力加速度を加える。
+		moveSpeed.y += m_gravity * deltaTime;
 		//次の移動先となる座標を計算する。
 		CVector3 nextPosition = m_position;
 		//速度からこのフレームでの移動量を求める。オイラー積分。

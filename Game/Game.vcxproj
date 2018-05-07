@@ -826,6 +826,9 @@
     </CustomBuild>
     <ImageContentTask Include="Assets\sprite\mirror.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\modelData\utc_nomal.tga" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

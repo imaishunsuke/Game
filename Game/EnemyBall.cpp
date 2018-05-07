@@ -19,10 +19,11 @@ bool EnemyBall::Start()
 	//CapsuleType type
 
 	m_charaCon.Init(
-		4.0f,
-		0.0f,
+		4.0f,			//半径
+		0.0f,			//高さ
+		-220,			//重力
 		m_position,
-		m_collidertype
+		m_collidertype	//コライダーのタイプ
 	);
 	diff = m_player->m_position - m_position;
 	return true;

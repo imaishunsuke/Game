@@ -31,9 +31,11 @@ namespace tkEngine{
 		 * @brief	初期化。
 		 *@param[in]	radius		カプセルコライダーの半径。
 		 *@param[in]	height		カプセルコライダーの高さ。
+		 *@param[in]	gravity		重力。
 		 *@param[in]	position	初期位置。
+		 *@param[in]	type		コライダーの種類。
 		 */
-		void Init(float radius, float height, const CVector3& position ,ColliderType type);
+		void Init(float radius, float height,float gravity, const CVector3& position ,ColliderType type);
 		/*!
 		 * @brief	実行。
 		 *@param[in]	deltaTime		経過時間。単位は秒。
@@ -93,6 +95,13 @@ namespace tkEngine{
 			return &m_collider;
 		}
 		/*!
+		* @brief	重力を取得。
+		*/
+		void SetGravity(float gravity)
+		{
+			m_gravity = gravity;
+		}
+		/*!
 		* @brief	剛体を取得。
 		*/
 		CRigidBody* GetRigidBody()
@@ -124,6 +133,7 @@ namespace tkEngine{
 		CSphereCollider		m_sphereCollider;
 		CRigidBody			m_rigidBody;					//剛体。
 		int					m_ignoreCollisionAttrs = 2;		//ビットが立っている属性のコリジョンとのあたり判定を無視する。
+		float				m_gravity = -9.8f;
 		Player* m_player = nullptr;
 		Mirror* m_mirror = nullptr;
 	};

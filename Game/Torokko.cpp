@@ -37,6 +37,7 @@ bool Torokko::Start() {
 	m_charaCon.Init(
 		3.0,		//”¼Œa
 		1.0f,		//‚‚³
+		-220,
 		m_position,	//‰ŠúˆÊ’u
 		m_collidertype
 	);
