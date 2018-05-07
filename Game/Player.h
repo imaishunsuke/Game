@@ -47,8 +47,11 @@ public:
 	CQuaternion m_rotation2 = CQuaternion::Identity;	//‰ñ“]
 	CFont m_font;										//•¶Žš
 	CVector3 m_gpos = CVector3::Zero;
+	CVector3 m_cf = CVector3::Zero;
+
 
 	float x;
+	float y;
 	float plposlen;
 	float angle;
 	float hpscale=1;
