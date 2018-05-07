@@ -15,11 +15,11 @@ bool testMirror::Start()
 	m_skinModelData.Load(L"modelData/unityChan.cmo");
 	m_skinModel.Init(m_skinModelData);
 	//キャラクターコントローラーの初期化
-	m_charaCon.Init(
+	/*m_charaCon.Init(
 		3.0f,
 		7.0f,
 		m_position
-	);
+	);*/
 	/*m_target = { 0.0f,0.0f,5.0f };
 	CVector3 toPos;
 	toPos = m_target - m_position;
@@ -49,7 +49,7 @@ void testMirror::Update()
 		m_rotation.SetRotation(CVector3::AxisY, angle);
 	}
 	
-	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
+	//m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
 	m_skinModel.Update(m_position, m_rotation, m_scale);
 }
 //CMatrix g_mirrorViewMatrix;

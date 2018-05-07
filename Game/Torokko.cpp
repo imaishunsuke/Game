@@ -37,7 +37,8 @@ bool Torokko::Start() {
 	m_charaCon.Init(
 		3.0,		//îºåa
 		1.0f,		//çÇÇ≥
-		m_position	//èâä˙à íu
+		m_position,	//èâä˙à íu
+		m_collidertype
 	);
 	m_mirror = FindGO<Mirror>("Mirror");
 	m_player = FindGO<Player>("Player");
@@ -91,7 +92,7 @@ void Torokko::Move() {
 		m_moveSpeed.y = m_rot.m[2][1];
 		m_moveSpeed.z = m_rot.m[2][2] * 15;
 	}
-		m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
+	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed,m_collidertype);
 	}
 }
 
