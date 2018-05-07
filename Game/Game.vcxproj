@@ -823,6 +823,7 @@
     <CustomBuild Include="Assets\light\ptlig_[00]_[255]_[255]_[255]_[40].tks">
       <FileType>Document</FileType>
     </CustomBuild>
+    <ImageContentTask Include="Assets\sprite\mirror.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

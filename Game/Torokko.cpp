@@ -98,7 +98,6 @@ void Torokko::Move() {
 
 void Torokko::Update()
 {
-	
 	if (dameflag == 1) {
 		if (nlcount<=0) {	
 			nlcount = 0.01;
