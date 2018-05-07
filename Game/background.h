@@ -21,6 +21,8 @@ public:
 	/////////////////////////////////////////////////////
 	CSkinModelData m_skinModelData;	//スキンモデルデータ。
 	CSkinModel m_skinModel;			//スキンモデル。
+	CSkinModelData m_skinModelData1;	//ゴール壁スキンモデルデータ。
+	CSkinModel m_skinModel1;			//ゴール壁スキンモデル。
 	CVector3 m_position = CVector3::Zero;	//座標。
 	CMeshCollider m_meshCollider;	//メッシュコライダー。
 	CRigidBody m_rigidBody;			//剛体。

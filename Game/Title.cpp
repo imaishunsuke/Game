@@ -28,8 +28,9 @@ void Title::OnDestroy()
 bool Title::Start()
 {
 	m_title = NewGO<TitleGame>(0,"TitleGame");
-	m_titletorokko = NewGO<titletorokko>(0, "titletorokko");
-	m_titlecamera = NewGO<titlecamera>(0, "titledamera");
+	
+	//m_titlecamera = NewGO<titlecamera>(0, "titledamera");
+	//m_titletorokko = NewGO<titletorokko>(0, "titletorokko");
 	/*MainCamera().SetTarget({ 0.0f,0.0f,0.0f });
 	MainCamera().SetNear(1.0f);
 	MainCamera().SetFar(5000.0f);

@@ -21,7 +21,7 @@ bool Mirror::Start()
 	);*/
 
 	toro = FindGO<Torokko>("Trokko");
-	//Torokko*toro = FindGO<Torokko>("Trokko");
+	
 	m_position = toro->m_position;
 	diff.x = toro->m_gpos.x - toro->m_position.x;
 	diff.y = toro->m_gpos.y - toro->m_position.y;
@@ -35,35 +35,11 @@ bool Mirror::Start()
 }
 
 void Mirror::Rotation() {
-	//Torokko*toro = FindGO<Torokko>("Trokko");
 	m_rot.MakeRotationFromQuaternion(toro->m_rotation);
 	m_position.x = m_rot.m[2][0] * Mirlen + toro->m_position.x;
 	m_position.y = m_rot.m[2][1] * Mirlen + toro->m_position.y;
 	m_position.z = m_rot.m[2][2] * Mirlen + toro->m_position.z;
 
-	/*CVector3 torokkoforward;
-	torokkoforward.x = m_rot.m[2][0];
-	torokkoforward.y = m_rot.m[2][1];
-	torokkoforward.z = m_rot.m[2][2];
-	m_mirrorforwardMatrix.MakeRotationFromQuaternion(m_rotation);
-	CVector3 mirrorLength;
-	mirrorLength.x = m_mirrorforwardMatrix.m[2][0];
-	mirrorLength.y = m_mirrorforwardMatrix.m[2][1];
-	mirrorLength.z = m_mirrorforwardMatrix.m[2][2];
-	
-	float to=torokkoforward.Dot(mirrorLength);
-	float len=torokkoforward.Length() * mirrorLength.Length();
-	angle= acosf(to);*/
-	//qRot.x = toro->m_rotation.x;
-	//qRot.y = toro->m_rotation.y;
-	//qRot.z = toro->m_rotation.z;
-	//qRot.w = toro->m_rotation.w;
-	/* CQuaternion OldRot = CQuaternion::Identity;
-
-	OldRot.SetRotation(CVector3::AxisY, angle);
-	m_rotation.Multiply(OldRot);*/
-	//m_rotation.Multiply(OldRot);
-	//m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }
 void Mirror::Update()
 {
@@ -149,6 +125,7 @@ void Mirror::Update()
 	//anglex = CMath::RadToDeg(anglex);
 	
 
+
 	//if (anglex > 70&& rStick.x != 0)
 	//{
 	//	//anglex = 70;
@@ -167,6 +144,50 @@ void Mirror::Update()
 	//		}
 	//	}
 	//}
+
+	//Yの範囲
+	if (70<=anglex&& rStick.x != 0)
+	{
+		qRot = CQuaternion::Identity;
+		if (rStick.x>0)
+		qRot.SetRotationDeg(CVector3::AxisY,70.0f);
+		else
+			qRot.SetRotationDeg(CVector3::AxisY, -70.0f);
+		m_rotation=qRot;
+		qRot2.Multiply(qRot);
+	}
+	//鏡の前方向
+	mirrorfront.x = mirroraxis.m[2][0];
+	mirrorfront.y = mirroraxis.m[2][1];
+	mirrorfront.z = 0.0f;
+	mirrorfront.Normalize();
+	//トロッコの前方向
+	torokkofront.x = m_rot.m[2][0];
+	torokkofront.y = m_rot.m[2][1];
+	torokkofront.z = 0.0f;
+	torokkofront.Normalize();
+	float angley = 0.0f;
+	angley = acosf(torokkofront.Dot(mirrorfront));
+	angley = 180 / 3.14159 * angley;
+	if (angley < -45) {
+		rStick.y = 0.0f;
+		angley = -45;
+	}
+	if (angley > 45) {
+		rStick.y = 0.0f;
+		angley = 45;
+	}
+	if (angley >= -45 && angley <= 45)
+	{
+		//加算
+		qRot.SetRotationDeg(CVector3::AxisX, rStick.y);
+		m_rotation.Multiply(qRot);
+		qRot2.Multiply(qRot);
+	}
+	if (Pad(0).GetRStickXF()) {
+		m_rotation1 = qRot2;
+		fl = 0;
+	}
 		
 	/*	qRot = CQuaternion::Identity;
 		qRot.SetRotationDeg(CVector3::AxisY, rStick.x);*/
@@ -178,6 +199,7 @@ void Mirror::Update()
 //		d = 1;
 //	}
 	
+
 
 
 	
@@ -224,6 +246,12 @@ void Mirror::Update()
 	/////////////////////////////////////////////////////////
 	////
 
+	//float x = Pad(0).GetLStickXF();
+	if (Pad(0).GetLStickXF()) {
+		m_rotation = toro->m_rotation ;
+		m_rotation.Multiply(m_rotation1);
+	}
+
 	//回転行列の作成
 	CMatrix forwardMatrix;
 	forwardMatrix.MakeRotationFromQuaternion(qRot);
@@ -242,7 +270,7 @@ void Mirror::Update()
 }
 void Mirror::Render(CRenderContext& rc)
 {
-	CMatrix axis = CMatrix::Identity;									//プレイヤーの任意の軸周りの回転行列を作成
+	CMatrix axis = CMatrix::Identity;						//プレイヤーの任意の軸周りの回転行列を作成
 	axis.MakeRotationFromQuaternion(m_rotation);
 
 	m_target.x = m_position.x + axis.m[2][0] * 10.0f;		//プレイヤーの注視点を設定
@@ -250,7 +278,6 @@ void Mirror::Render(CRenderContext& rc)
 	m_target.z = m_position.z + axis.m[2][2] * 10.0f;
 	
 	m_position.x = m_position.x - axis.m[2][0] * 20.0f;		//プレイヤーの注視点を設定
-	/*m_position.y = m_position.y - axis.m[2][1] * 20.0f;*/
 	m_position.z = m_position.z - axis.m[2][2] * 20.0f;
 	CVector3 cameraPos = m_position;
 	cameraPos.x += axis.m[2][0] * 2.0f;
@@ -259,9 +286,6 @@ void Mirror::Render(CRenderContext& rc)
 
 	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
 	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, 1.0f, 0.1f, 10000.0f);
-	/*if (m_mirror == NULL) {
-		m_mirror = FindGO<testMirror>("testMirror");
-	}*/
 	alphaflag = 1;
 	m_skinModel.Draw(rc,
 		MainCamera().GetViewMatrix(),

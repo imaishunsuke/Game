@@ -2,6 +2,7 @@
 #include "Torokko.h"
 #include "Player.h"
 #include "Mirror.h"
+#include"Goal.h"
 
 Torokko::Torokko()
 {
@@ -38,7 +39,9 @@ bool Torokko::Start() {
 		1.0f,		//çÇÇ≥
 		m_position	//èâä˙à íu
 	);
-	
+	m_mirror = FindGO<Mirror>("Mirror");
+	m_player = FindGO<Player>("Player");
+	m_goal = FindGO<Goal>("Goal");
 	return true;
 }
 
@@ -62,7 +65,6 @@ void Torokko::Move() {
 			MoveFlag = 1;
 		}
 		if (MoveFlag == 1) {
-			//m_rot.MakeRotationFromQuaternion(m_rotation);
 			m_moveSpeed.x = m_rot.m[2][0] * 20;
 			m_moveSpeed.y = m_rot.m[2][1];
 			m_moveSpeed.z = m_rot.m[2][2] * 20;
@@ -95,37 +97,104 @@ void Torokko::Move() {
 
 void Torokko::Update()
 {
+	
+	if (dameflag == 1) {
+		if (nlcount<=0) {	
+			nlcount = 0.01;
+		}
+		//lifecountÇ™5Ç…Ç»Ç¡ÇΩÇÁÉQÅ[ÉÄÉIÅ[ÉoÅ[
+		if ((lifecount == 0 && m_player->hpscale <= 0.8)
+			||(lifecount == 1 && m_player->hpscale <= 0.6)
+			|| (lifecount == 2 && m_player->hpscale <= 0.4)
+			|| (lifecount == 3 && m_player->hpscale <= 0.2)
+			|| (lifecount == 4 && m_player->hpscale <= 0.0))
+		{
+			lifecount = lifecount + 1;
+		}
+		dameflag = 0;
+	}
+	//ÇQïbä‘ñ≥ìG
+	if (nlcount > 0) {
+		nlcount = nlcount + GameTime().GetFrameDeltaTime();
+		if (2 <= nlcount) {
+			nlcount = 0;
+			dameflag = 0;
+		}
+	}
 	if (flag==1) {
 		Move();
 	}
 	float x = Pad(0).GetLStickXF();
-	if (Pad(0).GetLStickXF()) {
-		qRot.SetRotationDeg(CVector3::AxisY, 5.0f*x);
-		m_rotation.Multiply(qRot);
-	}
-	m_skinModel.Update(m_position, m_rotation, CVector3::One);
-	m_mirror = FindGO<Mirror>("Mirror");
-	/*Torokko*toro = FindGO<Torokko>("Trokko");
-	m_rotation.x = toro->m_rotation.x;
-	m_rotation.y = toro->m_rotation.y;
-	m_rotation.z = toro->m_rotation.z;
-	m_rotation.w = toro->m_rotation.w;
-	m_mirror->m_skinModel.Update(m_mirror->m_position, m_rotation, CVector3::One);*/
+	if (m_goal->gflag == 0) {
 
+		if (Pad(0).GetLStickXF()) {
+			qRot.SetRotationDeg(CVector3::AxisY, 5.0f*x);
+			m_rotation.Multiply(qRot);
+		}
+	}
+	m_position.y = 0;
+	if (lifecount == 0) {
+		m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	}
+	if (lifecount == 1) {
+		m_skinModel1.Update(m_position, m_rotation, CVector3::One);
+	}
+	if (lifecount == 2) {
+		m_skinModel2.Update(m_position, m_rotation, CVector3::One);
+	}
+	if (lifecount == 3) {
+		m_skinModel3.Update(m_position, m_rotation, CVector3::One);
+	}
+	if (lifecount == 4) {
+		m_skinModel4.Update(m_position, m_rotation, CVector3::One);
+	}
 }
 
 void Torokko::Render(CRenderContext& rc)
 {
 	if (m_mirror == NULL) {
-		m_mirror = FindGO<Mirror>("Mirror");
 	}
 	m_mirror->alphaflag = 0;
-	m_skinModel.Draw(rc, 
-		MainCamera().GetViewMatrix(),
-		MainCamera().GetProjectionMatrix(),
-		CMatrix::Identity,
-		CMatrix::Identity,
-		m_mirror->alphaflag);
+	if (lifecount == 0) {
+		m_skinModel.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			m_mirror->alphaflag);
+	}
+	if (lifecount == 1) {
+		m_skinModel1.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			m_mirror->alphaflag);
+	}
+	if (lifecount == 2) {
+		m_skinModel2.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			m_mirror->alphaflag);
+	}
+	if (lifecount == 3) {
+		m_skinModel3.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			m_mirror->alphaflag);
+	}
+	if (lifecount == 4) {
+		m_skinModel4.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			m_mirror->alphaflag);
+	}
 }
 void Torokko::PostRender(CRenderContext& rc) {
 	if (flag == 0&&count==0)

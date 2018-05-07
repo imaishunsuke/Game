@@ -21,6 +21,8 @@ bool background::Start()
 	//モデルをロード。
 	m_skinModelData.Load(L"modelData/protbackground1.cmo");
 	m_skinModel.Init(m_skinModelData);
+	m_skinModelData1.Load(L"modelData/plane.cmo");
+	m_skinModel1.Init(m_skinModelData1);
 	//メッシュコライダーを作成。
 	m_meshCollider.CreateFromSkinModel(m_skinModel, nullptr);
 	//剛体の情報を作成。
@@ -37,6 +39,7 @@ bool background::Start()
 void background::Update()
 {
 	m_skinModel.Update(CVector3::Zero, CQuaternion::Identity, CVector3::One);
+	m_skinModel1.Update(CVector3::Zero, CQuaternion::Identity, CVector3::One);
 }
 void background::Render(CRenderContext& rc)
 {
@@ -45,6 +48,12 @@ void background::Render(CRenderContext& rc)
 	}
 	m_mirror->alphaflag = 1;
 	m_skinModel.Draw(rc,
+		MainCamera().GetViewMatrix(),
+		MainCamera().GetProjectionMatrix(),
+		CMatrix::Identity,
+		CMatrix::Identity,
+		m_mirror->alphaflag);
+	m_skinModel1.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,

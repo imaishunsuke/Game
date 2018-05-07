@@ -29,6 +29,8 @@ private:
 	//titletorokko* m_titletorokko = nullptr;
 	//titlecamera* m_titlecamera = nullptr;
 
-
+	//Fade* m_fade = nullptr;
+	CShaderResourceView m_texture;
+	CSprite m_sprite;
 };
 

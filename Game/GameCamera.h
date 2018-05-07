@@ -1,5 +1,6 @@
 #pragma once
 #include"Player.h"
+#include"Goal.h"
 //ばねカメラを使用したい場合はtkSpringCamera.hをインクルードする必要がある。
 #include "tkEngine/camera/tkSpringCamera.h"
 class GameCamera : public IGameObject
@@ -14,7 +15,6 @@ public:
 	CQuaternion m_rotation = CQuaternion::Identity;
 	CSpringCamera m_springCamera;
 	CVector3 m_toCameraPos = CVector3::Zero;
-	
-private:
-	Player*m_player;
+	Player*m_player=nullptr;
+	Goal* m_goal = nullptr;
 };

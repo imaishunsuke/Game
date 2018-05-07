@@ -623,6 +623,8 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapChip.cpp" />
@@ -652,6 +654,8 @@
   <ItemGroup>
     <ClInclude Include="background.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameOver.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Mirror.h" />
@@ -681,7 +685,10 @@
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\mirror.FBX" />
+    <MeshContentTask Include="Assets\modelData\plane.FBX" />
+    <MeshContentTask Include="Assets\modelData\plane1.FBX" />
     <MeshContentTask Include="Assets\modelData\protbackground1.FBX" />
+    <MeshContentTask Include="Assets\modelData\protbackground2.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj1.FBX" />
     <MeshContentTask Include="Assets\modelData\protobj2.FBX" />
@@ -761,9 +768,6 @@
     <CustomBuild Include="Assets\effect\Texture\wind02.png" />
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\title.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ImageContentTask Include="Assets\sprite\fade.png" />
   </ItemGroup>
   <ItemGroup>
@@ -787,9 +791,29 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Result.png" />
+  </ItemGroup>
+  <ItemGroup>
     <CustomBuild Include="Assets\modelData\unityChan.tks">
       <FileType>Document</FileType>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\hp.png" />
+    <ImageContentTask Include="Assets\sprite\hpmp_bar.png" />
+    <ImageContentTask Include="Assets\sprite\mp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\hpd.png" />
+    <CustomBuild Include="Assets\level\plane1.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\GameOver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\title.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
