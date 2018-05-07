@@ -702,6 +702,7 @@
     <MeshContentTask Include="Assets\modelData\prottro2.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro3.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro4.FBX" />
+    <MeshContentTask Include="Assets\modelData\stage.FBX" />
     <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX" />
     <MeshContentTask Include="Assets\modelData\testGround.FBX" />
     <MeshContentTask Include="Assets\modelData\testobj.FBX" />

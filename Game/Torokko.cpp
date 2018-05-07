@@ -60,32 +60,32 @@ void Torokko::Move() {
 			m_moveSpeed.z += m_rot.m[2][2] * 1;
 		}
 		if (MoveFlag==0
-			&&m_moveSpeed.x >= 19.0 
-			|| m_moveSpeed.z >= 19.0)
+			&&m_moveSpeed.x >= 49.0 
+			|| m_moveSpeed.z >= 49.0)
 		{
 			MoveFlag = 1;
 		}
 		if (MoveFlag == 1) {
-			m_moveSpeed.x = m_rot.m[2][0] * 20;
+			m_moveSpeed.x = m_rot.m[2][0] * 50;
 			m_moveSpeed.y = m_rot.m[2][1];
-			m_moveSpeed.z = m_rot.m[2][2] * 20;
+			m_moveSpeed.z = m_rot.m[2][2] * 50;
 		}
 	}
 		//ˆÚ“®‘¬“xÅ‘å’l
-		if (m_moveSpeed.z >= 20.0) {
+		if (m_moveSpeed.z >= 50.0) {
 			
-			m_moveSpeed.z = 20.0;
+			m_moveSpeed.z = 50.0;
 		}
 		if (m_moveSpeed.x >= 20.0)
 		{
-			m_moveSpeed.x = 20.0;
+			m_moveSpeed.x = 50.0;
 		}
-		if (m_moveSpeed.z <= -20.0)
+		if (m_moveSpeed.z <= -50.0)
 		{
-			m_moveSpeed.z = -20.0;
+			m_moveSpeed.z = -50.0;
 		}
-		if (m_moveSpeed.x <= -20.0) {
-			m_moveSpeed.x = -20.0;
+		if (m_moveSpeed.x <= -50.0) {
+			m_moveSpeed.x = -50.0;
 		}
 	if (x >= 1) {
 		m_moveSpeed.x = m_rot.m[2][0]* 15;

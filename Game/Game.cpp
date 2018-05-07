@@ -43,7 +43,7 @@ bool Game::Start()
 	//リザルト画面作成
 	m_result = NewGO<ResultScene>(0, "Result");
 	//トロッコ作成
-	m_torokko = NewGO<Torokko>(0, "Trokko");
+	//m_torokko = NewGO<Torokko>(0, "Trokko");
 	//プレイヤー作成
 	m_player=NewGO<Player>(0,"Player");
 	//カメラ作成

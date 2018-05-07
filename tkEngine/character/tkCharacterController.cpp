@@ -7,7 +7,7 @@
 #include "tkEngine/Physics/tkCollisionAttr.h"
 #include "tkEngine/tkEngine.h"
 #include "Game/Mirror.h"
-#include "Game/Torokko.h"
+#include "Game/Player.h"
 namespace tkEngine {
 
 	namespace {
@@ -91,7 +91,7 @@ namespace tkEngine {
 					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character	//もしくはコリジョン属性がキャラクタなので壁とみなす。
 					) {
 					isHit = true;
-					toro->dameflag = 1;
+					pl->dameflag = 1;
 					CVector3 hitPosTmp;
 					hitPosTmp.Set(convexResult.m_hitPointLocal);
 					//交点との距離を調べる。
