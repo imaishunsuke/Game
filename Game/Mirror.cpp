@@ -206,12 +206,14 @@ void Mirror::Render(CRenderContext& rc)
 	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
 	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, 1.0f, 0.1f, 10000.0f);
 	alphaflag = 1;
-	m_skinModel.Draw(rc,
-		MainCamera().GetViewMatrix(),
-		MainCamera().GetProjectionMatrix(),
-		m_mirrorViewMatrix,
-		m_mirrorProjectionMatrix,
-		alphaflag);
+	if (m_isMirror == true) {
+		m_skinModel.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			m_mirrorViewMatrix,
+			m_mirrorProjectionMatrix,
+			alphaflag);
+	}
 }
 
 void Mirror::PostRender(CRenderContext& rc) {

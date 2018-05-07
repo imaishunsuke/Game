@@ -60,10 +60,8 @@ bool Player::Start() {
 }
 void Player::Move() {
 
-	m_moveSpeed.y -= 98.0f * GameTime().GetFrameDeltaTime();					//重力　変更する
-	if (Pad(0).IsTrigger(enButtonA)) {
-		m_moveSpeed.y += 98.0f * GameTime().GetFrameDeltaTime();
-	}
+	//m_moveSpeed.y -= 98.0f * GameTime().GetFrameDeltaTime();					//重力　変更する
+	
 	//左スティックの入力量を受け取る。
 	float lStick_x = Pad(0).GetLStickXF();
 	float lStick_y = Pad(0).GetLStickYF();
@@ -80,6 +78,9 @@ void Player::Move() {
 	m_moveSpeed.z = 0.0f;
 	m_moveSpeed += cameraForward * lStick_y * 100.0f;	//奥方向への移動速度を代入。
 	m_moveSpeed += cameraRight * lStick_x * 100.0f;		//右方向への移動速度を加算。
+	if (Pad(0).IsTrigger(enButtonA) && m_charaCon.IsOnGround() == true) {
+		m_moveSpeed.y += 98.0f;
+	}
 	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed, m_collidertype);
 }
 void Player::Rotation() {
