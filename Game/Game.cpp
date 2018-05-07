@@ -57,7 +57,7 @@ bool Game::Start()
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
-	m_toro = FindGO<Torokko>("Trokko");
+	//m_toro = FindGO<Torokko>("Trokko");
 	//ƒŒƒxƒ‹‚ğ\’z‚·‚éB
 	m_level.Build(L"level/protobj1.tks");
 	m_level.Build(L"level/protobj2.tks");

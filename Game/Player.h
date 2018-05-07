@@ -40,6 +40,7 @@ public:
 	CQuaternion qRot = CQuaternion::Identity;
 	CQuaternion m_rotation = CQuaternion::Identity;		//‰ñ“]
 	CQuaternion m_rotation2 = CQuaternion::Identity;		//‰ñ“]
+	CCharacterController::ColliderType m_collidertype = CCharacterController::Capsule;
 	float plposlen;
 	float angle;
 	float hpscale=1;
