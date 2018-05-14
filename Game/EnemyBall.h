@@ -4,7 +4,7 @@
 //#include "tkEngine/physics/tkSphereCollider.h"
 #include "tkEngine/character/tkCharacterController.h"
 class Player;
-class Torokko;
+class Goal;
 
 class EnemyBall : public Enemybace
 {
@@ -26,7 +26,7 @@ public:
 	CVector3 m_axisX;									//任意の回転軸
 	CQuaternion m_rotation = CQuaternion::Identity;
 	Player* m_player = nullptr;
-	Torokko* toro = nullptr;							//プレイヤーに要変更
+	Goal* m_goal = nullptr;
 	CVector3 diff = CVector3::Zero;
 	/*CSphereCollider m_collider;
 	CRigidBody m_rigidBody;*/

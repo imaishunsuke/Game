@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EnemyBall.h"
 #include "Player.h"
-#include "Torokko.h"
+#include "Goal.h"
 
 
 EnemyBall::EnemyBall()
@@ -13,7 +13,7 @@ EnemyBall::~EnemyBall()
 bool EnemyBall::Start() 
 {
 	m_player = FindGO<Player>("Player");
-	toro = FindGO<Torokko>("Trokko");
+	m_goal = FindGO<Goal>("Goal");
 	m_skinModelData.Load(L"modelData/EnemyBall.cmo");
 	m_skinModel.Init(m_skinModelData);
 	//CapsuleType type
@@ -53,16 +53,19 @@ void EnemyBall::Update()
 		m_moveSpeed.z = OldDiff.z * 20.0f;
 	}*/
 	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed,m_collidertype);
-	m_skinModel.Update(m_position,m_rotation,scale);
+	m_skinModel.Update(m_position, m_rotation, scale);
 }
 void EnemyBall::Render(CRenderContext& rc)
 {
-	int alphaflag = 1;
-	m_skinModel.Draw(rc,
-		MainCamera().GetViewMatrix(), 
-		MainCamera().GetProjectionMatrix(),
-		CMatrix::Identity,
-		CMatrix::Identity,
-		alphaflag
-	);
+	if (m_goal == 0)
+	{
+		int alphaflag = 1;
+		m_skinModel.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			CMatrix::Identity,
+			CMatrix::Identity,
+			alphaflag
+		);
+	}
 }

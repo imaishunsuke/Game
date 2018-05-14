@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Mirror.h"
 #include"Player.h"
+#include"Goal.h"
 
 Mirror::Mirror()
 {
@@ -34,7 +35,7 @@ bool Mirror::Start()
 	);*/
 
 	pl = FindGO<Player>("Player");
-	
+	m_goal = FindGO<Goal>("Goal");
 	m_position = pl->m_position;
 	diff.x = pl->m_gpos.x - pl->m_position.x;
 	diff.y = pl->m_gpos.y - pl->m_position.y;
@@ -58,7 +59,7 @@ void Mirror::Update()
 {
 	Rotation();
 
-	if (Pad(0).IsTrigger(enButtonB) && m_isMirror == false&&mpscale>0) {
+	if (Pad(0).IsTrigger(enButtonB) && m_isMirror == false&&mpflag==0) {
 		m_isMirror = true;
 	}
 	else if(Pad(0).IsTrigger(enButtonB) && m_isMirror == true){
@@ -164,11 +165,10 @@ void Mirror::Update()
 	CMatrix mirrorCamera;
 	CVector3 up = { 0.0f,1.0f,0.0f };
 	mirrorCamera.MakeLookAt(m_position, target, up);
-	//m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 
 	if (m_isMirror == true&&pl->flag==1&& mpflag == 0) {
-		mpscale -= GameTime().GetFrameDeltaTime()*0.05;
+		mpscale -= GameTime().GetFrameDeltaTime()*0.5;
 	}
 
 	if (mpscale <= 0) {
@@ -178,8 +178,9 @@ void Mirror::Update()
 	}
 	if (mpflag==1)
 	{
-		mpscale += GameTime().GetFrameDeltaTime()*0.05;
+		mpscale += GameTime().GetFrameDeltaTime()*0.5;
 		if (mpscale >= 1) {
+			mpscale = 1;
 			mpflag = 0;
 		}
 	}
@@ -206,22 +207,26 @@ void Mirror::Render(CRenderContext& rc)
 	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
 	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, 1.0f, 0.1f, 10000.0f);
 	alphaflag = 1;
-	m_skinModel.Draw(rc,
-		MainCamera().GetViewMatrix(),
-		MainCamera().GetProjectionMatrix(),
-		m_mirrorViewMatrix,
-		m_mirrorProjectionMatrix,
-		alphaflag);
+	if (m_isMirror == true) {
+		m_skinModel.Draw(rc,
+			MainCamera().GetViewMatrix(),
+			MainCamera().GetProjectionMatrix(),
+			m_mirrorViewMatrix,
+			m_mirrorProjectionMatrix,
+			alphaflag);
+	}
 }
 
 void Mirror::PostRender(CRenderContext& rc) {
-	m_msprite.Draw(rc,
-		MainCamera2D().GetViewMatrix(),
-		MainCamera2D().GetProjectionMatrix());
-	m_mpbsprite.Draw(rc,
-		MainCamera2D().GetViewMatrix(),
-		MainCamera2D().GetProjectionMatrix());
-	m_mpsprite.Draw(rc,
-		MainCamera2D().GetViewMatrix(),
-		MainCamera2D().GetProjectionMatrix());
+	if (m_goal->gflag == 0) {
+		m_msprite.Draw(rc,
+			MainCamera2D().GetViewMatrix(),
+			MainCamera2D().GetProjectionMatrix());
+		m_mpbsprite.Draw(rc,
+			MainCamera2D().GetViewMatrix(),
+			MainCamera2D().GetProjectionMatrix());
+		m_mpsprite.Draw(rc,
+			MainCamera2D().GetViewMatrix(),
+			MainCamera2D().GetProjectionMatrix());
+	}
 }

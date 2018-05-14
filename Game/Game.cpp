@@ -28,7 +28,7 @@ void Game::OnDestroy()
 	DeleteGO(m_skinModelRender);
 	DeleteGO(m_background);
 	DeleteGO(m_player);
-	DeleteGO(m_torokko);
+	/*DeleteGO(m_torokko);*/
 	DeleteGO(m_gamecamera);
 	DeleteGO(m_mirror);
 	DeleteGO(m_goal);
@@ -70,12 +70,17 @@ bool Game::Start()
 	//m_toro = FindGO<Torokko>("Trokko");
 	m_pl = FindGO<Player>("Player");
 	//ÉåÉxÉãÇç\ízÇ∑ÇÈÅB
-	m_level.Build(L"level/protobj1.tks");
-	m_level.Build(L"level/protobj2.tks");
-	m_level.Build(L"level/protobj3.tks");
-	m_level.Build(L"level/plane1.tks");
+
 	m_ptLight.ptLightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
 	//m_dirLight.dirLightBuild(L"light/dlig_00.tks");
+
+	m_level.Build(L"level/Block_1x2_001.tks");
+	m_level.Build(L"level/Block_1x2_002.tks");
+	m_level.Build(L"level/Block_1x2_003.tks");
+	m_level.Build(L"level/Block_1x2_004.tks");
+	//m_level.Build(L"level/plane1.tks");
+	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
+
 	return true;
 }
 void Game::Update()

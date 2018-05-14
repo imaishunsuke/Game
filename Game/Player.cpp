@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Player.h"
-//#include"Torokko.h"
 #include"Mirror.h"
 #include"Goal.h"
 
@@ -34,7 +33,9 @@ bool Player::Start() {
 	//hp barテクスチャ
 	m_hbtexture.CreateFromDDSTextureFromFile(L"sprite/hpmp_bar.dds");
 	m_hbsprite.Init(m_hbtexture, 490, 70);
-	
+	m_position.y = -1.5;
+	//線分初期化
+	m_sen = m_position;
 	m_charaCon.Init(
 		3.0,		//半径
 		1.0f,		//高さ
@@ -42,48 +43,90 @@ bool Player::Start() {
 		m_position,	//初期位置
 		m_collidertype
 	);
+
 	flag = 0;
 	count = 0;
 	scale = 3.0f;
 	m_gpos = { 0.0,0.0,5.0 };
 	m_mirror = FindGO<Mirror>("Mirror");
-	/*toro = FindGO<Torokko>("Trokko");*/
 	m_goal = FindGO<Goal>("Goal");
-	/*m_position = toro->m_position;
-	diff.x = toro->m_gpos.x - toro->m_position.x;
-	diff.y = toro->m_gpos.y - toro->m_position.y;
-	diff.z = toro->m_gpos.z - toro->m_position.z;
-	plposlen=diff.Length();*/
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	m_skinModel.SetShadowCasterFlag(true);
 	return true;
 }
 void Player::Move() {
-	x = Pad(0).GetLStickXF();
+	
+	//左スティックの入力量を受け取る。
+	float lStick_x = Pad(0).GetLStickXF();
+	float lStick_y = Pad(0).GetLStickYF();
+	//カメラの前方方向と右方向を取得。
+	CVector3 cameraForward = MainCamera().GetForward();
+	CVector3 cameraRight = MainCamera().GetRight();
+	//XZ平面での前方方向、右方向に変換する。
+	cameraForward.y = 0.0f;
+	cameraForward.Normalize();
+	cameraRight.y = 0.0f;
+	cameraRight.Normalize();
+	//XZ成分の移動速度をクリア。
+	/*m_moveSpeed.x = 0.0f;
+	m_moveSpeed.z = 0.0f;*/
+	cameraForward *=lStick_y * 400.0f*GameTime().GetFrameDeltaTime();	//奥方向への移動速度を代入。	
+	cameraRight *= lStick_x * 400.0f*GameTime().GetFrameDeltaTime();	//右方向への移動速度を加算。
+	
+	if (Pad(0).IsTrigger(enButtonA) && m_charaCon.IsOnGround() == true) {
+		m_moveSpeed.y += 98.0f;
+	}
+
+	//摩擦
+	CVector3 masa = m_moveSpeed;
+	if (m_charaCon.IsJump()) {
+		//ジャンプ中
+		masa *= -1.0f;
+	}
+	else {
+		//その他
+		masa *= -3.0f;
+	}
+
+	m_moveSpeed.x += masa.x * GameTime().GetFrameDeltaTime();
+	m_moveSpeed.z += masa.z * GameTime().GetFrameDeltaTime();
+
+	m_moveSpeed += cameraForward;
+	m_moveSpeed += cameraRight;
+	
+	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed, m_collidertype);
 }
+
 void Player::Rotation() {
-	/*m_rot.MakeRotationFromQuaternion(toro->m_rotation);
-	m_position.x = m_rot.m[2][0] * plposlen + toro->m_position.x;
-	m_position.y = m_rot.m[2][1] * plposlen + toro->m_position.y;
-	m_position.z = m_rot.m[2][2] * plposlen + toro->m_position.z;
-	m_rotation.x = toro->m_rotation.x;
-	m_rotation.y = toro->m_rotation.y;
-	m_rotation.z = toro->m_rotation.z;
-	m_rotation.w = toro->m_rotation.w;*/
-
-
-	m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	if (fabsf(m_moveSpeed.x) < 0.001f
+		&& fabsf(m_moveSpeed.z) < 0.001f) {
+		return;
+	}
+	float angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
+	m_rotation.SetRotation(CVector3::AxisY, angle);
+}
+void Player::Line() {
+	if (m_mirror->m_isMirror == false) {
+		m_sen = m_position;
+		//m_skinModelData.FindMesh();
+		
+	}
 }
 void Player::Dead() {
 	//圧死判定
 	if (Pad(0).IsTrigger(enButtonX)) {
-		//toro->lifecount = 5;
+		lifecount = 5;
 	}
 }
 void Player::Update()
 {
-	Move();
-	Rotation();
+	if (flag == 1&&m_goal->gflag==0) {
+		//移動
+		Move();
+		//回転
+		Rotation();
+	}
+	//圧死
 	Dead();
 	
 	if (dameflag == 1) {
@@ -124,7 +167,6 @@ void Player::Update()
 		hpdscale = hpdscale - 0.01;
 		m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });
 	}
-	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed, m_collidertype);
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	m_hsprite.Update(m_hposition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{hpscale,1.0,1.0 }, { 0.0,1.0 });
 	m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{hpdscale,1.0,1.0}, { 0.0,1.0 });
