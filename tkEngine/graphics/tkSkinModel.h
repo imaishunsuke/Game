@@ -181,9 +181,9 @@ namespace tkEngine {
 			//for ç°à‰ mMirrorViewÇ∆mMirrorPorjÇí«â¡
 			CMatrix mMirrorView;
 			CMatrix mMirrorProj;
-			int		alphaflag;
 			CVector4 screenParam;
 			int isShadowReceiver;
+			int		alphaflag;
 		};
 		CAnimation* m_animation = nullptr;
 		CSkinModelData*	m_skinModelData = nullptr;

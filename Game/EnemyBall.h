@@ -20,7 +20,7 @@ public:
 	//ƒƒ“ƒo•Ï”
 	CSkinModel m_skinModel;
 	CSkinModelData m_skinModelData;
-	CVector3 m_position = { 0.0f,4.0f,15.0f };
+	CVector3 m_position = {-100.0f,28.0f,0.0f };
 	CVector3 m_moveSpeed = CVector3::Zero;
 	CVector3 up = CVector3::Up;							//ã•ûŒü
 	CVector3 m_axisX;									//”CˆÓ‚Ì‰ñ“]²
@@ -32,6 +32,7 @@ public:
 	CRigidBody m_rigidBody;*/
 	CCharacterController m_charaCon;
 	CCharacterController::ColliderType m_collidertype = CCharacterController::Sphere;
+	float r = 20.0f;									//”¼Œa
 };
 
 

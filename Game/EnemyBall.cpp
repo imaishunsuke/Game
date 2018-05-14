@@ -19,7 +19,7 @@ bool EnemyBall::Start()
 	//CapsuleType type
 
 	m_charaCon.Init(
-		4.0f,			//半径
+		r,			//半径
 		0.0f,			//高さ
 		-220,			//重力
 		m_position,
@@ -30,22 +30,22 @@ bool EnemyBall::Start()
 }
 void EnemyBall::Update()
 {
-	if (m_charaCon.IsOnGround() == false) {
-		m_moveSpeed.y -= 4.8f * GameTime().GetFrameDeltaTime();					//重力　変更する
-	}
-	CVector3 scale = { 0.1f,0.1f,0.1f };
+	CVector3 scale = CVector3::One;
+	//CVector3 scale = { 0.15f,0.15f,0.15f };
 	if (m_charaCon.IsHitWall() == true) {
 		diff = m_player->m_position - m_position;
 	}
 	diff.y = 0.0f;							//Y軸は必要ないので
 	//if (diff.Length() > 10.0f) {						//距離が一定距離以内なら追いかける
 		diff.Normalize();
-		m_moveSpeed.x = diff.x * 20.0f;				//プレイヤーの移動速度が決定したら調整する//////////////////////
+	//プレイヤーの移動速度が決定したら調整する----------------------------------
+		m_moveSpeed.x = diff.x * 20.0f;				
 		m_moveSpeed.z = diff.z * 20.0f;
+	//--------------------------------------------------------------------------	
 		m_axisX.Cross(diff, up);
 		m_axisX.Normalize();
 		CQuaternion qRot;
-		qRot.SetRotationDeg(m_axisX, -15.0f);
+		qRot.SetRotationDeg(m_axisX,-(CMath::PI * (r * 2.0f)/m_moveSpeed.Length()));
 		m_rotation.Multiply(qRot);
 	//}
 	/*if (diff.Length() <= 10.0f) {

@@ -158,10 +158,13 @@
     <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\light\dlig_[00]_[255]_[255]_[255].FBX">
-      <Filter>Assets\light</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\dlig_[00]_[255]_[255]_[255].FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\EnemyBall2.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -290,6 +293,9 @@
       <Filter>Assets\level</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\light\ptlig_[00]_[255]_[255]_[255]_[40].tks">
+      <Filter>Assets\light</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\light\dlig_00.tks">
       <Filter>Assets\light</Filter>
     </CustomBuild>
   </ItemGroup>

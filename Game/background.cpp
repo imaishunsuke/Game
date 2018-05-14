@@ -21,6 +21,7 @@ bool background::Start()
 	//モデルをロード。
 	m_skinModelData.Load(L"modelData/stage.cmo");
 	m_skinModel.Init(m_skinModelData);
+	m_skinModel.SetShadowReceiverFlag(true);
 	/*m_skinModelData1.Load(L"modelData/plane.cmo");
 	m_skinModel1.Init(m_skinModelData1);*/
 	//メッシュコライダーを作成。
