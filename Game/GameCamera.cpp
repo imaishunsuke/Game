@@ -49,7 +49,7 @@ void GameCamera::Update()
 		toNewCameraPos.Normalize();
 
 		//‚¿‚å‚Á‚Æ‚¸‚Â’Ç”ö
-		float weight = 3.0f;
+		float weight = 0.8f;
 		toNewCameraPos = toNewCameraPos * weight + toCameraPos * (1.0f - weight);
 		toNewCameraPos.Normalize();
 		toNewCameraPos.x *= toCameraPosLen;

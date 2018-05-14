@@ -3,6 +3,7 @@
 using namespace tkEngine;
 
 class Player;
+class Goal;
 
 class Mirror : public tkEngine::IGameObject
 {
@@ -62,6 +63,7 @@ public:
 		return *instance;
 	}
 	Player* pl = NULL;
+	Goal* m_goal = NULL;
 	float angle = 0;
 };
 

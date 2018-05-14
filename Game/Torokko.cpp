@@ -36,7 +36,7 @@ bool Torokko::Start() {
 	scale = 3.0f;
 	m_charaCon.Init(
 		3.0,		//”¼Œa
-		1.0f,		//‚‚³
+		10.0f,		//‚‚³
 		-220,
 		m_position,	//‰ŠúˆÊ’u
 		m_collidertype

@@ -35,7 +35,6 @@ void Level::Build(const wchar_t*levelDataaFilePath) {
 		t = rotation.y;
 		rotation.y = rotation.z;
 		rotation.z = -t;
-
 		//ボーン名からモデルデータのファイルパスを作成する。
 		const wchar_t* boneName = bone->GetName();
 		wchar_t modelDataFilePath[256];

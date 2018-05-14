@@ -21,6 +21,7 @@ public:
 	//移動処理。
 	void Move();
 	void Turn();
+	void Line();
 	void Rotation();
 	void Dead();
 	
@@ -50,6 +51,8 @@ public:
 	CFont m_font;										//文字
 	CVector3 m_gpos = CVector3::Zero;
 	CVector3 m_cf = CVector3::Zero;
+	CVector3 m_sen = CVector3::Zero;					//線分
+	CSkinModelData m_skinModelData1;						//スキンモデルデータ。
 
 
 	float x;

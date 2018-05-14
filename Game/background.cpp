@@ -19,7 +19,7 @@ void background::OnDestroy()
 bool background::Start()
 {
 	//モデルをロード。
-	m_skinModelData.Load(L"modelData/stage.cmo");
+	m_skinModelData.Load(L"modelData/ground1.cmo");
 	m_skinModel.Init(m_skinModelData);
 	/*m_skinModelData1.Load(L"modelData/plane.cmo");
 	m_skinModel1.Init(m_skinModelData1);*/

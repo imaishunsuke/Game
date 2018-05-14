@@ -687,7 +687,13 @@
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\light\dlig_[00]_[255]_[255]_[255].FBX" />
+    <MeshContentTask Include="Assets\modelData\Block_1x2_001.FBX" />
+    <MeshContentTask Include="Assets\modelData\Block_1x2_002.FBX" />
+    <MeshContentTask Include="Assets\modelData\Block_1x2_003.FBX" />
+    <MeshContentTask Include="Assets\modelData\Block_1x2_004.FBX" />
     <MeshContentTask Include="Assets\modelData\EnemyBall.FBX" />
+    <MeshContentTask Include="Assets\modelData\ground.FBX" />
+    <MeshContentTask Include="Assets\modelData\ground1.FBX" />
     <MeshContentTask Include="Assets\modelData\mirror.FBX" />
     <MeshContentTask Include="Assets\modelData\plane.FBX" />
     <MeshContentTask Include="Assets\modelData\plane1.FBX" />
@@ -828,6 +834,26 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\modelData\utc_nomal.tga" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\level\Block_1x2_001.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\level\Block_1x2_004.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\level\Block_1x2_002.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\level\Block_1x2_003.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
