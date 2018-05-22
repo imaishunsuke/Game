@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "background.h"
-#include"Mirror.h"
+#include "Mirror.h"
 
 background::background()
 {
@@ -19,7 +19,7 @@ void background::OnDestroy()
 bool background::Start()
 {
 	//モデルをロード。
-	m_skinModelData.Load(L"modelData/ground1.cmo");
+	m_skinModelData.Load(L"modelData/ground4.cmo");
 	m_skinModel.Init(m_skinModelData);
 	m_skinModel.SetShadowReceiverFlag(true);
 	/*m_skinModelData1.Load(L"modelData/plane.cmo");

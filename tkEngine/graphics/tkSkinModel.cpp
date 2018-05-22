@@ -145,13 +145,13 @@ namespace tkEngine{
 		//for 今井 ミラービューとミラープロジェクションを設定する。
 		vsCb.mMirrorView = mMirrorView;
 		vsCb.mMirrorProj = mMirrorProj;
-		vsCb.alphaflag = alphaflag;
 		vsCb.screenParam.x = 0.0f;
 		vsCb.screenParam.y = 0.0f;
 		vsCb.screenParam.z = static_cast<float>(GraphicsEngine().GetFrameBufferWidth());
 		vsCb.screenParam.w = static_cast<float>(GraphicsEngine().GetFrameBufferHeight());
 		vsCb.isShadowReceiver = m_isShadowReceiver ? 1 : 0;
-		
+		vsCb.alphaflag = alphaflag;
+
 		renderContext.UpdateSubresource(m_cb, &vsCb);
 		renderContext.VSSetConstantBuffer(enSkinModelCBReg_VSPS, m_cb);
 		renderContext.PSSetConstantBuffer(enSkinModelCBReg_VSPS, m_cb);

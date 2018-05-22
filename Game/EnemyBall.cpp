@@ -57,8 +57,8 @@ void EnemyBall::Update()
 }
 void EnemyBall::Render(CRenderContext& rc)
 {
-	if (m_goal == 0)
-	{
+	//if (m_goal == 0)
+	//{
 		int alphaflag = 1;
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),
@@ -67,5 +67,5 @@ void EnemyBall::Render(CRenderContext& rc)
 			CMatrix::Identity,
 			alphaflag
 		);
-	}
+	//}
 }

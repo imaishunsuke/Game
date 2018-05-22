@@ -43,7 +43,7 @@ bool Player::Start() {
 		m_position,	//‰ŠúˆÊ’u
 		m_collidertype
 	);
-
+	m_position = { 0.0f,15.0f,0.0f };
 	flag = 0;
 	count = 0;
 	scale = 3.0f;

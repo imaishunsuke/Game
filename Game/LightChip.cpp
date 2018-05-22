@@ -96,10 +96,10 @@ void LightChip::Update()
 	addmove = CVector3::Zero;
 	//ライトの調整方法---------------------------------------------
 	//auto it = m_ptLightMap.find(00);
-	prefab::CPointLight* pt;
-	//ライトのナンバーは００～　始まる
-	pt = GetptLight(00);
-	pt->SetColor({ 0.0f,0.0f,0.0f,1.0f });
+	//prefab::CPointLight* pt;
+	////ライトのナンバーは００～　始まる
+	//pt = GetptLight(00);
+	//pt->SetColor({ 0.0f,0.0f,0.0f,1.0f });
 	//--------------------------------------------------------------
 	/*for (auto& pt : m_pointLightList)
 	{
