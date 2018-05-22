@@ -57,12 +57,10 @@ void testMapChip::Render(CRenderContext& rc)
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
-		m_mirror->alphaflag = 0;
 	m_skinModel.Draw(
 		rc, 
 		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		m_mirror->m_mirrorViewMatrix,
-		m_mirror->m_mirrorProjectionMatrix,
-		m_mirror->alphaflag);
+		m_mirror->m_mirrorProjectionMatrix);
 }

@@ -42,12 +42,10 @@ void testBackGround::Render(CRenderContext& rc)
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
-	m_mirror->alphaflag = 1;
 	m_skinModel.Draw(
 		rc, 
 		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-		CMatrix::Identity,
-		m_mirror->alphaflag);
+		CMatrix::Identity);
 }

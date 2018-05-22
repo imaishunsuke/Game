@@ -49,23 +49,24 @@ bool MapChip::Start()
 }
 void MapChip::Update()
 {
-	m_skinModel.Update(m_position, m_rotation, m_scale);
-}
-void MapChip::Render(CRenderContext& rc)
-{
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
 	if (m_mirror->m_isMirror == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
-		m_mirror->alphaflag = 0;
+		m_mirror->_alphaflag = 0;
 	}
 	else {
-		m_mirror->alphaflag = 1;
+		m_mirror->_alphaflag = 1;
 	}
+	m_skinModel.SetDiscardMirror(m_mirror->_alphaflag);
+	m_skinModel.Update(m_position, m_rotation, m_scale);
+}
+void MapChip::Render(CRenderContext& rc)
+{
+	
 	m_skinModel.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
 		m_mirror->m_mirrorViewMatrix,
-		m_mirror->m_mirrorProjectionMatrix,
-		m_mirror->alphaflag);
+		m_mirror->m_mirrorProjectionMatrix);
 }

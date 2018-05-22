@@ -37,14 +37,14 @@ void Game::OnDestroy()
 }
 bool Game::Start()
 {
-	//prefab::CDirectionLight* dirLight;
-	//dirLight = NewGO<prefab::CDirectionLight>(0);
-	////ライトの方向を設定
-	//dirLight->SetDirection({ 0.707f,-0.707f,0.0f });
-	////ライトの色を設定
-	//dirLight->SetColor({ 50.0f,50.0f,50.0f,0.0f });
-	//LightManager().SetAmbientLight({ 0.2f, 0.2f, 0.2f });
-	//GraphicsEngine().GetShadowMap().SetLightDirection({ 0.0,-1.0f,0.0f });
+	prefab::CDirectionLight* dirLight;
+	dirLight = NewGO<prefab::CDirectionLight>(0);
+	//ライトの方向を設定
+	dirLight->SetDirection({ 0.707f,-0.707f,0.0f });
+	//ライトの色を設定
+	dirLight->SetColor({ 5.0f,5.0f,5.0f,0.0f });
+	LightManager().SetAmbientLight({ 0.2f, 0.2f, 0.2f });
+	GraphicsEngine().GetShadowMap().SetLightDirection({ 0.0,-1.0f,0.0f });
 	//m_directionLightList.push_back(dirLight);
 	//background作成
 	m_background=NewGO<background>(0, "background");
