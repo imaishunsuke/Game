@@ -34,7 +34,6 @@ namespace tkEngine{
 			mLVP, 
 			CMatrix::Identity,
 			CMatrix::Identity, 
-			CMatrix::Identity,
-			Mirror::GetInstance().alphaflag);
+			CMatrix::Identity);
 	}
 }

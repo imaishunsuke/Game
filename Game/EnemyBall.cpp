@@ -2,7 +2,7 @@
 #include "EnemyBall.h"
 #include "Player.h"
 #include "Goal.h"
-
+#include"Mirror.h"
 
 EnemyBall::EnemyBall()
 {
@@ -57,15 +57,23 @@ void EnemyBall::Update()
 }
 void EnemyBall::Render(CRenderContext& rc)
 {
-	if (m_goal == 0)
+	
 	{
-		int alphaflag = 1;
+		if (m_mirror == NULL) {
+			m_mirror = FindGO<Mirror>("Mirror");
+		}
+		if (m_mirror->m_isMirror == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
+			m_mirror->_alphaflag = 0;
+		}
+		else {
+			m_mirror->_alphaflag = 1;
+		}
+		m_skinModel.SetDiscardMirror(m_mirror->_alphaflag);
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			CMatrix::Identity,
-			CMatrix::Identity,
-			alphaflag
+			CMatrix::Identity
 		);
 	}
 }

@@ -105,8 +105,7 @@ namespace tkEngine {
 			const CMatrix& viewMatrix,
 			const CMatrix& projMatrix,
 			const CMatrix& mMirrorView,
-			const CMatrix& mMirrorProj,
-			const int&	   alphaflag
+			const CMatrix& mMirrorProj
 		);
 		/*!
 		*@brief	メッシュの検索。
@@ -168,6 +167,13 @@ namespace tkEngine {
 		{
 			m_animation = animation;
 		}
+		/*!
+		*@brief	鏡が消えるフラグ。
+		*/
+		void SetDiscardMirror(bool flag)
+		{
+			m_isDiscardMirror = flag;
+		}
 	private:
 		/*!
 		 *@brief	ワールド行列の更新。
@@ -197,7 +203,7 @@ namespace tkEngine {
 		CStructuredBuffer	m_instancingDataSB;				//!<インスタンシング描画用のストラクチャーバッファ。
 		int m_maxInstance = 1;								//!<インスタンスの最大数
 		int m_numInstance = 0;								//!<インスタンスの数。
-
-		Mirror* m_mirror = NULL;
+		int m_isDiscardMirror = 1;								//!<鏡によって消えるフラグ。
+		Mirror* m_mirror = nullptr;
 	};
 }

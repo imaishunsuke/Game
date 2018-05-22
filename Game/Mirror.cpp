@@ -165,8 +165,10 @@ void Mirror::Update()
 	CMatrix mirrorCamera;
 	CVector3 up = { 0.0f,1.0f,0.0f };
 	mirrorCamera.MakeLookAt(m_position, target, up);
-	m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	if (m_isMirror == true) {
 
+		m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	}
 	if (m_isMirror == true&&pl->flag==1&& mpflag == 0) {
 		mpscale -= GameTime().GetFrameDeltaTime()*0.5;
 	}
@@ -206,14 +208,12 @@ void Mirror::Render(CRenderContext& rc)
 
 	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
 	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, 1.0f, 0.1f, 10000.0f);
-	alphaflag = 1;
 	if (m_isMirror == true) {
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			m_mirrorViewMatrix,
-			m_mirrorProjectionMatrix,
-			alphaflag);
+			m_mirrorProjectionMatrix);
 	}
 }
 

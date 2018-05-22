@@ -211,7 +211,7 @@
       <ContentOutput>$(ProjectDir)/Resource/modelData/%(Filename).cmo</ContentOutput>
     </MeshContentTask>
     <ImageContentTask>
-      <ContentOutput>$(ProjectDir)/Assets/sprite/%(Filename).dds</ContentOutput>
+      <ContentOutput>$(ProjectDir)/Resource/sprite/%(Filename).dds</ContentOutput>
     </ImageContentTask>
     <CustomBuild>
       <Command>call $(ProjectDir)..\tkTools\tkContentTools.bat %(Identity) $(OutDir)</Command>
@@ -268,7 +268,7 @@
       <ContentOutput>$(ProjectDir)/Resource/modelData/%(Filename).cmo</ContentOutput>
     </MeshContentTask>
     <ImageContentTask>
-      <ContentOutput>$(ProjectDir)/Assets/sprite/%(Filename).dds</ContentOutput>
+      <ContentOutput>$(ProjectDir)/Resource/sprite/%(Filename).dds</ContentOutput>
     </ImageContentTask>
     <CustomBuild>
       <Command>call $(ProjectDir)..\tkTools\tkContentTools.bat %(Identity) $(OutDir)</Command>
@@ -325,7 +325,7 @@
       <ContentOutput>$(ProjectDir)/Resource/modelData/%(Filename).cmo</ContentOutput>
     </MeshContentTask>
     <ImageContentTask>
-      <ContentOutput>$(ProjectDir)/Assets/sprite/%(Filename).dds</ContentOutput>
+      <ContentOutput>$(ProjectDir)/Resource/sprite/%(Filename).dds</ContentOutput>
     </ImageContentTask>
     <CustomBuild>
       <Command>call $(ProjectDir)..\tkTools\tkContentTools.bat %(Identity) $(OutDir)</Command>
@@ -377,7 +377,7 @@
       <ContentOutput>$(ProjectDir)/Resource/modelData/%(Filename).cmo</ContentOutput>
     </MeshContentTask>
     <ImageContentTask>
-      <ContentOutput>$(ProjectDir)/Assets/sprite/%(Filename).dds</ContentOutput>
+      <ContentOutput>$(ProjectDir)/Resource/sprite/%(Filename).dds</ContentOutput>
     </ImageContentTask>
     <CustomBuild>
       <Command>call $(ProjectDir)..\tkTools\tkContentTools.bat %(Identity) $(OutDir)</Command>
@@ -509,7 +509,7 @@
       <ContentOutput>$(ProjectDir)/Resource/modelData/%(Filename).cmo</ContentOutput>
     </MeshContentTask>
     <ImageContentTask>
-      <ContentOutput>$(ProjectDir)/Assets/sprite/%(Filename).dds</ContentOutput>
+      <ContentOutput>$(ProjectDir)/Resource/sprite/%(Filename).dds</ContentOutput>
     </ImageContentTask>
     <CustomBuild>
       <Command>call $(ProjectDir)..\tkTools\tkContentTools.bat %(Identity) $(OutDir)</Command>
@@ -565,7 +565,7 @@
       <ContentOutput>$(ProjectDir)/Resource/modelData/%(Filename).cmo</ContentOutput>
     </MeshContentTask>
     <ImageContentTask>
-      <ContentOutput>$(ProjectDir)/Assets/sprite/%(Filename).dds</ContentOutput>
+      <ContentOutput>$(ProjectDir)/Resource/sprite/%(Filename).dds</ContentOutput>
     </ImageContentTask>
     <CustomBuild>
       <Command>call $(ProjectDir)..\tkTools\tkContentTools.bat %(Identity) $(OutDir)</Command>
@@ -686,15 +686,12 @@
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Assets\modelData\dlig_[00]_[255]_[255]_[255].FBX" />
     <MeshContentTask Include="Assets\modelData\EnemyBall.FBX" />
     <MeshContentTask Include="Assets\modelData\EnemyBall2.FBX" />
-    <MeshContentTask Include="Assets\light\dlig_[00]_[255]_[255]_[255].FBX" />
     <MeshContentTask Include="Assets\modelData\Block_1x2_001.FBX" />
     <MeshContentTask Include="Assets\modelData\Block_1x2_002.FBX" />
     <MeshContentTask Include="Assets\modelData\Block_1x2_003.FBX" />
     <MeshContentTask Include="Assets\modelData\Block_1x2_004.FBX" />
-    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX" />
     <MeshContentTask Include="Assets\modelData\ground.FBX" />
     <MeshContentTask Include="Assets\modelData\ground1.FBX" />
     <MeshContentTask Include="Assets\modelData\mirror.FBX" />

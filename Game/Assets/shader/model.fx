@@ -490,6 +490,20 @@ float4 PSMain_RenderDepth( PSInput_RenderToDepth In ) : SV_Target0
 PSOutput_RenderGBuffer PSMain_RenderGBuffer( PSInput In )
 {
 	PSOutput_RenderGBuffer Out = (PSOutput_RenderGBuffer)0;
+	float4 pos = float4(In.Pos, 1.0f);
+	//鏡カメラの座標系に変換する。
+	pos = mul(mMirrorView, pos);
+	//鏡スクリーンの座標系に変換する。
+	pos = mul(mMirrorProj, pos);
+	pos.xyz /= pos.w;
+	if (alphaflag == 0
+		&& pos.x <= 1.0f && pos.x >= -1.0f
+		&& pos.y <= 1.0f && pos.y >= -1.0f
+		&& pos.z >= 0.0f && pos.z < 1.0f
+		) {
+		//鏡に映っているのでピクセルキル。
+		discard;
+	}
 	//法線はまだ出さない。
 	//シャドウマスク出力する。
 	if(isPCFShadowMap){

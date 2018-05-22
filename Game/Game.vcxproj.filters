@@ -161,9 +161,6 @@
     <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\dlig_[00]_[255]_[255]_[255].FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\EnemyBall2.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>

@@ -67,8 +67,7 @@ namespace tkEngine{
 				MainCamera().GetViewMatrix(),
 				MainCamera().GetProjectionMatrix(),
 				m_mirror->m_mirrorViewMatrix,
-				m_mirror->m_mirrorProjectionMatrix,
-				Mirror::GetInstance().alphaflag
+				m_mirror->m_mirrorProjectionMatrix
 			);
 		}
 		m_skinModels.clear();

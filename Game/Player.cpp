@@ -121,11 +121,12 @@ void Player::Dead() {
 void Player::Update()
 {
 	if (flag == 1&&m_goal->gflag==0) {
-		//ˆÚ“®
-		Move();
-		//‰ñ“]
-		Rotation();
+	
 	}
+	//ˆÚ“®
+	Move();
+	//‰ñ“]
+	Rotation();
 	//ˆ³Ž€
 	Dead();
 	
@@ -176,13 +177,11 @@ void Player::Update()
 void Player::Render(CRenderContext& rc)
 {
 	//ƒvƒŒƒCƒ„[•`‰æ
-	m_mirror->alphaflag = 0;
 	m_skinModel.Draw(rc, 
 		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-		CMatrix::Identity,
-		m_mirror->alphaflag);
+		CMatrix::Identity);
 		
 }
 

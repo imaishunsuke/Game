@@ -33,6 +33,8 @@ public:
 	CCharacterController m_charaCon;
 	CCharacterController::ColliderType m_collidertype = CCharacterController::Sphere;
 	float r = 20.0f;									//”¼Œa
+	Mirror* m_mirror = NULL;
+
 };
 
 
