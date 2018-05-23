@@ -34,10 +34,11 @@ void Game::OnDestroy()
 	DeleteGO(m_goal);
 	DeleteGO(m_result);
 	DeleteGO(m_enemyball);
+	DeleteGO(dirLight);
 }
 bool Game::Start()
 {
-	prefab::CDirectionLight* dirLight;
+	
 	dirLight = NewGO<prefab::CDirectionLight>(0);
 	//ƒ‰ƒCƒg‚Ì•ûŒü‚ðÝ’è
 	dirLight->SetDirection({ 0.707f,-0.707f,0.0f });

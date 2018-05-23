@@ -49,7 +49,7 @@ bool Player::Start() {
 	flag = 0;
 	count = 0;
 	scale = 3.0f;
-	m_gpos = { 0.0,0.0,5.0 };
+	m_gpos = m_position;
 	m_game=FindGO<Game>("Game");
 	m_mirror = FindGO<Mirror>("Mirror");
 	m_goal = FindGO<Goal>("Goal");

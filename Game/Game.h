@@ -51,4 +51,5 @@ private:
 	ResultScene* m_result = nullptr;
 	Player*m_pl = nullptr;
 	EnemyBall* m_enemyball = nullptr;
+	prefab::CDirectionLight* dirLight;
 };

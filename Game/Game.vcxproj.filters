@@ -182,7 +182,7 @@
     <MeshContentTask Include="Assets\modelData\ground1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX" />
+    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
  <Filter>Assets\modelData</Filter>
  </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
