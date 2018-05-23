@@ -199,15 +199,16 @@ void Mirror::Render(CRenderContext& rc)
 	m_target.y = m_position.y + axis.m[2][1] * 10.0f;
 	m_target.z = m_position.z + axis.m[2][2] * 10.0f;
 	
-	m_position.x = m_position.x - axis.m[2][0] * 20.0f;		//プレイヤーの注視点を設定
-	m_position.z = m_position.z - axis.m[2][2] * 20.0f;
+	m_position.x = m_position.x - axis.m[2][0] * 35.0f;		//プレイヤーの注視点を設定
+	m_position.z = m_position.z - axis.m[2][2] * 35.0f;
 	CVector3 cameraPos = m_position;
 	cameraPos.x += axis.m[2][0] * 2.0f;
 	cameraPos.y += 50.0f;
 	cameraPos.z += axis.m[2][2] * 2.0f;
 
 	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
-	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, 1.0f, 0.1f, 10000.0f);
+	static float aspect = 0.3f;
+	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, aspect, 20.0f, 10000.0f);
 	if (m_isMirror == true) {
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),

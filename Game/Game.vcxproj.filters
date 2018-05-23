@@ -158,6 +158,9 @@
     <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\dlig_[00]_[255]_[255]_[255].FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\EnemyBall2.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -256,6 +259,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Platform_Fernce_2x13x13.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\assitest.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -457,5 +463,10 @@
     <ImageContentTask Include="Assets\modelData\utc_nomal.tga">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\level\assitest.tks">
+      <Filter>Assets\level</Filter>
+    </None>
   </ItemGroup>
 </Project>

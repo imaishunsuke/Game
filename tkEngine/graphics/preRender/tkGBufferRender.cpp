@@ -52,7 +52,7 @@ namespace tkEngine{
 
 		//Zバッファはメインレンダリングターゲットのものを使用する。
 		m_GBuffer[0].SetDepthStencilView(
-			ge.GetMainRenderTarget().GetDepthStencilView()
+			ge.GetPreRender().GetZPrepass().GetDepthStencil()
 		);
 
 		m_shadowBlur.Init(m_GBuffer[enGBufferShadow].GetRenderTargetSRV(), 5.0f, config.shadowRenderConfig);

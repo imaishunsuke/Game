@@ -144,6 +144,8 @@ namespace tkEngine{
 		vsCb.mMirrorView = mMirrorView;
 		vsCb.mMirrorProj = mMirrorProj;
 		vsCb.alphaflag = m_isDiscardMirror;
+		vsCb.ditheringOrigin = m_ditheringPos;
+		vsCb.enableDithering = m_ditheringFlag;
 		vsCb.screenParam.x = 0.0f;
 		vsCb.screenParam.y = 0.0f;
 		vsCb.screenParam.z = static_cast<float>(GraphicsEngine().GetFrameBufferWidth());

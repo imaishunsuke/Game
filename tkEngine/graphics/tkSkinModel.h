@@ -174,6 +174,20 @@ namespace tkEngine {
 		{
 			m_isDiscardMirror = flag;
 		}
+		/*!
+		*@brief	ディザリングを行うフラグ。
+		*/
+		void SetDithering(bool flag)
+		{
+			m_ditheringFlag = flag;
+		}
+		/*!
+		*@brief	ディザリングを行う時の基点となる座標。
+		*/
+		void SetDitheringPos(CVector3 position)
+		{
+			m_ditheringPos = position;
+		}
 	private:
 		/*!
 		 *@brief	ワールド行列の更新。
@@ -188,8 +202,10 @@ namespace tkEngine {
 			CMatrix mMirrorView;
 			CMatrix mMirrorProj;
 			CVector4 screenParam;
+			CVector4 ditheringOrigin;	//ディザリングの基点となる座標。
 			int isShadowReceiver;
-			int		alphaflag;
+			int	alphaflag;
+			int enableDithering;		//ディザリングを行うかどうかのフラグ。0で行わない。1で行う。
 		};
 		CAnimation* m_animation = nullptr;
 		CSkinModelData*	m_skinModelData = nullptr;
@@ -204,6 +220,12 @@ namespace tkEngine {
 		int m_maxInstance = 1;								//!<インスタンスの最大数
 		int m_numInstance = 0;								//!<インスタンスの数。
 		int m_isDiscardMirror = 1;								//!<鏡によって消えるフラグ。
+		//ディザリング用のパラメター。
+		//ディザリングを行うかどうかのフラグ。
+		bool m_ditheringFlag = false;
+		//ディザリングの基点となる座標。
+		CVector3 m_ditheringPos = CVector3::Zero;
+
 		Mirror* m_mirror = nullptr;
 	};
 }

@@ -94,6 +94,7 @@ void Player::Move() {
 	m_moveSpeed += cameraForward;
 	m_moveSpeed += cameraRight;
 	
+	m_rot.MakeRotationFromQuaternion(m_rotation);
 	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed, m_collidertype);
 }
 

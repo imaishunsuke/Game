@@ -42,6 +42,10 @@ namespace tkEngine{
 		{
 			return m_depthBuffer.GetRenderTargetSRV();
 		}
+		ID3D11DepthStencilView* GetDepthStencil()
+		{
+			return m_depthBuffer.GetDepthStencilView();
+		}
 	private:
 		std::vector<CSkinModel*>	m_skinModels;			//!<スキンモデルのリスト。
 		CRenderTarget				m_depthBuffer;			//!<深度値を書き込むためのレンダリングターゲット。

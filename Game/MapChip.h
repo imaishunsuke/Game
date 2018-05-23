@@ -3,6 +3,9 @@
 #include "tkEngine/physics/tkMeshCollider.h"
 #include "tkEngine/physics/tkRigidBody.h"
 
+class Player;
+class GameCamera;
+
 class MapChip : public IGameObject
 {
 public:
@@ -30,4 +33,6 @@ public:
 	CMeshCollider m_meshCollider;		//!<メッシュコライダー。
 	CRigidBody m_rigidBody;				//!<剛体。
 	Mirror* m_mirror = NULL;
+	Player* m_player = NULL;
+	GameCamera* m_camera = NULL;
 };
