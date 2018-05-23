@@ -29,6 +29,7 @@ public:
 	//メンバ変数
 	//std::list<prefab::CPointLight*> m_pointLightList;		//ポイントライトのリスト
 	//std::list<prefab::CDirectionLight*>	m_directionLightList;	//ディレクションライトのリスト
+	prefab::CPointLight* ptLight;
 	std::map<int,prefab::CPointLight*> m_ptLightMap;
 	std::map<int, prefab::CDirectionLight*> m_dirLightMap;
 };

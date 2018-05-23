@@ -22,6 +22,7 @@ public:
 	int lightnum;							//ライトナンバー
 	CVector3 color = CVector3::Zero;		//カラー
 	int distanceDecay;						//減衰距離
+	LightChip* pointLig;
 	std::list<LightChip*> m_ptLightList;	//ポイントライトのリスト
 	std::list<LightChip*> m_dirLightList;	//ディレクションライトのリスト
 };
