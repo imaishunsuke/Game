@@ -185,6 +185,7 @@
     <MeshContentTask Include="Assets\modelData\ground1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\shader\tonemap.fx">

@@ -1,8 +1,10 @@
 #include "stdafx.h"
 #include "Player.h"
 #include"Mirror.h"
+#include"Game.h"
 #include"Goal.h"
-
+//#include"tkEngine/bulletPhysics/src/LinearMath/btConvexHull.h"
+#include"tkEngine/DirectXTK/Inc/SimpleMath.h"
 Player::Player()
 {
 }
@@ -48,6 +50,7 @@ bool Player::Start() {
 	count = 0;
 	scale = 3.0f;
 	m_gpos = { 0.0,0.0,5.0 };
+	m_game=FindGO<Game>("Game");
 	m_mirror = FindGO<Mirror>("Mirror");
 	m_goal = FindGO<Goal>("Goal");
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
@@ -107,15 +110,97 @@ void Player::Rotation() {
 }
 void Player::Line() {
 	if (m_mirror->m_isMirror == false) {
-		m_sen = m_position;
-		//m_skinModelData.FindMesh();
 		
+		
+		//m_sen = m_position;
+		//m_skinModelData.FindMesh();
 	}
 }
-void Player::Dead() {
+
+void Player::Dead(CRenderContext& rc) {
+	int numMesh = 0;
+	for (auto& mapChip : m_game->m_level.m_mapChipList) {
+		mapChip->m_skinModel.FindMesh([&](const auto& mesh) {
+			numMesh++;
+			ID3D11DeviceContext* deviceContext = GraphicsEngine().GetD3DDeviceContext();
+			//頂点バッファをロック
+			D3D11_MAPPED_SUBRESOURCE subresource;
+			deviceContext->Map(mesh->vertexBuffer.Get(), 0, D3D11_MAP_WRITE_NO_OVERWRITE, 0, &subresource);
+			//頂点バッファの定義を取得。
+			D3D11_BUFFER_DESC bufferDesc;
+			mesh->vertexBuffer->GetDesc(&bufferDesc);
+			
+			//頂点バッファの先頭アドレスを取得。
+			char* pVertexData = reinterpret_cast<char*>(subresource.pData);
+			//インデックスバッファをロック。
+			deviceContext->Map(mesh->indexBuffer.Get(), 0, D3D11_MAP_WRITE_NO_OVERWRITE, 0, &subresource);
+			bufferDesc;
+			mesh->indexBuffer->GetDesc(&bufferDesc);
+			int stride = 2;
+			int indexCount = bufferDesc.ByteWidth / stride;
+			//インデックスバッファにアクセスする。
+			unsigned short* pIndex = reinterpret_cast<unsigned short*>(subresource.pData);
+			int numTri = indexCount / 3;
+			for (int triNo = 0; triNo < numTri; triNo++) {
+				CVector3* triVertex[3];
+				triVertex[0] = (CVector3*)(pVertexData + pIndex[0] * mesh->vertexStride);
+				triVertex[1] = (CVector3*)(pVertexData + pIndex[1] * mesh->vertexStride);
+				triVertex[2] = (CVector3*)(pVertexData + pIndex[2] * mesh->vertexStride);
+				//次の三角形。
+				pIndex += 3;
+
+
+				//三角形を内包する無限平面を求める。
+				//Plane plane;
+				
+				float w;
+				CVector3 tri[3];
+				tri[0] = *triVertex[0];
+				tri[1] = *triVertex[1];
+				tri[2] = *triVertex[2];
+
+				w = tri[0].z;
+				tri[0].z = tri[0].y;
+				tri[0].y = w;
+
+				w = tri[1].z;
+				tri[1].z = tri[1].y;
+				tri[1].y = w;
+
+				w = tri[2].z;
+				tri[2].z = tri[2].y;
+				tri[2].y = w;
+
+				//平面の法線を計算する。
+				CVector3 v1, v2, normal;
+				v1=tri[1]-tri[0] ;
+				v2=tri[1]- tri[2];
+				
+				normal.Cross(v1, v2);
+				normal.Normalize();
+
+				CVector3 start;
+				start.Set(m_position);
+
+				v1=start-tri[0];
+				float d1 = v1.Dot(normal);
+				float d2 = normal.Dot(normal);
+				int a = 0;
+				if (d1 * d2 < 0.0f) {
+					//交点を求める。
+					 a = 1;
+				}
+			}
+			//インデックスバッファをアンロック。
+			deviceContext->Unmap(mesh->indexBuffer.Get(), 0);
+
+			//頂点バッファをアンロック
+			deviceContext->Unmap(mesh->vertexBuffer.Get(), 0);
+		});
+	}
 	//圧死判定
 	if (Pad(0).IsTrigger(enButtonX)) {
-		lifecount = 5;
+		
 	}
 }
 void Player::Update()
@@ -126,8 +211,7 @@ void Player::Update()
 		//回転
 		Rotation();
 	}
-	//圧死
-	Dead();
+	
 	
 	if (dameflag == 1) {
 		if (nlcount <= 0) {
@@ -175,6 +259,10 @@ void Player::Update()
 
 void Player::Render(CRenderContext& rc)
 {
+	//圧死
+	if ((flag==1)&&(m_mirror->m_isMirror == false)) {
+		Dead(rc);
+	}
 	//プレイヤー描画
 	m_mirror->alphaflag = 0;
 	m_skinModel.Draw(rc, 

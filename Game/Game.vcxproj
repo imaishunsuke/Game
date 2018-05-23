@@ -689,7 +689,6 @@
     <MeshContentTask Include="Assets\modelData\dlig_[00]_[255]_[255]_[255].FBX" />
     <MeshContentTask Include="Assets\modelData\EnemyBall.FBX" />
     <MeshContentTask Include="Assets\modelData\EnemyBall2.FBX" />
-    <MeshContentTask Include="Assets\light\dlig_[00]_[255]_[255]_[255].FBX" />
     <MeshContentTask Include="Assets\modelData\Block_1x2_001.FBX" />
     <MeshContentTask Include="Assets\modelData\Block_1x2_002.FBX" />
     <MeshContentTask Include="Assets\modelData\Block_1x2_003.FBX" />

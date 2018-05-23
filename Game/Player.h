@@ -3,6 +3,7 @@
 
 class Torokko;
 class Goal;
+class Game;
 
 class Player:public IGameObject
 {
@@ -23,7 +24,7 @@ public:
 	void Turn();
 	void Line();
 	void Rotation();
-	void Dead();
+	void Dead(CRenderContext& rc);
 	
 	//ÉÅÉìÉoïœêî
 	CMatrix m_rot;
@@ -71,4 +72,5 @@ public:
 	Mirror* m_mirror = NULL;
 	Torokko*toro = nullptr;
 	Goal* m_goal = nullptr;
+	Game*m_game=nullptr;
 };
