@@ -39,7 +39,6 @@ private:
 
 	LightLevel m_ptLight;
 	LightLevel m_dirLight;
-	prefab::CDirectionLight* dirLight;
 	
 	CVector3 m_position= { 30.0f, 10.0f, 0.0f };
 	int GameOverFlag = 0;
