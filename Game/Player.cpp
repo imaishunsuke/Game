@@ -174,8 +174,8 @@ void Player::Dead(CRenderContext& rc) {
 
 				//•½–Ê‚Ì–@ü‚ğŒvZ‚·‚éB
 				CVector3 v1, v2, normal;
-				v1=tri[1]-tri[0] ;
-				v2=tri[1]- tri[2];
+				v1=tri[0]-tri[1] ;
+				v2=tri[2]- tri[1];
 				
 				normal.Cross(v1, v2);
 				normal.Normalize();

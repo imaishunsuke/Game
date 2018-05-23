@@ -13,7 +13,7 @@ Mirror::~Mirror()
 bool Mirror::Start()
 {
 	CVector3 vector =CVector3::Zero;
-	m_skinModelData.Load(L"modelData/mirror.cmo");
+	m_skinModelData.Load(L"modelData/mirror1.cmo");
 	m_skinModel.Init(m_skinModelData);
 
 	m_mtexture.CreateFromDDSTextureFromFile(L"sprite/mirror.dds");

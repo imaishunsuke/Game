@@ -716,6 +716,7 @@
     <MeshContentTask Include="Assets\modelData\ground3.FBX" />
     <MeshContentTask Include="Assets\modelData\ground4.FBX" />
     <MeshContentTask Include="Assets\modelData\mirror.FBX" />
+    <MeshContentTask Include="Assets\modelData\mirror1.FBX" />
     <MeshContentTask Include="Assets\modelData\plane.FBX" />
     <MeshContentTask Include="Assets\modelData\plane1.FBX" />
     <MeshContentTask Include="Assets\modelData\Platform_Fernce_2x13x13.fbx" />

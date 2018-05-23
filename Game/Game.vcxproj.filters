@@ -183,8 +183,8 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
- <Filter>Assets\modelData</Filter>
- </MeshContentTask>
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -264,6 +264,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\assitest.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\mirror1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -433,6 +436,7 @@
     <CustomBuild Include="Assets\light\PointLight.tks">
       <Filter>Assets\light</Filter>
     </CustomBuild>
+    <CustomBuild Include="Assets\level\assitest.tks" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\title.png">
@@ -465,10 +469,5 @@
     <ImageContentTask Include="Assets\modelData\utc_nomal.tga">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\level\assitest.tks">
-      <Filter>Assets\level</Filter>
-    </None>
   </ItemGroup>
 </Project>
