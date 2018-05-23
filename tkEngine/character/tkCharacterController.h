@@ -43,6 +43,9 @@ namespace tkEngine{
 		 *@return 移動後のキャラクターの座標。
 		 */
 		const CVector3& Execute(float deltaTime, CVector3& moveSpeed,ColliderType type);
+
+		//線分
+		//const OnFindMesh& sen();
 		/*!
 		 * @brief	座標を取得。
 		 */

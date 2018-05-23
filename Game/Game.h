@@ -26,6 +26,7 @@ public:
 	CAnimationClip m_animClip[1];							//アニメーションクリップ。
 	CAnimation m_animation;
 	CVector3 m_pos = CVector3::Zero;
+	Level m_level;
 private:
 	enum EnState {
 		enState_FadeIn, //フェードイン中
@@ -35,7 +36,7 @@ private:
 	Fade* m_fade = nullptr;
 	bool m_isWaitFadeout = false;
 	float m_waitTimer = 0.0f;
-	Level m_level;
+
 	LightLevel m_ptLight;
 	LightLevel m_dirLight;
 	prefab::CDirectionLight* dirLight;
@@ -51,4 +52,5 @@ private:
 	ResultScene* m_result = nullptr;
 	Player*m_pl = nullptr;
 	EnemyBall* m_enemyball = nullptr;
+	prefab::CDirectionLight* dirLight;
 };
