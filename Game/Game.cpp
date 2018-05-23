@@ -38,7 +38,6 @@ void Game::OnDestroy()
 }
 bool Game::Start()
 {
-	
 	dirLight = NewGO<prefab::CDirectionLight>(0);
 	//ƒ‰ƒCƒg‚Ì•ûŒü‚ðÝ’è
 	dirLight->SetDirection({ 0.707f,-0.707f,0.0f });
