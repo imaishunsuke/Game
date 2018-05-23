@@ -155,9 +155,6 @@
     <MeshContentTask Include="Assets\modelData\stage.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -186,6 +183,89 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\EnemyBall.FBX" />
+ <Filter>Assets\modelData</Filter>
+ </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\ground2.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\ground3.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Stairs_6.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_1.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_3.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_4.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_5.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_6.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_7.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_9.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_10.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Corner_Blocks_3.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Corner_Blocks_4.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Fence_3_Dark.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Floor_Blocks_1.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Floor_Blocks_2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Floor_Blocks_9.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Floor_Blocks_17.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Floor_Blocks_20.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Sig_Sag_1x2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Stairs_2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\ground4.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Platform_Fernce_2x5x13.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Platform_Fernce_2x7x13.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Platform_Fernce_2x13x13.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\assitest.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\shader\tonemap.fx">
@@ -329,6 +409,30 @@
     <CustomBuild Include="Assets\level\Block_1x2_003.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
+    <CustomBuild Include="Assets\level\Sig_Sag_1x2_001.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\Sig_Sag_1x2_002.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\Sig_Sag_1x2_003.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\Sig_Sag_1x2_004.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\Sig_Sag_1x2_005.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\Sig_Sag_1x2_006.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\Stage1.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\light\PointLight.tks">
+      <Filter>Assets\light</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\title.png">
@@ -361,5 +465,10 @@
     <ImageContentTask Include="Assets\modelData\utc_nomal.tga">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\level\assitest.tks">
+      <Filter>Assets\level</Filter>
+    </None>
   </ItemGroup>
 </Project>

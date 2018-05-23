@@ -45,7 +45,7 @@ bool Player::Start() {
 		m_position,	//‰ŠúˆÊ’u
 		m_collidertype
 	);
-
+	m_position = { 0.0f,15.0f,0.0f };
 	flag = 0;
 	count = 0;
 	scale = 3.0f;
@@ -97,6 +97,7 @@ void Player::Move() {
 	m_moveSpeed += cameraForward;
 	m_moveSpeed += cameraRight;
 	
+	m_rot.MakeRotationFromQuaternion(m_rotation);
 	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed, m_collidertype);
 }
 
@@ -206,12 +207,12 @@ void Player::Dead(CRenderContext& rc) {
 void Player::Update()
 {
 	if (flag == 1&&m_goal->gflag==0) {
-		//ˆÚ“®
-		Move();
-		//‰ñ“]
-		Rotation();
-	}
 	
+	}
+	//ˆÚ“®
+	Move();
+	//‰ñ“]
+	Rotation();
 	
 	if (dameflag == 1) {
 		if (nlcount <= 0) {
@@ -264,13 +265,11 @@ void Player::Render(CRenderContext& rc)
 		Dead(rc);
 	}
 	//ƒvƒŒƒCƒ„[•`‰æ
-	m_mirror->alphaflag = 0;
 	m_skinModel.Draw(rc, 
 		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-		CMatrix::Identity,
-		m_mirror->alphaflag);
+		CMatrix::Identity);
 		
 }
 

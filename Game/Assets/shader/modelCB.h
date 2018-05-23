@@ -14,8 +14,10 @@ cbuffer VSPSCb : register(b0){
 	float4x4 mMirrorView;
 	float4x4 mMirrorProj;
 	float4 screenParam;		// スクリーンパラメータ(near, far, screenWidth, screenHeight)
+	float4 dithreingOrigin;	//ディザリングの基点。
 	int isShadowReceiver;	//シャドウレシーバー？
 	int		 alphaflag;
+	int enableDithreing;	//ディザリングを行うかどうかのフラグ、
 };
 
 /*!

@@ -4,6 +4,8 @@
 #include "stdafx.h"
 #include "MapChip.h"
 #include"Mirror.h"
+#include "Player.h"
+#include "GameCamera.h"
 
 MapChip::MapChip()
 {
@@ -45,27 +47,47 @@ void MapChip::Init(
 }
 bool MapChip::Start()
 {
+	m_player = FindGO<Player>("Player");
+	m_camera = FindGO<GameCamera>("gamecamera");
 	return true;
 }
 void MapChip::Update()
 {
-	m_skinModel.Update(m_position, m_rotation, m_scale);
-}
-void MapChip::Render(CRenderContext& rc)
-{
+
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
 	if (m_mirror->m_isMirror == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
-		m_mirror->alphaflag = 0;
+		m_mirror->_alphaflag = 0;
 	}
 	else {
-		m_mirror->alphaflag = 1;
+		m_mirror->_alphaflag = 1;
 	}
+	m_skinModel.SetDiscardMirror(m_mirror->_alphaflag);
+	CVector3 ditheringPos = CVector3::Zero;
+	CVector3 Pos = m_camera->m_springCamera.GetPosition();
+	CVector3 diff = m_player->m_position - Pos;
+	diff.Normalize();
+	ditheringPos.x = Pos.x + diff.x * 20.0f;
+	ditheringPos.y = Pos.y + diff.y * 20.0f;
+	ditheringPos.z = Pos.z + diff.z * 20.0f;
+	if (m_mirror->m_isMirror == true) {
+		//ディザリングを使用するためのフラグを渡す
+		m_skinModel.SetDithering(true);
+		//ディザリングを使用するときの基点となる座標を渡す
+		m_skinModel.SetDitheringPos(ditheringPos);
+	}
+	else {
+		m_skinModel.SetDithering(false);
+	}
+	m_skinModel.Update(m_position, m_rotation, m_scale);
+}
+void MapChip::Render(CRenderContext& rc)
+{
+	
 	m_skinModel.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
 		m_mirror->m_mirrorViewMatrix,
-		m_mirror->m_mirrorProjectionMatrix,
-		m_mirror->alphaflag);
+		m_mirror->m_mirrorProjectionMatrix);
 }

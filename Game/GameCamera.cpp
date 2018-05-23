@@ -86,6 +86,9 @@ void GameCamera::Update()
 			toNewCameraPos = toCameraPosOld;
 		}
 		pos = CVector3::Zero;
+
+		m_rot.MakeRotationFromQuaternion(qRot);
+
 		//Ž‹“_‚ðŒvŽZ‚·‚é
 		if (!(x == 0 && y == 0)) {
 			pos = target + toNewCameraPos;

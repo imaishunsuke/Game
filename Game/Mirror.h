@@ -51,7 +51,7 @@ public:
 	CQuaternion qRot = CQuaternion::Identity;
 	CQuaternion qRot2 = CQuaternion::Identity;
 	
-	int  alphaflag = 1;									//ミラーに写っている物体を消すフラグ
+	int  _alphaflag = 1;									//ミラーに写っている物体を消すフラグ
 	bool m_isMirror = false;							//ミラーを使用しているかのフラグ
 
 	static Mirror& GetInstance()

@@ -31,13 +31,11 @@ namespace tkEngine{
 			1,
 			1,
 			DXGI_FORMAT_R32_FLOAT,
-			DXGI_FORMAT_UNKNOWN,	//Zバッファは作らない。
+			DXGI_FORMAT_D32_FLOAT,	//Zバッファは作らない。
 			ge.GetMainRenderTargetMSAADesc()
 		);
 		//Zバッファはメインレンダリングターゲットのものを使用する。
-		m_depthBuffer.SetDepthStencilView(
-			ge.GetMainRenderTarget().GetDepthStencilView()
-		);
+	
 	}
 	void CZPrepass::Render(CRenderContext& rc) 
 	{
@@ -67,8 +65,7 @@ namespace tkEngine{
 				MainCamera().GetViewMatrix(),
 				MainCamera().GetProjectionMatrix(),
 				m_mirror->m_mirrorViewMatrix,
-				m_mirror->m_mirrorProjectionMatrix,
-				Mirror::GetInstance().alphaflag
+				m_mirror->m_mirrorProjectionMatrix
 			);
 		}
 		m_skinModels.clear();

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "background.h"
-#include"Mirror.h"
+#include "Mirror.h"
 
 background::background()
 {
@@ -19,7 +19,7 @@ void background::OnDestroy()
 bool background::Start()
 {
 	//モデルをロード。
-	m_skinModelData.Load(L"modelData/ground1.cmo");
+	m_skinModelData.Load(L"modelData/ground4.cmo");
 	m_skinModel.Init(m_skinModelData);
 	m_skinModel.SetShadowReceiverFlag(true);
 	/*m_skinModelData1.Load(L"modelData/plane.cmo");
@@ -47,13 +47,12 @@ void background::Render(CRenderContext& rc)
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
-	m_mirror->alphaflag = 1;
+	
 	m_skinModel.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-		CMatrix::Identity,
-		m_mirror->alphaflag);
+		CMatrix::Identity);
 	/*m_skinModel1.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),

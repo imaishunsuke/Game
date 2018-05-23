@@ -12,9 +12,12 @@ LightLevel::LightLevel()
 
 LightLevel::~LightLevel()
 {
-	for (auto& pointLig : m_ptLightList) {
+	/*for (auto& pointLig : m_ptLightList) {
 		DeleteGO(pointLig);
 	}
+	for (auto& directionLig : m_dirLightList) {
+		DeleteGO(directionLig);
+	}*/
 }
 
 //ÉâÉCÉgÇÃçÏê¨
@@ -207,6 +210,6 @@ void LightLevel::dirLightBuild(const wchar_t* dirlightDataFilePath)
 		}
 		LightChip* directionLig = NewGO<LightChip>(0, "LightChip");
 		directionLig->dirLightInit(dirlightDataFilePath,lightnum,ligLoc.GetObjectRotation(i), color);
-		m_dirLightList.push_back(directionLig);
+		//m_dirLightList.push_back(directionLig);
 	}
 }

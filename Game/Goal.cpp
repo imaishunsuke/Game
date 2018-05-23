@@ -26,6 +26,3 @@ void Goal::Update() {
 		gflag = 1;
 	}
 }
-void Goal::Render(CRenderContext& rc) {
-
-}
