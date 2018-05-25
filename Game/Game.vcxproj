@@ -704,6 +704,8 @@
     <MeshContentTask Include="Assets\modelData\Block_1x2_002.FBX" />
     <MeshContentTask Include="Assets\modelData\Block_1x2_003.FBX" />
     <MeshContentTask Include="Assets\modelData\Block_1x2_004.FBX" />
+    <MeshContentTask Include="Assets\modelData\FemaleMage.FBX" />
+    <MeshContentTask Include="Assets\modelData\FemaleMage_A.FBX" />
     <MeshContentTask Include="Assets\modelData\Fence_3_Dark.fbx" />
     <MeshContentTask Include="Assets\modelData\Floor_Blocks_1.fbx" />
     <MeshContentTask Include="Assets\modelData\Floor_Blocks_17.fbx" />
@@ -922,6 +924,10 @@
     <CustomBuild Include="Assets\level\assitest.tks">
       <FileType>Document</FileType>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\animData\walk.tka" />
+    <None Include="Assets\modelData\FemaleMage.tks" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

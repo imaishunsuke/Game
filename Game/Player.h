@@ -73,4 +73,10 @@ public:
 	Torokko*toro = nullptr;
 	Goal* m_goal = nullptr;
 	Game*m_game=nullptr;
+	enum EnAnimationClip {
+		enAnimationClip_walk,
+		enAnimationClip_num
+	};
+	CAnimationClip m_animClip[enAnimationClip_num];
+	CAnimation m_animation;
 };

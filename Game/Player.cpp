@@ -16,7 +16,7 @@ Player::~Player()
 
 bool Player::Start() {
 	//モデルデータのロード
-	m_skinModelData.Load(L"modelData/unityChan.cmo");
+	m_skinModelData.Load(L"modelData/FemaleMage.cmo");
 	m_skinModel.Init(m_skinModelData);
 	////法線マップとスペキュラマップをロード
 	//m_specularMap.CreateFromDDSTextureFromFile(L"sprite/utc_spec.dds");
@@ -25,6 +25,12 @@ bool Player::Start() {
 	//	material->SetNormalMap(m_normalMap.GetBody());
 	//	//material->SetSpecularMap(m_specularMap.GetBody());
 	//});
+	m_animClip[enAnimationClip_walk].Load(L"animData/walk.tka");
+	for (auto& animClip : m_animClip) {
+		animClip.SetLoopFlag(true);
+	}
+	m_animation.Init(m_skinModel, m_animClip,enAnimationClip_num);
+	m_animation.Play(enAnimationClip_walk, 0.2f);
 	m_rotation.Multiply(m_rotation);
 	//hpテクスチャ
 	m_htexture.CreateFromDDSTextureFromFile(L"sprite/hp.dds");
@@ -53,7 +59,7 @@ bool Player::Start() {
 	m_game=FindGO<Game>("Game");
 	m_mirror = FindGO<Mirror>("Mirror");
 	m_goal = FindGO<Goal>("Goal");
-	m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	m_skinModel.Update(m_position, m_rotation,CVector3::One);
 	m_skinModel.SetShadowCasterFlag(true);
 	return true;
 }
@@ -252,7 +258,7 @@ void Player::Update()
 		hpdscale = hpdscale - 0.01;
 		m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });
 	}
-	m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	m_skinModel.Update(m_position, m_rotation,CVector3::One);
 	m_hsprite.Update(m_hposition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{hpscale,1.0,1.0 }, { 0.0,1.0 });
 	m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{hpdscale,1.0,1.0}, { 0.0,1.0 });
 	m_hbsprite.Update(m_hbposition = { -640.0,360.0,0 }, CQuaternion::Identity, CVector3::One, { 0.0,1.0 });
