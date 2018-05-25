@@ -307,6 +307,12 @@
     <MeshContentTask Include="Assets\modelData\mirror1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\FemaleMage_A.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\FemaleMage.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\star.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -527,6 +533,12 @@
     </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\modelData\FemaleMage.tks">
+      <Filter>Assets\modelData</Filter>
+    </None>
+    <None Include="Assets\animData\walk.tka">
+      <Filter>Assets\animData</Filter>
+    </None>
     <Image Include="Assets\modelData\utc_nomal.tga">
       <Filter>Assets\sprite</Filter>
     </Image>

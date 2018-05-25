@@ -15,58 +15,54 @@ Player::~Player()
 {
 }
 
-bool Player::Start()
-{
-		//モデルデータのロード
-		m_skinModelData.Load(L"modelData/unityChan.cmo");
-		m_skinModel.Init(m_skinModelData);
-		////法線マップとスペキュラマップをロード
-		//m_specularMap.CreateFromDDSTextureFromFile(L"sprite/utc_spec.dds");
-		//m_normalMap.CreateFromDDSTextureFromFile(L"sprite/utc_normal.dds");
-		//m_skinModel.FindMaterial([&](auto material) {
-		//	material->SetNormalMap(m_normalMap.GetBody());
-		//	//material->SetSpecularMap(m_specularMap.GetBody());
-		//});
-		m_rotation.Multiply(m_rotation);
-		m_goal = FindGO<Goal>("Goal");
-			//hpテクスチャ
-			m_htexture.CreateFromDDSTextureFromFile(L"sprite/hp.dds");
-			m_hsprite.Init(m_htexture, 460, 40);
-			//hpdテクスチャ
-			m_hdtexture.CreateFromDDSTextureFromFile(L"sprite/hpd.dds");
-			m_hdsprite.Init(m_hdtexture, 460, 40);
-			//hp barテクスチャ
-			m_hbtexture.CreateFromDDSTextureFromFile(L"sprite/hpmp_bar.dds");
-			m_hbsprite.Init(m_hbtexture, 490, 70);
-			m_mirror = FindGO<Mirror>("Mirror");
-			//toro = FindGO<Torokko>("Trokko");
-			m_goal = FindGO<Goal>("Goal");
-			//m_position = toro->m_position;
-
-
-			m_charaCon.Init(
-				3.0,		//半径
-				1.0f,		//高さ
-				-220,
-				m_position,	//初期位置
-				m_collidertype
-			);
-			flag = 0;
-			count = 0;
-			scale = 3.0f;
-			m_gpos = { 0.0,0.0,5.0 };
-			m_mirror = FindGO<Mirror>("Mirror");
-			/*toro = FindGO<Torokko>("Trokko");*/
-			
-			/*m_position = toro->m_position;
-			diff.x = toro->m_gpos.x - toro->m_position.x;
-			diff.y = toro->m_gpos.y - toro->m_position.y;
-			diff.z = toro->m_gpos.z - toro->m_position.z;
-			plposlen=diff.Length();*/
-			m_skinModel.Update(m_position, m_rotation, CVector3::One);
-			m_skinModel.SetShadowCasterFlag(true);
-		return true;
-	
+bool Player::Start() {
+	//モデルデータのロード
+	m_skinModelData.Load(L"modelData/FemaleMage.cmo");
+	m_skinModel.Init(m_skinModelData);
+	////法線マップとスペキュラマップをロード
+	//m_specularMap.CreateFromDDSTextureFromFile(L"sprite/utc_spec.dds");
+	//m_normalMap.CreateFromDDSTextureFromFile(L"sprite/utc_normal.dds");
+	//m_skinModel.FindMaterial([&](auto material) {
+	//	material->SetNormalMap(m_normalMap.GetBody());
+	//	//material->SetSpecularMap(m_specularMap.GetBody());
+	//});
+	m_animClip[enAnimationClip_walk].Load(L"animData/walk.tka");
+	for (auto& animClip : m_animClip) {
+		animClip.SetLoopFlag(true);
+	}
+	m_animation.Init(m_skinModel, m_animClip,enAnimationClip_num);
+	m_animation.Play(enAnimationClip_walk, 0.2f);
+	m_rotation.Multiply(m_rotation);
+	//hpテクスチャ
+	m_htexture.CreateFromDDSTextureFromFile(L"sprite/hp.dds");
+	m_hsprite.Init(m_htexture, 460, 40);
+	//hpdテクスチャ
+	m_hdtexture.CreateFromDDSTextureFromFile(L"sprite/hpd.dds");
+	m_hdsprite.Init(m_hdtexture, 460, 40);
+	//hp barテクスチャ
+	m_hbtexture.CreateFromDDSTextureFromFile(L"sprite/hpmp_bar.dds");
+	m_hbsprite.Init(m_hbtexture, 490, 70);
+	m_position.y = -1.5;
+	//線分初期化
+	m_sen = m_position;
+	m_charaCon.Init(
+		3.0,		//半径
+		1.0f,		//高さ
+		-220,
+		m_position,	//初期位置
+		m_collidertype
+	);
+	m_position = { 0.0f,15.0f,0.0f };
+	flag = 0;
+	count = 0;
+	scale = 3.0f;
+	m_gpos = m_position;
+	m_game=FindGO<Game>("Game");
+	m_mirror = FindGO<Mirror>("Mirror");
+	m_goal = FindGO<Goal>("Goal");
+	m_skinModel.Update(m_position, m_rotation,CVector3::One);
+	m_skinModel.SetShadowCasterFlag(true);
+	return true;
 }
 void Player::Move()
 {

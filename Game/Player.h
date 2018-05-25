@@ -78,4 +78,10 @@ public:
 	/*Game* m_game = nullptr;
 	title* m_title = nullptr;*/
 	Game*m_game=nullptr;
+	enum EnAnimationClip {
+		enAnimationClip_walk,
+		enAnimationClip_num
+	};
+	CAnimationClip m_animClip[enAnimationClip_num];
+	CAnimation m_animation;
 };
