@@ -319,6 +319,8 @@
     <MeshContentTask Include="Assets\modelData\rock.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage.FBX" />
+    <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\shader\tonemap.fx">
@@ -487,6 +489,12 @@
       <Filter>Assets\light</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\level\assitest.tks" />
+    <CustomBuild Include="Assets\animData\walk.tka">
+      <Filter>Assets\animData</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\modelData\FemaleMage.tks">
+      <Filter>Assets\modelData</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\fade.png">
@@ -533,12 +541,6 @@
     </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\modelData\FemaleMage.tks">
-      <Filter>Assets\modelData</Filter>
-    </None>
-    <None Include="Assets\animData\walk.tka">
-      <Filter>Assets\animData</Filter>
-    </None>
     <Image Include="Assets\modelData\utc_nomal.tga">
       <Filter>Assets\sprite</Filter>
     </Image>

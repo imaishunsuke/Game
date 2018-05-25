@@ -55,13 +55,10 @@ void background::Render(CRenderContext& rc)
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-<<<<<<< HEAD
-		CMatrix::Identity,
-		m_mirror->alphaflag);
+		CMatrix::Identity
+	);
 
-=======
-		CMatrix::Identity);
->>>>>>> f1b1c4006daa46b543ebf6838ae581723afd5262
+
 	/*m_skinModel1.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),

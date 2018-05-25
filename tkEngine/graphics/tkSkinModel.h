@@ -188,6 +188,13 @@ namespace tkEngine {
 		{
 			m_ditheringPos = position;
 		}
+		/*!
+		*@brief	ディザリングを行う時の強さを決める係数。
+		*/
+		void SetDitheringCoefficient(float coefficient)
+		{
+			m_ditheringCoefficient = coefficient;
+		}
 	private:
 		/*!
 		 *@brief	ワールド行列の更新。
@@ -225,7 +232,8 @@ namespace tkEngine {
 		bool m_ditheringFlag = false;
 		//ディザリングの基点となる座標。
 		CVector3 m_ditheringPos = CVector3::Zero;
-
+		//ディザリングを掛ける強さを決める係数
+		float m_ditheringCoefficient = 0.0f;
 		Mirror* m_mirror = nullptr;
 	};
 }

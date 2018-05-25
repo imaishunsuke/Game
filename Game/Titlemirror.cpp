@@ -14,7 +14,7 @@ Titlemirror::~Titlemirror()
 bool Titlemirror::Start()
 {
 	//ƒ‚ƒfƒ‹‚ğƒ[ƒh
-	m_skinModelData.Load(L"modelData/mirror.cmo");
+	m_skinModelData.Load(L"modelData/mirror1.cmo");
 	m_skinModel.Init(m_skinModelData);
 							 
 	m_position.y = -14.5f;
@@ -39,8 +39,7 @@ void Titlemirror::Render(CRenderContext& rc)
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			CMatrix::Identity,
-			CMatrix::Identity,
-			0
+			CMatrix::Identity
 		);
 	}
 }

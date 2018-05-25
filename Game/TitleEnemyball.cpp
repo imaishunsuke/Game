@@ -42,7 +42,6 @@ void TitleEnemyball::Render(CRenderContext& rc)
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-		CMatrix::Identity,
-		alphaflag
+		CMatrix::Identity
 	);
 }

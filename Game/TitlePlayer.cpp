@@ -62,8 +62,7 @@ void TitlePlayer::Render(CRenderContext& rc)
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-		CMatrix::Identity,
-		alphaflag
+		CMatrix::Identity
 	);
 
 	//m_skinModelmirror.Draw(rc,

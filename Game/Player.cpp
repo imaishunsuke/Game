@@ -256,7 +256,7 @@ void Player::Update()
 			lifecount = lifecount + 1;
 		}
 		dameflag = 0;
-
+	}
 		//‚Q•bŠÔ–³“G
 		if (nlcount > 0) {
 			nlcount = nlcount + GameTime().GetFrameDeltaTime();
@@ -298,7 +298,7 @@ void Player::Render(CRenderContext& rc)
 		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-		CMatrix::Identity,
+		CMatrix::Identity
 	);	
 }
 void Player::PostRender(CRenderContext& rc) {
