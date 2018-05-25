@@ -47,7 +47,7 @@ bool Player::Start()
 			m_charaCon.Init(
 				3.0,		//”¼Œa
 				1.0f,		//‚‚³
-				0,
+				-220,
 				m_position,	//‰ŠúˆÊ’u
 				m_collidertype
 			);
@@ -89,9 +89,6 @@ void Player::Move()
 	
 	if (Pad(0).IsTrigger(enButtonA) && m_charaCon.IsOnGround() == true) {
 		m_moveSpeed.y += 98.0f;
-	}
-	if (ChangeFlag == 1) {
-		m_charaCon.SetGravity(-224);
 	}
 	//–€ŽC
 	CVector3 masa = m_moveSpeed;
@@ -239,14 +236,14 @@ void Player::Dead(CRenderContext& rc) {
 }
 void Player::Update()
 {
-	if (flag == 1&&m_goal->gflag==0) {
-	
+	if (flag == 1 && m_goal->gflag == 0) {
+
 	}
 	//ˆÚ“®
 	Move();
 	//‰ñ“]
 	Rotation();
-	
+
 	if (dameflag == 1) {
 		if (nlcount <= 0) {
 			nlcount = 0.01;
@@ -261,7 +258,7 @@ void Player::Update()
 			lifecount = lifecount + 1;
 		}
 		dameflag = 0;
-
+	}
 		//‚Q•bŠÔ–³“G
 		if (nlcount > 0) {
 			nlcount = nlcount + GameTime().GetFrameDeltaTime();
@@ -290,10 +287,7 @@ void Player::Update()
 		m_hsprite.Update(m_hposition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpscale,1.0,1.0 }, { 0.0,1.0 });
 		m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });
 		m_hbsprite.Update(m_hbposition = { -640.0,360.0,0 }, CQuaternion::Identity, CVector3::One, { 0.0,1.0 });
-
-		
 }
-
 void Player::Render(CRenderContext& rc)
 {
 	//ˆ³Ž€
@@ -305,7 +299,7 @@ void Player::Render(CRenderContext& rc)
 		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-		CMatrix::Identity,
+		CMatrix::Identity
 	);	
 }
 void Player::PostRender(CRenderContext& rc) {

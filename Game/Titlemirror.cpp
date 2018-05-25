@@ -39,8 +39,7 @@ void Titlemirror::Render(CRenderContext& rc)
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			CMatrix::Identity,
-			CMatrix::Identity,
-			0
+			CMatrix::Identity
 		);
 	}
 }

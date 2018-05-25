@@ -37,12 +37,10 @@ void TitleEnemyball::Update()
 
 void TitleEnemyball::Render(CRenderContext& rc)
 {
-	int alphaflag = 0;
 	m_skinModel.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-		CMatrix::Identity,
-		alphaflag
+		CMatrix::Identity
 	);
 }
