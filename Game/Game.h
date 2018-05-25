@@ -27,6 +27,7 @@ public:
 	CAnimation m_animation;
 	CVector3 m_pos = CVector3::Zero;
 	float ChangeFlag = 0;
+	Level m_level;
 private:
 	enum EnState {
 		enState_FadeIn, //フェードイン中
@@ -36,8 +37,9 @@ private:
 	Fade* m_fade = nullptr;
 	bool m_isWaitFadeout = false;
 	float m_waitTimer = 0.0f;
-	Level m_level;
+
 	LightLevel m_ptLight;
+	LightLevel m_dirLight;
 	
 	CVector3 m_position= { 30.0f, 10.0f, 0.0f };
 	int GameOverFlag = 0;
@@ -52,4 +54,5 @@ private:
 	Torokko* m_toro = nullptr;
 	Player*m_pl = nullptr;
 	EnemyBall* m_enemyball = nullptr;
+	prefab::CDirectionLight* dirLight;
 };

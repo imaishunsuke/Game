@@ -4,6 +4,7 @@ using namespace tkEngine;
 
 class Player;
 class Game;
+class Goal;
 
 class Mirror : public tkEngine::IGameObject
 {
@@ -61,7 +62,7 @@ public:
 	CQuaternion qRot = CQuaternion::Identity;
 	CQuaternion qRot2 = CQuaternion::Identity; //鏡だけの回転
 	
-	int  alphaflag = 1;									//ミラーに写っている物体を消すフラグ
+	int  _alphaflag = 1;									//ミラーに写っている物体を消すフラグ
 	bool m_isMirror = false;							//ミラーを使用しているかのフラグ
 
 	static Mirror& GetInstance()
@@ -74,6 +75,7 @@ public:
 	}
 	Player* pl = NULL;
 	//Game* m_game = NULL;
+	Goal* m_goal = NULL;
 	float angle = 0;
 };
 

@@ -36,7 +36,7 @@ bool Torokko::Start() {
 	scale = 3.0f;
 	m_charaCon.Init(
 		3.0,		//”¼Œa
-		1.0f,		//‚‚³
+		10.0f,		//‚‚³
 		-220,
 		m_position,	//‰ŠúˆÊ’u
 		m_collidertype
@@ -155,46 +155,40 @@ void Torokko::Render(CRenderContext& rc)
 {
 	if (m_mirror == NULL) {
 	}
-	m_mirror->alphaflag = 0;
 	if (lifecount == 0) {
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			CMatrix::Identity,
-			CMatrix::Identity,
-			m_mirror->alphaflag);
+			CMatrix::Identity);
 	}
 	if (lifecount == 1) {
 		m_skinModel1.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			CMatrix::Identity,
-			CMatrix::Identity,
-			m_mirror->alphaflag);
+			CMatrix::Identity);
 	}
 	if (lifecount == 2) {
 		m_skinModel2.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			CMatrix::Identity,
-			CMatrix::Identity,
-			m_mirror->alphaflag);
+			CMatrix::Identity);
 	}
 	if (lifecount == 3) {
 		m_skinModel3.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			CMatrix::Identity,
-			CMatrix::Identity,
-			m_mirror->alphaflag);
+			CMatrix::Identity);
 	}
 	if (lifecount == 4) {
 		m_skinModel4.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			CMatrix::Identity,
-			CMatrix::Identity,
-			m_mirror->alphaflag);
+			CMatrix::Identity);
 	}
 }
 void Torokko::PostRender(CRenderContext& rc) {

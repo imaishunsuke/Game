@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "background.h"
-#include"Mirror.h"
+#include "Mirror.h"
 
 background::background()
 {
@@ -19,10 +19,11 @@ void background::OnDestroy()
 bool background::Start()
 {
 	//モデルをロード。
-	m_skinModelData.Load(L"modelData/stage.cmo");
+	m_skinModelData.Load(L"modelData/ground4.cmo");
 	m_skinModel.Init(m_skinModelData);
 	//m_skinModelData1.Load(L"modelData/plane.cmo");
 	//m_skinModel1.Init(m_skinModelData1);
+	m_skinModel.SetShadowReceiverFlag(true);
 	/*m_skinModelData1.Load(L"modelData/plane.cmo");
 	m_skinModel1.Init(m_skinModelData1);*/
 	//メッシュコライダーを作成。
@@ -49,14 +50,18 @@ void background::Render(CRenderContext& rc)
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
-	m_mirror->alphaflag = 1;
+	
 	m_skinModel.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
+<<<<<<< HEAD
 		CMatrix::Identity,
 		m_mirror->alphaflag);
 
+=======
+		CMatrix::Identity);
+>>>>>>> f1b1c4006daa46b543ebf6838ae581723afd5262
 	/*m_skinModel1.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),

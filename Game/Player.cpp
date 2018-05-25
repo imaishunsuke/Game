@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "Player.h"
-//#include"Torokko.h"
 #include"Mirror.h"
+#include"Game.h"
 #include"Goal.h"
 #include"Game.h"
-
+//#include"tkEngine/bulletPhysics/src/LinearMath/btConvexHull.h"
+#include"tkEngine/DirectXTK/Inc/SimpleMath.h"
 Player::Player()
 {
 }
@@ -14,8 +15,8 @@ Player::~Player()
 {
 }
 
-bool Player::Start() {
-	{
+bool Player::Start()
+{
 		//モデルデータのロード
 		m_skinModelData.Load(L"modelData/unityChan.cmo");
 		m_skinModel.Init(m_skinModelData);
@@ -64,15 +65,11 @@ bool Player::Start() {
 			plposlen=diff.Length();*/
 			m_skinModel.Update(m_position, m_rotation, CVector3::One);
 			m_skinModel.SetShadowCasterFlag(true);
-		}
-	
-
 		return true;
 	
 }
-void Player::Move() {
-	//m_moveSpeed.y -= 98.0f * GameTime().GetFrameDeltaTime();					//重力　変更する
-	
+void Player::Move()
+{
 	//左スティックの入力量を受け取る。
 	float lStick_x = Pad(0).GetLStickXF();
 	float lStick_y = Pad(0).GetLStickYF();
@@ -85,19 +82,38 @@ void Player::Move() {
 	cameraRight.y = 0.0f;
 	cameraRight.Normalize();
 	//XZ成分の移動速度をクリア。
-	m_moveSpeed.x = 0.0f;
-	m_moveSpeed.z = 0.0f;
-	m_moveSpeed += cameraForward * lStick_y * 100.0f;	//奥方向への移動速度を代入。
-	m_moveSpeed += cameraRight * lStick_x * 100.0f;		//右方向への移動速度を加算。
+	/*m_moveSpeed.x = 0.0f;
+	m_moveSpeed.z = 0.0f;*/
+	cameraForward *=lStick_y * 400.0f*GameTime().GetFrameDeltaTime();	//奥方向への移動速度を代入。	
+	cameraRight *= lStick_x * 400.0f*GameTime().GetFrameDeltaTime();	//右方向への移動速度を加算。
+	
 	if (Pad(0).IsTrigger(enButtonA) && m_charaCon.IsOnGround() == true) {
 		m_moveSpeed.y += 98.0f;
 	}
-
 	if (ChangeFlag == 1) {
 		m_charaCon.SetGravity(-224);
 	}
-		m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed, m_collidertype);
+	//摩擦
+	CVector3 masa = m_moveSpeed;
+	if (m_charaCon.IsJump()) {
+		//ジャンプ中
+		masa *= -1.0f;
+	}
+	else {
+		//その他
+		masa *= -3.0f;
+	}
+
+	m_moveSpeed.x += masa.x * GameTime().GetFrameDeltaTime();
+	m_moveSpeed.z += masa.z * GameTime().GetFrameDeltaTime();
+
+	m_moveSpeed += cameraForward;
+	m_moveSpeed += cameraRight;
+	
+	m_rot.MakeRotationFromQuaternion(m_rotation);
+	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed, m_collidertype);
 }
+
 void Player::Rotation() {
 
 	m_rot.MakeRotationFromQuaternion(m_rotation);
@@ -108,11 +124,8 @@ void Player::Rotation() {
 	m_rotation.y = toro->m_rotation.y;
 	m_rotation.z = toro->m_rotation.z;
 	m_rotation.w = toro->m_rotation.w;*/
-	
 	if (fabsf(m_moveSpeed.x) < 0.001f
 		&& fabsf(m_moveSpeed.z) < 0.001f) {
-		//m_moveSpeed.xとm_moveSpeed.zの絶対値がともに0.001以下ということは
-		//このフレームではキャラは移動していないので旋回する必要はない。
 		return;
 	}
 	//atan2はtanθの値を角度(ラジアン単位)に変換してくれる関数。
@@ -125,8 +138,99 @@ void Player::Rotation() {
 	//m_rotation.SetRotation(CVector3::AxisY, angle);
 
 	//m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	float angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
+	m_rotation.SetRotation(CVector3::AxisY, angle);
 }
-void Player::Dead() {
+void Player::Line() {
+	if (m_mirror->m_isMirror == false) {
+		
+		
+		//m_sen = m_position;
+		//m_skinModelData.FindMesh();
+	}
+}
+
+void Player::Dead(CRenderContext& rc) {
+	int numMesh = 0;
+	for (auto& mapChip : m_game->m_level.m_mapChipList) {
+		mapChip->m_skinModel.FindMesh([&](const auto& mesh) {
+			numMesh++;
+			ID3D11DeviceContext* deviceContext = GraphicsEngine().GetD3DDeviceContext();
+			//頂点バッファをロック
+			D3D11_MAPPED_SUBRESOURCE subresource;
+			deviceContext->Map(mesh->vertexBuffer.Get(), 0, D3D11_MAP_WRITE_NO_OVERWRITE, 0, &subresource);
+			//頂点バッファの定義を取得。
+			D3D11_BUFFER_DESC bufferDesc;
+			mesh->vertexBuffer->GetDesc(&bufferDesc);
+			
+			//頂点バッファの先頭アドレスを取得。
+			char* pVertexData = reinterpret_cast<char*>(subresource.pData);
+			//インデックスバッファをロック。
+			deviceContext->Map(mesh->indexBuffer.Get(), 0, D3D11_MAP_WRITE_NO_OVERWRITE, 0, &subresource);
+			bufferDesc;
+			mesh->indexBuffer->GetDesc(&bufferDesc);
+			int stride = 2;
+			int indexCount = bufferDesc.ByteWidth / stride;
+			//インデックスバッファにアクセスする。
+			unsigned short* pIndex = reinterpret_cast<unsigned short*>(subresource.pData);
+			int numTri = indexCount / 3;
+			for (int triNo = 0; triNo < numTri; triNo++) {
+				CVector3* triVertex[3];
+				triVertex[0] = (CVector3*)(pVertexData + pIndex[0] * mesh->vertexStride);
+				triVertex[1] = (CVector3*)(pVertexData + pIndex[1] * mesh->vertexStride);
+				triVertex[2] = (CVector3*)(pVertexData + pIndex[2] * mesh->vertexStride);
+				//次の三角形。
+				pIndex += 3;
+
+
+				//三角形を内包する無限平面を求める。
+				//Plane plane;
+				
+				float w;
+				CVector3 tri[3];
+				tri[0] = *triVertex[0];
+				tri[1] = *triVertex[1];
+				tri[2] = *triVertex[2];
+
+				w = tri[0].z;
+				tri[0].z = tri[0].y;
+				tri[0].y = w;
+
+				w = tri[1].z;
+				tri[1].z = tri[1].y;
+				tri[1].y = w;
+
+				w = tri[2].z;
+				tri[2].z = tri[2].y;
+				tri[2].y = w;
+
+				//平面の法線を計算する。
+				CVector3 v1, v2, normal;
+				v1=tri[0]-tri[1] ;
+				v2=tri[2]- tri[1];
+				
+				normal.Cross(v1, v2);
+				normal.Normalize();
+
+				CVector3 start;
+				start.Set(m_position);
+
+				v1=start-tri[0];
+				float d1 = v1.Dot(normal);
+				float d2 = normal.Dot(normal);
+				int a = 0;
+				if (d1 * d2 < 0.0f) {
+					//交点を求める。
+					 a = 1;
+				}
+			}
+			//インデックスバッファをアンロック。
+			deviceContext->Unmap(mesh->indexBuffer.Get(), 0);
+
+			//頂点バッファをアンロック
+			deviceContext->Unmap(mesh->vertexBuffer.Get(), 0);
+		});
+	}
 	//圧死判定
 	if (Pad(0).IsTrigger(enButtonX)) {
 		//toro->lifecount = 5;
@@ -135,29 +239,29 @@ void Player::Dead() {
 }
 void Player::Update()
 {
-	if (m_goal != NULL) {
-		ChangeFlag = 1;
+	if (flag == 1&&m_goal->gflag==0) {
+	
 	}
-		Move();
-		Rotation();
-		Dead();
-
-
-		if (dameflag == 1) {
-			if (nlcount <= 0) {
-				nlcount = 0.01;
-			}
-			//lifecountが5になったらゲームオーバー
-			if ((lifecount == 0 && hpscale <= 0.8)
-				|| (lifecount == 1 && hpscale <= 0.6)
-				|| (lifecount == 2 && hpscale <= 0.4)
-				|| (lifecount == 3 && hpscale <= 0.2)
-				|| (lifecount == 4 && hpscale <= 0.0))
-			{
-				lifecount = lifecount + 1;
-			}
-			dameflag = 0;
+	//移動
+	Move();
+	//回転
+	Rotation();
+	
+	if (dameflag == 1) {
+		if (nlcount <= 0) {
+			nlcount = 0.01;
 		}
+		//lifecountが5になったらゲームオーバー
+		if ((lifecount == 0 && hpscale <= 0.8)
+			|| (lifecount == 1 && hpscale <= 0.6)
+			|| (lifecount == 2 && hpscale <= 0.4)
+			|| (lifecount == 3 && hpscale <= 0.2)
+			|| (lifecount == 4 && hpscale <= 0.0))
+		{
+			lifecount = lifecount + 1;
+		}
+		dameflag = 0;
+
 		//２秒間無敵
 		if (nlcount > 0) {
 			nlcount = nlcount + GameTime().GetFrameDeltaTime();
@@ -192,13 +296,16 @@ void Player::Update()
 
 void Player::Render(CRenderContext& rc)
 {
+	//圧死
+	if ((flag==1)&&(m_mirror->m_isMirror == false)) {
+		Dead(rc);
+	}
 	//プレイヤー描画
 	m_skinModel.Draw(rc, 
 		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
 		CMatrix::Identity,
-		 0
 	);	
 }
 void Player::PostRender(CRenderContext& rc) {

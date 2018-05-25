@@ -3,8 +3,8 @@
 
 class Torokko;
 class Goal;
-//class Game;
-//class title;
+
+class Game;
 
 class Player:public IGameObject
 {
@@ -23,8 +23,9 @@ public:
 	//移動処理。
 	void Move();
 	void Turn();
+	void Line();
 	void Rotation();
-	void Dead();
+	void Dead(CRenderContext& rc);
 	
 	//メンバ変数
 	CMatrix m_rot;
@@ -52,6 +53,8 @@ public:
 	CFont m_font;										//文字
 	CVector3 m_gpos = CVector3::Zero;
 	CVector3 m_cf = CVector3::Zero;
+	CVector3 m_sen = CVector3::Zero;					//線分
+	CSkinModelData m_skinModelData1;						//スキンモデルデータ。
 
 
 	float x;
@@ -74,4 +77,5 @@ public:
 	float ChangeFlag = 0;
 	/*Game* m_game = nullptr;
 	title* m_title = nullptr;*/
+	Game*m_game=nullptr;
 };

@@ -329,6 +329,40 @@ float4 PSMain( PSInput In ) : SV_Target0
 		//鏡に映っているのでピクセルキル。
 		discard;
 	}
+	if (enableDithreing == 1) {
+		//ディザディザ
+		pos = float4(In.Pos, 1.0f);
+		//ディザの基点となる座標をカメラ空間に変換する。
+		float4 ditherPosInView = mul(mView, dithreingOrigin);
+		float4 posInView = mul(mView, pos);
+		//テスト。
+		if (posInView.z < ditherPosInView.z) {
+			float2 screenPos = In.posInProj.xy / In.posInProj.w;
+			screenPos = screenPos * float2(0.5f, -0.5f) + 0.5f;
+			//ディザで半透明。
+			//ディザパターン
+			static const int pattern[] = {
+				0, 32,  8, 40,  2, 34, 10, 42,   /* 8x8 Bayer ordered dithering  */
+				48, 16, 56, 24, 50, 18, 58, 26,  /* pattern.  Each input pixel   */
+				12, 44,  4, 36, 14, 46,  6, 38,  /* is scaled to the 0..63 range */
+				60, 28, 52, 20, 62, 30, 54, 22,  /* before looking in this table */
+				3, 35, 11, 43,  1, 33,  9, 41,   /* to determine the action.     */
+				51, 19, 59, 27, 49, 17, 57, 25,
+				15, 47,  7, 39, 13, 45,  5, 37,
+				63, 31, 55, 23, 61, 29, 53, 21
+			};
+			screenPos.x *= 1.7777f;
+			float2 uv = fmod(screenPos * 200.0f, 8.0f);
+			float t = 0.0f;
+			int x = (int)uv.x;
+			int y = (int)uv.y;
+			int index = y * 8 + x;
+			t = (float)pattern[index] / 64.0f;
+			//ディザ
+			clip(t - 0.5f);
+		}
+		
+	}
 #if 0
 	//アルベド。
 	float4 albedo = float4(albedoTexture.Sample(Sampler, In.TexCoord).xyz, 1.0f);
@@ -490,6 +524,20 @@ float4 PSMain_RenderDepth( PSInput_RenderToDepth In ) : SV_Target0
 PSOutput_RenderGBuffer PSMain_RenderGBuffer( PSInput In )
 {
 	PSOutput_RenderGBuffer Out = (PSOutput_RenderGBuffer)0;
+	float4 pos = float4(In.Pos, 1.0f);
+	//鏡カメラの座標系に変換する。
+	pos = mul(mMirrorView, pos);
+	//鏡スクリーンの座標系に変換する。
+	pos = mul(mMirrorProj, pos);
+	pos.xyz /= pos.w;
+	if (alphaflag == 0
+		&& pos.x <= 1.0f && pos.x >= -1.0f
+		&& pos.y <= 1.0f && pos.y >= -1.0f
+		&& pos.z >= 0.0f && pos.z < 1.0f
+		) {
+		//鏡に映っているのでピクセルキル。
+		discard;
+	}
 	//法線はまだ出さない。
 	//シャドウマスク出力する。
 	if(isPCFShadowMap){

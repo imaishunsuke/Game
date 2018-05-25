@@ -52,7 +52,7 @@ void GameCamera::Update()
 		toNewCameraPos.Normalize();
 
 		//‚¿‚å‚Á‚Æ‚¸‚Â’Ç”ö
-		float weight = 3.0f;
+		float weight = 0.8f;
 		toNewCameraPos = toNewCameraPos * weight + toCameraPos * (1.0f - weight);
 		toNewCameraPos.Normalize();
 		toNewCameraPos.x *= toCameraPosLen;
@@ -89,6 +89,9 @@ void GameCamera::Update()
 			toNewCameraPos = toCameraPosOld;
 		}
 		pos = CVector3::Zero;
+
+		m_rot.MakeRotationFromQuaternion(qRot);
+
 		//Ž‹“_‚ðŒvŽZ‚·‚é
 		if (!(x == 0 && y == 0)) {
 			pos = target + toNewCameraPos;

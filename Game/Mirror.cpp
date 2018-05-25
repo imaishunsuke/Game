@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Mirror.h"
 #include"Player.h"
+#include"Goal.h"
 
 Mirror::Mirror()
 {
@@ -14,7 +15,7 @@ bool Mirror::Start()
 	pl = FindGO<Player>("Player");
 
 	CVector3 vector =CVector3::Zero;
-	m_skinModelData.Load(L"modelData/mirror.cmo");
+	m_skinModelData.Load(L"modelData/mirror1.cmo");
 	m_skinModel.Init(m_skinModelData);
 
 	if (pl->ChangeFlag == 1) {
@@ -37,36 +38,36 @@ bool Mirror::Start()
 		m_position
 	);*/
 
-
-
+	pl = FindGO<Player>("Player");
+	m_goal = FindGO<Goal>("Goal");
+	/*CVector3 mirrorPos = { 0.0f,1.0f,0.5f };
+	CVector3 playerPos = pl->m_position;
 	
 	m_position = pl->m_position;
+	m_position.x = m_position.x - pl->m_rot.m[2][0] * 0.5f;
+	m_position.y = pl->m_position.y + 3.0f;
+	m_position.z = m_position.z - pl->m_rot.m[2][2] * 0.5f;*/
 	diff.x = pl->m_gpos.x - pl->m_position.x;
 	diff.y = pl->m_gpos.y - pl->m_position.y;
 	diff.z = pl->m_gpos.z - pl->m_position.z;
 	Mirlen = diff.Length();
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	
-	
-	
 	return true;
 }
 
 void Mirror::Rotation() {
-
+	m_rotation = pl->m_rotation;
 	m_rot.MakeRotationFromQuaternion(pl->m_rotation);
 	m_position.x = m_rot.m[2][0] * Mirlen + pl->m_position.x;
-	m_position.y = m_rot.m[2][1] * Mirlen + pl->m_position.y;
+	m_position.y = m_rot.m[2][1] * Mirlen + pl->m_position.y+3.0f;
 	m_position.z = m_rot.m[2][2] * Mirlen + pl->m_position.z;
-
 }
 void Mirror::Update()
 {
 	Rotation();
 
-
-	if (Pad(0).IsTrigger(enButtonB) && m_isMirror == false&&mpscale>0) {
-
+	if (Pad(0).IsTrigger(enButtonB) && m_isMirror == false&&mpflag==0) {
 		m_isMirror = true;
 	}
 	else if(Pad(0).IsTrigger(enButtonB) && m_isMirror == true){
@@ -261,28 +262,14 @@ void Mirror::Update()
 	////
 
 	//float x = Pad(0).GetLStickXF();
-	if (Pad(0).GetLStickXF()) {
-		m_rotation = pl->m_rotation ;
-		m_rotation.Multiply(m_rotation1);
+
+	//ミラーが使用中なら更新する
+	if (m_isMirror == true) {
+		m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	}
-
-	//回転行列の作成
-	CMatrix forwardMatrix;
-	forwardMatrix.MakeRotationFromQuaternion(qRot);
-
-	//鏡の前方向
-	CVector3 target=CVector3::Zero;
-	target = { forwardMatrix.m[2][0],forwardMatrix.m[2][1] ,forwardMatrix.m[2][2] };
-	
-	//カメラ行列の作成
-	CMatrix mirrorCamera;
-	CVector3 up = { 0.0f,1.0f,0.0f };
-	mirrorCamera.MakeLookAt(m_position, target, up);
-	//m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed);
-	m_skinModel.Update(m_position, m_rotation, CVector3::One);
-
+	//ミラーが使用中の時ｍｐゲージを下げる
 	if (m_isMirror == true&&pl->flag==1&& mpflag == 0) {
-		mpscale -= GameTime().GetFrameDeltaTime()*0.05;
+		mpscale -= GameTime().GetFrameDeltaTime()*0.5;
 	}
 
 	if (mpscale <= 0) {
@@ -292,8 +279,9 @@ void Mirror::Update()
 	}
 	if (mpflag==1)
 	{
-		mpscale += GameTime().GetFrameDeltaTime()*0.05;
+		mpscale += GameTime().GetFrameDeltaTime()*0.5;
 		if (mpscale >= 1) {
+			mpscale = 1;
 			mpflag = 0;
 		}
 	}
@@ -306,38 +294,39 @@ void Mirror::Render(CRenderContext& rc)
 	CMatrix axis = CMatrix::Identity;						//プレイヤーの任意の軸周りの回転行列を作成
 	axis.MakeRotationFromQuaternion(m_rotation);
 
-	m_target.x = m_position.x + axis.m[2][0] * 10.0f;		//プレイヤーの注視点を設定
-	m_target.y = m_position.y + axis.m[2][1] * 10.0f;
-	m_target.z = m_position.z + axis.m[2][2] * 10.0f;
+	m_target.x = m_position.x + axis.m[2][0] * 20.0f;		//プレイヤーの注視点を設定
+	m_target.y = m_position.y + axis.m[2][1] * 20.0f;
+	m_target.z = m_position.z + axis.m[2][2] * 20.0f;
 	
-	m_position.x = m_position.x - axis.m[2][0] * 20.0f;		//プレイヤーの注視点を設定
-	m_position.z = m_position.z - axis.m[2][2] * 20.0f;
+	m_position.x = m_position.x - axis.m[2][0] * 10.0f;		//プレイヤーの視点を設定
+	m_position.z = m_position.z - axis.m[2][2] * 10.0f;
 	CVector3 cameraPos = m_position;
 	cameraPos.x += axis.m[2][0] * 2.0f;
 	cameraPos.y += 50.0f;
 	cameraPos.z += axis.m[2][2] * 2.0f;
 
 	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
-	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, 1.0f, 0.1f, 10000.0f);
-	alphaflag = 1;
+	static float aspect = 0.3f;
+	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, aspect, 20.0f, 10000.0f);
 	if (m_isMirror == true) {
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
 			m_mirrorViewMatrix,
-			m_mirrorProjectionMatrix,
-			alphaflag);
+			m_mirrorProjectionMatrix);
 	}
 }
 
 void Mirror::PostRender(CRenderContext& rc) {
-	m_msprite.Draw(rc,
-		MainCamera2D().GetViewMatrix(),
-		MainCamera2D().GetProjectionMatrix());
-	m_mpbsprite.Draw(rc,
-		MainCamera2D().GetViewMatrix(),
-		MainCamera2D().GetProjectionMatrix());
-	m_mpsprite.Draw(rc,
-		MainCamera2D().GetViewMatrix(),
-		MainCamera2D().GetProjectionMatrix());
+	if (m_goal->gflag == 0) {
+		m_msprite.Draw(rc,
+			MainCamera2D().GetViewMatrix(),
+			MainCamera2D().GetProjectionMatrix());
+		m_mpbsprite.Draw(rc,
+			MainCamera2D().GetViewMatrix(),
+			MainCamera2D().GetProjectionMatrix());
+		m_mpsprite.Draw(rc,
+			MainCamera2D().GetViewMatrix(),
+			MainCamera2D().GetProjectionMatrix());
+	}
 }

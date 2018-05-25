@@ -79,6 +79,5 @@ void testMirror::Render(CRenderContext& rc)
 	m_skinModel.Draw(rc, MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		m_mirrorViewMatrix,
-		m_mirrorProjectionMatrix,
-		m_mirror->alphaflag);
+		m_mirrorProjectionMatrix);
 }
