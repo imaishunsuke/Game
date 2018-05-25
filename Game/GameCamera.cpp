@@ -2,6 +2,7 @@
 #include "GameCamera.h"
 #include "Goal.h"
 
+
 GameCamera::GameCamera()
 {
 }
@@ -19,6 +20,7 @@ bool GameCamera::Start()
 	MainCamera().SetTarget({ 0.0f,-5.0f, -5.0f });
 	MainCamera().SetNear(1.0f);
 	MainCamera().SetFar(1000.0f);
+	//カメラのポジション
 	MainCamera().SetPosition({ 0.0f,-5.0f, -25.0f });
 	
 	//ばねカメラの初期化。
@@ -28,12 +30,13 @@ bool GameCamera::Start()
 		false,				//カメラと地形とのあたり判定を取るかどうかのフラグ。trueだとあたり判定を行う。
 		5.0f				//カメラに設定される球体コリジョンの半径。第３引数がtrueの時に有効になる。
 	);
+	MainCamera().SetUpdateProjMatrixFunc(CCamera::enUpdateProjMatrixFunc_Perspective);
 	return true;
 }
 void GameCamera::Update()
 {
-	if (m_goal->gflag != 1) {							//ゴールしていないなら
-		m_player = FindGO<Player>("Player");
+	if (m_goal->gflag == 0 /*&& m_player->PressFlag == 0*/) {							//ゴールしていないなら
+		//m_player = FindGO<Player>("Player");
 		CVector3 toCameraPos = CVector3::Zero;
 		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
 		float height = toCameraPos.y;
@@ -93,27 +96,72 @@ void GameCamera::Update()
 			m_springCamera.SetPosition(pos);
 		}
 	}
-	if (m_goal->gflag == 1) {					//ゴール用カメラ
-		CVector3 target;
-		target.x = m_player->m_rot.m[2][0] * 10.0f + m_player->m_position.x;
-		//m_player->m_rot.m[2][1];
-		target.z = m_player->m_rot.m[2][2] * 10.0f + m_player->m_position.z;
-		target.y = 10.0f;
-		CVector3 toCameraPos;
+	if (m_player ->lifecount == 5 ) {					//ゴール用カメラ
+		m_player->m_rotation.SetRotationDeg(CVector3::AxisY, 90.0f);
+		CVector3 toCameraPos = CVector3::Zero;
 		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
+		CVector3 target = CVector3::Zero;
+		target.x = m_player->m_rot.m[2][0] * 10.0f + m_player->m_position.x;
+		////m_player->m_rot.m[2][1];
+		target.z = m_player->m_rot.m[2][2] * 10.0f + m_player->m_position.z;
+		target.y = 5.0f;	
 		toCameraPos.y = 0.0f;
-		float toCameraPoslen;
+		float toCameraPoslen = 0.0f;
 		toCameraPoslen = toCameraPos.Length();
-		CVector3 playerposX;
-		playerposX.Cross(CVector3::AxisY, m_player->m_position);
+		CVector3 playerposX = CVector3::Zero;
+		CVector3 diff = target;
+		diff.y = 0.0f;
+		diff.Normalize();
+		playerposX.Cross({ 0.0f,1.0f,0.0f },diff);
 		playerposX.Normalize();
 		playerposX.x *= -toCameraPoslen;
 		playerposX.z *= -toCameraPoslen;
-		CVector3 pos;
+		CVector3 pos = CVector3::Zero;
 		pos = target + playerposX;
 		m_springCamera.SetTarget(target);
 		m_springCamera.SetPosition(pos);
 	}
-	////バネカメラの更新。
+	/*if (m_player->PressFlag == 1) {
+		SetRotationDeg(CVector3::AxisY, 2.0f*x);
+		qRot.Multiply(toNewCameraPos);
+	}*/
+
+	if (m_player->PressFlag == 1)
+	{
+		//m_player->m_rotation.SetRotationDeg(CVector3::AxisY, 90.0f);
+		/*CVector3 toCameraPos = CVector3::Zero;
+		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
+		CVector3 target = m_player->m_position;
+		target.y = 10.0f;
+		toCameraPos.y = 0.0f;
+		float toCameraPoslen = 0.0f;
+		toCameraPoslen = toCameraPos.Length();
+		CVector3 playerposY = CVector3::AxisY;
+		playerposY.y *= toCameraPoslen;
+		CVector3 pos = CVector3::Zero;
+		pos = target + playerposY;
+		MainCamera().GetUp();
+		MainCamera().SetUp({ 0.0f,0.0f,1.0f });
+		m_springCamera.SetTarget(target);
+		m_springCamera.SetPosition(pos);*/
+	
+		if (Flag == 0) {
+			CVector3 target = m_player->m_position;
+			m_springCamera.SetTarget(target);
+			CQuaternion qRot;
+			qRot.SetRotationDeg(CVector3::AxisY, 150.0f);
+			CVector3 toPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
+			toPos.y = 0.0f;
+			toPos.Normalize();
+			qRot.Multiply(toPos);
+
+			toPos *= 50.0f;
+			CVector3 pos = target + toPos;
+			pos.y = 50.0f;
+			m_springCamera.SetPosition(pos);
+			Flag = 1;
+		}
+	}
+	//バネカメラの更新。
 	m_springCamera.Update();
 }

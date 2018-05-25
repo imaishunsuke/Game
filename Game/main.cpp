@@ -7,7 +7,6 @@
 #include "Fade.h"
 //#include "titlecamera.h"
 //#include "titletorokko.h"
-#include "TitleGame.h"
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
 {

@@ -1,8 +1,14 @@
 #pragma once
 class Fade;
-class titletorokko;
+class TitlePlayer;
 class titlecamera;
-class TitleGame;
+class Mirror;
+class Player;
+class EnemyBall;
+class TitleEnemyball;
+class TitleStar;
+class Titlemirror;
+
 
 class Title : public IGameObject
 {
@@ -18,9 +24,14 @@ public:
 	CVector3 m_position = CVector3::Zero;
 	CQuaternion m_rotation = CQuaternion::Identity;*/
 	prefab::CSkinModelRender*m_skinModelRender = nullptr;
-	titletorokko* m_titletorokko = nullptr;
+	TitlePlayer* m_titleplayer = nullptr;
 	titlecamera* m_titlecamera = nullptr;
-	TitleGame* m_title = nullptr;
+	Mirror* m_mirror = nullptr;
+	TitleEnemyball* m_titleenemyball = nullptr;
+	TitleStar* m_titlestar = nullptr;
+	Titlemirror* m_titlemirror = nullptr;
+	//Player* m_player = nullptr;
+	float ChangeFlag = 0;
 private:
 	bool m_isWaitFadeout = false;
 	/*CShaderResourceView m_texture;
@@ -28,10 +39,8 @@ private:
 	Fade* m_fade = nullptr;
 	//titletorokko* m_titletorokko = nullptr;
 	//titlecamera* m_titlecamera = nullptr;
-
-	//Fade* m_fade = nullptr;
-	Fade* m_fade = nullptr;
 	CShaderResourceView m_texture;
 	CSprite m_sprite;
+	prefab::CDirectionLight* dirLight;
 };
 

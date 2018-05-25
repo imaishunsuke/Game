@@ -67,10 +67,12 @@ bool Game::Start()
 	m_level.Build(L"level/protobj3.tks");
 	m_level.Build(L"level/plane1.tks");
 	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
+	
 	return true;
 }
 void Game::Update()
 {
+	ChangeFlag = 0;
 	switch (m_state) {
 	case enState_FadeIn:
 		GraphicsEngine().GetTonemap().Reset();

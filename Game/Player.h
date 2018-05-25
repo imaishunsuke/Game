@@ -3,6 +3,8 @@
 
 class Torokko;
 class Goal;
+//class Game;
+//class title;
 
 class Player:public IGameObject
 {
@@ -65,7 +67,11 @@ public:
 	float scale;										//文字の拡大率
 	int scalefg = 0;									//文字拡大フラグ
 	float count = 1;									//文字カウンター
+	float PressFlag = 0;
 	Mirror* m_mirror = NULL;
 	Torokko*toro = nullptr;
 	Goal* m_goal = nullptr;
+	float ChangeFlag = 0;
+	/*Game* m_game = nullptr;
+	title* m_title = nullptr;*/
 };

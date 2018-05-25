@@ -66,8 +66,8 @@ namespace tkEngine{
 				rc,
 				MainCamera().GetViewMatrix(),
 				MainCamera().GetProjectionMatrix(),
-				m_mirror->m_mirrorViewMatrix,
-				m_mirror->m_mirrorProjectionMatrix,
+				m_mirror != NULL ? m_mirror->m_mirrorViewMatrix : CMatrix::Identity,
+				m_mirror != NULL ? m_mirror->m_mirrorProjectionMatrix : CMatrix::Identity,
 				Mirror::GetInstance().alphaflag
 			);
 		}

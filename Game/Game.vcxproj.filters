@@ -59,9 +59,7 @@
     <ClCompile Include="testLevel.cpp" />
     <ClCompile Include="testMapChip.cpp" />
     <ClCompile Include="ResultScene.cpp" />
-    <ClCompile Include="titletorokko.cpp" />
     <ClCompile Include="titlecamera.cpp" />
-    <ClCompile Include="TitleGame.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Goal.cpp" />
@@ -70,6 +68,10 @@
     <ClCompile Include="EnemyBall.cpp" />
     <ClCompile Include="LightChip.cpp" />
     <ClCompile Include="LightLevel.cpp" />
+    <ClCompile Include="TitlePlayer.cpp" />
+    <ClCompile Include="TitleEnemyball.cpp" />
+    <ClCompile Include="TitleStar.cpp" />
+    <ClCompile Include="Titlemirror.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -93,9 +95,7 @@
     <ClInclude Include="testLevel.h" />
     <ClInclude Include="testMapChip.h" />
     <ClInclude Include="ResultScene.h" />
-    <ClInclude Include="titletorokko.h" />
     <ClInclude Include="titlecamera.h" />
-    <ClInclude Include="TitleGame.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Goal.h" />
@@ -104,6 +104,10 @@
     <ClInclude Include="EnemyBall.h" />
     <ClInclude Include="LightChip.h" />
     <ClInclude Include="LightLevel.h" />
+    <ClInclude Include="TitlePlayer.h" />
+    <ClInclude Include="TitleEnemyball.h" />
+    <ClInclude Include="TitleStar.h" />
+    <ClInclude Include="Titlemirror.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -196,6 +200,12 @@
       <Filter>Assets\light</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\star.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\rock.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -337,9 +347,6 @@
     <ImageContentTask Include="Assets\sprite\hpmp_bar.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\mp.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\hpd.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
@@ -349,16 +356,10 @@
     <ImageContentTask Include="Assets\sprite\GameOver.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\title.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\hp.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\hpmp_bar.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\mp.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\hpd.png">
@@ -371,6 +372,12 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\mirror.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\modelData\mp.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\title.jpg">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

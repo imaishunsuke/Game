@@ -651,8 +651,10 @@
     <ClCompile Include="testMirror.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="titlecamera.cpp" />
-    <ClCompile Include="TitleGame.cpp" />
-    <ClCompile Include="titletorokko.cpp" />
+    <ClCompile Include="TitleEnemyball.cpp" />
+    <ClCompile Include="Titlemirror.cpp" />
+    <ClCompile Include="TitlePlayer.cpp" />
+    <ClCompile Include="TitleStar.cpp" />
     <ClCompile Include="Torokko.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -677,8 +679,10 @@
     <ClInclude Include="testMirror.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="titlecamera.h" />
-    <ClInclude Include="TitleGame.h" />
-    <ClInclude Include="titletorokko.h" />
+    <ClInclude Include="TitleEnemyball.h" />
+    <ClInclude Include="Titlemirror.h" />
+    <ClInclude Include="TitlePlayer.h" />
+    <ClInclude Include="TitleStar.h" />
     <ClInclude Include="Torokko.h" />
     <CustomBuild Include="Assets\shader\LightingFunction.h" />
     <CustomBuild Include="Assets\shader\modelCB.h" />
@@ -708,8 +712,10 @@
     <MeshContentTask Include="Assets\modelData\prottro2.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro3.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro4.FBX" />
+    <MeshContentTask Include="Assets\modelData\rock.FBX" />
     <MeshContentTask Include="Assets\modelData\stage.FBX" />
     <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX" />
+    <MeshContentTask Include="Assets\modelData\star.FBX" />
     <MeshContentTask Include="Assets\modelData\testGround.FBX" />
     <MeshContentTask Include="Assets\modelData\testobj.FBX" />
     <MeshContentTask Include="Assets\modelData\titletorokko.FBX" />
@@ -813,7 +819,6 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\hp.png" />
     <ImageContentTask Include="Assets\sprite\hpmp_bar.png" />
-    <ImageContentTask Include="Assets\sprite\mp.png" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\hpd.png" />
@@ -825,7 +830,6 @@
     <ImageContentTask Include="Assets\sprite\GameOver.png" />
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\title.png" />
     <CustomBuild Include="Assets\light\ptlig_[00]_[255]_[255]_[255]_[40].tks">
       <FileType>Document</FileType>
     </CustomBuild>
@@ -834,6 +838,8 @@
     <ImageContentTask Include="Assets\sprite\mirror.png" />
   </ItemGroup>
   <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\title.jpg" />
+    <ImageContentTask Include="Assets\modelData\mp.png" />
     <Image Include="Assets\modelData\utc_nomal.tga" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

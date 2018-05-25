@@ -26,6 +26,7 @@ public:
 	CAnimationClip m_animClip[1];							//アニメーションクリップ。
 	CAnimation m_animation;
 	CVector3 m_pos = CVector3::Zero;
+	float ChangeFlag = 0;
 private:
 	enum EnState {
 		enState_FadeIn, //フェードイン中
@@ -40,6 +41,7 @@ private:
 	
 	CVector3 m_position= { 30.0f, 10.0f, 0.0f };
 	int GameOverFlag = 0;
+
 	Player*m_player = nullptr;
 	background*m_background = nullptr;
 	GameCamera*m_gamecamera = nullptr;
