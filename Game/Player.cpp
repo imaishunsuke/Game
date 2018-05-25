@@ -3,6 +3,7 @@
 #include"Mirror.h"
 #include"Game.h"
 #include"Goal.h"
+#include"Game.h"
 //#include"tkEngine/bulletPhysics/src/LinearMath/btConvexHull.h"
 #include"tkEngine/DirectXTK/Inc/SimpleMath.h"
 Player::Player()
@@ -13,7 +14,6 @@ Player::Player()
 Player::~Player()
 {
 }
-
 bool Player::Start() {
 	//モデルデータのロード
 	m_skinModelData.Load(L"modelData/FemaleMage.cmo");
@@ -63,8 +63,8 @@ bool Player::Start() {
 	m_skinModel.SetShadowCasterFlag(true);
 	return true;
 }
-void Player::Move() {
-	
+void Player::Move()
+{
 	//左スティックの入力量を受け取る。
 	float lStick_x = Pad(0).GetLStickXF();
 	float lStick_y = Pad(0).GetLStickYF();
@@ -85,7 +85,9 @@ void Player::Move() {
 	if (Pad(0).IsTrigger(enButtonA) && m_charaCon.IsOnGround() == true) {
 		m_moveSpeed.y += 98.0f;
 	}
-
+	if (ChangeFlag == 1) {
+		m_charaCon.SetGravity(-224);
+	}
 	//摩擦
 	CVector3 masa = m_moveSpeed;
 	if (m_charaCon.IsJump()) {
@@ -108,10 +110,29 @@ void Player::Move() {
 }
 
 void Player::Rotation() {
+
+	m_rot.MakeRotationFromQuaternion(m_rotation);
+	/*m_position.x = m_rot.m[2][0] * plposlen + toro->m_position.x;
+	m_position.y = m_rot.m[2][1] * plposlen + toro->m_position.y;
+	m_position.z = m_rot.m[2][2] * plposlen + toro->m_position.z;
+	m_rotation.x = toro->m_rotation.x;
+	m_rotation.y = toro->m_rotation.y;
+	m_rotation.z = toro->m_rotation.z;
+	m_rotation.w = toro->m_rotation.w;*/
 	if (fabsf(m_moveSpeed.x) < 0.001f
 		&& fabsf(m_moveSpeed.z) < 0.001f) {
 		return;
 	}
+	//atan2はtanθの値を角度(ラジアン単位)に変換してくれる関数。
+	//m_moveSpeed.x / m_moveSpeed.zの結果はtanθになる。
+	//atan2を使用して、角度を求めている。
+	//これが回転角度になる。
+	//	float angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
+	//atanが返してくる角度はラジアン単位なので
+	//SetRotationDegではなくSetRotationを使用する。
+	//m_rotation.SetRotation(CVector3::AxisY, angle);
+
+	//m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	float angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
 	m_rotation.SetRotation(CVector3::AxisY, angle);
 }
@@ -207,7 +228,8 @@ void Player::Dead(CRenderContext& rc) {
 	}
 	//圧死判定
 	if (Pad(0).IsTrigger(enButtonX)) {
-		
+		//toro->lifecount = 5;
+		PressFlag = 1;
 	}
 }
 void Player::Update()
@@ -234,34 +256,35 @@ void Player::Update()
 			lifecount = lifecount + 1;
 		}
 		dameflag = 0;
-	}
-	//２秒間無敵
-	if (nlcount > 0) {
-		nlcount = nlcount + GameTime().GetFrameDeltaTime();
-		if (2 <= nlcount) {
-			nlcount = 0;
-			dameflag = 0;
+
+		//２秒間無敵
+		if (nlcount > 0) {
+			nlcount = nlcount + GameTime().GetFrameDeltaTime();
+			if (2 <= nlcount) {
+				nlcount = 0;
+				dameflag = 0;
+			}
 		}
-	}
-	if (dameflag == 1) {
-		if ((lifecount==0 && nlcount==0)
-			|| (lifecount == 1 && nlcount == 0)
-			|| (lifecount == 2 && nlcount == 0)
-			|| (lifecount == 3 && nlcount == 0)
-			|| (lifecount == 4 && nlcount == 0))
-		{
-			hpscale = hpscale - 0.1;
+		if (dameflag == 1) {
+			if ((lifecount == 0 && nlcount == 0)
+				|| (lifecount == 1 && nlcount == 0)
+				|| (lifecount == 2 && nlcount == 0)
+				|| (lifecount == 3 && nlcount == 0)
+				|| (lifecount == 4 && nlcount == 0))
+			{
+				hpscale = hpscale - 0.1;
+			}
+
 		}
-	
-	}
-	if (hpdscale > hpscale) {
-		hpdscale = hpdscale - 0.01;
+		if (hpdscale > hpscale) {
+			hpdscale = hpdscale - 0.01;
+			m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });
+		}
+
+		m_skinModel.Update(m_position, m_rotation, CVector3::One);
+		m_hsprite.Update(m_hposition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpscale,1.0,1.0 }, { 0.0,1.0 });
 		m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });
-	}
-	m_skinModel.Update(m_position, m_rotation,CVector3::One);
-	m_hsprite.Update(m_hposition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{hpscale,1.0,1.0 }, { 0.0,1.0 });
-	m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{hpdscale,1.0,1.0}, { 0.0,1.0 });
-	m_hbsprite.Update(m_hbposition = { -640.0,360.0,0 }, CQuaternion::Identity, CVector3::One, { 0.0,1.0 });
+		m_hbsprite.Update(m_hbposition = { -640.0,360.0,0 }, CQuaternion::Identity, CVector3::One, { 0.0,1.0 });
 }
 
 void Player::Render(CRenderContext& rc)
@@ -275,12 +298,12 @@ void Player::Render(CRenderContext& rc)
 		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
 		CMatrix::Identity,
-		CMatrix::Identity);
-		
+		CMatrix::Identity,
+	);	
 }
-
 void Player::PostRender(CRenderContext& rc) {
 	//スタート
+	if (ChangeFlag == 1) {
 	if (flag == 0 && count == 0)
 	{
 		m_font.Begin(rc);
@@ -344,20 +367,21 @@ void Player::PostRender(CRenderContext& rc) {
 		count = count + GameTime().GetFrameDeltaTime();
 	}
 	
-	if (m_goal->gflag == 0) {
-		//HP barテクスチャ描画
-		m_hbsprite.Draw(rc,
-			MainCamera2D().GetViewMatrix(),
-			MainCamera2D().GetProjectionMatrix());
+		if (m_goal->gflag == 0) {
+			//HP barテクスチャ描画
+			m_hbsprite.Draw(rc,
+				MainCamera2D().GetViewMatrix(),
+				MainCamera2D().GetProjectionMatrix());
 
-		//HPダメージ時テクスチャ描画
-		m_hdsprite.Draw(rc,
-			MainCamera2D().GetViewMatrix(),
-			MainCamera2D().GetProjectionMatrix());
-		//HPテクスチャ描画
-		m_hsprite.Draw(rc,
-			MainCamera2D().GetViewMatrix(),
-			MainCamera2D().GetProjectionMatrix());
+			//HPダメージ時テクスチャ描画
+			m_hdsprite.Draw(rc,
+				MainCamera2D().GetViewMatrix(),
+				MainCamera2D().GetProjectionMatrix());
+			//HPテクスチャ描画
+			m_hsprite.Draw(rc,
+				MainCamera2D().GetViewMatrix(),
+				MainCamera2D().GetProjectionMatrix());
+
+		}
 	}
-	
 }

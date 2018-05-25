@@ -26,6 +26,7 @@ public:
 	CAnimationClip m_animClip[1];							//アニメーションクリップ。
 	CAnimation m_animation;
 	CVector3 m_pos = CVector3::Zero;
+	float ChangeFlag = 0;
 	Level m_level;
 private:
 	enum EnState {
@@ -42,6 +43,7 @@ private:
 	
 	CVector3 m_position= { 30.0f, 10.0f, 0.0f };
 	int GameOverFlag = 0;
+
 	Player*m_player = nullptr;
 	background*m_background = nullptr;
 	GameCamera*m_gamecamera = nullptr;
@@ -49,6 +51,7 @@ private:
 	Mirror* m_mirror = nullptr;
 	Goal*m_goal = nullptr;
 	ResultScene* m_result = nullptr;
+	Torokko* m_toro = nullptr;
 	Player*m_pl = nullptr;
 	EnemyBall* m_enemyball = nullptr;
 	prefab::CDirectionLight* dirLight;

@@ -650,6 +650,11 @@
     <ClCompile Include="testMapChip.cpp" />
     <ClCompile Include="testMirror.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="titlecamera.cpp" />
+    <ClCompile Include="TitleEnemyball.cpp" />
+    <ClCompile Include="Titlemirror.cpp" />
+    <ClCompile Include="TitlePlayer.cpp" />
+    <ClCompile Include="TitleStar.cpp" />
     <ClCompile Include="Torokko.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -673,6 +678,11 @@
     <ClInclude Include="testMapChip.h" />
     <ClInclude Include="testMirror.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="titlecamera.h" />
+    <ClInclude Include="TitleEnemyball.h" />
+    <ClInclude Include="Titlemirror.h" />
+    <ClInclude Include="TitlePlayer.h" />
+    <ClInclude Include="TitleStar.h" />
     <ClInclude Include="Torokko.h" />
     <CustomBuild Include="Assets\shader\LightingFunction.h" />
     <CustomBuild Include="Assets\shader\modelCB.h" />
@@ -735,6 +745,10 @@
     <MeshContentTask Include="Assets\modelData\prottro2.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro3.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro4.FBX" />
+    <MeshContentTask Include="Assets\modelData\rock.FBX" />
+    <MeshContentTask Include="Assets\modelData\stage.FBX" />
+    <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX" />
+    <MeshContentTask Include="Assets\modelData\star.FBX" />
     <MeshContentTask Include="Assets\modelData\Sig_Sag_1x2.fbx" />
     <MeshContentTask Include="Assets\modelData\stage.FBX" />
     <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX" />
@@ -742,6 +756,7 @@
     <MeshContentTask Include="Assets\modelData\Stairs_6.fbx" />
     <MeshContentTask Include="Assets\modelData\testGround.FBX" />
     <MeshContentTask Include="Assets\modelData\testobj.FBX" />
+    <MeshContentTask Include="Assets\modelData\titletorokko.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
   </ItemGroup>
   <ItemGroup>
@@ -809,9 +824,6 @@
     <CustomBuild Include="Assets\effect\Texture\wind02.png" />
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\title.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ImageContentTask Include="Assets\sprite\fade.png" />
   </ItemGroup>
   <ItemGroup>
@@ -845,7 +857,6 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\hp.png" />
     <ImageContentTask Include="Assets\sprite\hpmp_bar.png" />
-    <ImageContentTask Include="Assets\sprite\mp.png" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\hpd.png" />
@@ -860,10 +871,14 @@
     <CustomBuild Include="Assets\light\ptlig_[00]_[255]_[255]_[255]_[40].tks">
       <FileType>Document</FileType>
     </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
     <ImageContentTask Include="Assets\sprite\mirror.png" />
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Assets\modelData\utc_nomal.tga" />
+    <ImageContentTask Include="Assets\sprite\title.jpg" />
+    <ImageContentTask Include="Assets\modelData\mp.png" />
+    <Image Include="Assets\modelData\utc_nomal.tga" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\light\dlig_00.tks">

@@ -5,6 +5,8 @@
 #include "Game.h"
 #include "Title.h"
 #include "Fade.h"
+//#include "titlecamera.h"
+//#include "titletorokko.h"
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
@@ -44,6 +46,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//NewGO<Game>(0,"Game");
 		NewGO<Fade>(1, "Fade");
 		NewGO<Title>(0, nullptr);
+		/*NewGO<titlecamera>(1, nullptr);
+		NewGO<titletorokko>(1, "titletorokko");*/
+		//NewGO<TitleGame>(0, nullptr);
 		//ゲームループを実行。
 		Engine().RunGameLoop();
 	}
