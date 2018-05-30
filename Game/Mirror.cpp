@@ -18,7 +18,6 @@ bool Mirror::Start()
 	m_skinModelData.Load(L"modelData/mirror1.cmo");
 	m_skinModel.Init(m_skinModelData);
 
-	if (pl->ChangeFlag == 1) {
 		m_mtexture.CreateFromDDSTextureFromFile(L"sprite/mirror.dds");
 		m_msprite.Init(m_mtexture, 80, 120);
 
@@ -29,7 +28,6 @@ bool Mirror::Start()
 		m_mpbtexture.CreateFromDDSTextureFromFile(L"sprite/hpmp_bar.dds");
 		m_mpbsprite.Init(m_mpbtexture, 330, 50);
 
-	}
 	
 	
 	/*m_charaCon.Init(
@@ -306,8 +304,8 @@ void Mirror::Render(CRenderContext& rc)
 	cameraPos.z += axis.m[2][2] * 2.0f;
 
 	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
-	static float aspect = 0.3f;
-	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, aspect, 20.0f, 10000.0f);
+	static float aspect = 0.6f;
+	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, aspect, 5.0f, 10000.0f);
 	if (m_isMirror == true) {
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),

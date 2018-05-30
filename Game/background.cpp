@@ -58,7 +58,6 @@ void background::Render(CRenderContext& rc)
 		CMatrix::Identity
 	);
 
-
 	/*m_skinModel1.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),

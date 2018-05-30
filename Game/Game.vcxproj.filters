@@ -488,12 +488,14 @@
     <CustomBuild Include="Assets\light\PointLight.tks">
       <Filter>Assets\light</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\level\assitest.tks" />
     <CustomBuild Include="Assets\animData\walk.tka">
       <Filter>Assets\animData</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\modelData\FemaleMage.tks">
       <Filter>Assets\modelData</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\assitest.tks">
+      <Filter>Assets\level</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

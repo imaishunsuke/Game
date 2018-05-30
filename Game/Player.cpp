@@ -14,6 +14,7 @@ Player::Player()
 Player::~Player()
 {
 }
+
 bool Player::Start() {
 	//モデルデータのロード
 	m_skinModelData.Load(L"modelData/FemaleMage.cmo");
@@ -84,9 +85,6 @@ void Player::Move()
 	
 	if (Pad(0).IsTrigger(enButtonA) && m_charaCon.IsOnGround() == true) {
 		m_moveSpeed.y += 98.0f;
-	}
-	if (ChangeFlag == 1) {
-		m_charaCon.SetGravity(-224);
 	}
 	//摩擦
 	CVector3 masa = m_moveSpeed;
@@ -234,14 +232,14 @@ void Player::Dead(CRenderContext& rc) {
 }
 void Player::Update()
 {
-	if (flag == 1&&m_goal->gflag==0) {
-	
+	if (flag == 1 && m_goal->gflag == 0) {
+
 	}
 	//移動
 	Move();
 	//回転
 	Rotation();
-	
+
 	if (dameflag == 1) {
 		if (nlcount <= 0) {
 			nlcount = 0.01;
@@ -286,7 +284,6 @@ void Player::Update()
 		m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });
 		m_hbsprite.Update(m_hbposition = { -640.0,360.0,0 }, CQuaternion::Identity, CVector3::One, { 0.0,1.0 });
 }
-
 void Player::Render(CRenderContext& rc)
 {
 	//圧死
@@ -303,7 +300,6 @@ void Player::Render(CRenderContext& rc)
 }
 void Player::PostRender(CRenderContext& rc) {
 	//スタート
-	if (ChangeFlag == 1) {
 	if (flag == 0 && count == 0)
 	{
 		m_font.Begin(rc);
@@ -383,5 +379,4 @@ void Player::PostRender(CRenderContext& rc) {
 				MainCamera2D().GetProjectionMatrix());
 
 		}
-	}
 }

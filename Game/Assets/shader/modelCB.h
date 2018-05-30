@@ -17,7 +17,8 @@ cbuffer VSPSCb : register(b0){
 	float4 dithreingOrigin;	//ディザリングの基点。
 	int isShadowReceiver;	//シャドウレシーバー？
 	int		 alphaflag;
-	int enableDithreing;	//ディザリングを行うかどうかのフラグ、
+	int enableDithering;	//ディザリングを行うかどうかのフラグ、
+	float ditherRate;     //ディザリングの強さを決める係数
 };
 
 /*!

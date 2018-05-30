@@ -21,7 +21,8 @@ namespace tkEngine {
 			CVector3 hitNormal = CVector3::Zero;				//衝突点の法線。
 			btCollisionObject* me = nullptr;					//自分自身。自分自身との衝突を除外するためのメンバ。
 			float dist = FLT_MAX;								//衝突点までの距離。一番近い衝突点を求めるため。FLT_MAXは単精度の浮動小数点が取りうる最大の値。
-			
+			int ignoreCollisionAttr;				//無視するコリジョン属性のビットパターン。
+			Mirror* m_mirror = nullptr;
 																//衝突したときに呼ばれるコールバック関数。
 			virtual	btScalar	addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
 			{
@@ -29,6 +30,18 @@ namespace tkEngine {
 					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character
 					) {
 					//自分に衝突した。or キャラクタ属性のコリジョンと衝突した。
+					return 0.0f;
+				}
+				if (ignoreCollisionAttr & (1 << convexResult.m_hitCollisionObject->getUserIndex())) {
+					return 0.0f;
+				}
+				if (convexResult.m_hitCollisionObject == me
+					|| (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Obstacle
+						&& m_mirror->m_isMirror)/*ミラーを使っている*/
+					)
+				{
+					//自分に衝突した。or 障害物に衝突した。
+					//toro->dameflag = 0;
 					return 0.0f;
 				}
 				//衝突点の法線を引っ張ってくる。
@@ -324,6 +337,8 @@ namespace tkEngine {
 			}
 			end.setOrigin(btVector3(endPos.x, endPos.y, endPos.z));
 			SweepResultGround callback;
+			callback.m_mirror = m_mirror;
+			callback.ignoreCollisionAttr = m_ignoreCollisionAttrs;
 			callback.me = m_rigidBody.GetBody();
 			callback.startPos.Set(start.getOrigin());
 			//衝突検出。

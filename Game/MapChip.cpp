@@ -49,6 +49,9 @@ bool MapChip::Start()
 {
 	m_player = FindGO<Player>("Player");
 	m_camera = FindGO<GameCamera>("gamecamera");
+
+	//ディザリングの強さを決める係数
+	m_skinModel.SetDitheringCoefficient(1.0f);
 	return true;
 }
 void MapChip::Update()
@@ -79,6 +82,9 @@ void MapChip::Update()
 	}
 	else {
 		m_skinModel.SetDithering(false);
+	}
+	if (Pad(0).IsPress(enButtonY)) {
+		m_skinModel.SubtructDitherCoefficient(0.01f);
 	}
 	m_skinModel.Update(m_position, m_rotation, m_scale);
 }
