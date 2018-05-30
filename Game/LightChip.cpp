@@ -14,7 +14,10 @@ LightChip::~LightChip()
 void LightChip::OnDestroy()
 {
 	m_ptLightMap.erase(m_ptLightMap.begin(),m_ptLightMap.end());
-	//DeleteGO();
+	for (auto& ptLight : m_pointLightList)
+	{
+		DeleteGO(ptLight);
+	}
 }
 void LightChip::ptLightInit(
 	const wchar_t* modelDataFilePath,
@@ -23,7 +26,7 @@ void LightChip::ptLightInit(
 	CVector3 color,				//カラー
 	int distancedecay		//減衰距離
 ) {
-	/*prefab::CPointLight* */ptLight = NewGO<prefab::CPointLight>(0);
+	prefab::CPointLight* ptLight = NewGO<prefab::CPointLight>(0);
 	//ポイントライトの座標を指定
 	ptLight->SetPosition(pos);
 	//ライトのカラーを設定
@@ -38,8 +41,7 @@ void LightChip::ptLightInit(
 	if (it == m_ptLightMap.end()) {
 		m_ptLightMap.insert({ number,ptLight });
 	}
-
-	//m_pointLightList.push_back(ptLight);
+	m_pointLightList.push_back(ptLight);
 }
 void LightChip::dirLightInit(
 	const wchar_t* modelFilePath,

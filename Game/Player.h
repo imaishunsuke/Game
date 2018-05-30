@@ -3,6 +3,7 @@
 
 class Torokko;
 class Goal;
+
 class Game;
 class GameOverProd;
 
@@ -73,9 +74,19 @@ public:
 	int Dcount = 0;										//デッドカウンター
 	float Dtime = 0.0f;									//ミラーを使って1秒間タイマー
 	int m_prodcount=0;
+	float PressFlag = 0;
 	Mirror* m_mirror = NULL;
 	Torokko*toro = nullptr;
 	Goal* m_goal = nullptr;
+	float ChangeFlag = 0;
+	/*Game* m_game = nullptr;
+	title* m_title = nullptr;*/
 	Game*m_game=nullptr;
 	GameOverProd* m_Prod=nullptr;
+	enum EnAnimationClip {
+		enAnimationClip_walk,
+		enAnimationClip_num
+	};
+	CAnimationClip m_animClip[enAnimationClip_num];
+	CAnimation m_animation;
 };

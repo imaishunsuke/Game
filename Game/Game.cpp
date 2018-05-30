@@ -15,6 +15,7 @@
 #include "LightLevel.h"
 #include "tkEngine/light/tkDirectionLight.h"
 
+
 Game::Game()
 {
 }
@@ -67,6 +68,7 @@ bool Game::Start()
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
+	m_toro = FindGO<Torokko>("Trokko");
 	//m_toro = FindGO<Torokko>("Trokko");
 	m_pl = FindGO<Player>("Player");
 	//レベルを構築する。
@@ -91,11 +93,12 @@ bool Game::Start()
 	
 	//m_level.Build(L"level/plane1.tks");
 	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
-
+	
 	return true;
 }
 void Game::Update()
 {
+	ChangeFlag = 0;
 	switch (m_state) {
 	case enState_FadeIn:
 		GraphicsEngine().GetTonemap().Reset();
@@ -122,6 +125,7 @@ void Game::Update()
 	else {
 		//圧死のカメラ移動時に変更するかも。
 		if (m_pl->lifecount == 5) {
+
 			m_isWaitFadeout = true;
 			m_fade->StartFadeOut();
 			GameOverFlag = 1;
@@ -132,6 +136,8 @@ void Game::Update()
 	{
 		if (!m_fade->IsFade()) {
 			NewGO<Title>(0, nullptr);
+			/*NewGO<titlecamera>(0, nullptr);
+			NewGO<titletorokko>(0, "titletorokko");*/
 			DeleteGO(this);
 		}
 	}

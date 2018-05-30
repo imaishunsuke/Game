@@ -329,7 +329,7 @@ float4 PSMain( PSInput In ) : SV_Target0
 		//鏡に映っているのでピクセルキル。
 		discard;
 	}
-	if (enableDithreing == 1) {
+	if (enableDithering == 1) {
 		//ディザディザ
 		pos = float4(In.Pos, 1.0f);
 		//ディザの基点となる座標をカメラ空間に変換する。
@@ -338,6 +338,9 @@ float4 PSMain( PSInput In ) : SV_Target0
 		//テスト。
 		if (posInView.z < ditherPosInView.z) {
 			float2 screenPos = In.posInProj.xy / In.posInProj.w;
+			//-1.0～1.0の座標系を保存。
+			float2 screenPosBackup = screenPos;
+			//0.0～1.0の座標系に変換。
 			screenPos = screenPos * float2(0.5f, -0.5f) + 0.5f;
 			//ディザで半透明。
 			//ディザパターン
@@ -359,7 +362,11 @@ float4 PSMain( PSInput In ) : SV_Target0
 			int index = y * 8 + x;
 			t = (float)pattern[index] / 64.0f;
 			//ディザ
-			clip(t - 0.5f);
+			//float ditherRate = 1.0; //ディザ係数を定数バッファに用意して、CPU側から指定できるようにする。
+			float ditherR = ditherRate;
+			ditherR *= pow( min( 1.0f, 1.0f -  abs(screenPosBackup.x) + 0.1f ), 1.3 );
+			ditherR *= min( 1.0f, 1.0f - abs( max( -1.0f, screenPosBackup.y + 0.7f ) ) + 0.1f );
+			clip(t - ditherR); //ディザ係数を定数バッファに用意して、CPU側から指定できるようにする。
 		}
 		
 	}

@@ -59,12 +59,19 @@
     <ClCompile Include="testLevel.cpp" />
     <ClCompile Include="testMapChip.cpp" />
     <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="titlecamera.cpp" />
+    <ClCompile Include="Goal.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Enemybace.cpp" />
     <ClCompile Include="EnemyBall.cpp" />
     <ClCompile Include="LightChip.cpp" />
     <ClCompile Include="LightLevel.cpp" />
+    <ClCompile Include="TitlePlayer.cpp" />
+    <ClCompile Include="TitleEnemyball.cpp" />
+    <ClCompile Include="TitleStar.cpp" />
+    <ClCompile Include="Titlemirror.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -88,12 +95,19 @@
     <ClInclude Include="testLevel.h" />
     <ClInclude Include="testMapChip.h" />
     <ClInclude Include="ResultScene.h" />
+    <ClInclude Include="titlecamera.h" />
+    <ClInclude Include="Goal.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="Enemybace.h" />
     <ClInclude Include="EnemyBall.h" />
     <ClInclude Include="LightChip.h" />
     <ClInclude Include="LightLevel.h" />
+    <ClInclude Include="TitlePlayer.h" />
+    <ClInclude Include="TitleEnemyball.h" />
+    <ClInclude Include="TitleStar.h" />
+    <ClInclude Include="Titlemirror.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -131,6 +145,9 @@
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\prottro4.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\prottro1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -138,6 +155,27 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\prottro3.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\prottro2.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\prottro1.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\titletorokko.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\prottro4.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\protbackground2.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\plane.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\plane1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\prottro4.FBX">
@@ -269,6 +307,20 @@
     <MeshContentTask Include="Assets\modelData\mirror1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\FemaleMage_A.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\FemaleMage.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\star.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\rock.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\stage.FBX" />
+    <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\shader\tonemap.fx">
@@ -436,12 +488,17 @@
     <CustomBuild Include="Assets\light\PointLight.tks">
       <Filter>Assets\light</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\level\assitest.tks" />
+    <CustomBuild Include="Assets\animData\walk.tka">
+      <Filter>Assets\animData</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\modelData\FemaleMage.tks">
+      <Filter>Assets\modelData</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\assitest.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\title.png">
-      <Filter>Assets\sprite</Filter>
-    </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\fade.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
@@ -451,7 +508,19 @@
     <ImageContentTask Include="Assets\sprite\hpmp_bar.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\sprite\mp.png">
+    <ImageContentTask Include="Assets\sprite\hpd.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Result.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\GameOver.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\hp.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\hpmp_bar.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\hpd.png">
@@ -466,8 +535,16 @@
     <ImageContentTask Include="Assets\sprite\mirror.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
-    <ImageContentTask Include="Assets\modelData\utc_nomal.tga">
+    <ImageContentTask Include="Assets\modelData\mp.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\title.jpg">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\modelData\utc_nomal.tga">
+      <Filter>Assets\sprite</Filter>
+    </Image>
   </ItemGroup>
 </Project>

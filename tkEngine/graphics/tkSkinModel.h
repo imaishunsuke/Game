@@ -188,6 +188,24 @@ namespace tkEngine {
 		{
 			m_ditheringPos = position;
 		}
+		/*!
+		*@brief	ディザリングを行う時の強さを決める係数。
+		*/
+		void SetDitheringCoefficient(float coefficient)
+		{
+			m_ditherRate = coefficient;
+		}
+		/*!
+		*@brief	ディザリングの係数を弱める関数。
+		*/
+		void SubtructDitherCoefficient(float coefficient)
+		{
+			if (m_ditherRate < 0.0f) {
+				m_ditherRate = 0.0f;
+				return;
+			}
+			m_ditherRate -= coefficient;
+		}
 	private:
 		/*!
 		 *@brief	ワールド行列の更新。
@@ -206,6 +224,7 @@ namespace tkEngine {
 			int isShadowReceiver;
 			int	alphaflag;
 			int enableDithering;		//ディザリングを行うかどうかのフラグ。0で行わない。1で行う。
+			float ditheringRate;			//ディザリングの強さを決める係数
 		};
 		CAnimation* m_animation = nullptr;
 		CSkinModelData*	m_skinModelData = nullptr;
@@ -225,7 +244,8 @@ namespace tkEngine {
 		bool m_ditheringFlag = false;
 		//ディザリングの基点となる座標。
 		CVector3 m_ditheringPos = CVector3::Zero;
-
+		//ディザリングを掛ける強さを決める係数
+		float m_ditherRate = 1.0f;
 		Mirror* m_mirror = nullptr;
 	};
 }
