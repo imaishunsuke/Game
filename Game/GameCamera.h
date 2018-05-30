@@ -18,4 +18,4 @@ public:
 	CVector3 m_toCameraPos = CVector3::Zero;
 	Player*m_player=nullptr;
 	Goal* m_goal = nullptr;
-};
+};                                                                                                    

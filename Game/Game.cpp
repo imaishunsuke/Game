@@ -6,7 +6,7 @@
 #include "background.h"
 #include "Goal.h"
 #include "Player.h"
-#include "Torokko.h"
+//#include "Torokko.h"
 #include "GameCamera.h"
 #include "Mirror.h"
 #include "ResultScene.h"
@@ -120,6 +120,7 @@ void Game::Update()
 		}
 	}
 	else {
+		//ˆ³Ž€‚ÌƒJƒƒ‰ˆÚ“®Žž‚É•ÏX‚·‚é‚©‚àB
 		if (m_pl->lifecount == 5) {
 			m_isWaitFadeout = true;
 			m_fade->StartFadeOut();

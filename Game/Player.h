@@ -4,6 +4,7 @@
 class Torokko;
 class Goal;
 class Game;
+class GameOverProd;
 
 class Player:public IGameObject
 {
@@ -69,8 +70,12 @@ public:
 	float scale;										//文字の拡大率
 	int scalefg = 0;									//文字拡大フラグ
 	float count = 1;									//文字カウンター
+	int Dcount = 0;										//デッドカウンター
+	float Dtime = 0.0f;									//ミラーを使って1秒間タイマー
+	int m_prodcount=0;
 	Mirror* m_mirror = NULL;
 	Torokko*toro = nullptr;
 	Goal* m_goal = nullptr;
 	Game*m_game=nullptr;
+	GameOverProd* m_Prod=nullptr;
 };

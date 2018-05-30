@@ -11,7 +11,7 @@ GameOver::~GameOver()
 }
 bool GameOver:: Start()
 {
-	//hp barテクスチャ
+	//GameOverテクスチャ
 	m_texture.CreateFromDDSTextureFromFile(L"sprite/GameOver.dds");
 	m_sprite.Init(m_texture, 1280, 720);
 	m_fade = FindGO<Fade>("Fade");

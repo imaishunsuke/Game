@@ -3,6 +3,7 @@
 #include"Mirror.h"
 #include"Game.h"
 #include"Goal.h"
+#include"GameOverProd.h"
 //#include"tkEngine/bulletPhysics/src/LinearMath/btConvexHull.h"
 #include"tkEngine/DirectXTK/Inc/SimpleMath.h"
 Player::Player()
@@ -12,6 +13,7 @@ Player::Player()
 
 Player::~Player()
 {
+	DeleteGO(m_Prod);
 }
 
 bool Player::Start() {
@@ -39,13 +41,13 @@ bool Player::Start() {
 	//線分初期化
 	m_sen = m_position;
 	m_charaCon.Init(
-		3.0,		//半径
+		2.0,		//半径
 		1.0f,		//高さ
 		-220,
 		m_position,	//初期位置
 		m_collidertype
 	);
-	m_position = { 0.0f,15.0f,0.0f };
+	m_position = { 0.0f,0.0f,0.0f };
 	flag = 0;
 	count = 0;
 	scale = 3.0f;
@@ -57,6 +59,7 @@ bool Player::Start() {
 	m_skinModel.SetShadowCasterFlag(true);
 	return true;
 }
+
 void Player::Move() {
 	
 	//左スティックの入力量を受け取る。
@@ -73,8 +76,8 @@ void Player::Move() {
 	//XZ成分の移動速度をクリア。
 	/*m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;*/
-	cameraForward *=lStick_y * 400.0f*GameTime().GetFrameDeltaTime();	//奥方向への移動速度を代入。	
-	cameraRight *= lStick_x * 400.0f*GameTime().GetFrameDeltaTime();	//右方向への移動速度を加算。
+	cameraForward *=lStick_y * 200.0f*GameTime().GetFrameDeltaTime();	//奥方向への移動速度を代入。	
+	cameraRight *= lStick_x * 200.0f*GameTime().GetFrameDeltaTime();	//右方向への移動速度を加算。
 	
 	if (Pad(0).IsTrigger(enButtonA) && m_charaCon.IsOnGround() == true) {
 		m_moveSpeed.y += 98.0f;
@@ -109,18 +112,17 @@ void Player::Rotation() {
 	float angle = atan2(m_moveSpeed.x, m_moveSpeed.z);
 	m_rotation.SetRotation(CVector3::AxisY, angle);
 }
-void Player::Line() {
-	if (m_mirror->m_isMirror == false) {
-		
-		
-		//m_sen = m_position;
-		//m_skinModelData.FindMesh();
-	}
-}
 
 void Player::Dead(CRenderContext& rc) {
 	int numMesh = 0;
+	auto vStart = m_position;
+	vStart.y *= 0.3f;
+	auto vEnd = vStart + CVector3(.0f, 0.0f, 20.0f);
+	auto fNearPlaneLength = FLT_MAX;		//一番近い平面までの距離。
+	auto vNearPlaneNormal = CVector3::Zero; //一番近い平面の法線。
+	bool isHit = false;
 	for (auto& mapChip : m_game->m_level.m_mapChipList) {
+		const auto& mWorld = mapChip->m_skinModel.GetWorldMatrix();
 		mapChip->m_skinModel.FindMesh([&](const auto& mesh) {
 			numMesh++;
 			ID3D11DeviceContext* deviceContext = GraphicsEngine().GetD3DDeviceContext();
@@ -154,23 +156,16 @@ void Player::Dead(CRenderContext& rc) {
 				//三角形を内包する無限平面を求める。
 				//Plane plane;
 				
-				float w;
+				//float w;
 				CVector3 tri[3];
 				tri[0] = *triVertex[0];
 				tri[1] = *triVertex[1];
 				tri[2] = *triVertex[2];
-
-				w = tri[0].z;
-				tri[0].z = tri[0].y;
-				tri[0].y = w;
-
-				w = tri[1].z;
-				tri[1].z = tri[1].y;
-				tri[1].y = w;
-
-				w = tri[2].z;
-				tri[2].z = tri[2].y;
-				tri[2].y = w;
+				//ワールド空間に変換。
+				mWorld.Mul(tri[0]);
+				mWorld.Mul(tri[1]);
+				mWorld.Mul(tri[2]);
+			
 
 				//平面の法線を計算する。
 				CVector3 v1, v2, normal;
@@ -180,16 +175,60 @@ void Player::Dead(CRenderContext& rc) {
 				normal.Cross(v1, v2);
 				normal.Normalize();
 
-				CVector3 start;
-				start.Set(m_position);
-
-				v1=start-tri[0];
-				float d1 = v1.Dot(normal);
-				float d2 = normal.Dot(normal);
+				//三角形の頂点からレイの始点へのベクトルを計算する。
+				CVector3 vertToStart = vStart - tri[0];
+				//三角形の頂点からレイの終点へのベクトルを計算する。
+				CVector3 vertToEnd = vEnd - tri[0];
+				float d1 = normal.Dot(vertToStart);
+				float d2 = normal.Dot(vertToEnd);
+				
 				int a = 0;
 				if (d1 * d2 < 0.0f) {
+					
 					//交点を求める。
-					 a = 1;
+					auto absD1 = fabsf(d1);
+					auto absD2 = fabsf(d2);
+					auto rayLengthInNormal = absD1 + absD2;
+					auto crossPoint = (vStart * absD1 / rayLengthInNormal)
+						+ (vEnd * absD2 / rayLengthInNormal);
+					//無限平面と衝突したので、次は三角形の内外判定を行う。
+					auto vert0ToCrossPoint = crossPoint - tri[0];
+					vert0ToCrossPoint.Normalize();
+					auto vert1ToCrossPoint = crossPoint - tri[1];
+					vert1ToCrossPoint.Normalize();
+					auto vert2ToCrossPoint = crossPoint - tri[2];
+					vert2ToCrossPoint.Normalize();
+
+					auto vert0ToVert1 = tri[1] - tri[0];
+					vert0ToVert1.Normalize();
+
+					auto vert1ToVert2 = tri[2] - tri[1];
+					vert1ToVert2.Normalize();
+
+					auto vert2ToVert0 = tri[0] - tri[2];
+					vert2ToVert0.Normalize();
+
+					CVector3 vWork[3];
+					vWork[0].Cross(vert0ToVert1, vert0ToCrossPoint);
+					vWork[0].Normalize();
+
+					vWork[1].Cross(vert1ToVert2, vert1ToCrossPoint);
+					vWork[1].Normalize();
+
+					vWork[2].Cross(vert2ToVert0, vert2ToCrossPoint);
+					vWork[2].Normalize();
+
+					if (vWork[0].Dot(vWork[1]) > 0.0f && vWork[0].Dot(vWork[2]) > 0.0f) {
+						//交点は三角形の内側にいる。
+						isHit = true;
+						auto diff = vStart - crossPoint;
+						auto len = diff.LengthSq();
+						if (len < fNearPlaneLength) {
+							//この平面のほうが近いので、距離と法線を更新する。
+							fNearPlaneLength = len;
+							vNearPlaneNormal = normal;
+						}
+					}
 				}
 			}
 			//インデックスバッファをアンロック。
@@ -199,21 +238,24 @@ void Player::Dead(CRenderContext& rc) {
 			deviceContext->Unmap(mesh->vertexBuffer.Get(), 0);
 		});
 	}
-	//圧死判定
-	if (Pad(0).IsTrigger(enButtonX)) {
-		
+	if (isHit == true) {
+		auto vRayDir = vEnd - vStart;
+		vRayDir.Normalize();
+		if (vRayDir.Dot(vNearPlaneNormal) > 0.0f) {
+			Dcount++;
+			//閉じたメッシュの内側にいる？
+		}
 	}
 }
+
 void Player::Update()
 {
-	if (flag == 1&&m_goal->gflag==0) {
-	
-	}
+	if (flag == 1&&m_goal->gflag==0&&m_prodcount==0) {
 	//移動
 	Move();
 	//回転
 	Rotation();
-	
+	}
 	if (dameflag == 1) {
 		if (nlcount <= 0) {
 			nlcount = 0.01;
@@ -261,8 +303,24 @@ void Player::Update()
 void Player::Render(CRenderContext& rc)
 {
 	//圧死
-	if ((flag==1)&&(m_mirror->m_isMirror == false)) {
-		Dead(rc);
+	if (Dcount >= 5) {
+		if (m_prodcount==0) {
+			m_Prod = NewGO<GameOverProd>(0, "Prod");
+			m_prodcount = 1;
+		}
+	}
+
+	if ((flag==1)
+		&&(m_mirror->m_isMirror == false)) {
+		Dtime += GameTime().GetFrameDeltaTime();
+		if (Dtime <= 1.0f) {
+			Dead(rc);
+		}
+	}
+ if(m_mirror->m_isMirror == true)
+	{
+		Dtime = 0.0f;
+		Dcount = 0;
 	}
 	//プレイヤー描画
 	m_skinModel.Draw(rc, 

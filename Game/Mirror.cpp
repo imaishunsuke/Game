@@ -113,7 +113,7 @@ void Mirror::Render(CRenderContext& rc)
 
 	m_mirrorViewMatrix.MakeLookAt(m_position, m_target, { 0.0f,1.0f,0.0f });
 	static float aspect = 0.3f;
-	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, aspect, 20.0f, 10000.0f);
+	m_mirrorProjectionMatrix.MakeProjectionMatrix(CMath::PI * 0.3f, aspect, 1.0f, 10000.0f);
 	if (m_isMirror == true) {
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),
