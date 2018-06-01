@@ -63,12 +63,12 @@ void EnemyBall::Render(CRenderContext& rc)
 			m_mirror = FindGO<Mirror>("Mirror");
 		}
 		if (m_mirror->m_isMirror == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
-			m_mirror->_alphaflag = 0;
+			m_skinModel.SetDiscardMirror(false);
 		}
 		else {
-			m_mirror->_alphaflag = 1;
+			m_skinModel.SetDiscardMirror(true);
 		}
-		m_skinModel.SetDiscardMirror(m_mirror->_alphaflag);
+		//m_skinModel.SetDiscardMirror(m_mirror->_alphaflag);
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
