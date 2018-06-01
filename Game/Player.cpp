@@ -82,11 +82,11 @@ void Player::Move()
 	//XZ成分の移動速度をクリア。
 	/*m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;*/
-	cameraForward *=lStick_y * 200.0f*GameTime().GetFrameDeltaTime();	//奥方向への移動速度を代入。	
-	cameraRight *= lStick_x * 200.0f*GameTime().GetFrameDeltaTime();	//右方向への移動速度を加算。
+	cameraForward *=lStick_y * 50.0f*GameTime().GetFrameDeltaTime();	//奥方向への移動速度を代入。	
+	cameraRight *= lStick_x * 50.0f*GameTime().GetFrameDeltaTime();	//右方向への移動速度を加算。
 	
 	if (Pad(0).IsTrigger(enButtonA) && m_charaCon.IsOnGround() == true) {
-		m_moveSpeed.y += 98.0f;
+		m_moveSpeed.y += 60.0f;
 	}
 	//摩擦
 	CVector3 masa = m_moveSpeed;
@@ -146,9 +146,9 @@ void Player::Dead(CRenderContext& rc) {
 	auto fNearPlaneLength = FLT_MAX;		//一番近い平面までの距離。
 	auto vNearPlaneNormal = CVector3::Zero; //一番近い平面の法線。
 	bool isHit = false;
-	for (auto& vrmapChip : m_game->m_vrlevel.m_mapChipList) {
-		const auto& mWorld = vrmapChip->m_skinModel.GetWorldMatrix();
-		vrmapChip->m_skinModel.FindMesh([&](const auto& mesh) {
+	for (auto& mapChip : m_game->m_level.m_mapChipList) {
+		const auto& mWorld = mapChip->m_skinModel.GetWorldMatrix();
+		mapChip->m_skinModel.FindMesh([&](const auto& mesh) {
 			numMesh++;
 			ID3D11DeviceContext* deviceContext = GraphicsEngine().GetD3DDeviceContext();
 			//頂点バッファをロック
