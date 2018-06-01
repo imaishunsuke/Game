@@ -82,11 +82,11 @@ void Player::Move()
 	//XZ成分の移動速度をクリア。
 	/*m_moveSpeed.x = 0.0f;
 	m_moveSpeed.z = 0.0f;*/
-	cameraForward *=lStick_y * 200.0f*GameTime().GetFrameDeltaTime();	//奥方向への移動速度を代入。	
-	cameraRight *= lStick_x * 200.0f*GameTime().GetFrameDeltaTime();	//右方向への移動速度を加算。
+	cameraForward *=lStick_y * 50.0f*GameTime().GetFrameDeltaTime();	//奥方向への移動速度を代入。	
+	cameraRight *= lStick_x * 50.0f*GameTime().GetFrameDeltaTime();	//右方向への移動速度を加算。
 	
 	if (Pad(0).IsTrigger(enButtonA) && m_charaCon.IsOnGround() == true) {
-		m_moveSpeed.y += 98.0f;
+		m_moveSpeed.y += 60.0f;
 	}
 	//摩擦
 	CVector3 masa = m_moveSpeed;

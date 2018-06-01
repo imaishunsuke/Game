@@ -85,7 +85,7 @@ void Mirror::Update()
 	}
 	//ミラーが使用中の時ｍｐゲージを下げる
 	if (m_isMirror == true&&pl->flag==1&& mpflag == 0) {
-		mpscale -= GameTime().GetFrameDeltaTime()*0.5;
+		mpscale -= GameTime().GetFrameDeltaTime()*0.17;
 	}
 
 	if (mpscale <= 0) {
