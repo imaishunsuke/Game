@@ -146,9 +146,9 @@ void Player::Dead(CRenderContext& rc) {
 	auto fNearPlaneLength = FLT_MAX;		//一番近い平面までの距離。
 	auto vNearPlaneNormal = CVector3::Zero; //一番近い平面の法線。
 	bool isHit = false;
-	for (auto& vrmapChip : m_game->m_vrlevel.m_mapChipList) {
-		const auto& mWorld = vrmapChip->m_skinModel.GetWorldMatrix();
-		vrmapChip->m_skinModel.FindMesh([&](const auto& mesh) {
+	for (auto& mapChip : m_game->m_level.m_mapChipList) {
+		const auto& mWorld = mapChip->m_skinModel.GetWorldMatrix();
+		mapChip->m_skinModel.FindMesh([&](const auto& mesh) {
 			numMesh++;
 			ID3D11DeviceContext* deviceContext = GraphicsEngine().GetD3DDeviceContext();
 			//頂点バッファをロック
