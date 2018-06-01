@@ -657,6 +657,8 @@
     <ClCompile Include="TitlePlayer.cpp" />
     <ClCompile Include="TitleStar.cpp" />
     <ClCompile Include="Torokko.cpp" />
+    <ClCompile Include="vrlevel.cpp" />
+    <ClCompile Include="vrMapChip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="background.h" />
@@ -686,6 +688,8 @@
     <ClInclude Include="TitlePlayer.h" />
     <ClInclude Include="TitleStar.h" />
     <ClInclude Include="Torokko.h" />
+    <ClInclude Include="vrlevel.h" />
+    <ClInclude Include="vrMapChip.h" />
     <CustomBuild Include="Assets\shader\LightingFunction.h" />
     <CustomBuild Include="Assets\shader\modelCB.h" />
     <CustomBuild Include="Assets\shader\modelSRV.h" />
@@ -698,6 +702,7 @@
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\aa.FBX" />
     <MeshContentTask Include="Assets\modelData\assitest.FBX" />
     <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_1.fbx" />
     <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_10.fbx" />
@@ -724,6 +729,7 @@
     <MeshContentTask Include="Assets\modelData\Floor_Blocks_2.fbx" />
     <MeshContentTask Include="Assets\modelData\Floor_Blocks_20.fbx" />
     <MeshContentTask Include="Assets\modelData\Floor_Blocks_9.fbx" />
+    <MeshContentTask Include="Assets\modelData\gg.FBX" />
     <MeshContentTask Include="Assets\modelData\ground.FBX" />
     <MeshContentTask Include="Assets\modelData\ground1.FBX" />
     <MeshContentTask Include="Assets\modelData\ground2.FBX" />
@@ -748,6 +754,7 @@
     <MeshContentTask Include="Assets\modelData\prottro3.FBX" />
     <MeshContentTask Include="Assets\modelData\prottro4.FBX" />
     <MeshContentTask Include="Assets\modelData\rock.FBX" />
+    <MeshContentTask Include="Assets\modelData\ss.FBX" />
     <MeshContentTask Include="Assets\modelData\star.FBX" />
     <MeshContentTask Include="Assets\modelData\Sig_Sag_1x2.fbx" />
     <MeshContentTask Include="Assets\modelData\Stairs_2.fbx" />
@@ -943,6 +950,14 @@
       <FileType>Document</FileType>
     </CustomBuild>
     <CustomBuild Include="Assets\modelData\FemaleMage.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\level\aa.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\ss.tks">
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>

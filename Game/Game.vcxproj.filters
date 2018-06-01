@@ -72,6 +72,9 @@
     <ClCompile Include="TitleEnemyball.cpp" />
     <ClCompile Include="TitleStar.cpp" />
     <ClCompile Include="Titlemirror.cpp" />
+    <ClCompile Include="GameOverProd.cpp" />
+    <ClCompile Include="vrlevel.cpp" />
+    <ClCompile Include="vrMapChip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -108,6 +111,9 @@
     <ClInclude Include="TitleEnemyball.h" />
     <ClInclude Include="TitleStar.h" />
     <ClInclude Include="Titlemirror.h" />
+    <ClInclude Include="GameOverProd.h" />
+    <ClInclude Include="vrlevel.h" />
+    <ClInclude Include="vrMapChip.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -188,12 +194,6 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\plane1.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\stage.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\dlig_[00]_[255]_[255]_[255].FBX">
@@ -319,8 +319,15 @@
     <MeshContentTask Include="Assets\modelData\rock.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\stage.FBX" />
-    <MeshContentTask Include="Assets\modelData\ptlig_[00]_[255]_[255]_[255]_[40].FBX" />
+    <MeshContentTask Include="Assets\modelData\gg.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\ss.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\aa.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\shader\tonemap.fx">
@@ -495,6 +502,12 @@
       <Filter>Assets\modelData</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\level\assitest.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\ss.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\aa.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
   </ItemGroup>

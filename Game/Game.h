@@ -1,5 +1,6 @@
 #pragma once
 #include "Level.h"
+#include "vrlevel.h"
 #include "LightLevel.h"
 #include "tkEngine/graphics/effect/tkEffect.h"
 
@@ -29,6 +30,7 @@ public:
 	CVector3 m_pos = CVector3::Zero;
 	float ChangeFlag = 0;
 	Level m_level;
+	vrlevel m_vrlevel;
 private:
 	enum EnState {
 		enState_FadeIn, //フェードイン中
@@ -52,7 +54,7 @@ private:
 	Mirror* m_mirror = nullptr;
 	Goal*m_goal = nullptr;
 	ResultScene* m_result = nullptr;
-	Torokko* m_toro = nullptr;
+	//Torokko* m_toro = nullptr;
 	Player*m_pl = nullptr;
 	EnemyBall* m_enemyball = nullptr;
 	prefab::CDirectionLight* dirLight;

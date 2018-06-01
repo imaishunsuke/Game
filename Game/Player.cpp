@@ -141,13 +141,14 @@ void Player::Dead(CRenderContext& rc) {
 	int numMesh = 0;
 	auto vStart = m_position;
 	vStart.y *= 0.3f;
-	auto vEnd = vStart + CVector3(.0f, 0.0f, 20.0f);
+	auto vEnd = vStart + CVector3(0.0f, 0.0f, 20.0f);
+
 	auto fNearPlaneLength = FLT_MAX;		//一番近い平面までの距離。
 	auto vNearPlaneNormal = CVector3::Zero; //一番近い平面の法線。
 	bool isHit = false;
-	for (auto& mapChip : m_game->m_level.m_mapChipList) {
-		const auto& mWorld = mapChip->m_skinModel.GetWorldMatrix();
-		mapChip->m_skinModel.FindMesh([&](const auto& mesh) {
+	for (auto& vrmapChip : m_game->m_vrlevel.m_mapChipList) {
+		const auto& mWorld = vrmapChip->m_skinModel.GetWorldMatrix();
+		vrmapChip->m_skinModel.FindMesh([&](const auto& mesh) {
 			numMesh++;
 			ID3D11DeviceContext* deviceContext = GraphicsEngine().GetD3DDeviceContext();
 			//頂点バッファをロック
@@ -206,7 +207,6 @@ void Player::Dead(CRenderContext& rc) {
 				float d1 = normal.Dot(vertToStart);
 				float d2 = normal.Dot(vertToEnd);
 
-				int a = 0;
 				if (d1 * d2 < 0.0f) {
 
 					//交点を求める。
@@ -269,12 +269,16 @@ void Player::Dead(CRenderContext& rc) {
 			Dcount++;
 			//閉じたメッシュの内側にいる？
 		}
-		//圧死判定
-		if (Pad(0).IsTrigger(enButtonX)) {
-			//toro->lifecount = 5;
-			PressFlag = 1;
-		}
+		////圧死判定
+		//if (Pad(0).IsTrigger(enButtonX)) {
+		//	//toro->lifecount = 5;
+		//	PressFlag = 1;
+		//}
 	}
+	/*else
+	{
+		DEndPosC = 1;
+	}*/
 }
 
 void Player::Update()
@@ -337,6 +341,7 @@ void Player::Render(CRenderContext& rc)
 	if (Dcount >= 5) {
 		if (m_prodcount==0) {
 			m_Prod = NewGO<GameOverProd>(0, "Prod");
+			PressFlag = 1;
 			m_prodcount = 1;
 		}
 	}
@@ -344,7 +349,7 @@ void Player::Render(CRenderContext& rc)
 	if ((flag==1)
 		&&(m_mirror->m_isMirror == false)) {
 		Dtime += GameTime().GetFrameDeltaTime();
-		if (Dtime <= 1.0f) {
+		if (/*DEndPosC<=5*/Dtime <= 1.0f) {
 			Dead(rc);
 		}
 	}

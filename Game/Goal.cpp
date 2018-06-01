@@ -13,8 +13,8 @@ Goal::~Goal()
 }
 
 bool Goal::Start() {
-	m_goalpos = { -5.0,0.0,100.2};
-	m_goalpos1 = { 1.0,0.0,100.2};
+	m_goalpos = { -5.0,0.0,239.2};
+	m_goalpos1 = { 1.0,0.0,239.2};
 	player = FindGO<Player>("Player");
 	return true;
 }
