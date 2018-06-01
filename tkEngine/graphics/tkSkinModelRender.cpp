@@ -45,7 +45,7 @@ namespace prefab{
 	 * @brief	•`‰æB
 	 */
 	void CSkinModelRender::Render(CRenderContext& rc)
-	{
+	{ 
 		m_skinModel.Draw(rc);
 	}
 }

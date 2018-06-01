@@ -99,7 +99,7 @@ void GameCamera::Update()
 			m_springCamera.SetPosition(pos);
 		}
 	}
-	if (m_player ->lifecount == 5 ) {					//ゴール用カメラ
+	if (m_goal->gflag==1 ) {					//ゴール用カメラ
 		m_player->m_rotation.SetRotationDeg(CVector3::AxisY, 90.0f);
 		CVector3 toCameraPos = CVector3::Zero;
 		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();

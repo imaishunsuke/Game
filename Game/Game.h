@@ -1,17 +1,19 @@
 #pragma once
 #include "Level.h"
+#include "vrlevel.h"
 #include "LightLevel.h"
 #include "tkEngine/graphics/effect/tkEffect.h"
 
 class Fade;
 class background;
 class Player;
-class Torokko;
+//class Torokko;
 class GameCamera;
 class Mirror;
 class Goal;
 class ResultScene;
 class EnemyBall;
+class GameOverProd;
 
 class Game : public IGameObject
 {
@@ -28,6 +30,7 @@ public:
 	CVector3 m_pos = CVector3::Zero;
 	float ChangeFlag = 0;
 	Level m_level;
+	vrlevel m_vrlevel;
 private:
 	enum EnState {
 		enState_FadeIn, //フェードイン中
@@ -47,12 +50,13 @@ private:
 	Player*m_player = nullptr;
 	background*m_background = nullptr;
 	GameCamera*m_gamecamera = nullptr;
-	Torokko*m_torokko = nullptr;
+	//Torokko*m_torokko = nullptr;
 	Mirror* m_mirror = nullptr;
 	Goal*m_goal = nullptr;
 	ResultScene* m_result = nullptr;
-	Torokko* m_toro = nullptr;
+	//Torokko* m_toro = nullptr;
 	Player*m_pl = nullptr;
 	EnemyBall* m_enemyball = nullptr;
 	prefab::CDirectionLight* dirLight;
+	GameOverProd* m_Prod = nullptr;
 };

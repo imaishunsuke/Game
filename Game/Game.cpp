@@ -6,7 +6,7 @@
 #include "background.h"
 #include "Goal.h"
 #include "Player.h"
-#include "Torokko.h"
+//#include "Torokko.h"
 #include "GameCamera.h"
 #include "Mirror.h"
 #include "ResultScene.h"
@@ -14,6 +14,7 @@
 #include "EnemyBall.h"
 #include "LightLevel.h"
 #include "tkEngine/light/tkDirectionLight.h"
+#include "vrlevel.h"
 
 
 Game::Game()
@@ -53,8 +54,6 @@ bool Game::Start()
 	m_enemyball = NewGO<EnemyBall>(0, "EnemyBall");
 	//リザルト画面作成
 	m_result = NewGO<ResultScene>(0, "Result");
-	//トロッコ作成
-	//m_torokko = NewGO<Torokko>(0, "Trokko");
 	//プレイヤー作成
 	m_player=NewGO<Player>(0,"Player");
 	//カメラ作成
@@ -68,8 +67,6 @@ bool Game::Start()
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
-	m_toro = FindGO<Torokko>("Trokko");
-	//m_toro = FindGO<Torokko>("Trokko");
 	m_pl = FindGO<Player>("Player");
 	//レベルを構築する。
 
@@ -82,6 +79,8 @@ bool Game::Start()
 	m_level.Build(L"level/Block_1x2_003.tks");
 	m_level.Build(L"level/Block_1x2_004.tks");*/
 	
+	
+	//i
 	m_level.Build(L"level/Stage1.tks");
 	m_level.Build(L"level/Sig_Sag_1x2_001.tks");
 	m_level.Build(L"level/Sig_Sag_1x2_002.tks");
@@ -91,7 +90,8 @@ bool Game::Start()
 	m_level.Build(L"level/Sig_Sag_1x2_006.tks"); 
 	m_level.Build(L"level/assitest.tks");
 	
-	//m_level.Build(L"level/plane1.tks");
+	/*m_level.Build(L"level/ss.tks");
+	m_vrlevel.Build(L"level/aa.tks");*/
 	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
 	
 	return true;
@@ -123,7 +123,8 @@ void Game::Update()
 		}
 	}
 	else {
-		if (m_pl->lifecount == 5) {
+		//圧死のカメラ移動時に変更するかも。
+		if (m_pl->lifecount == 6) {
 
 			m_isWaitFadeout = true;
 			m_fade->StartFadeOut();

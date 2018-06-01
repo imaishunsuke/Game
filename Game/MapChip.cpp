@@ -27,6 +27,7 @@ void MapChip::Init(
 ) {
 	m_skinModelData.Load(modelFilePath);
 	m_skinModel.Init(m_skinModelData);
+	m_skinModel.SetShadowReceiverFlag(true);
 	m_position = pos;
 	m_scale = scale;
 	m_rotation = rotation;
