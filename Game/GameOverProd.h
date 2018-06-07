@@ -1,7 +1,7 @@
 #pragma once
 
 class Player;
-
+class GameCamera;
 class GameOverProd:public IGameObject
 {
 public:
@@ -16,5 +16,6 @@ public:
 	};
 	Product m_step;
 	Player*m_pl = nullptr;
+	GameCamera*m_camera = nullptr;
 };
 

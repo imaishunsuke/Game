@@ -131,23 +131,6 @@ void GameCamera::Update()
 
 	if (m_player->PressFlag == 1)
 	{
-		//m_player->m_rotation.SetRotationDeg(CVector3::AxisY, 90.0f);
-		/*CVector3 toCameraPos = CVector3::Zero;
-		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
-		CVector3 target = m_player->m_position;
-		target.y = 10.0f;
-		toCameraPos.y = 0.0f;
-		float toCameraPoslen = 0.0f;
-		toCameraPoslen = toCameraPos.Length();
-		CVector3 playerposY = CVector3::AxisY;
-		playerposY.y *= toCameraPoslen;
-		CVector3 pos = CVector3::Zero;
-		pos = target + playerposY;
-		MainCamera().GetUp();
-		MainCamera().SetUp({ 0.0f,0.0f,1.0f });
-		m_springCamera.SetTarget(target);
-		m_springCamera.SetPosition(pos);*/
-	
 		if (Flag == 0) {
 			CVector3 target = m_player->m_position;
 			m_springCamera.SetTarget(target);
@@ -163,6 +146,12 @@ void GameCamera::Update()
 			pos.y = 50.0f;
 			m_springCamera.SetPosition(pos);
 			Flag = 1;
+		}
+		if (m_springCamera.GetMoveSpeed().x <= 0.2
+			&& m_springCamera.GetMoveSpeed().y <= 0.2
+			&& m_springCamera.GetMoveSpeed().z <= 0.2)
+		{
+			Flag = 2;
 		}
 	}
 	//バネカメラの更新。

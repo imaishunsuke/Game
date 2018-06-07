@@ -1,6 +1,3 @@
-
-
-
 #include "stdafx.h"
 #include "MapChip.h"
 #include"Mirror.h"
@@ -81,11 +78,20 @@ void MapChip::Update()
 		//ディザリングを使用するときの基点となる座標を渡す
 		m_skinModel.SetDitheringPos(ditheringPos);
 	}
-	else {
-		m_skinModel.SetDithering(false);
+	else if (m_player->lifecount==5) {
+		m_skinModel.SetDeadFlag(true);
+		if (m_camera->Flag==2)
+		{
+			m_skinModel.SubtructDitherCoefficient(0.02f);
+		}
+		//ディザリングを使用するためのフラグを渡す
+		m_skinModel.SetDithering(true);
+		//ディザリングを使用するときの基点となる座標を渡す
+		m_skinModel.SetDitheringPos(m_player->m_position);
 	}
-	if (Pad(0).IsPress(enButtonY)) {
-		m_skinModel.SubtructDitherCoefficient(0.01f);
+	else {
+		m_skinModel.SetDeadFlag(false);
+		m_skinModel.SetDithering(false);
 	}
 	m_skinModel.Update(m_position, m_rotation, m_scale);
 }
