@@ -46,7 +46,7 @@ public:
 	CSprite m_hbsprite;									//スプライト
 	CShaderResourceView m_hbtexture;					//HP barテクスチャ。
 	CVector3	m_hbposition = CVector3::Zero;			//座標。
-	CVector3 m_position = CVector3::Zero;				//座標。
+	CVector3 m_position = {0.0,10.0,0.0} /*= CVector3::Zero*/;				//座標。
 	CVector3 diff = CVector3::Zero;
 	CQuaternion qRot = CQuaternion::Identity;
 	CQuaternion m_rotation = CQuaternion::Identity;		//回転
@@ -90,4 +90,16 @@ public:
 	};
 	CAnimationClip m_animClip[enAnimationClip_num];
 	CAnimation m_animation;
+private:
+	void InitPoly();
+private:
+	struct Spoly
+	{
+		CVector3 m_triVertex[3];
+		CVector3 m_normal;
+	};
+	int a = 0;
+	int poflag = 0;
+	std::vector<Spoly> m_polypool;
+	std::vector<Spoly>::iterator itr;
 };

@@ -19,7 +19,7 @@ cbuffer VSPSCb : register(b0){
 	int		 alphaflag;
 	int enableDithering;	//ディザリングを行うかどうかのフラグ、
 	float ditherRate;     //ディザリングの強さを決める係数
-	int DeadFlag;		//ゴール用
+	int DeadFlag;			//圧死フラグ
 };
 
 /*!

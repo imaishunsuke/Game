@@ -364,9 +364,14 @@ float4 PSMain( PSInput In ) : SV_Target0
 			//ディザ
 			//float ditherRate = 1.0; //ディザ係数を定数バッファに用意して、CPU側から指定できるようにする。
 			float ditherR = ditherRate;
+			if (DeadFlag == 0) {
+				ditherR *= pow(min(1.0f, 1.0f - abs(screenPosBackup.x) + 0.1f), 1.3);
+				ditherR *= min(1.0f, 1.0f - abs(max(-1.0f, screenPosBackup.y + 0.7f)) + 0.1f);
+				clip(t - ditherR); //ディザ係数を定数バッファに用意して、CPU側から指定できるようにする。
+			}
 			if (DeadFlag == 1) {
 				ditherR *= pow(min(1.0f, 1.0f - abs(screenPosBackup.x) + 0.1f), 1.3);
-				ditherR *= min(1.0f, 1.0f - abs(max(-1.0f, screenPosBackup.y + 0.2f)) + 0.1f);
+				ditherR *= min(1.1f, 1.0f - abs(max(-1.0f, screenPosBackup.y + 0.2f)) + 1.0f);
 				clip(t - ditherR); //ディザ係数を定数バッファに用意して、CPU側から指定できるようにする。
 			}
 		}

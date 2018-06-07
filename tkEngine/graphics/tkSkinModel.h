@@ -209,7 +209,7 @@ namespace tkEngine {
 		/*!
 		*@brief	圧死用フラグを渡す関数。
 		*/
-		void SetDeadFlag(bool dead) {
+		void SetDeadFlag(bool dead){
 			m_DeadFlag = dead;
 		}
 	private:
@@ -231,7 +231,7 @@ namespace tkEngine {
 			int	alphaflag;
 			int enableDithering;		//ディザリングを行うかどうかのフラグ。0で行わない。1で行う。
 			float ditheringRate;			//ディザリングの強さを決める係数
-			int DeadFlag;
+			int DeadFlag;				//圧死フラグ
 		};
 		CAnimation* m_animation = nullptr;
 		CSkinModelData*	m_skinModelData = nullptr;
@@ -256,5 +256,6 @@ namespace tkEngine {
 		//ゴール用フラグを作成
 		bool m_DeadFlag = false;
 		Mirror* m_mirror = nullptr;
+		bool m_DeadFlag = false;
 	};
 }

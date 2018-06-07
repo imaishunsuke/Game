@@ -55,15 +55,14 @@ bool Game::Start()
 
 	//リザルト画面作成
 	m_result = NewGO<ResultScene>(0, "Result");
-	//プレイヤー作成
-	m_player=NewGO<Player>(0,"Player");
+	
 	//カメラ作成
 	m_gamecamera = NewGO<GameCamera>(0, "gamecamera");
 	//ゴール作成
 	m_goal = NewGO<Goal>(0, "Goal");
 	
-	//ミラー作成
-	m_mirror = NewGO<Mirror>(0, "Mirror");
+	////ミラー作成
+	//m_mirror = NewGO<Mirror>(0, "Mirror");
 	
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
@@ -91,7 +90,11 @@ bool Game::Start()
 	m_level.Build(L"level/Sig_Sag_1x2_005.tks");
 	m_level.Build(L"level/Sig_Sag_1x2_006.tks"); 
 	m_level.Build(L"level/assitest.tks");
-	
+	//プレイヤー作成
+	m_player=NewGO<Player>(0,"Player");
+	//ミラー作成
+	m_mirror = NewGO<Mirror>(0, "Mirror");
+	m_pl = FindGO<Player>("Player");
 	/*m_level.Build(L"level/ss.tks");
 	m_vrlevel.Build(L"level/aa.tks");*/
 	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");

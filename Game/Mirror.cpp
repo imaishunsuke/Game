@@ -65,7 +65,10 @@ void Mirror::Update()
 {
 	Rotation();
 
-	if (Pad(0).IsTrigger(enButtonB) && m_isMirror == false&&mpflag==0) {
+	if (Pad(0).IsTrigger(enButtonB) 
+		&& m_isMirror == false
+		&&mpflag==0
+		&&pl->lifecount<5) {
 		m_isMirror = true;
 	}
 	else if(Pad(0).IsTrigger(enButtonB) && m_isMirror == true){
