@@ -7,7 +7,8 @@ public:
 	TitlePlayer();
 	~TitlePlayer();
 	bool Start();
-	void Update();void Render(CRenderContext& rc);
+	void Update();
+	void Render(CRenderContext& rc);
 	
 
 

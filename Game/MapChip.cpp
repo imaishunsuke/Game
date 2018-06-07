@@ -86,6 +86,7 @@ void MapChip::Update()
 	else {
 		m_skinModel.SetDithering(false);
 	}
+	m_skinModel.SetDeadFlag(true);
 	if (Pad(0).IsPress(enButtonY)) {
 		m_skinModel.SubtructDitherCoefficient(0.01f);
 	}

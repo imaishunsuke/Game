@@ -144,7 +144,7 @@ void Player::Dead(CRenderContext& rc) {
 	auto vEnd = vStart + CVector3(0.0f, 0.0f, 20.0f);
 
 	auto fNearPlaneLength = FLT_MAX;		//一番近い平面までの距離。
-	auto vNearPlaneNormal = CVector3::Zero; //一番近い平面の法線。
+	auto vNearPlaneNormal = CVector3::Zero; //一番近い平面の法線。j
 	bool isHit = false;
 	for (auto& mapChip : m_game->m_level.m_mapChipList) {
 		const auto& mWorld = mapChip->m_skinModel.GetWorldMatrix();
@@ -283,6 +283,11 @@ void Player::Dead(CRenderContext& rc) {
 
 void Player::Update()
 {
+	//if (m_goal->gflag == 1) {
+	//	m_position = { 0.0f,0.0f,0.0f };
+	//	m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	//	return;
+	//}
 	if (flag == 1&&m_goal->gflag==0&&m_prodcount==0) {
 
 	//移動

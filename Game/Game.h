@@ -53,6 +53,7 @@ private:
 	//Torokko*m_torokko = nullptr;
 	Mirror* m_mirror = nullptr;
 	Goal*m_goal = nullptr;
+	Goal* m_clear = nullptr;
 	ResultScene* m_result = nullptr;
 	//Torokko* m_toro = nullptr;
 	Player*m_pl = nullptr;

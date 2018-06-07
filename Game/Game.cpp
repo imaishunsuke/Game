@@ -52,6 +52,7 @@ bool Game::Start()
 	m_background=NewGO<background>(0, "background");
 	//EnemyBall作成
 	m_enemyball = NewGO<EnemyBall>(0, "EnemyBall");
+
 	//リザルト画面作成
 	m_result = NewGO<ResultScene>(0, "Result");
 	//プレイヤー作成
@@ -68,6 +69,7 @@ bool Game::Start()
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
 	m_pl = FindGO<Player>("Player");
+	m_clear = FindGO<Goal>("Goal");
 	//レベルを構築する。
 
 	//m_ptLight.ptLightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
@@ -93,7 +95,8 @@ bool Game::Start()
 	/*m_level.Build(L"level/ss.tks");
 	m_vrlevel.Build(L"level/aa.tks");*/
 	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
-	
+	m_fade = FindGO<Fade>("Fade");
+	m_fade->StartFadeIn();
 	return true;
 }
 void Game::Update()
@@ -132,21 +135,21 @@ void Game::Update()
 		}
 	}
 	
-	if (m_isWaitFadeout && GameOverFlag == 0)
-	{
-		if (!m_fade->IsFade()) {
-			NewGO<Title>(0, nullptr);
-			/*NewGO<titlecamera>(0, nullptr);
-			NewGO<titletorokko>(0, "titletorokko");*/
-			DeleteGO(this);
-		}
-	}
-	else {
-		if (Pad(0).IsTrigger(enButtonStart)) {
-			m_isWaitFadeout = true;
-			m_fade->StartFadeOut();
-		}
-	}
+	//if (m_isWaitFadeout && GameOverFlag == 0)
+	//{
+	//	if (!m_fade->IsFade()) {
+	//		NewGO<Title>(0, nullptr);
+	//		/*NewGO<titlecamera>(0, nullptr);
+	//		NewGO<titletorokko>(0, "titletorokko");*/
+	//		DeleteGO(this);
+	//	}
+	//}
+	//else {
+	//	if (Pad(0).IsTrigger(enButtonStart)) {
+	//		m_isWaitFadeout = true;
+	//		m_fade->StartFadeOut();
+	//	}
+	//}
 	
 }
 void Game::Render(CRenderContext& rc)

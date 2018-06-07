@@ -635,6 +635,7 @@
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Mirror.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ResultPlayer.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -674,6 +675,7 @@
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Mirror.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ResultPlayer.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="testBackGround.h" />
     <ClInclude Include="testGame.h" />
