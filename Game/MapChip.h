@@ -5,6 +5,7 @@
 
 class Player;
 class GameCamera;
+class GameOverProd;
 
 class MapChip : public IGameObject
 {
@@ -35,4 +36,6 @@ public:
 	Mirror* m_mirror = NULL;
 	Player* m_player = NULL;
 	GameCamera* m_camera = NULL;
+	prefab::CSoundSource* m_bgm = nullptr;
+	GameOverProd* m_overprod=nullptr;
 };

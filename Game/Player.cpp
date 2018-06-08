@@ -5,6 +5,7 @@
 #include"Goal.h"
 #include"GameOverProd.h"
 #include"Game.h"
+#include "tkEngine/sound/tkSoundSource.h"
 //#include"tkEngine/bulletPhysics/src/LinearMath/btConvexHull.h"
 #include"tkEngine/DirectXTK/Inc/SimpleMath.h"
 Player::Player()
@@ -15,6 +16,7 @@ Player::Player()
 Player::~Player()
 {
 	DeleteGO(m_Prod);
+	DeleteGO(m_bgm);
 }
 
 bool Player::Start() {
@@ -64,6 +66,11 @@ bool Player::Start() {
 	m_goal = FindGO<Goal>("Goal");
 	m_skinModel.Update(m_position, m_rotation,CVector3::One);
 	m_skinModel.SetShadowCasterFlag(true);
+	m_bgm = NewGO<prefab::CSoundSource>(0);
+	m_wind = NewGO<prefab::CSoundSource>(0);
+	m_bgm->Init("sound/game_dangeon.wav");
+	m_bgm->SetVolume(vo);
+	m_bgm->Play(true);
 	//InitPoly();
 	return true;
 }
@@ -170,13 +177,6 @@ void Player::Move()
 void Player::Rotation() {
 
 	m_rot.MakeRotationFromQuaternion(m_rotation);
-	/*m_position.x = m_rot.m[2][0] * plposlen + toro->m_position.x;
-	m_position.y = m_rot.m[2][1] * plposlen + toro->m_position.y;
-	m_position.z = m_rot.m[2][2] * plposlen + toro->m_position.z;
-	m_rotation.x = toro->m_rotation.x;
-	m_rotation.y = toro->m_rotation.y;
-	m_rotation.z = toro->m_rotation.z;
-	m_rotation.w = toro->m_rotation.w;*/
 	if (fabsf(m_moveSpeed.x) < 0.001f
 		&& fabsf(m_moveSpeed.z) < 0.001f) {
 		return;
@@ -196,7 +196,6 @@ void Player::Rotation() {
 }
 
 void Player::Dead(CRenderContext& rc) {
-	/*int numMesh = 0;*/
 	CVector3 vStart = m_position;
 	vStart.y *= 0.3f;
 	CVector3 vEnd = vStart + CVector3(0.0f, 0.0f, 20.0f);
@@ -267,14 +266,6 @@ void Player::Dead(CRenderContext& rc) {
 					break;
 				}
 			}
-			//}
-		//	//インデックスバッファをアンロック。
-		//	deviceContext->Unmap(mesh->indexBuffer.Get(), 0);
-
-		//	//頂点バッファをアンロック
-		//	deviceContext->Unmap(mesh->vertexBuffer.Get(), 0);
-		//});
-	//}
 	if (isHit == true) {
 		CVector3 vRayDir = vEnd - vStart;
 		vRayDir.Normalize();
@@ -282,16 +273,8 @@ void Player::Dead(CRenderContext& rc) {
 			Dcount++;
 			//閉じたメッシュの内側にいる？
 		}
-		////圧死判定
-		//if (Pad(0).IsTrigger(enButtonX)) {
-		//	//toro->lifecount = 5;
-		//	PressFlag = 1;
-		//}
 	}
-	/*else
-	{
-		DEndPosC = 1;
-	}*/
+
 }
 
 void Player::Update()
@@ -302,7 +285,17 @@ void Player::Update()
 	Move();
 	//回転
 	Rotation();
-
+	m_wind->Init("sound/kaze_.wav");
+	m_wind->SetVolume(2.1);
+	if (vo > 1.8) {
+		vo -= 0.09;
+		if (vo<1.8)
+		{
+			vo =1.8;
+		}
+	}
+	m_bgm->SetVolume(vo);
+	m_wind->Play(false);
 	}
 	if (dameflag == 1) {
 		if (nlcount <= 0) {
@@ -356,15 +349,17 @@ void Player::Render(CRenderContext& rc)
 			m_Prod = NewGO<GameOverProd>(0, "Prod");
 			PressFlag = 1;
 			m_prodcount = 1;
+			m_wind->Pause();
+			m_bgm->Pause();
 		}
 	}
 
 	if ((flag==1)
 		&&(m_mirror->m_isMirror == false)) {
-		//Dtime += GameTime().GetFrameDeltaTime();
-		//if (/*DEndPosC<=5*/Dtime <= 1.0f) {
+		Dtime += GameTime().GetFrameDeltaTime();
+		if (/*DEndPosC<=5*/Dtime <= 1.0f) {
 			Dead(rc);
-		//}
+		}
 	}
  if(m_mirror->m_isMirror == true)
 	{

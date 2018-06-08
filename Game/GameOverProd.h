@@ -9,9 +9,10 @@ public:
 	~GameOverProd();
 	bool Start();
 	void Update();
-	enum Product{
+	enum Product {
 		MoveCamera,				//圧死時のカメラ移動処理
 		Diser,					//圧死時のディザ係数
+		Dead,
 		
 	};
 	Product m_step;

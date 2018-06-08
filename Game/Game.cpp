@@ -126,7 +126,7 @@ void Game::Update()
 		}
 	}
 	else {
-		//ˆ³Ž€‚ÌƒJƒƒ‰ˆÚ“®Žž‚É•ÏX‚·‚é‚©‚àB
+		//GameOver
 		if (m_pl->lifecount == 6) {
 
 			m_isWaitFadeout = true;

@@ -200,7 +200,7 @@ namespace tkEngine{
 				m_camera->Update();
 			}
 		}
-		CVector3& GetMoveSpeed(){
+		CVector3 GetMoveSpeed(){
 			return m_positionMoveSpeed;
 		}
 	private:

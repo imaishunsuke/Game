@@ -32,6 +32,9 @@ void GameOverProd::Update() {
 		break;
 	case Diser:
 		break;
+	case Dead:
+		m_pl->lifecount = 6;
+		break;
 	default:
 		break;
 	}

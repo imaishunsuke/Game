@@ -209,6 +209,9 @@ namespace tkEngine {
 		void SetDeadFlag(bool dead){
 			m_DeadFlag = dead;
 		}
+		float GetditherRate() {
+			return m_ditherRate;
+		}
 	private:
 		/*!
 		 *@brief	ワールド行列の更新。

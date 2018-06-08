@@ -102,4 +102,8 @@ private:
 	int poflag = 0;
 	std::vector<Spoly> m_polypool;
 	std::vector<Spoly>::iterator itr;
+	prefab::CSoundSource* m_bgm = nullptr;
+	prefab::CSoundSource* m_wind = nullptr;
+	double vo=2.0;
+	double winvo = 0.5;
 };
