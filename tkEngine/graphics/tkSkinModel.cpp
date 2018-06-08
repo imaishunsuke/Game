@@ -113,8 +113,8 @@ namespace tkEngine{
 		Draw(renderContext,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
-			m_mirror != NULL ? m_mirror->m_mirrorViewMatrix : CMatrix::Identity,
-			m_mirror != NULL ? m_mirror->m_mirrorProjectionMatrix : CMatrix::Identity);
+			m_mirror != NULL ? m_mirror->GetMirrorViewMatrix() : CMatrix::Identity,
+			m_mirror != NULL ? m_mirror->GetMirrorProjectionMatrix() : CMatrix::Identity);
 	}
 	void CSkinModel::Draw(
 		CRenderContext& renderContext,

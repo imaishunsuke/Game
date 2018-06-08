@@ -15,8 +15,14 @@ public:
 	bool Start();
 	void Update();
 	void Render(CRenderContext& rc);
-	
-
+	void Build(const wchar_t* fileDataPath);
+	void Init(
+		const wchar_t* modelFilePath,
+		CVector3 pos,
+		CVector3 scale,
+		CQuaternion rotation
+	);	
+private:
 	//ÉÅÉìÉoïœêî
 	CSkinModel m_skinModel;
 	CSkinModelData m_skinModelData;
@@ -24,17 +30,18 @@ public:
 	CVector3 m_moveSpeed = CVector3::Zero;
 	CVector3 up = CVector3::Up;							//è„ï˚å¸
 	CVector3 m_axisX;									//îCà”ÇÃâÒì]é≤
+	CVector3 m_scale = CVector3::One;
 	CQuaternion m_rotation = CQuaternion::Identity;
 	Player* m_player = nullptr;
 	Goal* m_goal = nullptr;
 	CVector3 diff = CVector3::Zero;
-	/*CSphereCollider m_collider;
-	CRigidBody m_rigidBody;*/
+	//CSphereCollider m_collider;
+	//CRigidBody m_rigidBody;
 	CCharacterController m_charaCon;
 	CCharacterController::ColliderType m_collidertype = CCharacterController::Sphere;
 	float r = 20.0f;									//îºåa
 	Mirror* m_mirror = NULL;
-
+	//std::map<wchar_t,EnemyBall*> m_enemyMapChip
 };
 
 

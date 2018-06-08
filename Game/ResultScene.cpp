@@ -22,8 +22,7 @@ void ResultScene::OnDestroy()
 	//DeleteGO(m_mirror);
 }
 bool ResultScene::Start()
-{	
-	
+{		
 	/*m_player = NewGO<ResultPlayer>(0,"ResultPlayer");
 	m_camera = NewGO<ResultCamera>(0, "ResultCamera");*/
 	m_texture.CreateFromDDSTextureFromFile(L"sprite/Title.dds");
@@ -44,7 +43,7 @@ void ResultScene::Update()
 }
 void ResultScene::Render(CRenderContext& rc)
 {
-	if (m_goal->gflag == 1) {
+	if (m_goal->GetGoalFlag() == 1) {
 		//2D‚Ì[“x‚ğİ’è‚·‚é
 		rc.OMSetDepthStencilState(DepthStencilState::spriteRender, 0);
 		m_sprite.Draw(rc, MainCamera2D().GetViewMatrix(), MainCamera2D().GetProjectionMatrix());

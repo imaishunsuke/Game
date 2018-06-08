@@ -256,6 +256,5 @@ namespace tkEngine {
 		//ゴール用フラグを作成
 		bool m_DeadFlag = false;
 		Mirror* m_mirror = nullptr;
-		bool m_DeadFlag = false;
 	};
 }

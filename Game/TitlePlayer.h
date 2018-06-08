@@ -9,10 +9,14 @@ public:
 	bool Start();
 	void Update();
 	void Render(CRenderContext& rc);
-	
-
-
-	float Flag = 0; // 移動の管理
+	bool GetMoveFlag(){
+		return Flag;
+	}
+	CVector3 GetPosition(){
+		return m_position;
+	}
+private:
+	bool Flag = false; // 移動の管理
 	CSkinModel m_skinModel;			//スキンモデル。
 	CSkinModelData m_skinModelData;	//スキンモデルデータ。
 	CSkinModel m_skinModelmirror;

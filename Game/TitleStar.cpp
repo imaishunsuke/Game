@@ -40,7 +40,7 @@ void TitleStar::Update()
 	//	//¯
 	//	m_skinModelstar.Update(m_positionstar, m_rotationstar, CVector3::One);
 	//}
-	if (pl->Flag == 1) {
+	if (pl->GetMoveFlag() == 1) {
 		if (m_positionbrock.x < -20) {
 			m_positionbrock.x += 0.1f;
 		}
@@ -50,7 +50,7 @@ void TitleStar::Update()
 
 void TitleStar::Render(CRenderContext& rc)
 {
-	if (pl->Flag == 1 && (pl-> m_position.x > -10 || pl->m_position.x < -25)) 
+	if (pl->GetMoveFlag() == 1 && (pl->GetPosition().x > -10 || pl->GetPosition().x < -25)) 
 		{
 		////¯‚ð•`‰æ
 		//m_skinModelstar.Draw(rc,

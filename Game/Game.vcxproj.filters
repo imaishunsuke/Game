@@ -512,6 +512,9 @@
     <CustomBuild Include="Assets\level\aa.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
+    <CustomBuild Include="Assets\modelData\EnemyBall.tks">
+      <Filter>Assets\modelData</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\fade.png">

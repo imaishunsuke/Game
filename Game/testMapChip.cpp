@@ -61,6 +61,6 @@ void testMapChip::Render(CRenderContext& rc)
 		rc, 
 		MainCamera().GetViewMatrix(), 
 		MainCamera().GetProjectionMatrix(),
-		m_mirror->m_mirrorViewMatrix,
-		m_mirror->m_mirrorProjectionMatrix);
+		m_mirror->GetMirrorViewMatrix(),
+		m_mirror->GetMirrorProjectionMatrix());
 }

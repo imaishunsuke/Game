@@ -35,7 +35,7 @@ void Game::OnDestroy()
 	DeleteGO(m_mirror);
 	DeleteGO(m_goal);
 	DeleteGO(m_result);
-	DeleteGO(m_enemyball);
+	//DeleteGO(m_enemyball);
 	DeleteGO(dirLight);
 }
 bool Game::Start()
@@ -51,7 +51,7 @@ bool Game::Start()
 	//background作成
 	m_background=NewGO<background>(0, "background");
 	//EnemyBall作成
-	m_enemyball = NewGO<EnemyBall>(0, "EnemyBall");
+	//m_enemyball = NewGO<EnemyBall>(0, "EnemyBall");
 
 	//リザルト画面作成
 	m_result = NewGO<ResultScene>(0, "Result");
@@ -68,7 +68,7 @@ bool Game::Start()
 	m_fade->StartFadeIn();
 	m_state = enState_FadeIn;
 	m_pl = FindGO<Player>("Player");
-	m_clear = FindGO<Goal>("Goal");
+
 	//レベルを構築する。
 
 	//m_ptLight.ptLightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
@@ -81,7 +81,7 @@ bool Game::Start()
 	m_level.Build(L"level/Block_1x2_004.tks");*/
 	
 	
-	//i
+	
 	m_level.Build(L"level/Stage1.tks");
 	m_level.Build(L"level/Sig_Sag_1x2_001.tks");
 	m_level.Build(L"level/Sig_Sag_1x2_002.tks");
@@ -90,6 +90,7 @@ bool Game::Start()
 	m_level.Build(L"level/Sig_Sag_1x2_005.tks");
 	m_level.Build(L"level/Sig_Sag_1x2_006.tks"); 
 	m_level.Build(L"level/assitest.tks");
+	enemyLevel.Build(L"modelData/EnemyBall.tks");
 	//プレイヤー作成
 	m_player=NewGO<Player>(0,"Player");
 	//ミラー作成
@@ -130,7 +131,7 @@ void Game::Update()
 	}
 	else {
 		//圧死のカメラ移動時に変更するかも。
-		if (m_pl->lifecount == 6) {
+		if (m_pl->GetLifeCount() == 6) {
 
 			m_isWaitFadeout = true;
 			m_fade->StartFadeOut();

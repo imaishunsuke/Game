@@ -9,7 +9,7 @@ public:
 	bool Start();
 	void Update();
 	void Render(CRenderContext& rc);
-
+private:
 	CSkinModel m_skinModelstar;			//スキンモデル。
 	CSkinModelData m_skinModelDatastar;	//スキンモデルデータ。
 	CSkinModel m_skinModelbrock;

@@ -9,6 +9,7 @@ public:
 	~GameOverProd();
 	bool Start();
 	void Update();
+private:
 	enum Product{
 		MoveCamera,				//圧死時のカメラ移動処理
 		Diser,					//圧死時のディザ係数

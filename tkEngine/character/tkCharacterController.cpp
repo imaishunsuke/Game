@@ -37,7 +37,7 @@ namespace tkEngine {
 				}
 				if (convexResult.m_hitCollisionObject == me
 					|| (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Obstacle
-						&& m_mirror->m_isMirror)/*ミラーを使っている*/
+						&& m_mirror->GetIsMirror())/*ミラーを使っている*/
 					)
 				{
 					//自分に衝突した。or 障害物に衝突した。
@@ -89,7 +89,7 @@ namespace tkEngine {
 				}
 				if (convexResult.m_hitCollisionObject == me
 					|| ( convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Obstacle 
-						&& m_mirror->m_isMirror)/*ミラーを使っている*/
+						&& m_mirror->GetIsMirror())/*ミラーを使っている*/
 				)
 				{
 					//自分に衝突した。or 障害物に衝突した。
@@ -105,7 +105,7 @@ namespace tkEngine {
 					|| convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character	//もしくはコリジョン属性がキャラクタなので壁とみなす。
 					) {
 					isHit = true;
-					pl->dameflag = 1;
+					pl->SetDamageFlag(1);
 					CVector3 hitPosTmp;
 					hitPosTmp.Set(convexResult.m_hitPointLocal);
 					//交点との距離を調べる。

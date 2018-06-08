@@ -13,6 +13,13 @@ public:
 	bool Start();
 	void Update();
 
+	int GetFlag() {
+		return Flag;
+	}
+	CSpringCamera& GetSpringCamera() {
+		return m_springCamera;
+	}
+private:
 	CMatrix m_rot = CMatrix::Identity;
 	CVector3 m_position = CVector3::Zero;
 	CQuaternion m_rotation = CQuaternion::Identity;
