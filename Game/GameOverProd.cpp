@@ -24,8 +24,9 @@ void GameOverProd::Update() {
 	{
 	//ˆ³Ž€ƒJƒƒ‰ˆÚ“®
 	case MoveCamera:
-		m_pl->lifecount = 5;
-		if (m_camera->Flag==2)
+		m_pl->SetLifeCount(5);
+		//m_pl->lifecount = 5;
+		if (m_camera->GetFlag()==2)
 		{
 			m_step = Diser;
 		}

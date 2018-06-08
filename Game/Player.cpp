@@ -61,7 +61,7 @@ bool Player::Start() {
 	count = 0;
 	scale = 3.0f;
 	m_gpos = m_position;
-	m_game=FindGO<Game>("Game");
+	m_game = FindGO<Game>("Game");
 	m_mirror = FindGO<Mirror>("Mirror");
 	m_goal = FindGO<Goal>("Goal");
 	m_skinModel.Update(m_position, m_rotation,CVector3::One);
@@ -76,9 +76,9 @@ bool Player::Start() {
 }
 void Player::InitPoly() {
 	int numMesh = 0;
-	for (auto& mapChip : m_game->m_level.m_mapChipList) {
-		const auto& mWorld = mapChip->m_skinModel.GetWorldMatrix();
-		mapChip->m_skinModel.FindMesh([&](const auto& mesh) {
+	for (auto& mapChip : m_game->m_level.GetMapList()) {
+		const auto& mWorld = mapChip->GetSkinModel().GetWorldMatrix();
+		mapChip->GetSkinModel().FindMesh([&](const auto& mesh) {
 			numMesh++;
 			ID3D11DeviceContext* deviceContext = GraphicsEngine().GetD3DDeviceContext();
 			//頂点バッファをロック
@@ -279,7 +279,12 @@ void Player::Dead(CRenderContext& rc) {
 
 void Player::Update()
 {
-	if (flag == 1&&m_goal->gflag==0&&m_prodcount==0) {
+	//if (m_goal->gflag == 1) {
+	//	m_position = { 0.0f,0.0f,0.0f };
+	//	m_skinModel.Update(m_position, m_rotation, CVector3::One);
+	//	return;
+	//}
+	if (flag == 1&&m_goal->GetGoalFlag()==0&&m_prodcount==0) {
 
 	//移動
 	Move();
@@ -361,7 +366,7 @@ void Player::Render(CRenderContext& rc)
 			Dead(rc);
 		}
 	}
- if(m_mirror->m_isMirror == true)
+ if(m_mirror->GetIsMirror() == true)
 	{
 		Dtime = 0.0f;
 		Dcount = 0;
@@ -445,7 +450,7 @@ void Player::PostRender(CRenderContext& rc) {
 		count = count + GameTime().GetFrameDeltaTime();
 	}
 	
-		if (m_goal->gflag == 0) {
+		if (m_goal->GetGoalFlag() == 0) {
 			//HP barテクスチャ描画
 			m_hbsprite.Draw(rc,
 				MainCamera2D().GetViewMatrix(),

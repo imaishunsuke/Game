@@ -206,6 +206,9 @@ namespace tkEngine {
 			}
 			m_ditherRate -= coefficient;
 		}
+		/*!
+		*@brief	圧死用フラグを渡す関数。
+		*/
 		void SetDeadFlag(bool dead){
 			m_DeadFlag = dead;
 		}
@@ -253,7 +256,8 @@ namespace tkEngine {
 		CVector3 m_ditheringPos = CVector3::Zero;
 		//ディザリングを掛ける強さを決める係数
 		float m_ditherRate = 1.0f;
-		Mirror* m_mirror = nullptr;
+		//ゴール用フラグを作成
 		bool m_DeadFlag = false;
+		Mirror* m_mirror = nullptr;
 	};
 }

@@ -65,29 +65,31 @@ void MapChip::Update()
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
-	if (m_mirror->m_isMirror == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
-		m_mirror->_alphaflag = 0;
+	if (m_mirror->GetIsMirror() == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
+		//m_mirror->_alphaflag = 0;
+		m_skinModel.SetDiscardMirror(false);
 	}
 	else {
-		m_mirror->_alphaflag = 1;
+		//m_mirror->_alphaflag = 1;
+		m_skinModel.SetDiscardMirror(true);
 	}
-	m_skinModel.SetDiscardMirror(m_mirror->_alphaflag);
+	//m_skinModel.SetDiscardMirror(m_mirror->_alphaflag);
 	CVector3 ditheringPos = CVector3::Zero;
-	CVector3 Pos = m_camera->m_springCamera.GetPosition();
-	CVector3 diff = m_player->m_position - Pos;
+	CVector3 Pos = m_camera->GetSpringCamera().GetPosition();
+	CVector3 diff = m_player->GetPosition() - Pos;
 	diff.Normalize();
 	ditheringPos.x = Pos.x + diff.x * 20.0f;
 	ditheringPos.y = Pos.y + diff.y * 20.0f;
 	ditheringPos.z = Pos.z + diff.z * 20.0f;
-	if (m_mirror->m_isMirror == true) {
+	if (m_mirror->GetIsMirror() == true) {
 		//ディザリングを使用するためのフラグを渡す
 		m_skinModel.SetDithering(true);
 		//ディザリングを使用するときの基点となる座標を渡す
 		m_skinModel.SetDitheringPos(ditheringPos);
 	}
-	else if (m_player->lifecount==5) {
+	else if (m_player->GetLifeCount()==5) {
 		m_skinModel.SetDeadFlag(true);
-		if (m_camera->Flag==2)
+		if (m_camera->GetFlag()==2)
 		{
 			m_skinModel.SubtructDitherCoefficient(0.02f);
 		}
@@ -118,6 +120,6 @@ void MapChip::Render(CRenderContext& rc)
 	m_skinModel.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
-		m_mirror->m_mirrorViewMatrix,
-		m_mirror->m_mirrorProjectionMatrix);
+		m_mirror->GetMirrorViewMatrix(),
+		m_mirror->GetMirrorProjectionMatrix());
 }

@@ -25,7 +25,7 @@ public:
 	bool Start() override;
 	void Update();
 	void OnDestroy();
-
+private:
 	//メンバ変数
 	std::list<prefab::CPointLight*> m_pointLightList;		//ポイントライトのリスト
 	//std::list<prefab::CDirectionLight*>	m_directionLightList;	//ディレクションライトのリスト

@@ -19,6 +19,7 @@ public:
 	void Update();
 	void OnDestroy();
 	void Render(CRenderContext& rc);
+private:
 	CSkinModelData m_skinModelData;
 	/*CSkinModel m_skinModel;
 	CVector3 m_position = CVector3::Zero;
@@ -32,7 +33,6 @@ public:
 	Titlemirror* m_titlemirror = nullptr;
 	//Player* m_player = nullptr;
 	float ChangeFlag = 0;
-private:
 	bool m_isWaitFadeout = false;
 	/*CShaderResourceView m_texture;
 	CSprite m_sprite;*/

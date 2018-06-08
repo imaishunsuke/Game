@@ -19,9 +19,9 @@ bool Goal::Start() {
 	return true;
 }
 void Goal::Update() {
-	if ((m_goalpos.x<=player->m_position.x
-		&&player->m_position.x <=m_goalpos1.x)
-		&&(m_goalpos.z <= player->m_position.z))
+	if ((m_goalpos.x<=player->GetPosition().x
+		&&player->GetPosition().x <=m_goalpos1.x)
+		&&(m_goalpos.z <= player->GetPosition().z))
 	{
 		gflag = 1;
 	}

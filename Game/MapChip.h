@@ -23,6 +23,10 @@ public:
 	void Update();
 	void Render(CRenderContext& rc);
 	void OnDestroy();
+	const CSkinModel& GetSkinModel() {
+		return m_skinModel;
+	}
+private:
 	//////////////////////////////////////////////////
 	// ‚±‚±‚©‚çƒƒ“ƒo•Ï”B
 	//////////////////////////////////////////////////

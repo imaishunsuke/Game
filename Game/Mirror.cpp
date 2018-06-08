@@ -45,9 +45,9 @@ bool Mirror::Start()
 	m_position.x = m_position.x - pl->m_rot.m[2][0] * 0.5f;
 	m_position.y = pl->m_position.y + 3.0f;
 	m_position.z = m_position.z - pl->m_rot.m[2][2] * 0.5f;*/
-	diff.x = pl->m_gpos.x - pl->m_position.x;
-	diff.y = pl->m_gpos.y - pl->m_position.y;
-	diff.z = pl->m_gpos.z - pl->m_position.z;
+	diff.x = pl->GetGoalPosition().x - pl->GetPosition().x;
+	diff.y = pl->GetGoalPosition().y - pl->GetPosition().y;
+	diff.z = pl->GetGoalPosition().z - pl->GetPosition().z;
 	Mirlen = diff.Length();
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	
@@ -55,11 +55,11 @@ bool Mirror::Start()
 }
 
 void Mirror::Rotation() {
-	m_rotation = pl->m_rotation;
-	m_rot.MakeRotationFromQuaternion(pl->m_rotation);
-	m_position.x = m_rot.m[2][0] * Mirlen + pl->m_position.x;
-	m_position.y = m_rot.m[2][1] * Mirlen + pl->m_position.y+3.0f;
-	m_position.z = m_rot.m[2][2] * Mirlen + pl->m_position.z;
+	m_rotation = pl->GetRotation();
+	m_rot.MakeRotationFromQuaternion(pl->GetRotation());
+	m_position.x = m_rot.m[2][0] * Mirlen + pl->GetPosition().x;
+	m_position.y = m_rot.m[2][1] * Mirlen + pl->GetPosition().y+3.0f;
+	m_position.z = m_rot.m[2][2] * Mirlen + pl->GetPosition().z;
 }
 void Mirror::Update()
 {
@@ -68,7 +68,7 @@ void Mirror::Update()
 	if (Pad(0).IsTrigger(enButtonB) 
 		&& m_isMirror == false
 		&&mpflag==0
-		&&pl->lifecount<5) {
+		&&pl->GetLifeCount()<5) {
 		m_isMirror = true;
 	}
 	else if(Pad(0).IsTrigger(enButtonB) && m_isMirror == true){
@@ -87,7 +87,7 @@ void Mirror::Update()
 		m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	}
 	//ミラーが使用中の時ｍｐゲージを下げる
-	if (m_isMirror == true&&pl->flag==1&& mpflag == 0) {
+	if (m_isMirror == true&&pl->GetFlag()==1&& mpflag == 0) {
 		mpscale -= GameTime().GetFrameDeltaTime()*0.17;
 	}
 
@@ -137,7 +137,7 @@ void Mirror::Render(CRenderContext& rc)
 }
 
 void Mirror::PostRender(CRenderContext& rc) {
-	if (m_goal->gflag == 0) {
+	if (m_goal->GetGoalFlag() == 0) {
 		m_msprite.Draw(rc,
 			MainCamera2D().GetViewMatrix(),
 			MainCamera2D().GetProjectionMatrix());

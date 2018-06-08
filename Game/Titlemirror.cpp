@@ -25,7 +25,7 @@ bool Titlemirror::Start()
 
 void Titlemirror::Update()
 {
-	m_position = pl->m_position;
+	m_position = pl->GetPosition();
 	m_position.z += -1;
 	m_position.y += 2.0f;
 	m_rotation.SetRotationDeg(CVector3::AxisY, -90);
@@ -34,7 +34,7 @@ void Titlemirror::Update()
 
 void Titlemirror::Render(CRenderContext& rc)
 {
-	if (pl->Flag == 1 && m_position.x < -10 && m_position.x > -25) {
+	if (pl->GetMoveFlag() == 1 && m_position.x < -10 && m_position.x > -25) {
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),

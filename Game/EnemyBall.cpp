@@ -10,14 +10,49 @@ EnemyBall::EnemyBall()
 EnemyBall::~EnemyBall()
 {
 }
-bool EnemyBall::Start() 
-{
-	m_player = FindGO<Player>("Player");
-	m_goal = FindGO<Goal>("Goal");
-	m_skinModelData.Load(L"modelData/EnemyBall.cmo");
+//レベル作成
+void EnemyBall::Build(const wchar_t* fileDataPath) {
+	//スケルトン利用して配置
+	CSkeleton skelton;
+	skelton.Load(fileDataPath);
+	int numMapChip = skelton.GetNumBones();
+	for (int i = 1; i < numMapChip; i++)
+	{
+		CBone*bone = skelton.GetBone(i);
+		//ボーンから拡大率、平行移動、回転を取得する。
+		CVector3 position, scale;
+		CQuaternion rotation;
+		bone->CalcWorldTRS(position, rotation, scale);
+		//軸補正を入れる。
+		float t = position.y;
+		position.y = position.z;
+		position.z = -t;
+		t = rotation.y;
+		rotation.y = rotation.z;
+		rotation.z = -t;
+		//ボーン名からモデルデータのファイルパスを作成する。
+		const wchar_t* boneName = bone->GetName();
+		wchar_t modelDataFilePath[256];
+		swprintf(modelDataFilePath, L"modelData/%s.cmo", boneName);
+		EnemyBall* enemyChip = NewGO<EnemyBall>(0);
+		enemyChip->Init(modelDataFilePath, position, CVector3::One, rotation);
+		auto it = FindEnemyMapChip(modelDataFilePath);
+		if (it == EndEnemyMapChip()) {
+			SetEnemyMapChip(modelDataFilePath, enemyChip);
+		}
+	}
+}
+void EnemyBall::Init(
+	const wchar_t* modelFilePath,
+	CVector3 pos,
+	CVector3 scale,
+	CQuaternion rotation) {
+	m_skinModelData.Load(modelFilePath);
 	m_skinModel.Init(m_skinModelData);
-	//CapsuleType type
-
+	m_skinModel.SetShadowReceiverFlag(true);
+	m_position = pos;
+	m_scale = scale;
+	m_rotation = rotation;
 	m_charaCon.Init(
 		r,			//半径
 		0.0f,			//高さ
@@ -25,15 +60,20 @@ bool EnemyBall::Start()
 		m_position,
 		m_collidertype	//コライダーのタイプ
 	);
-	diff = m_player->m_position - m_position;
+}
+bool EnemyBall::Start() 
+{
+	m_player = FindGO<Player>("Player");
+	m_goal = FindGO<Goal>("Goal");
+	CVector3 plPos = m_player->GetPosition();
+	diff = plPos - m_position;
 	return true;
 }
 void EnemyBall::Update()
 {
-	CVector3 scale = CVector3::One;
-	//CVector3 scale = { 0.15f,0.15f,0.15f };
 	if (m_charaCon.IsHitWall() == true) {
-		diff = m_player->m_position - m_position;
+		CVector3 plPos = m_player->GetPosition();
+		diff = plPos - m_position;
 	}
 	diff.y = 0.0f;							//Y軸は必要ないので
 	//if (diff.Length() > 10.0f) {						//距離が一定距離以内なら追いかける
@@ -53,7 +93,7 @@ void EnemyBall::Update()
 		m_moveSpeed.z = OldDiff.z * 20.0f;
 	}*/
 	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed,m_collidertype);
-	m_skinModel.Update(m_position, m_rotation, scale);
+	m_skinModel.Update(m_position, m_rotation, m_scale);
 }
 void EnemyBall::Render(CRenderContext& rc)
 {
@@ -62,13 +102,12 @@ void EnemyBall::Render(CRenderContext& rc)
 		if (m_mirror == NULL) {
 			m_mirror = FindGO<Mirror>("Mirror");
 		}
-		if (m_mirror->m_isMirror == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
-			m_mirror->_alphaflag = 0;
+		if (m_mirror->GetIsMirror() == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
+			m_skinModel.SetDiscardMirror(false);
 		}
 		else {
-			m_mirror->_alphaflag = 1;
+			m_skinModel.SetDiscardMirror(true);
 		}
-		m_skinModel.SetDiscardMirror(m_mirror->_alphaflag);
 		m_skinModel.Draw(rc,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),

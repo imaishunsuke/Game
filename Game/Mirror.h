@@ -16,6 +16,19 @@ public:
 	void Update();
 	void Render(CRenderContext& rc);
 	void PostRender(CRenderContext& rc);
+	bool GetIsMirror() {
+		return m_isMirror;
+	}
+	CMatrix GetMirrorViewMatrix() {
+		return m_mirrorViewMatrix;
+	}
+	CMatrix GetMirrorProjectionMatrix() {
+		return m_mirrorProjectionMatrix;
+	}
+	CVector3 GetPosition() {
+		return m_position;
+	}
+private:
 	//ƒƒ“ƒo•Ï”
 	CMatrix m_rot;
 	CMatrix m_mirrorforwardMatrix;
