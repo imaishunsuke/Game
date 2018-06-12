@@ -6,7 +6,6 @@
 #include "background.h"
 #include "Goal.h"
 #include "Player.h"
-//#include "Torokko.h"
 #include "GameCamera.h"
 #include "Mirror.h"
 #include "ResultScene.h"
@@ -30,7 +29,6 @@ void Game::OnDestroy()
 	DeleteGO(m_skinModelRender);
 	DeleteGO(m_background);
 	DeleteGO(m_player);
-	/*DeleteGO(m_torokko);*/
 	DeleteGO(m_gamecamera);
 	DeleteGO(m_mirror);
 	DeleteGO(m_goal);
@@ -90,7 +88,7 @@ bool Game::Start()
 	m_level.Build(L"level/Sig_Sag_1x2_005.tks");
 	m_level.Build(L"level/Sig_Sag_1x2_006.tks"); 
 	m_level.Build(L"level/assitest.tks");
-	enemyLevel.Build(L"modelData/EnemyBall.tks");
+	//enemyLevel.Build(L"modelData/EnemyBall.tks");
 	//プレイヤー作成
 	m_player=NewGO<Player>(0,"Player");
 	//ミラー作成

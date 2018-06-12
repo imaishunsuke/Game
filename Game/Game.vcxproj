@@ -635,7 +635,6 @@
     <ClCompile Include="MapChip.cpp" />
     <ClCompile Include="Mirror.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="ResultPlayer.cpp" />
     <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -675,7 +674,6 @@
     <ClInclude Include="MapChip.h" />
     <ClInclude Include="Mirror.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="ResultPlayer.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="testBackGround.h" />
     <ClInclude Include="testGame.h" />
@@ -964,7 +962,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
       <FileType>Document</FileType>
     </CustomBuild>
@@ -975,12 +972,32 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Assets\sound\kaze_.wav">
- <FileType>Document</FileType>
+    <CustomBuild Include="Assets\modelData\EnemyBall.tks">
+      <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Assets\modelData\EnemyBall.tks">
+    <CustomBuild Include="Assets\sound\kaze2_.wav">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\sound\title1.wav">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\sound\walk2.wav">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\sound\mirroruse1.wav">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\sound\si.wav">
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>

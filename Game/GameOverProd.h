@@ -9,6 +9,15 @@ public:
 	~GameOverProd();
 	bool Start();
 	void Update();
+	int GetDiser() {
+		return Diser;
+	}
+	int GetStep() {
+		return m_step;
+	}
+	void SetDeadStep() {
+		m_step=Dead;
+	}
 private:
 	enum Product{
 		MoveCamera,				//ˆ³€‚ÌƒJƒƒ‰ˆÚ“®ˆ—
@@ -19,5 +28,7 @@ private:
 	Product m_step;
 	Player*m_pl = nullptr;
 	GameCamera*m_camera = nullptr;
+	prefab::CSoundSource* m_animeSound = nullptr;
+	int soundf = 0;
 };
 
