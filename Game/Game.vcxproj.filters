@@ -256,9 +256,6 @@
     <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_9.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_10.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Corner_Blocks_3.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -326,6 +323,15 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\aa.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\ground5.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_10.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\wall.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -508,6 +514,12 @@
       <Filter>Assets\level</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\level\aa.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\test.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\level01.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
   </ItemGroup>
