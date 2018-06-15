@@ -16,7 +16,7 @@ public:
 		dlig_[ライト番号]_[ライトのr成分の強さ]_[ライトのg成分の強さ]_[ライトのb成分の強さ]
 	*/
 	void dirLightBuild(const wchar_t* dirlightDataFilePath);
-
+private:
 	//メンバ変数
 	wchar_t degit[32];
 	int lightnum;							//ライトナンバー

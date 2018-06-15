@@ -200,6 +200,9 @@ namespace tkEngine{
 				m_camera->Update();
 			}
 		}
+		CVector3 GetMoveSpeed(){
+			return m_positionMoveSpeed;
+		}
 	private:
 		CCamera*	m_camera = nullptr;				//!<カメラ。
 		CVector3	m_target = CVector3::Zero;		//!<目標となる注視点。

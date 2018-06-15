@@ -113,8 +113,8 @@ namespace tkEngine{
 		Draw(renderContext,
 			MainCamera().GetViewMatrix(),
 			MainCamera().GetProjectionMatrix(),
-			m_mirror != NULL ? m_mirror->m_mirrorViewMatrix : CMatrix::Identity,
-			m_mirror != NULL ? m_mirror->m_mirrorProjectionMatrix : CMatrix::Identity);
+			m_mirror != NULL ? m_mirror->GetMirrorViewMatrix() : CMatrix::Identity,
+			m_mirror != NULL ? m_mirror->GetMirrorProjectionMatrix() : CMatrix::Identity);
 	}
 	void CSkinModel::Draw(
 		CRenderContext& renderContext,
@@ -148,6 +148,7 @@ namespace tkEngine{
 		vsCb.ditheringOrigin = m_ditheringPos;
 		vsCb.enableDithering = m_ditheringFlag;
 		vsCb.ditheringRate = m_ditherRate;
+		vsCb.DeadFlag = m_DeadFlag;
 		vsCb.screenParam.x = 0.0f;
 		vsCb.screenParam.y = 0.0f;
 		vsCb.screenParam.z = static_cast<float>(GraphicsEngine().GetFrameBufferWidth());

@@ -206,6 +206,15 @@ namespace tkEngine {
 			}
 			m_ditherRate -= coefficient;
 		}
+		/*!
+		*@brief	圧死用フラグを渡す関数。
+		*/
+		void SetDeadFlag(bool dead){
+			m_DeadFlag = dead;
+		}
+		float GetditherRate() {
+			return m_ditherRate;
+		}
 	private:
 		/*!
 		 *@brief	ワールド行列の更新。
@@ -225,6 +234,7 @@ namespace tkEngine {
 			int	alphaflag;
 			int enableDithering;		//ディザリングを行うかどうかのフラグ。0で行わない。1で行う。
 			float ditheringRate;			//ディザリングの強さを決める係数
+			int DeadFlag;				//圧死フラグ
 		};
 		CAnimation* m_animation = nullptr;
 		CSkinModelData*	m_skinModelData = nullptr;
@@ -246,6 +256,8 @@ namespace tkEngine {
 		CVector3 m_ditheringPos = CVector3::Zero;
 		//ディザリングを掛ける強さを決める係数
 		float m_ditherRate = 1.0f;
+		//ゴール用フラグを作成
+		bool m_DeadFlag = false;
 		Mirror* m_mirror = nullptr;
 	};
 }

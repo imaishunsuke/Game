@@ -35,7 +35,7 @@ bool GameCamera::Start()
 }
 void GameCamera::Update()
 {
-	if (m_goal->gflag == 0 /*&& m_player->PressFlag == 0*/) {							//ゴールしていないなら
+	if (m_goal->GetGoalFlag() == 0 /*&& m_player->PressFlag == 0*/) {							//ゴールしていないなら
 		//m_player = FindGO<Player>("Player");
 		CVector3 toCameraPos = CVector3::Zero;
 		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
@@ -43,7 +43,7 @@ void GameCamera::Update()
 		toCameraPos.y = 0.0f;
 		float toCameraPosLen = toCameraPos.Length();
 		toCameraPos.Normalize();
-		CVector3 target = m_player->m_position;
+		CVector3 target = m_player->GetPosition();
 		target.y += 10.0f;
 		CVector3 toNewCameraPos = CVector3::Zero;
 		toNewCameraPos = m_springCamera.GetPosition() - target;
@@ -99,14 +99,14 @@ void GameCamera::Update()
 			m_springCamera.SetPosition(pos);
 		}
 	}
-	if (m_goal->gflag==1 ) {					//ゴール用カメラ
-		m_player->m_rotation.SetRotationDeg(CVector3::AxisY, 90.0f);
+	if (m_goal->GetGoalFlag()==1 ) {					//ゴール用カメラ
+		m_player->SetRotationY(90.0f);
 		CVector3 toCameraPos = CVector3::Zero;
 		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
 		CVector3 target = CVector3::Zero;
-		target.x = m_player->m_rot.m[2][0] * 10.0f + m_player->m_position.x;
+		target.x = m_player->GetMatrix().m[2][0] * 10.0f + m_player->GetPosition().x;
 		////m_player->m_rot.m[2][1];
-		target.z = m_player->m_rot.m[2][2] * 10.0f + m_player->m_position.z;
+		target.z = m_player->GetMatrix().m[2][2] * 10.0f + m_player->GetPosition().z;
 		target.y = 5.0f;	
 		toCameraPos.y = 0.0f;
 		float toCameraPoslen = 0.0f;
@@ -129,27 +129,10 @@ void GameCamera::Update()
 		qRot.Multiply(toNewCameraPos);
 	}*/
 
-	if (m_player->PressFlag == 1)
+	if (m_player->GetPressFlag() == 1)
 	{
-		//m_player->m_rotation.SetRotationDeg(CVector3::AxisY, 90.0f);
-		/*CVector3 toCameraPos = CVector3::Zero;
-		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
-		CVector3 target = m_player->m_position;
-		target.y = 10.0f;
-		toCameraPos.y = 0.0f;
-		float toCameraPoslen = 0.0f;
-		toCameraPoslen = toCameraPos.Length();
-		CVector3 playerposY = CVector3::AxisY;
-		playerposY.y *= toCameraPoslen;
-		CVector3 pos = CVector3::Zero;
-		pos = target + playerposY;
-		MainCamera().GetUp();
-		MainCamera().SetUp({ 0.0f,0.0f,1.0f });
-		m_springCamera.SetTarget(target);
-		m_springCamera.SetPosition(pos);*/
-	
 		if (Flag == 0) {
-			CVector3 target = m_player->m_position;
+			CVector3 target = m_player->GetPosition();
 			m_springCamera.SetTarget(target);
 			CQuaternion qRot;
 			qRot.SetRotationDeg(CVector3::AxisY, 150.0f);
@@ -163,6 +146,12 @@ void GameCamera::Update()
 			pos.y = 50.0f;
 			m_springCamera.SetPosition(pos);
 			Flag = 1;
+		}
+		if (m_springCamera.GetMoveSpeed().x <= 0.2
+			&& m_springCamera.GetMoveSpeed().y <= 0.2
+			&& m_springCamera.GetMoveSpeed().z <= 0.2)
+		{
+			Flag = 2;
 		}
 	}
 	//バネカメラの更新。

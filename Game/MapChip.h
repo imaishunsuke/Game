@@ -5,6 +5,7 @@
 
 class Player;
 class GameCamera;
+class GameOverProd;
 
 class MapChip : public IGameObject
 {
@@ -22,6 +23,10 @@ public:
 	void Update();
 	void Render(CRenderContext& rc);
 	void OnDestroy();
+	const CSkinModel& GetSkinModel() {
+		return m_skinModel;
+	}
+private:
 	//////////////////////////////////////////////////
 	// ‚±‚±‚©‚çƒƒ“ƒo•Ï”B
 	//////////////////////////////////////////////////
@@ -35,4 +40,6 @@ public:
 	Mirror* m_mirror = NULL;
 	Player* m_player = NULL;
 	GameCamera* m_camera = NULL;
+	prefab::CSoundSource* m_PressDead = nullptr;
+	GameOverProd* m_overprod=nullptr;
 };

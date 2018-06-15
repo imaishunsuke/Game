@@ -28,6 +28,58 @@ public:
 	void Rotation();
 	void Dead(CRenderContext& rc);
 	
+	void SetDamageFlag(int flag) {
+		dameflag = flag;
+	}
+	int GetFlag() {
+		return flag;
+	}
+	void SetLifeCount(int count) {
+		lifecount = count;
+	}
+	int GetLifeCount() {
+		return lifecount;
+	}
+	CVector3 GetPosition() {
+		return m_position;
+	}
+	void SetPosition(CVector3 pos) {
+		m_position = pos;
+	}
+	void SetRotationY(float degree) {
+		m_rotation.SetRotationDeg(CVector3::AxisY, degree);
+	}
+	CVector3 GetGoalPosition() {
+		return m_gpos;
+	}
+	CQuaternion GetRotation() {
+		return m_rotation;
+	}
+	CMatrix GetMatrix() {
+		return m_rot;
+	}
+	int GetPressFlag() {
+		return PressFlag;
+	}
+	GameOverProd *GetProd() {
+		return m_Prod;
+	}
+	int GetProdCount() {
+		return m_prodcount;
+	}
+private:
+	void InitPoly();
+
+	struct Spoly
+	{
+		CVector3 m_triVertex[3];
+		CVector3 m_normal;
+	};
+	int a = 0;
+	int poflag = 0;
+	std::vector<Spoly> m_polypool;
+	std::vector<Spoly>::iterator itr;
+
 	//メンバ変数
 	CMatrix m_rot;
 	CSkinModel m_skinModel;								//スキンモデル。
@@ -46,7 +98,7 @@ public:
 	CSprite m_hbsprite;									//スプライト
 	CShaderResourceView m_hbtexture;					//HP barテクスチャ。
 	CVector3	m_hbposition = CVector3::Zero;			//座標。
-	CVector3 m_position = CVector3::Zero;				//座標。
+	CVector3 m_position = { 0.0,10.0,0.0 } /*= CVector3::Zero*/;				//座標。
 	CVector3 diff = CVector3::Zero;
 	CQuaternion qRot = CQuaternion::Identity;
 	CQuaternion m_rotation = CQuaternion::Identity;		//回転
@@ -62,8 +114,8 @@ public:
 	float y;
 	float plposlen;
 	float angle;
-	float hpscale=1;
-	float hpdscale=1;
+	float hpscale = 1;
+	float hpdscale = 1;
 	int lifecount = 0;									//ライフカウンタ(モデル差し替え)
 	int dameflag = 0;									//ダメージフラグ
 	int flag = 0;
@@ -74,20 +126,27 @@ public:
 	int Dcount = 0;										//デッドカウンター
 	int DEndPosC = 0;									//デッドエンドポジションカウンター
 	float Dtime = 0.0f;									//ミラーを使って1秒間タイマー
-	int m_prodcount=0;
+	float Windtimer = 0.0f;								//風を呼び出すタイマー
+	float WindCall = 0.0f;								//風を呼び出す時間
+	int m_prodcount = 0;
 	float PressFlag = 0;
 	Mirror* m_mirror = NULL;
-	Torokko*toro = nullptr;
 	Goal* m_goal = nullptr;
 	float ChangeFlag = 0;
 	/*Game* m_game = nullptr;
 	title* m_title = nullptr;*/
-	Game*m_game=nullptr;
-	GameOverProd* m_Prod=nullptr;
+	Game*m_game = nullptr;
+	GameOverProd* m_Prod = nullptr;
 	enum EnAnimationClip {
 		enAnimationClip_walk,
 		enAnimationClip_num
 	};
 	CAnimationClip m_animClip[enAnimationClip_num];
 	CAnimation m_animation;
+	
+	prefab::CSoundSource* m_bgm = nullptr;
+	prefab::CSoundSource* m_wind = nullptr;
+	prefab::CSoundSource* m_animeSound = nullptr;
+	double vo=2.0;
+	double winvo = 0.5;
 };

@@ -11,10 +11,9 @@ public:
 	void Update();
 	void PostRender(CRenderContext& rc);
 
+private:
 	CSprite m_sprite;
 	CShaderResourceView m_texture;
-	Torokko* m_toro = nullptr;
-private:
 	bool m_isWaitFadeout = false;
 	Fade* m_fade = nullptr;
 };

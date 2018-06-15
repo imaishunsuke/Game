@@ -1,11 +1,10 @@
-
-
-
 #include "stdafx.h"
 #include "MapChip.h"
 #include"Mirror.h"
 #include "Player.h"
 #include "GameCamera.h"
+#include"GameOverProd.h"
+#include "tkEngine/sound/tkSoundSource.h"
 
 MapChip::MapChip()
 {
@@ -18,6 +17,7 @@ MapChip::~MapChip()
 void MapChip::OnDestroy() {
 	//物理ワールドから削除。
 	PhysicsWorld().RemoveRigidBody(m_rigidBody);
+	DeleteGO(m_PressDead);
 }
 void MapChip::Init(
 	const wchar_t* modelFilePath,
@@ -50,18 +50,22 @@ bool MapChip::Start()
 {
 	m_player = FindGO<Player>("Player");
 	m_camera = FindGO<GameCamera>("gamecamera");
-
 	//ディザリングの強さを決める係数
 	m_skinModel.SetDitheringCoefficient(1.0f);
 	return true;
 }
 void MapChip::Update()
 {
-
+	if (m_overprod==nullptr)
+	{
+		if (m_player->GetProd() != NULL) {
+			m_overprod = FindGO<GameOverProd>("Prod");
+		}
+	}
 	if (m_mirror == NULL) {
 		m_mirror = FindGO<Mirror>("Mirror");
 	}
-	if (m_mirror->m_isMirror == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
+	if (m_mirror->GetIsMirror() == true) {						//ミラーを使用中ならオブジェクトを消すフラグを０にする
 		//m_mirror->_alphaflag = 0;
 		m_skinModel.SetDiscardMirror(false);
 	}
@@ -71,23 +75,42 @@ void MapChip::Update()
 	}
 	//m_skinModel.SetDiscardMirror(m_mirror->_alphaflag);
 	CVector3 ditheringPos = CVector3::Zero;
-	CVector3 Pos = m_camera->m_springCamera.GetPosition();
-	CVector3 diff = m_player->m_position - Pos;
+	CVector3 Pos = m_camera->GetSpringCamera().GetPosition();
+	CVector3 diff = m_player->GetPosition() - Pos;
 	diff.Normalize();
 	ditheringPos.x = Pos.x + diff.x * 20.0f;
 	ditheringPos.y = Pos.y + diff.y * 20.0f;
 	ditheringPos.z = Pos.z + diff.z * 20.0f;
-	if (m_mirror->m_isMirror == true) {
+	if (m_mirror->GetIsMirror() == true) {
 		//ディザリングを使用するためのフラグを渡す
 		m_skinModel.SetDithering(true);
 		//ディザリングを使用するときの基点となる座標を渡す
 		m_skinModel.SetDitheringPos(ditheringPos);
 	}
-	else {
-		m_skinModel.SetDithering(false);
+	else if (m_player->GetLifeCount()==5) {
+		m_skinModel.SetDeadFlag(true);
+		if (m_camera->GetFlag()==2)
+		{
+			m_skinModel.SubtructDitherCoefficient(0.02f);
+		}
+		//ディザリングを使用するためのフラグを渡す
+		m_skinModel.SetDithering(true);
+		//ディザリングを使用するときの基点となる座標を渡す
+		m_skinModel.SetDitheringPos(m_player->GetPosition());
+		//圧死音
+		if (m_skinModel.GetditherRate()<=0.0
+			&&m_overprod->GetStep()==m_overprod->GetDiser())
+		{
+			m_PressDead = NewGO<prefab::CSoundSource>(0);
+			m_PressDead->Init("sound/Motion-Pop01.wav");
+			m_PressDead->SetVolume(2.0);
+			m_PressDead->Play(false);
+			m_overprod->SetDeadStep();
+		}
 	}
-	if (Pad(0).IsPress(enButtonY)) {
-		m_skinModel.SubtructDitherCoefficient(0.01f);
+	else {
+		m_skinModel.SetDeadFlag(false);
+		m_skinModel.SetDithering(false);
 	}
 	m_skinModel.Update(m_position, m_rotation, m_scale);
 }
@@ -97,6 +120,6 @@ void MapChip::Render(CRenderContext& rc)
 	m_skinModel.Draw(rc,
 		MainCamera().GetViewMatrix(),
 		MainCamera().GetProjectionMatrix(),
-		m_mirror->m_mirrorViewMatrix,
-		m_mirror->m_mirrorProjectionMatrix);
+		m_mirror->GetMirrorViewMatrix(),
+		m_mirror->GetMirrorProjectionMatrix());
 }

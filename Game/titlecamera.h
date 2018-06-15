@@ -9,7 +9,7 @@ public:
 	~titlecamera();
 	bool Start();
 	void Update();
-
+private:
 	CVector3 m_toCameraPos = CVector3::Zero;
 	CVector3 pos = CVector3::Zero;
 	//TitlePlayer* tplayer = nullptr; 

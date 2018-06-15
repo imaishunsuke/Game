@@ -104,15 +104,15 @@ void Torokko::Update()
 			nlcount = 0.01;
 		}
 		//lifecount‚ª5‚É‚È‚Á‚½‚çƒQ[ƒ€ƒI[ƒo[
-		if ((lifecount == 0 && m_player->hpscale <= 0.8)
-			||(lifecount == 1 && m_player->hpscale <= 0.6)
-			|| (lifecount == 2 && m_player->hpscale <= 0.4)
-			|| (lifecount == 3 && m_player->hpscale <= 0.2)
-			|| (lifecount == 4 && m_player->hpscale <= 0.0))
-		{
-			lifecount = lifecount + 1;
-		}
-		dameflag = 0;
+	//	if ((lifecount == 0 && m_player->hpscale <= 0.8)
+	//		||(lifecount == 1 && m_player->hpscale <= 0.6)
+	//		|| (lifecount == 2 && m_player->hpscale <= 0.4)
+	//		|| (lifecount == 3 && m_player->hpscale <= 0.2)
+	//		|| (lifecount == 4 && m_player->hpscale <= 0.0))
+	//	{
+	//		lifecount = lifecount + 1;
+	//	}
+	//	dameflag = 0;
 	}
 	//‚Q•bŠÔ–³“G
 	if (nlcount > 0) {
@@ -126,7 +126,7 @@ void Torokko::Update()
 		Move();
 	}
 	float x = Pad(0).GetLStickXF();
-	if (m_goal->gflag == 0) {
+	if (m_goal->GetGoalFlag() == 0) {
 
 		if (Pad(0).GetLStickXF()) {
 			qRot.SetRotationDeg(CVector3::AxisY, 5.0f*x);

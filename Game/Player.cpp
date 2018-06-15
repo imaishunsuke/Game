@@ -5,6 +5,7 @@
 #include"Goal.h"
 #include"GameOverProd.h"
 #include"Game.h"
+#include "tkEngine/sound/tkSoundSource.h"
 //#include"tkEngine/bulletPhysics/src/LinearMath/btConvexHull.h"
 #include"tkEngine/DirectXTK/Inc/SimpleMath.h"
 Player::Player()
@@ -15,6 +16,9 @@ Player::Player()
 Player::~Player()
 {
 	DeleteGO(m_Prod);
+	DeleteGO(m_bgm);
+	DeleteGO(m_wind);
+	DeleteGO(m_animeSound);
 }
 
 bool Player::Start() {
@@ -28,12 +32,19 @@ bool Player::Start() {
 	//	material->SetNormalMap(m_normalMap.GetBody());
 	//	//material->SetSpecularMap(m_specularMap.GetBody());
 	//});
+
 	m_animClip[enAnimationClip_walk].Load(L"animData/walk.tka");
 	for (auto& animClip : m_animClip) {
 		animClip.SetLoopFlag(true);
 	}
 	m_animation.Init(m_skinModel, m_animClip,enAnimationClip_num);
 	m_animation.Play(enAnimationClip_walk, 0.2f);
+	m_animeSound = NewGO<prefab::CSoundSource>(0);
+	m_animeSound->Init("sound/walk2.wav");
+	m_animeSound->SetVolume(2.0);
+	m_animeSound->Play(true);
+
+
 	m_rotation.Multiply(m_rotation);
 	//hpテクスチャ
 	m_htexture.CreateFromDDSTextureFromFile(L"sprite/hp.dds");
@@ -47,6 +58,7 @@ bool Player::Start() {
 	m_position.y = -1.5;
 	//線分初期化
 	m_sen = m_position;
+	m_position = { 0.0f,10.0f,0.0f };
 	m_charaCon.Init(
 		2.0,		//半径
 		1.0f,		//高さ
@@ -54,17 +66,79 @@ bool Player::Start() {
 		m_position,	//初期位置
 		m_collidertype
 	);
-	m_position = { 0.0f,0.0f,0.0f };
 	flag = 0;
 	count = 0;
 	scale = 3.0f;
+	WindCall = 4.0f;
 	m_gpos = m_position;
-	m_game=FindGO<Game>("Game");
+	m_game = FindGO<Game>("Game");
 	m_mirror = FindGO<Mirror>("Mirror");
 	m_goal = FindGO<Goal>("Goal");
 	m_skinModel.Update(m_position, m_rotation,CVector3::One);
 	m_skinModel.SetShadowCasterFlag(true);
+	m_bgm = NewGO<prefab::CSoundSource>(0);
+	m_bgm->Init("sound/game_dangeon.wav");
+	m_bgm->SetVolume(vo);
+	m_bgm->Play(true);
+	m_wind = NewGO<prefab::CSoundSource>(0);
 	return true;
+}
+void Player::InitPoly() {
+	int numMesh = 0;
+	for (auto& mapChip : m_game->m_level.GetMapList()) {
+		const auto& mWorld = mapChip->GetSkinModel().GetWorldMatrix();
+		mapChip->GetSkinModel().FindMesh([&](const auto& mesh) {
+			numMesh++;
+			ID3D11DeviceContext* deviceContext = GraphicsEngine().GetD3DDeviceContext();
+			//頂点バッファをロック
+			D3D11_MAPPED_SUBRESOURCE subresource;
+			deviceContext->Map(mesh->vertexBuffer.Get(), 0, D3D11_MAP_WRITE_NO_OVERWRITE, 0, &subresource);
+			//頂点バッファの定義を取得。
+			D3D11_BUFFER_DESC bufferDesc;
+			mesh->vertexBuffer->GetDesc(&bufferDesc);
+
+			//頂点バッファの先頭アドレスを取得。
+			char* pVertexData = reinterpret_cast<char*>(subresource.pData);
+			//インデックスバッファをロック。
+			deviceContext->Map(mesh->indexBuffer.Get(), 0, D3D11_MAP_WRITE_NO_OVERWRITE, 0, &subresource);
+			bufferDesc;
+			mesh->indexBuffer->GetDesc(&bufferDesc);
+			int stride = 2;
+			int indexCount = bufferDesc.ByteWidth / stride;
+			//インデックスバッファにアクセスする。
+			unsigned short* pIndex = reinterpret_cast<unsigned short*>(subresource.pData);
+			int numTri = indexCount / 3;
+			for (int triNo = 0; triNo < numTri; triNo++) {
+				Spoly Poly;
+				CVector3 *p1, *p2, *p3;
+				p1 = (CVector3*)(pVertexData + pIndex[0] * mesh->vertexStride);
+				p2 = (CVector3*)(pVertexData + pIndex[1] * mesh->vertexStride);
+				p3 = (CVector3*)(pVertexData + pIndex[2] * mesh->vertexStride);
+				//次の三角形。
+				pIndex += 3;
+				Poly.m_triVertex[0] = *p1;
+				Poly.m_triVertex[1] = *p2;
+				Poly.m_triVertex[2] = *p3;
+				//ワールド空間に変換。
+				mWorld.Mul(Poly.m_triVertex[0]);
+				mWorld.Mul(Poly.m_triVertex[1]);
+				mWorld.Mul(Poly.m_triVertex[2]);
+				//平面の法線を計算する。
+				CVector3 v1, v2;
+				v1 = Poly.m_triVertex[0] - Poly.m_triVertex[1];
+				v2 = Poly.m_triVertex[2] - Poly.m_triVertex[1];
+
+				Poly.m_normal.Cross(v1, v2);
+				Poly.m_normal.Normalize();
+				m_polypool.push_back(Poly);
+			}
+			//インデックスバッファをアンロック。
+			deviceContext->Unmap(mesh->indexBuffer.Get(), 0);
+
+			//頂点バッファをアンロック
+			deviceContext->Unmap(mesh->vertexBuffer.Get(), 0);
+		});
+	}
 }
 void Player::Move()
 {
@@ -112,13 +186,6 @@ void Player::Move()
 void Player::Rotation() {
 
 	m_rot.MakeRotationFromQuaternion(m_rotation);
-	/*m_position.x = m_rot.m[2][0] * plposlen + toro->m_position.x;
-	m_position.y = m_rot.m[2][1] * plposlen + toro->m_position.y;
-	m_position.z = m_rot.m[2][2] * plposlen + toro->m_position.z;
-	m_rotation.x = toro->m_rotation.x;
-	m_rotation.y = toro->m_rotation.y;
-	m_rotation.z = toro->m_rotation.z;
-	m_rotation.w = toro->m_rotation.w;*/
 	if (fabsf(m_moveSpeed.x) < 0.001f
 		&& fabsf(m_moveSpeed.z) < 0.001f) {
 		return;
@@ -138,98 +205,47 @@ void Player::Rotation() {
 }
 
 void Player::Dead(CRenderContext& rc) {
-	int numMesh = 0;
-	auto vStart = m_position;
+	CVector3 vStart = m_position;
 	vStart.y *= 0.3f;
-	auto vEnd = vStart + CVector3(0.0f, 0.0f, 20.0f);
+	CVector3 vEnd = vStart + CVector3(0.0f, 0.0f, 20.0f);
 
-	auto fNearPlaneLength = FLT_MAX;		//一番近い平面までの距離。
-	auto vNearPlaneNormal = CVector3::Zero; //一番近い平面の法線。
+	float fNearPlaneLength = FLT_MAX;		//一番近い平面までの距離。
+	CVector3 vNearPlaneNormal = CVector3::Zero; //一番近い平面の法線。
 	bool isHit = false;
-	for (auto& mapChip : m_game->m_level.m_mapChipList) {
-		const auto& mWorld = mapChip->m_skinModel.GetWorldMatrix();
-		mapChip->m_skinModel.FindMesh([&](const auto& mesh) {
-			numMesh++;
-			ID3D11DeviceContext* deviceContext = GraphicsEngine().GetD3DDeviceContext();
-			//頂点バッファをロック
-			D3D11_MAPPED_SUBRESOURCE subresource;
-			deviceContext->Map(mesh->vertexBuffer.Get(), 0, D3D11_MAP_WRITE_NO_OVERWRITE, 0, &subresource);
-			//頂点バッファの定義を取得。
-			D3D11_BUFFER_DESC bufferDesc;
-			mesh->vertexBuffer->GetDesc(&bufferDesc);
-
-			//頂点バッファの先頭アドレスを取得。
-			char* pVertexData = reinterpret_cast<char*>(subresource.pData);
-			//インデックスバッファをロック。
-			deviceContext->Map(mesh->indexBuffer.Get(), 0, D3D11_MAP_WRITE_NO_OVERWRITE, 0, &subresource);
-			bufferDesc;
-			mesh->indexBuffer->GetDesc(&bufferDesc);
-			int stride = 2;
-			int indexCount = bufferDesc.ByteWidth / stride;
-			//インデックスバッファにアクセスする。
-			unsigned short* pIndex = reinterpret_cast<unsigned short*>(subresource.pData);
-			int numTri = indexCount / 3;
-			for (int triNo = 0; triNo < numTri; triNo++) {
-				CVector3* triVertex[3];
-				triVertex[0] = (CVector3*)(pVertexData + pIndex[0] * mesh->vertexStride);
-				triVertex[1] = (CVector3*)(pVertexData + pIndex[1] * mesh->vertexStride);
-				triVertex[2] = (CVector3*)(pVertexData + pIndex[2] * mesh->vertexStride);
-				//次の三角形。
-				pIndex += 3;
-
-
-				//三角形を内包する無限平面を求める。
-				//Plane plane;
-
-				//float w;
-				CVector3 tri[3];
-				tri[0] = *triVertex[0];
-				tri[1] = *triVertex[1];
-				tri[2] = *triVertex[2];
-				//ワールド空間に変換。
-				mWorld.Mul(tri[0]);
-				mWorld.Mul(tri[1]);
-				mWorld.Mul(tri[2]);
-
-
-				//平面の法線を計算する。
-				CVector3 v1, v2, normal;
-				v1 = tri[0] - tri[1];
-				v2 = tri[2] - tri[1];
-
-				normal.Cross(v1, v2);
-				normal.Normalize();
-
+	
+	 CVector3 Poly0, Poly1, Poly2,normalc;
+	 for(std::vector<Spoly>::const_iterator itr = m_polypool.begin();itr != m_polypool.end ();itr++){
 				//三角形の頂点からレイの始点へのベクトルを計算する。
-				CVector3 vertToStart = vStart - tri[0];
+				CVector3 vertToStart = vStart - itr->m_triVertex[0];
 				//三角形の頂点からレイの終点へのベクトルを計算する。
-				CVector3 vertToEnd = vEnd - tri[0];
-				float d1 = normal.Dot(vertToStart);
-				float d2 = normal.Dot(vertToEnd);
+				CVector3 vertToEnd = vEnd - itr->m_triVertex[0];
+	
+				float d1 = itr->m_normal.Dot(vertToStart);
+				float d2 = itr->m_normal.Dot(vertToEnd);
 
 				if (d1 * d2 < 0.0f) {
 
 					//交点を求める。
-					auto absD1 = fabsf(d1);
-					auto absD2 = fabsf(d2);
-					auto rayLengthInNormal = absD1 + absD2;
-					auto crossPoint = (vStart * absD1 / rayLengthInNormal)
+					float absD1 = fabsf(d1);
+					float absD2 = fabsf(d2);
+					float rayLengthInNormal = absD1 + absD2;
+					CVector3 crossPoint = (vStart * absD1 / rayLengthInNormal)
 						+ (vEnd * absD2 / rayLengthInNormal);
 					//無限平面と衝突したので、次は三角形の内外判定を行う。
-					auto vert0ToCrossPoint = crossPoint - tri[0];
+					CVector3 vert0ToCrossPoint = crossPoint - itr->m_triVertex[0];
 					vert0ToCrossPoint.Normalize();
-					auto vert1ToCrossPoint = crossPoint - tri[1];
+					CVector3 vert1ToCrossPoint = crossPoint - itr->m_triVertex[1];
 					vert1ToCrossPoint.Normalize();
-					auto vert2ToCrossPoint = crossPoint - tri[2];
+					CVector3 vert2ToCrossPoint = crossPoint - itr->m_triVertex[2];
 					vert2ToCrossPoint.Normalize();
 
-					auto vert0ToVert1 = tri[1] - tri[0];
+					CVector3 vert0ToVert1 = itr->m_triVertex[1] - itr->m_triVertex[0];
 					vert0ToVert1.Normalize();
 
-					auto vert1ToVert2 = tri[2] - tri[1];
+					CVector3 vert1ToVert2 = itr->m_triVertex[2] - itr->m_triVertex[1];
 					vert1ToVert2.Normalize();
 
-					auto vert2ToVert0 = tri[0] - tri[2];
+					CVector3 vert2ToVert0 = itr->m_triVertex[0] - itr->m_triVertex[2];
 					vert2ToVert0.Normalize();
 
 					CVector3 vWork[3];
@@ -242,54 +258,66 @@ void Player::Dead(CRenderContext& rc) {
 					vWork[2].Cross(vert2ToVert0, vert2ToCrossPoint);
 					vWork[2].Normalize();
 
-					if (vWork[0].Dot(vWork[1]) > 0.0f && vWork[0].Dot(vWork[2]) > 0.0f) {
+					if (vWork[0].Dot(vWork[1]) > 0.0f 
+						&& vWork[0].Dot(vWork[2]) > 0.0f){
 						//交点は三角形の内側にいる。
 						isHit = true;
-						auto diff = vStart - crossPoint;
-						auto len = diff.LengthSq();
+						CVector3 diff = vStart - crossPoint;
+						float len = diff.LengthSq();
 						if (len < fNearPlaneLength) {
 							//この平面のほうが近いので、距離と法線を更新する。
 							fNearPlaneLength = len;
-							vNearPlaneNormal = normal;
+							vNearPlaneNormal = itr->m_normal;
 						}
 					}
 				}
+				if (isHit == true) {
+					break;
+				}
 			}
-			//インデックスバッファをアンロック。
-			deviceContext->Unmap(mesh->indexBuffer.Get(), 0);
-
-			//頂点バッファをアンロック
-			deviceContext->Unmap(mesh->vertexBuffer.Get(), 0);
-		});
-	}
 	if (isHit == true) {
-		auto vRayDir = vEnd - vStart;
+		CVector3 vRayDir = vEnd - vStart;
 		vRayDir.Normalize();
 		if (vRayDir.Dot(vNearPlaneNormal) > 0.0f) {
 			Dcount++;
 			//閉じたメッシュの内側にいる？
 		}
-		////圧死判定
-		//if (Pad(0).IsTrigger(enButtonX)) {
-		//	//toro->lifecount = 5;
-		//	PressFlag = 1;
-		//}
 	}
-	/*else
-	{
-		DEndPosC = 1;
-	}*/
+
 }
 
 void Player::Update()
 {
-	if (flag == 1&&m_goal->gflag==0&&m_prodcount==0) {
+	if (flag == 1 
+		&& m_goal->GetGoalFlag() == 0 
+		&& m_prodcount == 0) {
 
-	//移動
-	Move();
-	//回転
-	Rotation();
-
+		//移動
+		Move();
+		//回転
+		Rotation();
+		Windtimer = Windtimer + GameTime().GetFrameDeltaTime();
+		if (WindCall <= Windtimer) {
+			m_wind->Init("sound/kaze2_.wav");
+			m_wind->SetVolume(2.1);
+			m_wind->Play(false);
+			if (vo > 1.8) {
+				vo -= 0.09;
+				if (vo < 1.8)
+				{
+					vo = 1.8;
+				}
+			}
+			m_bgm->SetVolume(vo);
+			Windtimer = 0.0f;
+			if (WindCall<=4.0) {
+				WindCall = 7.0f;
+			}
+			else
+			{
+				WindCall = 4.0f;
+			}
+		}
 	}
 	if (dameflag == 1) {
 		if (nlcount <= 0) {
@@ -326,7 +354,7 @@ void Player::Update()
 
 		}
 		if (hpdscale > hpscale) {
-			hpdscale = hpdscale - 0.01;
+			hpdscale = hpdscale - 0.02;
 			m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });
 		}
 
@@ -341,19 +369,25 @@ void Player::Render(CRenderContext& rc)
 	if (Dcount >= 5) {
 		if (m_prodcount==0) {
 			m_Prod = NewGO<GameOverProd>(0, "Prod");
+			hpscale = 0.0f;
 			PressFlag = 1;
 			m_prodcount = 1;
+			m_bgm->Pause();
+			m_animeSound->Pause();
+			if (m_wind->IsPlaying() == true) {
+				m_wind->Pause();
+			}
 		}
 	}
 
 	if ((flag==1)
-		&&(m_mirror->m_isMirror == false)) {
+		&&(m_mirror->GetIsMirror() == false)) {
 		Dtime += GameTime().GetFrameDeltaTime();
 		if (/*DEndPosC<=5*/Dtime <= 1.0f) {
 			Dead(rc);
 		}
 	}
- if(m_mirror->m_isMirror == true)
+ if(m_mirror->GetIsMirror() == true)
 	{
 		Dtime = 0.0f;
 		Dcount = 0;
@@ -370,6 +404,7 @@ void Player::PostRender(CRenderContext& rc) {
 	//スタート
 	if (flag == 0 && count == 0)
 	{
+	
 		m_font.Begin(rc);
 		m_font.Draw(L"PRESS ANY KEY", { 640.0f, -270.0f }, { 234.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 255.0f }, 0.0f, 1.5f);
 		m_font.End(rc);
@@ -379,6 +414,10 @@ void Player::PostRender(CRenderContext& rc) {
 		count = count + GameTime().GetFrameDeltaTime();
 		if (count >= 0 && count <= 1)
 		{
+			if (poflag == 0) {
+				InitPoly();
+				poflag = 1;
+			}
 			if (scalefg == 0) {
 				scale = 3;
 				scalefg = 1;
@@ -400,7 +439,7 @@ void Player::PostRender(CRenderContext& rc) {
 			scale = scale - (count - 1)*0.2;
 		}
 		if (count > 2 && count <= 3)
-		{
+		{	
 			if (scalefg == 0) {
 				scale = 3;
 				scalefg = 1;
@@ -431,7 +470,7 @@ void Player::PostRender(CRenderContext& rc) {
 		count = count + GameTime().GetFrameDeltaTime();
 	}
 	
-		if (m_goal->gflag == 0) {
+		if (m_goal->GetGoalFlag() == 0) {
 			//HP barテクスチャ描画
 			m_hbsprite.Draw(rc,
 				MainCamera2D().GetViewMatrix(),

@@ -12,6 +12,7 @@
 #include "TitleStar.h"
 #include "Titlemirror.h"
 #include"tkEngine/light/tkDirectionLight.h"
+#include "tkEngine/sound/tkSoundSource.h"
 
 Title::Title()
 {
@@ -20,6 +21,7 @@ Title::Title()
 
 Title::~Title()
 {
+	DeleteGO(m_Stitle);
 }
 void Title::OnDestroy()
 {
@@ -36,6 +38,9 @@ void Title::OnDestroy()
 }
 bool Title::Start()
 {
+	m_Stitle = NewGO<prefab::CSoundSource>(0);
+	m_Stitle->Init("sound/title1.wav");
+	m_Stitle->Play(true);
 	dirLight = NewGO<prefab::CDirectionLight>(0);
 	//ライトの方向を設定
 	dirLight->SetDirection({ 0.707f,-0.707f,0.0f });
@@ -49,21 +54,8 @@ bool Title::Start()
 	m_titleenemyball = NewGO<TitleEnemyball>(0, "TitleEnemyball");
 	m_titlestar = NewGO<TitleStar>(0, "TitleStar");
 	m_titlemirror = NewGO<Titlemirror>(0, "Titlemirror");
-	/*MainCamera().SetTarget({ 0.0f,0.0f,0.0f });
-	MainCamera().SetNear(1.0f);
-	MainCamera().SetFar(5000.0f);
-	MainCamera().SetPosition({ 0.0f, 0.0f, -50.0f });*/
-
 	m_texture.CreateFromDDSTextureFromFile(L"sprite/title.dds");
-	m_sprite.Init(m_texture,1280,720/* GraphicsEngine().Get2DSpaceScreenWidth(), GraphicsEngine().Get2DSpaceScreenHeight()*/);
-
-	////モデルをロード
-	//m_skinModelData.Load(L"modelData/titletorokko.cmo");
-	//m_skinModel.Init(m_skinModelData);
-	
-	/*m_skinModelRender = NewGO<prefab::CSkinModelRender>(0);
-	m_skinModelRender->Init(L"modelData/titletorokko.cmo");
-	m_skinModelRender->SetScale({ 1.0,1.0,1.0 });*/
+	m_sprite.Init(m_texture, 1280, 720);
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
 	return true;
@@ -80,6 +72,7 @@ void Title::Update()
 	//MainCamera().Update();
 
 	if (m_isWaitFadeout) {
+		m_Stitle->SetVolume(1.0);
 		if (!m_fade->IsFade()) {
 			NewGO<Game>(0, "Game");
 			DeleteGO(this);
