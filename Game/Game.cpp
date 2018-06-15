@@ -73,6 +73,8 @@ bool Game::Start()
 	m_ptLight.ptLightBuild(L"light/PointLight.tks");
 	//m_dirLight.dirLightBuild(L"light/dlig_00.tks");
 
+
+
 	m_level.Build(L"level/level01.tks");
 	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
 
