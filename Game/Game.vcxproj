@@ -735,6 +735,7 @@
     <MeshContentTask Include="Assets\modelData\ground2.FBX" />
     <MeshContentTask Include="Assets\modelData\ground3.FBX" />
     <MeshContentTask Include="Assets\modelData\ground4.FBX" />
+    <MeshContentTask Include="Assets\modelData\ground5.FBX" />
     <MeshContentTask Include="Assets\modelData\mirror.FBX" />
     <MeshContentTask Include="Assets\modelData\mirror1.FBX" />
     <MeshContentTask Include="Assets\modelData\plane.FBX" />
@@ -763,6 +764,7 @@
     <MeshContentTask Include="Assets\modelData\testobj.FBX" />
     <MeshContentTask Include="Assets\modelData\titletorokko.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
+    <MeshContentTask Include="Assets\modelData\wall.FBX" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\shader\bloom.fx">
@@ -962,11 +964,17 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="Assets\level\test.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
     <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="Assets\level\level01.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
     <CustomBuild Include="Assets\sound\game_dangeon.wav">
       <FileType>Document</FileType>
     </CustomBuild>
