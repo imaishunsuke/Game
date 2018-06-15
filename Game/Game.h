@@ -52,7 +52,7 @@ private:
 	ResultScene* m_result = nullptr;
 	Player*m_pl = nullptr;
 	GameOverProd* m_Prod = nullptr;
-	//EnemyBall enemyLevel;
+	EnemyBall enemyLevel;
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CAnimationClip m_animClip[1];							//アニメーションクリップ。
 	CAnimation m_animation;

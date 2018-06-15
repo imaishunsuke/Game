@@ -77,7 +77,16 @@ bool Game::Start()
 	m_level.Build(L"level/Block_1x2_002.tks");
 	m_level.Build(L"level/Block_1x2_003.tks");
 	m_level.Build(L"level/Block_1x2_004.tks");*/
-	
+
+	m_level.Build(L"level/Stage1.tks");
+	m_level.Build(L"level/Sig_Sag_1x2_001.tks");
+	m_level.Build(L"level/Sig_Sag_1x2_002.tks");
+	m_level.Build(L"level/Sig_Sag_1x2_003.tks");
+	m_level.Build(L"level/Sig_Sag_1x2_004.tks");
+	m_level.Build(L"level/Sig_Sag_1x2_005.tks");
+	m_level.Build(L"level/Sig_Sag_1x2_006.tks"); 
+	m_level.Build(L"level/assitest.tks");
+	enemyLevel.Build(L"modelData/EnemyBall.tks");
 
 	//i
 	//m_level.Build(L"level/Stage1.tks");
