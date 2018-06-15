@@ -17,7 +17,7 @@ Player::~Player()
 {
 	DeleteGO(m_Prod);
 	DeleteGO(m_bgm);
-	DeleteGO(m_wind);
+	//DeleteGO(m_wind);
 	DeleteGO(m_animeSound);
 }
 
@@ -80,7 +80,7 @@ bool Player::Start() {
 	m_bgm->Init("sound/game_dangeon.wav");
 	m_bgm->SetVolume(vo);
 	m_bgm->Play(true);
-	m_wind = NewGO<prefab::CSoundSource>(0);
+	//m_wind = NewGO<prefab::CSoundSource>(0);
 	return true;
 }
 void Player::InitPoly() {
@@ -303,10 +303,14 @@ void Player::Update()
 		//‰ñ“]
 		Rotation();
 		Windtimer = Windtimer + GameTime().GetFrameDeltaTime();
-		m_wind->Init("sound/kaze2_.wav");
-		m_wind->SetVolume(1.5);
+		
+		/*m_wind->SetVolume(1.5);*/
 		if (WindCall <= Windtimer) {
-			m_wind->Play(false);
+			prefab::CSoundSource* m_wind = nullptr;
+				m_wind = NewGO<prefab::CSoundSource>(0);
+				m_wind->Init("sound/kaze2_.wav");
+				m_wind->SetVolume(1.5);
+				m_wind->Play(false);
 			if (vo > 0.6) {
 				vo -= 0.09;
 				if (vo < 0.6)
@@ -322,6 +326,10 @@ void Player::Update()
 			else
 			{
 				WindCall = 4.0f;
+			}
+			if (Dcount >= 5
+				&& m_wind->IsPlaying() == true) {
+				m_wind->Pause();
 			}
 		}
 	}
@@ -380,9 +388,9 @@ void Player::Render(CRenderContext& rc)
 			m_prodcount = 1;
 			m_bgm->Pause();
 			m_animeSound->Pause();
-			if (m_wind->IsPlaying() == true) {
+			/*if (m_wind->IsPlaying() == true) {
 				m_wind->Pause();
-			}
+			}*/
 		}
 	}
 
