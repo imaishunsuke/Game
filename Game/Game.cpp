@@ -88,7 +88,7 @@ bool Game::Start()
 	m_level.Build(L"level/Sig_Sag_1x2_005.tks");
 	m_level.Build(L"level/Sig_Sag_1x2_006.tks"); 
 	m_level.Build(L"level/assitest.tks");
-	//enemyLevel.Build(L"modelData/EnemyBall.tks");
+	enemyLevel.Build(L"modelData/EnemyBall.tks");
 	//プレイヤー作成
 	m_player=NewGO<Player>(0,"Player");
 	//ミラー作成

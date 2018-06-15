@@ -42,6 +42,7 @@ private:
 	float r = 20.0f;									//”¼Œa
 	Mirror* m_mirror = NULL;
 	//std::map<wchar_t,EnemyBall*> m_enemyMapChip
+	prefab::CSoundSource* m_enemySound = nullptr;
 };
 
 

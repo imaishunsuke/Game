@@ -288,6 +288,12 @@ void Player::Dead(CRenderContext& rc) {
 
 void Player::Update()
 {
+	SoundEngine().SetListenerPosition(MainCamera().GetPosition());
+	CVector3 frontXZ = MainCamera().GetForward();
+	frontXZ.y = 0.0f;
+	frontXZ.Normalize();
+	SoundEngine().SetListenerFront(frontXZ);
+
 	if (flag == 1 
 		&& m_goal->GetGoalFlag() == 0 
 		&& m_prodcount == 0) {
@@ -297,15 +303,15 @@ void Player::Update()
 		//‰ñ“]
 		Rotation();
 		Windtimer = Windtimer + GameTime().GetFrameDeltaTime();
+		m_wind->Init("sound/kaze2_.wav");
+		m_wind->SetVolume(1.5);
 		if (WindCall <= Windtimer) {
-			m_wind->Init("sound/kaze2_.wav");
-			m_wind->SetVolume(2.1);
 			m_wind->Play(false);
-			if (vo > 1.8) {
+			if (vo > 0.6) {
 				vo -= 0.09;
-				if (vo < 1.8)
+				if (vo < 0.6)
 				{
-					vo = 1.8;
+					vo = 0.6;
 				}
 			}
 			m_bgm->SetVolume(vo);

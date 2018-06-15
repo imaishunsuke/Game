@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Goal.h"
 #include"Mirror.h"
+#include "tkEngine/sound/tkSoundSource.h"
 
 EnemyBall::EnemyBall()
 {
@@ -65,12 +66,20 @@ bool EnemyBall::Start()
 {
 	m_player = FindGO<Player>("Player");
 	m_goal = FindGO<Goal>("Goal");
+	m_position = { 0.0,18.0,200.0 };
 	CVector3 plPos = m_player->GetPosition();
 	diff = plPos - m_position;
+	m_enemySound = NewGO<prefab::CSoundSource>(0);
+	m_enemySound->Init("sound/Rock.wav", true);
+	m_enemySound->SetPosition(m_position);
+	m_enemySound->SetVolume(3.0);
+	m_enemySound->Play(true);
 	return true;
 }
 void EnemyBall::Update()
 {
+	m_enemySound->SetPosition(m_position);
+
 	if (m_charaCon.IsHitWall() == true) {
 		CVector3 plPos = m_player->GetPosition();
 		diff = plPos - m_position;
@@ -92,7 +101,7 @@ void EnemyBall::Update()
 		m_moveSpeed.x = OldDiff.x * 20.0f;
 		m_moveSpeed.z = OldDiff.z * 20.0f;
 	}*/
-	m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed,m_collidertype);
+	//m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), m_moveSpeed,m_collidertype);
 	m_skinModel.Update(m_position, m_rotation, m_scale);
 }
 void EnemyBall::Render(CRenderContext& rc)

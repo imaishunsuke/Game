@@ -35,6 +35,7 @@ void GameOverProd::Update() {
 		break;
 	case Diser:
 		if (soundf == 0) {
+			//キャーと言うサウンド
 			m_animeSound->Init("sound/si.wav");
 			m_animeSound->SetVolume(2.0f);
 			m_animeSound->Play(false);
