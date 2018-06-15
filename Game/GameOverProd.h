@@ -31,9 +31,6 @@ private:
 	Player*m_pl = nullptr;
 	GameCamera*m_camera = nullptr;
 public:
-	Product GetStep() {
-		return m_step;
-	}
 	void SetProduct(Product product) {
 		m_step = product;
 	}

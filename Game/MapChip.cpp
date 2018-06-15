@@ -17,7 +17,6 @@ MapChip::~MapChip()
 void MapChip::OnDestroy() {
 	//•¨—ƒ[ƒ‹ƒh‚©‚çíœB
 	PhysicsWorld().RemoveRigidBody(m_rigidBody);
-	DeleteGO(m_bgm);
 	DeleteGO(m_PressDead);
 }
 void MapChip::Init(
