@@ -103,6 +103,8 @@ bool Game::Start()
 	//m_level.Build(L"level/level01.tks");
 
 
+	m_level.Build(L"level/level01.tks");
+
 	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
 
 	//enemyLevel.Build(L"modelData/EnemyBall.tks");

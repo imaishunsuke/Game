@@ -145,7 +145,7 @@ private:
 	CAnimation m_animation;
 
 	prefab::CSoundSource* m_bgm = nullptr;
-	prefab::CSoundSource* m_wind = nullptr;
+	/*prefab::CSoundSource* m_wind = nullptr;*/
 	prefab::CSoundSource* m_animeSound = nullptr;
 	double vo = 1.0;
 	double winvo = 0.5;

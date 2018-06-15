@@ -90,6 +90,6 @@ private:
 	//Game* m_game = NULL;
 	Goal* m_goal = NULL;
 	float angle = 0;
-	prefab::CSoundSource* m_useMirror = nullptr;
+	//prefab::CSoundSource* m_useMirror = nullptr;
 };
 
