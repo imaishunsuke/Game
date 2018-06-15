@@ -150,8 +150,7 @@ namespace tkEngine {
 			rbInfo.collider = &m_sphereCollider;
 			rbInfo.mass = 0.0f;
 			m_rigidBody.Create(rbInfo);
-			m_rigidBody.GetBody()->setUserIndex(enCollisionAttr_throughEnemy);
-			m_rigidBody.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
+
 			break;
 		}
 		////„‘Ì‚ð‰Šú‰»B
@@ -165,6 +164,10 @@ namespace tkEngine {
 		//@todo –¢‘Î‰žBtrans.setRotation(btQuaternion(rotation.x, rotation.y, rotation.z));
 		if (type == Capsule) {
 			m_rigidBody.GetBody()->setUserIndex(enCollisionAttr_Character);
+			m_rigidBody.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
+		}
+		if (type == Sphere) {
+			m_rigidBody.GetBody()->setUserIndex(enCollisionAttr_throughEnemy);
 			m_rigidBody.GetBody()->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
 		}
 		PhysicsWorld().AddRigidBody(m_rigidBody);

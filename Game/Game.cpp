@@ -64,17 +64,17 @@ bool Game::Start()
 	////ミラー作成
 	//m_mirror = NewGO<Mirror>(0, "Mirror");
 	
-	m_fade = FindGO<Fade>("Fade");
-	m_fade->StartFadeIn();
-	m_state = enState_FadeIn;
+	//m_fade = FindGO<Fade>("Fade");
+	//m_fade->StartFadeIn();
+	//m_state = enState_FadeIn;
 	m_pl = FindGO<Player>("Player");
 
 	//レベルを構築する。
 
 	//m_ptLight.ptLightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
-	m_ptLight.ptLightBuild(L"light/PointLight.tks");
 	//m_dirLight.dirLightBuild(L"light/dlig_00.tks");
 
+	m_ptLight.ptLightBuild(L"light/PointLight.tks");
 	/*m_level.Build(L"level/Block_1x2_001.tks");
 	m_level.Build(L"level/Block_1x2_002.tks");
 	m_level.Build(L"level/Block_1x2_003.tks");
@@ -91,6 +91,8 @@ bool Game::Start()
 	m_level.Build(L"level/Sig_Sag_1x2_006.tks"); 
 	m_level.Build(L"level/assitest.tks");
 	enemyLevel.Build(L"modelData/EnemyBall.tks");
+	//enemyLevel.GetDataList();
+	enemyLevel.Create();
 	//プレイヤー作成
 	m_player=NewGO<Player>(0,"Player");
 	//ミラー作成
@@ -101,6 +103,7 @@ bool Game::Start()
 	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
 	m_fade = FindGO<Fade>("Fade");
 	m_fade->StartFadeIn();
+	m_state = enState_FadeIn;
 	return true;
 }
 void Game::Update()

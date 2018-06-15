@@ -964,19 +964,17 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
-      <FileType>Document</FileType>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
     <CustomBuild Include="Assets\sound\game_dangeon.wav">
       <FileType>Document</FileType>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
     <CustomBuild Include="Assets\sound\kaze_.wav">
- <FileType>Document</FileType>
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\Rock.mp3">
+      <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

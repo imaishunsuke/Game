@@ -26,6 +26,7 @@ public:
 	void Render(CRenderContext& rc);
 	void OnDestroy();
 	Level m_level;
+	EnemyBall enemyLevel;
 private:
 	enum EnState {
 		enState_FadeIn, //フェードイン中
@@ -52,7 +53,6 @@ private:
 	ResultScene* m_result = nullptr;
 	Player*m_pl = nullptr;
 	GameOverProd* m_Prod = nullptr;
-	EnemyBall enemyLevel;
 	prefab::CSkinModelRender* m_skinModelRender = nullptr;	//スキンモデルレンダラー。
 	CAnimationClip m_animClip[1];							//アニメーションクリップ。
 	CAnimation m_animation;

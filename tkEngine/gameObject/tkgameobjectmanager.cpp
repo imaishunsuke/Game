@@ -30,7 +30,7 @@ namespace tkEngine{
 		for (GameObjectList objList : m_gameObjectListArray) {
 			for (IGameObject* obj : objList) {
 				obj->UpdateWrapper();
-			}
+				}
 		}
 		for (GameObjectList objList : m_gameObjectListArray) {
 			for (IGameObject* obj : objList) {

@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "GameCamera.h"
 #include"GameOverProd.h"
-#include "tkEngine/sound/tkSoundSource.h"
+//#include "tkEngine/sound/tkSoundSource.h"
 
 MapChip::MapChip()
 {
@@ -17,7 +17,7 @@ MapChip::~MapChip()
 void MapChip::OnDestroy() {
 	//物理ワールドから削除。
 	PhysicsWorld().RemoveRigidBody(m_rigidBody);
-	DeleteGO(m_bgm);
+	//DeleteGO(m_bgm);
 }
 void MapChip::Init(
 	const wchar_t* modelFilePath,
@@ -96,16 +96,16 @@ void MapChip::Update()
 		//ディザリングを使用するためのフラグを渡す
 		m_skinModel.SetDithering(true);
 		//ディザリングを使用するときの基点となる座標を渡す
-		m_skinModel.SetDitheringPos(m_player->m_position);
+		m_skinModel.SetDitheringPos(m_player->GetPosition());
 		//圧死音
 		if (m_skinModel.GetditherRate()<=0.0
-			&&m_overprod->m_step==m_overprod->Diser)
+			&&m_overprod->GetStep()==m_overprod->Diser)
 		{
-			m_bgm = NewGO<prefab::CSoundSource>(0);
-			m_bgm->Init("sound/Motion-Pop01.wav");
-			m_bgm->SetVolume(1.0);
-			m_bgm->Play(false);
-			m_overprod->m_step = m_overprod->Dead;
+			//m_bgm = NewGO<prefab::CSoundSource>(0);
+			//m_bgm->Init("sound/Motion-Pop01.wav");
+			//m_bgm->SetVolume(1.0);
+			//m_bgm->Play(false);
+			m_overprod->SetProduct(m_overprod->Dead);
 		}
 	}
 	else {

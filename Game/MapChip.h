@@ -26,6 +26,7 @@ public:
 	const CSkinModel& GetSkinModel() {
 		return m_skinModel;
 	}
+
 private:
 	//////////////////////////////////////////////////
 	// ‚±‚±‚©‚çƒƒ“ƒo•Ï”B
@@ -40,6 +41,6 @@ private:
 	Mirror* m_mirror = NULL;
 	Player* m_player = NULL;
 	GameCamera* m_camera = NULL;
-	prefab::CSoundSource* m_bgm = nullptr;
+	//prefab::CSoundSource* m_bgm = nullptr;
 	GameOverProd* m_overprod=nullptr;
 };

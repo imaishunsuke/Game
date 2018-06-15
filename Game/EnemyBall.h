@@ -3,6 +3,8 @@
 //#include "tkEngine/physics/tkRigidBody.h"
 //#include "tkEngine/physics/tkSphereCollider.h"
 #include "tkEngine/character/tkCharacterController.h"
+#include "tkEngine/physics/tkMeshCollider.h"
+#include "tkEngine/physics/tkRigidBody.h"
 class Player;
 class Goal;
 
@@ -15,18 +17,16 @@ public:
 	bool Start();
 	void Update();
 	void Render(CRenderContext& rc);
-	void Build(const wchar_t* fileDataPath);
-	void Init(
-		const wchar_t* modelFilePath,
-		CVector3 pos,
-		CVector3 scale,
-		CQuaternion rotation
-	);	
+	//void OnDestroy();
+	//void Build(const wchar_t* fileDataPath);
+	void Init(const wchar_t* modelFilePath,CVector3 pos,CQuaternion rotation,CVector3 scale);
+	void Create();
+	
 private:
 	//ÉÅÉìÉoïœêî
 	CSkinModel m_skinModel;
 	CSkinModelData m_skinModelData;
-	CVector3 m_position = {-100.0f,28.0f,0.0f };
+	CVector3 m_position = CVector3::Zero;/*{-100.0f,28.0f,0.0f }*/;
 	CVector3 m_moveSpeed = CVector3::Zero;
 	CVector3 up = CVector3::Up;							//è„ï˚å¸
 	CVector3 m_axisX;									//îCà”ÇÃâÒì]é≤
@@ -35,13 +35,17 @@ private:
 	Player* m_player = nullptr;
 	Goal* m_goal = nullptr;
 	CVector3 diff = CVector3::Zero;
+	//EnemyBall* m_enemy = nullptr;
 	//CSphereCollider m_collider;
 	//CRigidBody m_rigidBody;
 	CCharacterController m_charaCon;
 	CCharacterController::ColliderType m_collidertype = CCharacterController::Sphere;
-	float r = 20.0f;									//îºåa
+	float r = 2.0f;									//îºåa
 	Mirror* m_mirror = NULL;
 	//std::map<wchar_t,EnemyBall*> m_enemyMapChip
+	std::list<EnemyBall*> m_enemyBallList;
+	CRigidBody m_rigidBody;
+	CMeshCollider m_meshCollider;
 };
 
 

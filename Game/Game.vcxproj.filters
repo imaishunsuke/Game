@@ -225,12 +225,6 @@
     <MeshContentTask Include="Assets\modelData\ground1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\ground2.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -331,6 +325,12 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\aa.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
@@ -515,17 +515,20 @@
     <CustomBuild Include="Assets\level\aa.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
-      <Filter>Assets\sound</Filter>
+    <CustomBuild Include="Assets\modelData\EnemyBall.tks">
+      <Filter>Assets\modelData</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\sound\game_dangeon.wav">
       <Filter>Assets\sound</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\sound\kaze_.wav">
       <Filter>Assets\sound</Filter>
-</CustomBuild>
-    <CustomBuild Include="Assets\modelData\EnemyBall.tks">
-      <Filter>Assets\modelData</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
+      <Filter>Assets\sound</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\Rock.mp3">
+      <Filter>Assets\sound</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

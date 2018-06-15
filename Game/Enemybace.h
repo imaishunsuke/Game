@@ -6,16 +6,35 @@ class Enemybace : public IGameObject
 public:
 	Enemybace();
 	~Enemybace();
-	bool Start();
-	void Update();
-	void Render(CRenderContext& rc);
-	virtual void Build(const wchar_t* fileDataPath) = 0;
+	//bool Start();
+	//void Update();
+	//void Render(CRenderContext& rc);
+	void OnDestroy();
+	struct LevelData {
+		int numMapChip;
+		std::wstring modelFilePath;
+		CVector3 Pos = CVector3::Zero;
+		CVector3 scale = CVector3::One;
+		CQuaternion Rotation = CQuaternion::Identity;
+	};
+	
+	virtual void Build(const wchar_t* fileDataPath);
+	//virtual void Create();
 	virtual void Init(
 		const wchar_t* modelFilePath,
 		CVector3 pos,
-		CVector3 scale,
-		CQuaternion rotation
-	) = 0;
+		CQuaternion rotation,
+		CVector3 scale) = 0;
+	
+
+	//template<class T> void SetInstance(T fn) {
+	//	return NewGO<T>;
+	//}
+
+	struct Enemy {
+		wchar_t* modelDataFilePath = nullptr;
+		Enemybace* enemy = nullptr;
+	};
 	/*virtual void SetPosition(CVector3 pos) {
 		m_position = pos;
 	}
@@ -45,6 +64,10 @@ public:
 	{
 		m_enemyMapChip.insert({modelDataFilePath,enemy });
 	}
+	const std::list<LevelData*> GetDataList() {		
+		return m_enemyDataList;
+	}
+
 private:
 	CSkinModel m_skinModel;				//スキンモデル
 	CSkinModelData m_skinModelData;		//スキンモデルデータ
@@ -55,4 +78,5 @@ private:
 	//CMeshCollider m_meshCollider;		//メッシュコライダー。
 	//CRigidBody m_rigidBody;				//剛体。
 	std::map<wchar_t*, Enemybace*> m_enemyMapChip;
+	std::list<LevelData*>	m_enemyDataList;
 };

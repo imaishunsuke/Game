@@ -5,9 +5,9 @@
 #include"Goal.h"
 #include"GameOverProd.h"
 #include"Game.h"
-#include "tkEngine/sound/tkSoundSource.h"
+//#include "tkEngine/sound/tkSoundSource.h"
 //#include"tkEngine/bulletPhysics/src/LinearMath/btConvexHull.h"
-#include"tkEngine/DirectXTK/Inc/SimpleMath.h"
+//#include"tkEngine/DirectXTK/Inc/SimpleMath.h"
 Player::Player()
 {
 }
@@ -16,7 +16,7 @@ Player::Player()
 Player::~Player()
 {
 	DeleteGO(m_Prod);
-	DeleteGO(m_bgm);
+	//DeleteGO(m_bgm);
 }
 
 bool Player::Start() {
@@ -66,11 +66,11 @@ bool Player::Start() {
 	m_goal = FindGO<Goal>("Goal");
 	m_skinModel.Update(m_position, m_rotation,CVector3::One);
 	m_skinModel.SetShadowCasterFlag(true);
-	m_bgm = NewGO<prefab::CSoundSource>(0);
-	m_wind = NewGO<prefab::CSoundSource>(0);
-	m_bgm->Init("sound/game_dangeon.wav");
-	m_bgm->SetVolume(vo);
-	m_bgm->Play(true);
+	//m_bgm = NewGO<prefab::CSoundSource>(0);
+	//m_wind = NewGO<prefab::CSoundSource>(0);
+	//m_bgm->Init("sound/game_dangeon.wav");
+	//m_bgm->SetVolume(vo);
+	//m_bgm->Play(true);
 	//InitPoly();
 	return true;
 }
@@ -290,8 +290,8 @@ void Player::Update()
 	Move();
 	//‰ñ“]
 	Rotation();
-	m_wind->Init("sound/kaze_.wav");
-	m_wind->SetVolume(2.1);
+	//m_wind->Init("sound/kaze_.wav");
+	//m_wind->SetVolume(2.1);
 	if (vo > 1.8) {
 		vo -= 0.09;
 		if (vo<1.8)
@@ -299,8 +299,8 @@ void Player::Update()
 			vo =1.8;
 		}
 	}
-	m_bgm->SetVolume(vo);
-	m_wind->Play(false);
+	//m_bgm->SetVolume(vo);
+	//m_wind->Play(false);
 	}
 	if (dameflag == 1) {
 		if (nlcount <= 0) {
@@ -354,13 +354,13 @@ void Player::Render(CRenderContext& rc)
 			m_Prod = NewGO<GameOverProd>(0, "Prod");
 			PressFlag = 1;
 			m_prodcount = 1;
-			m_wind->Pause();
-			m_bgm->Pause();
+			//m_wind->Pause();
+			//m_bgm->Pause();
 		}
 	}
 
 	if ((flag==1)
-		&&(m_mirror->m_isMirror == false)) {
+		&&(m_mirror->GetIsMirror() == false)) {
 		Dtime += GameTime().GetFrameDeltaTime();
 		if (/*DEndPosC<=5*/Dtime <= 1.0f) {
 			Dead(rc);

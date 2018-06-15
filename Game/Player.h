@@ -122,7 +122,8 @@ public:
 	//	enAnimationClip_num
 	//};
 	//CAnimationClip m_animClip[enAnimationClip_num];
-	//CAnimation m_animation;
+	//CAnimation m_animation;	
+	GameOverProd* m_Prod = nullptr;
 private:
 	void InitPoly();
 
@@ -191,27 +192,15 @@ private:
 	/*Game* m_game = nullptr;
 	title* m_title = nullptr;*/
 	Game*m_game = nullptr;
-	GameOverProd* m_Prod = nullptr;
+
 	enum EnAnimationClip {
 		enAnimationClip_walk,
 		enAnimationClip_num
 	};
 	CAnimationClip m_animClip[enAnimationClip_num];
 	CAnimation m_animation;
-private:
-	void InitPoly();
-private:
-	struct Spoly
-	{
-		CVector3 m_triVertex[3];
-		CVector3 m_normal;
-	};
-	int a = 0;
-	int poflag = 0;
-	std::vector<Spoly> m_polypool;
-	std::vector<Spoly>::iterator itr;
-	prefab::CSoundSource* m_bgm = nullptr;
-	prefab::CSoundSource* m_wind = nullptr;
-	double vo=2.0;
+	//prefab::CSoundSource* m_bgm = nullptr;
+	//prefab::CSoundSource* m_wind = nullptr;
+	double vo = 2.0;
 	double winvo = 0.5;
 };
