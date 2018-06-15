@@ -207,6 +207,9 @@ namespace tkEngine{
 			{
 				return &m_dspSettings;
 			}
+			IXAudio2SourceVoice* GetSourceVoice() {
+				return m_sourceVoice;
+			}
 		private:
 			void InitCommon();
 			//ストリーミング再生中の更新処理。
