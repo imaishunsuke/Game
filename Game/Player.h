@@ -108,7 +108,7 @@ private:
 	CVector3 m_cf = CVector3::Zero;
 	CVector3 m_sen = CVector3::Zero;					//線分
 	CSkinModelData m_skinModelData1;						//スキンモデルデータ。
-
+	GameOverProd* m_Prod = nullptr;
 
 	float x;
 	float y;

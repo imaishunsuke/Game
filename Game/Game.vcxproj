@@ -973,20 +973,11 @@
     <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
       <FileType>Document</FileType>
     </CustomBuild>
-    <CustomBuild Include="Assets\sound\Rock.mp3">
-      <FileType>Document</FileType>
-    </CustomBuild>
-    <CustomBuild Include="Assets\level\test.tks">
-      <FileType>Document</FileType>
-    </CustomBuild>
     <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Assets\level\level01.tks">
-      <FileType>Document</FileType>
-    </CustomBuild>
     <CustomBuild Include="Assets\sound\game_dangeon.wav">
       <FileType>Document</FileType>
     </CustomBuild>

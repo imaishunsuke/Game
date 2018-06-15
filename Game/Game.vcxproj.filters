@@ -519,12 +519,6 @@
     <CustomBuild Include="Assets\modelData\EnemyBall.tks">
       <Filter>Assets\modelData</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\level\test.tks">
-      <Filter>Assets\level</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Assets\level\level01.tks">
-      <Filter>Assets\level</Filter>
-    </CustomBuild>
     <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
       <Filter>Assets\sound</Filter>
     </CustomBuild>
@@ -535,9 +529,6 @@
       <Filter>Assets\sound</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
-      <Filter>Assets\sound</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Assets\sound\Rock.mp3">
       <Filter>Assets\sound</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\sound\kaze2_.wav">
@@ -558,6 +549,10 @@
     <CustomBuild Include="Assets\sound\Rock.wav">
       <Filter>Assets\sound</Filter>
     </CustomBuild>
+    <CustomBuild Include="Assets\sound\Motion-Pop01.wav" />
+    <CustomBuild Include="Assets\sound\game_dangeon.wav" />
+    <CustomBuild Include="Assets\sound\Motion-Pop01.wav" />
+    <CustomBuild Include="Assets\sound\game_dangeon.wav" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\fade.png">
