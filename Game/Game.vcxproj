@@ -964,9 +964,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Assets\level\test.tks">
-      <FileType>Document</FileType>
-    </CustomBuild>
     <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
       <FileType>Document</FileType>
     </CustomBuild>

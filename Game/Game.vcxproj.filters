@@ -519,9 +519,6 @@
     <CustomBuild Include="Assets\level\aa.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\level\test.tks">
-      <Filter>Assets\level</Filter>
-    </CustomBuild>
     <CustomBuild Include="Assets\level\level01.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
