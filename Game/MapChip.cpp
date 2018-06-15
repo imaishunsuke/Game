@@ -17,7 +17,8 @@ MapChip::~MapChip()
 void MapChip::OnDestroy() {
 	//•¨—ƒ[ƒ‹ƒh‚©‚çíœB
 	PhysicsWorld().RemoveRigidBody(m_rigidBody);
-	//DeleteGO(m_bgm);
+	DeleteGO(m_bgm);
+	DeleteGO(m_PressDead);
 }
 void MapChip::Init(
 	const wchar_t* modelFilePath,
@@ -58,7 +59,7 @@ void MapChip::Update()
 {
 	if (m_overprod==nullptr)
 	{
-		if (m_player->m_Prod != NULL) {
+		if (m_player->GetProd() != NULL) {
 			m_overprod = FindGO<GameOverProd>("Prod");
 		}
 	}
@@ -99,13 +100,13 @@ void MapChip::Update()
 		m_skinModel.SetDitheringPos(m_player->GetPosition());
 		//ˆ³Ž€‰¹
 		if (m_skinModel.GetditherRate()<=0.0
-			&&m_overprod->GetStep()==m_overprod->Diser)
+			&&m_overprod->GetStep()==m_overprod->GetDiser())
 		{
-			//m_bgm = NewGO<prefab::CSoundSource>(0);
-			//m_bgm->Init("sound/Motion-Pop01.wav");
-			//m_bgm->SetVolume(1.0);
-			//m_bgm->Play(false);
-			m_overprod->SetProduct(m_overprod->Dead);
+			m_PressDead = NewGO<prefab::CSoundSource>(0);
+			m_PressDead->Init("sound/Motion-Pop01.wav");
+			m_PressDead->SetVolume(2.0);
+			m_PressDead->Play(false);
+			m_overprod->SetDeadStep();
 		}
 	}
 	else {

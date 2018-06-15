@@ -46,6 +46,7 @@ private:
 	std::list<EnemyBall*> m_enemyBallList;
 	CRigidBody m_rigidBody;
 	CMeshCollider m_meshCollider;
+	prefab::CSoundSource* m_enemySound = nullptr;
 };
 
 

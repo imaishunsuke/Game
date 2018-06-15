@@ -42,5 +42,6 @@ private:
 	CShaderResourceView m_texture;
 	CSprite m_sprite;
 	prefab::CDirectionLight* dirLight;
+	prefab::CSoundSource* m_Stitle = nullptr;
 };
 

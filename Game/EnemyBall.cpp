@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Goal.h"
 #include"Mirror.h"
+#include "tkEngine/sound/tkSoundSource.h"
 
 EnemyBall::EnemyBall()
 {
@@ -130,6 +131,11 @@ bool EnemyBall::Start()
 
 	CVector3 plPos = m_player->GetPosition();
 	diff = plPos - m_position;
+	m_enemySound = NewGO<prefab::CSoundSource>(0);
+	m_enemySound->Init("sound/Rock.wav", true);
+	m_enemySound->SetPosition(m_position);
+	m_enemySound->SetVolume(3.0);
+	m_enemySound->Play(true);
 	return true;
 }
 void EnemyBall::Update()
@@ -141,6 +147,16 @@ void EnemyBall::Update()
 		//}
 		diff.y = 0.0f;							//Y軸は必要ないので
 		//if (diff.Length() > 10.0f) {						//距離が一定距離以内なら追いかける
+
+	m_enemySound->SetPosition(m_position);
+
+	//if (m_charaCon.IsHitWall() == true) {
+	//	CVector3 plPos = m_player->GetPosition();
+	//	diff = plPos - m_position;
+	//}
+	//diff.y = 0.0f;							//Y軸は必要ないので
+	////if (diff.Length() > 10.0f) {						//距離が一定距離以内なら追いかける
+
 		diff.Normalize();
 		//プレイヤーの移動速度が決定したら調整する----------------------------------
 		m_moveSpeed.x = diff.x * 20.0f;

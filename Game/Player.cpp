@@ -16,7 +16,9 @@ Player::Player()
 Player::~Player()
 {
 	DeleteGO(m_Prod);
-	//DeleteGO(m_bgm);
+	DeleteGO(m_bgm);
+	DeleteGO(m_wind);
+	DeleteGO(m_animeSound);
 }
 
 bool Player::Start() {
@@ -30,12 +32,19 @@ bool Player::Start() {
 	//	material->SetNormalMap(m_normalMap.GetBody());
 	//	//material->SetSpecularMap(m_specularMap.GetBody());
 	//});
+
 	m_animClip[enAnimationClip_walk].Load(L"animData/walk.tka");
 	for (auto& animClip : m_animClip) {
 		animClip.SetLoopFlag(true);
 	}
 	m_animation.Init(m_skinModel, m_animClip,enAnimationClip_num);
 	m_animation.Play(enAnimationClip_walk, 0.2f);
+	m_animeSound = NewGO<prefab::CSoundSource>(0);
+	m_animeSound->Init("sound/walk2.wav");
+	m_animeSound->SetVolume(2.0);
+	m_animeSound->Play(true);
+
+
 	m_rotation.Multiply(m_rotation);
 	//hpÉeÉNÉXÉ`ÉÉ
 	m_htexture.CreateFromDDSTextureFromFile(L"sprite/hp.dds");
@@ -49,6 +58,7 @@ bool Player::Start() {
 	m_position.y = -1.5;
 	//ê¸ï™èâä˙âª
 	m_sen = m_position;
+	m_position = { 0.0f,10.0f,0.0f };
 	m_charaCon.Init(
 		2.0,		//îºåa
 		1.0f,		//çÇÇ≥
@@ -56,22 +66,23 @@ bool Player::Start() {
 		m_position,	//èâä˙à íu
 		m_collidertype
 	);
-	m_position = { 0.0f,10.0f,0.0f };
 	flag = 0;
 	count = 0;
 	scale = 3.0f;
+	WindCall = 4.0f;
 	m_gpos = m_position;
 	m_game = FindGO<Game>("Game");
 	m_mirror = FindGO<Mirror>("Mirror");
 	m_goal = FindGO<Goal>("Goal");
 	m_skinModel.Update(m_position, m_rotation,CVector3::One);
 	m_skinModel.SetShadowCasterFlag(true);
-	//m_bgm = NewGO<prefab::CSoundSource>(0);
-	//m_wind = NewGO<prefab::CSoundSource>(0);
-	//m_bgm->Init("sound/game_dangeon.wav");
-	//m_bgm->SetVolume(vo);
-	//m_bgm->Play(true);
-	//InitPoly();
+
+	m_bgm = NewGO<prefab::CSoundSource>(0);
+	m_bgm->Init("sound/game_dangeon.wav");
+	m_bgm->SetVolume(vo);
+	m_bgm->Play(true);
+	m_wind = NewGO<prefab::CSoundSource>(0);
+
 	return true;
 }
 void Player::InitPoly() {
@@ -279,29 +290,44 @@ void Player::Dead(CRenderContext& rc) {
 
 void Player::Update()
 {
-	//if (m_goal->gflag == 1) {
-	//	m_position = { 0.0f,0.0f,0.0f };
-	//	m_skinModel.Update(m_position, m_rotation, CVector3::One);
-	//	return;
-	//}
-	if (flag == 1&&m_goal->GetGoalFlag()==0&&m_prodcount==0) {
+	SoundEngine().SetListenerPosition(MainCamera().GetPosition());
+	CVector3 frontXZ = MainCamera().GetForward();
+	frontXZ.y = 0.0f;
+	frontXZ.Normalize();
+	SoundEngine().SetListenerFront(frontXZ);
 
-	//à⁄ìÆ
-	Move();
-	//âÒì]
-	Rotation();
-	//m_wind->Init("sound/kaze_.wav");
-	//m_wind->SetVolume(2.1);
-	if (vo > 1.8) {
-		vo -= 0.09;
-		if (vo<1.8)
-		{
-			vo =1.8;
+	if (flag == 1 
+		&& m_goal->GetGoalFlag() == 0 
+		&& m_prodcount == 0) {
+
+		//à⁄ìÆ
+		Move();
+		//âÒì]
+		Rotation();
+		Windtimer = Windtimer + GameTime().GetFrameDeltaTime();
+		m_wind->Init("sound/kaze2_.wav");
+		m_wind->SetVolume(1.5);
+		if (WindCall <= Windtimer) {
+			m_wind->Play(false);
+			if (vo > 0.6) {
+				vo -= 0.09;
+				if (vo < 0.6)
+				{
+					vo = 0.6;
+				}
+			}
+			m_bgm->SetVolume(vo);
+			Windtimer = 0.0f;
+			if (WindCall<=4.0) {
+				WindCall = 7.0f;
+			}
+			else
+			{
+				WindCall = 4.0f;
+			}
 		}
 	}
-	//m_bgm->SetVolume(vo);
-	//m_wind->Play(false);
-	}
+
 	if (dameflag == 1) {
 		if (nlcount <= 0) {
 			nlcount = 0.01;
@@ -337,7 +363,7 @@ void Player::Update()
 
 		}
 		if (hpdscale > hpscale) {
-			hpdscale = hpdscale - 0.01;
+			hpdscale = hpdscale - 0.02;
 			m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });
 		}
 
@@ -352,10 +378,14 @@ void Player::Render(CRenderContext& rc)
 	if (Dcount >= 5) {
 		if (m_prodcount==0) {
 			m_Prod = NewGO<GameOverProd>(0, "Prod");
+			hpscale = 0.0f;
 			PressFlag = 1;
 			m_prodcount = 1;
-			//m_wind->Pause();
-			//m_bgm->Pause();
+			m_bgm->Pause();
+			m_animeSound->Pause();
+			if (m_wind->IsPlaying() == true) {
+				m_wind->Pause();
+			}
 		}
 	}
 
@@ -393,6 +423,10 @@ void Player::PostRender(CRenderContext& rc) {
 		count = count + GameTime().GetFrameDeltaTime();
 		if (count >= 0 && count <= 1)
 		{
+			if (poflag == 0) {
+				InitPoly();
+				poflag = 1;
+			}
 			if (scalefg == 0) {
 				scale = 3;
 				scalefg = 1;
@@ -415,11 +449,6 @@ void Player::PostRender(CRenderContext& rc) {
 		}
 		if (count > 2 && count <= 3)
 		{	
-			//
-			if (poflag == 0) {
-			InitPoly();
-			poflag = 1;
-		}
 			if (scalefg == 0) {
 				scale = 3;
 				scalefg = 1;
