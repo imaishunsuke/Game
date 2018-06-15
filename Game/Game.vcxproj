@@ -972,9 +972,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="Assets\level\level01.tks">
-      <FileType>Document</FileType>
-    </CustomBuild>
     <CustomBuild Include="Assets\sound\game_dangeon.wav">
       <FileType>Document</FileType>
     </CustomBuild>

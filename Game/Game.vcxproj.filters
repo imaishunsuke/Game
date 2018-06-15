@@ -522,9 +522,6 @@
     <CustomBuild Include="Assets\level\test.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\level\level01.tks">
-      <Filter>Assets\level</Filter>
-    </CustomBuild>
     <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
       <Filter>Assets\sound</Filter>
     </CustomBuild>
