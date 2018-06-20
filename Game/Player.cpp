@@ -303,7 +303,17 @@ void Player::Update()
 		//回転
 		Rotation();
 		Windtimer = Windtimer + GameTime().GetFrameDeltaTime();
-		
+		if (Pad(0).IsTrigger(enButtonX)) {
+			//エフェクトを作成。
+			prefab::CEffect* effect = NewGO<prefab::CEffect>(0);
+			//エフェクトを再生。
+			effect->Play(L"effect/dame.efk");
+			CVector3 emitPos = m_position;
+			CVector3 emitScale = { 0.7,0.7,0.7 };
+			emitPos.y += 2.0;
+			effect->SetPosition(emitPos);
+			effect->SetScale(emitScale);
+		}
 		/*m_wind->SetVolume(1.5);*/
 		if (WindCall <= Windtimer) {
 			prefab::CSoundSource* m_wind = nullptr;

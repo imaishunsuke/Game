@@ -42,9 +42,9 @@ void MapChip::Init(
 	rbInfo.mass = 0.0f;							//質量を0にすると動かない剛体になる。
 												//背景などの動かないオブジェクトは0を設定するとよい。
 	m_rigidBody.Create(rbInfo);					//作成した情報を使って剛体を作成する。
-	m_rigidBody.GetBody()->setUserIndex(enCollisionAttr_Obstacle);
+	//m_rigidBody.GetBody()->setUserIndex(enCollisionAttr_Obstacle);
 	PhysicsWorld().AddRigidBody(m_rigidBody);	//作成した剛体を物理ワールドに追加する。
-
+	m_rigidBody.GetBody()->setUserIndex(enCollisionAttr_Wall);
 }
 bool MapChip::Start()
 {

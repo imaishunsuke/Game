@@ -549,6 +549,9 @@
     <CustomBuild Include="Assets\level\level01.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
+    <CustomBuild Include="Assets\effect\dame.efk">
+      <Filter>Assets\effect</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\fade.png">

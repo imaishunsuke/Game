@@ -72,7 +72,7 @@ bool EnemyBall::Start()
 	m_enemySound = NewGO<prefab::CSoundSource>(0);
 	m_enemySound->Init("sound/Rock.wav", true);
 	m_enemySound->SetPosition(m_position);
-	m_enemySound->SetVolume(3.0);
+	m_enemySound->SetVolume(15.0);
 	m_enemySound->Play(true);
 	return true;
 }
