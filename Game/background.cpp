@@ -16,16 +16,13 @@ void background::OnDestroy()
 	//物理ワールドから削除。
 	PhysicsWorld().RemoveRigidBody(m_rigidBody);
 }
+
 bool background::Start()
 {
 	//モデルをロード。
 	m_skinModelData.Load(L"modelData/ground4.cmo");
 	m_skinModel.Init(m_skinModelData);
-	//m_skinModelData1.Load(L"modelData/plane.cmo");
-	//m_skinModel1.Init(m_skinModelData1);
 	m_skinModel.SetShadowReceiverFlag(true);
-	/*m_skinModelData1.Load(L"modelData/plane.cmo");
-	m_skinModel1.Init(m_skinModelData1);*/
 	//メッシュコライダーを作成。
 	m_meshCollider.CreateFromSkinModel(m_skinModel, nullptr);
 	//剛体の情報を作成。
@@ -39,12 +36,12 @@ bool background::Start()
 	PhysicsWorld().AddRigidBody(m_rigidBody);	//作成した剛体を物理ワールドに追加する。
 	return true;
 }
+
 void background::Update()
 {
 	m_skinModel.Update(CVector3::Zero, CQuaternion::Identity, CVector3::One);
-	//m_skinModel1.Update(CVector3::Zero, CQuaternion::Identity, CVector3::One);
-	//m_skinModel1.Update(CVector3::Zero, CQuaternion::Identity, CVector3::One);
 }
+
 void background::Render(CRenderContext& rc)
 {
 	if (m_mirror == NULL) {
@@ -57,13 +54,4 @@ void background::Render(CRenderContext& rc)
 		CMatrix::Identity,
 		CMatrix::Identity
 	);
-
-	/*m_skinModel1.Draw(rc,
-		MainCamera().GetViewMatrix(),
-		MainCamera().GetProjectionMatrix(),
-		CMatrix::Identity,
-		CMatrix::Identity,
-
-		m_mirror->alphaflag);*/
-
 }

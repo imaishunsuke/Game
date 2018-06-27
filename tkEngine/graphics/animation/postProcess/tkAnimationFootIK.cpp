@@ -185,7 +185,7 @@ namespace tkEngine{
 				//目標座標が求まらなかった。
 				continue;
 			}
-#if 0
+#if 1
 			//CCD-IK法を使用してIK
 			SolverCCD_IK(foot, targetPosition);
 #else

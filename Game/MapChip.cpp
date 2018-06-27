@@ -81,7 +81,7 @@ void MapChip::Update()
 	ditheringPos.x = Pos.x + diff.x * 20.0f;
 	ditheringPos.y = Pos.y + diff.y * 20.0f;
 	ditheringPos.z = Pos.z + diff.z * 20.0f;
-	if (m_mirror->GetIsMirror() == true) {
+	if (m_player->GetLifeCount() < 5) {
 		//ディザリングを使用するためのフラグを渡す
 		m_skinModel.SetDithering(true);
 		//ディザリングを使用するときの基点となる座標を渡す
@@ -89,7 +89,7 @@ void MapChip::Update()
 	}
 	else if (m_player->GetLifeCount()==5) {
 		m_skinModel.SetDeadFlag(true);
-		if (m_camera->GetFlag()==2)
+		if (m_camera->GetFlag() == 2)
 		{
 			m_skinModel.SubtructDitherCoefficient(0.02f);
 		}
@@ -110,7 +110,7 @@ void MapChip::Update()
 	}
 	else {
 		m_skinModel.SetDeadFlag(false);
-		m_skinModel.SetDithering(false);
+		//m_skinModel.SetDithering(false);
 	}
 	m_skinModel.Update(m_position, m_rotation, m_scale);
 }

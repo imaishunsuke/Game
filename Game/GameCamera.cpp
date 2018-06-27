@@ -17,26 +17,28 @@ bool GameCamera::Start()
 	m_player = FindGO<Player>("Player");
 	m_goal = FindGO<Goal>("Goal");
 	//カメラのニアクリップとファークリップを設定する。
-	MainCamera().SetTarget({ 0.0f,-5.0f, -5.0f });
+	MainCamera().SetTarget(m_player->GetPosition()/*{ 0.0f,-5.0f, -5.0f }*/);
 	MainCamera().SetNear(1.0f);
 	MainCamera().SetFar(1000.0f);
+	CVector3 CamPos=CVector3::Zero;
+	CamPos=m_player->GetPosition();
+	CamPos.z -= 25.0f;
 	//カメラのポジション
-	MainCamera().SetPosition({ 0.0f,-5.0f, -25.0f });
+	MainCamera().SetPosition(CamPos/*{ 0.0f,-5.0f, -25.0f }*/);
 	
 	//ばねカメラの初期化。
 	m_springCamera.Init(
 		MainCamera(),		//ばねカメラの処理を行うカメラを指定する。
 		500.0f,			//カメラの移動速度の最大値。
 		true,				//カメラと地形とのあたり判定を取るかどうかのフラグ。trueだとあたり判定を行う。
-		2.0f				//カメラに設定される球体コリジョンの半径。第３引数がtrueの時に有効になる。
+		1.0f				//カメラに設定される球体コリジョンの半径。第３引数がtrueの時に有効になる。
 	);
 	MainCamera().SetUpdateProjMatrixFunc(CCamera::enUpdateProjMatrixFunc_Perspective);
 	return true;
 }
 void GameCamera::Update()
 {
-	if (m_goal->GetGoalFlag() == 0 /*&& m_player->PressFlag == 0*/) {							//ゴールしていないなら
-		//m_player = FindGO<Player>("Player");
+	if (m_goal->GetGoalFlag() == 0) {							//ゴールしていないなら
 		CVector3 toCameraPos = CVector3::Zero;
 		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
 		float height = toCameraPos.y;
@@ -105,7 +107,6 @@ void GameCamera::Update()
 		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
 		CVector3 target = CVector3::Zero;
 		target.x = m_player->GetMatrix().m[2][0] * 10.0f + m_player->GetPosition().x;
-		////m_player->m_rot.m[2][1];
 		target.z = m_player->GetMatrix().m[2][2] * 10.0f + m_player->GetPosition().z;
 		target.y = 5.0f;	
 		toCameraPos.y = 0.0f;
@@ -124,10 +125,6 @@ void GameCamera::Update()
 		m_springCamera.SetTarget(target);
 		m_springCamera.SetPosition(pos);
 	}
-	/*if (m_player->PressFlag == 1) {
-		SetRotationDeg(CVector3::AxisY, 2.0f*x);
-		qRot.Multiply(toNewCameraPos);
-	}*/
 
 	if (m_player->GetPressFlag() == 1)
 	{

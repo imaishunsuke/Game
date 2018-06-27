@@ -58,7 +58,7 @@ bool Player::Start() {
 	m_position.y = -1.5;
 	//線分初期化
 	m_sen = m_position;
-	m_position = { 0.0f,10.0f,0.0f };
+	m_position = { 0.0f,10.0f,10.0f };
 	m_charaCon.Init(
 		2.0,		//半径
 		1.0f,		//高さ
@@ -80,7 +80,6 @@ bool Player::Start() {
 	m_bgm->Init("sound/game_dangeon.wav");
 	m_bgm->SetVolume(vo);
 	m_bgm->Play(true);
-	//m_wind = NewGO<prefab::CSoundSource>(0);
 	return true;
 }
 void Player::InitPoly() {
@@ -206,7 +205,7 @@ void Player::Rotation() {
 
 void Player::Dead(CRenderContext& rc) {
 	CVector3 vStart = m_position;
-	vStart.y *= 0.3f;
+	vStart.y *= 3.0f;
 	CVector3 vEnd = vStart + CVector3(0.0f, 0.0f, 20.0f);
 
 	float fNearPlaneLength = FLT_MAX;		//一番近い平面までの距離。
@@ -229,8 +228,8 @@ void Player::Dead(CRenderContext& rc) {
 					float absD1 = fabsf(d1);
 					float absD2 = fabsf(d2);
 					float rayLengthInNormal = absD1 + absD2;
-					CVector3 crossPoint = (vStart * absD1 / rayLengthInNormal)
-						+ (vEnd * absD2 / rayLengthInNormal);
+					CVector3 crossPoint = (vStart * (absD1 / rayLengthInNormal))
+						+ (vEnd * (absD2 / rayLengthInNormal));
 					//無限平面と衝突したので、次は三角形の内外判定を行う。
 					CVector3 vert0ToCrossPoint = crossPoint - itr->m_triVertex[0];
 					vert0ToCrossPoint.Normalize();
@@ -314,7 +313,6 @@ void Player::Update()
 			effect->SetPosition(emitPos);
 			effect->SetScale(emitScale);
 		}
-		/*m_wind->SetVolume(1.5);*/
 		if (WindCall <= Windtimer) {
 			prefab::CSoundSource* m_wind = nullptr;
 				m_wind = NewGO<prefab::CSoundSource>(0);
@@ -398,9 +396,6 @@ void Player::Render(CRenderContext& rc)
 			m_prodcount = 1;
 			m_bgm->Pause();
 			m_animeSound->Pause();
-			/*if (m_wind->IsPlaying() == true) {
-				m_wind->Pause();
-			}*/
 		}
 	}
 
