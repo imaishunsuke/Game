@@ -71,6 +71,10 @@ bool Game::Start()
 
 	//m_ptLight.ptLightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");
 	//m_dirLight.dirLightBuild(L"light/dlig_00.tks");
+	/*m_level.Build(L"level/Block_1x2_001.tks");
+	m_level.Build(L"level/Block_1x2_002.tks");
+	m_level.Build(L"level/Block_1x2_003.tks");
+	m_level.Build(L"level/Block_1x2_004.tks");*/
 
 	m_ptLight.ptLightBuild(L"light/PointLight.tks");
 	/*m_level.Build(L"level/Block_1x2_001.tks");
@@ -90,11 +94,22 @@ bool Game::Start()
 	//m_level.Build(L"level/Sig_Sag_1x2_004.tks");
 	//m_level.Build(L"level/Sig_Sag_1x2_005.tks");
 	//m_level.Build(L"level/Sig_Sag_1x2_006.tks"); 
+
 	
 	
 	//m_level.Build(L"level/level01.tks");
 
+	//m_level.Build(L"level/assitest.tks");
 
+	//i
+	//m_level.Build(L"level/Stage1.tks");
+	//m_level.Build(L"level/Sig_Sag_1x2_001.tks");
+	//m_level.Build(L"level/Sig_Sag_1x2_002.tks");
+	//m_level.Build(L"level/Sig_Sag_1x2_003.tks");
+	//m_level.Build(L"level/Sig_Sag_1x2_004.tks");
+	//m_level.Build(L"level/Sig_Sag_1x2_005.tks");
+	//m_level.Build(L"level/Sig_Sag_1x2_006.tks"); 
+	//m_level.Build(L"level/level01.tks");
 	m_level.Build(L"level/level01.tks");
 
 	//m_ptLight.LightBuild(L"light/ptlig_[00]_[255]_[255]_[255]_[40].tks");

@@ -36,7 +36,7 @@ namespace tkEngine {
 					return 0.0f;
 				}
 				if (convexResult.m_hitCollisionObject == me
-					|| (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Obstacle
+					|| (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Wall
 						&& m_mirror->GetIsMirror())/*ミラーを使っている*/
 					)
 				{
@@ -88,7 +88,7 @@ namespace tkEngine {
 					return 0.0f;
 				}
 				if (convexResult.m_hitCollisionObject == me
-					|| ( convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Obstacle 
+					|| ( convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Wall 
 						&& m_mirror->GetIsMirror())/*ミラーを使っている*/
 				)
 				{

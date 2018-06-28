@@ -342,6 +342,7 @@ public:
 		btScalar	m_closestHitFraction;
 		short int	m_collisionFilterGroup;
 		short int	m_collisionFilterMask;
+		int mapObj;
 		
 		ConvexResultCallback()
 			:m_closestHitFraction(btScalar(1.)),

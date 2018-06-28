@@ -9,6 +9,7 @@ namespace tkEngine{
 	struct SConvexSweepCallback : public btCollisionWorld::ClosestConvexResultCallback
 	{
 	public:
+		//int mapObj;
 		CVector3 m_rayDir;
 		SConvexSweepCallback(CVector3 rayDir) :
 			btCollisionWorld::ClosestConvexResultCallback(btVector3(0.0f, 0.0f, 0.0f), btVector3(0.0f, 0.0f, 0.0f) ),
@@ -17,7 +18,9 @@ namespace tkEngine{
 		{
 			CVector3 normal;
 			normal.Set(convexResult.m_hitNormalLocal);
-		
+			if (mapObj & ( 1 << convexResult.m_hitCollisionObject->getUserIndex())) {
+				return 1.0f;
+			}
 			if (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Character) {
 				return 1.0f;
 			}
@@ -52,7 +55,9 @@ namespace tkEngine{
 		btStart.setOrigin(btVector3(target.x, target.y, target.z));
 		btEnd.setOrigin(btVector3(position.x, position.y, position.z));
 		SConvexSweepCallback callback(vWk);
-	//	callback.m_collisionFilterGroup = 
+		callback.mapObj = m_mapObj;
+		//callback.m_collisionFilterMask = enCollisionAttr_Wall;
+		/*callback.m_collisionFilterGroup =;*/
 		PhysicsWorld().ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), btStart, btEnd, callback);
 		if (callback.hasHit()) {
 			CVector3 vHitPos;

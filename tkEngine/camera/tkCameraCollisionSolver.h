@@ -38,5 +38,6 @@ namespace tkEngine{
 	private:
 		CSphereCollider		m_collider;		 //コライダー。
 		float				m_radius = 0.0f; //半径。
+		int					m_mapObj = 32;
 	};
 }

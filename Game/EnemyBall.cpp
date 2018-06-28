@@ -239,29 +239,25 @@
 	//	m_rotation = rotation;
 
 	//}
-	bool EnemyBall::Start()
-	{
-		m_player = FindGO<Player>("Player");
-		m_goal = FindGO<Goal>("Goal");
 
-		CVector3 plPos = m_player->GetPosition();
-		diff = plPos - m_position;
-		//	m_enemySound = NewGO<prefab::CSoundSource>(0);
-		//	m_enemySound->Init("sound/Rock.wav", true);
-		//	m_enemySound->SetPosition(m_position);
-		//	m_enemySound->SetVolume(3.0);
-		//	m_enemySound->Play(true);
-			//m_charaCon.Init(
-			//	r,			//半径
-			//	0.0f,			//高さ
-			//	-220,			//重力
-			//	m_position,
-			//	m_collidertype	//コライダーのタイプ
-			//);
-		return true;
-	}
+bool EnemyBall::Start() 
+{
+	m_player = FindGO<Player>("Player");
+	m_goal = FindGO<Goal>("Goal");
+	m_position = { 0.0,18.0,200.0 };
+	CVector3 plPos = m_player->GetPosition();
+	diff = plPos - m_position;
+	m_enemySound = NewGO<prefab::CSoundSource>(0);
+	m_enemySound->Init("sound/Rock.wav", true);
+	m_enemySound->SetPosition(m_position);
+	m_enemySound->SetVolume(15.0);
+	m_enemySound->Play(true);
+	return true;
+}
 	void EnemyBall::Update()
 	{
+		m_enemySound->SetPosition(m_position);
+
 		m_moveSpeed.y -= 98.0f * GameTime().GetFrameDeltaTime();
 		//for (int i = 1; i < it->numMapChip; i++) {
 			if (m_isHitWall == true) {

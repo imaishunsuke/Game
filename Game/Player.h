@@ -1,5 +1,6 @@
 #pragma once
 #include "tkEngine/character/tkCharacterController.h"
+#include "tkEngine/graphics/effect/tkEffect.h"
 
 class Torokko;
 class Goal;

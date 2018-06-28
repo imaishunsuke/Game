@@ -518,6 +518,12 @@
     <CustomBuild Include="Assets\level\aa.tks">
       <Filter>Assets\level</Filter>
     </CustomBuild>
+    <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
+      <Filter>Assets\sound</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\game_dangeon.wav">
+      <Filter>Assets\sound</Filter>
+    </CustomBuild>
     <CustomBuild Include="Assets\modelData\EnemyBall.tks">
       <Filter>Assets\modelData</Filter>
     </CustomBuild>
@@ -532,6 +538,12 @@
     </CustomBuild>
     <CustomBuild Include="Assets\level\level01.tks">
       <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\level\level01.tks">
+      <Filter>Assets\level</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\effect\dame.efk">
+      <Filter>Assets\effect</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

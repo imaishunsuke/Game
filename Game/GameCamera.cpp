@@ -28,8 +28,8 @@ bool GameCamera::Start()
 	m_springCamera.Init(
 		MainCamera(),		//ばねカメラの処理を行うカメラを指定する。
 		500.0f,			//カメラの移動速度の最大値。
-		false,				//カメラと地形とのあたり判定を取るかどうかのフラグ。trueだとあたり判定を行う。
-		5.0f				//カメラに設定される球体コリジョンの半径。第３引数がtrueの時に有効になる。
+		true,				//カメラと地形とのあたり判定を取るかどうかのフラグ。trueだとあたり判定を行う。
+		2.0f				//カメラに設定される球体コリジョンの半径。第３引数がtrueの時に有効になる。
 	);
 	MainCamera().SetUpdateProjMatrixFunc(CCamera::enUpdateProjMatrixFunc_Perspective);
 	return true;
@@ -151,15 +151,15 @@ void GameCamera::Update()
 			toPos.Normalize();
 			qRot.Multiply(toPos);
 
-			toPos *= 50.0f;
+			toPos *= 20.0f;
 			CVector3 pos = target + toPos;
-			pos.y = 50.0f;
+			pos.y = 20.0f;
 			m_springCamera.SetPosition(pos);
 			Flag = 1;
 		}
-		if (m_springCamera.GetMoveSpeed().x <= 0.2
-			&& m_springCamera.GetMoveSpeed().y <= 0.2
-			&& m_springCamera.GetMoveSpeed().z <= 0.2)
+		if (//m_springCamera.GetMoveSpeed().x <= 0.2
+			/*&&*/ m_springCamera.GetMoveSpeed().y <= 0.2
+			/*&& m_springCamera.GetMoveSpeed().z <= 0.2*/)
 		{
 			Flag = 2;
 		}
