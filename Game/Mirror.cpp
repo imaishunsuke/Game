@@ -60,10 +60,10 @@ void Mirror::Update()
 		&&pl->GetLifeCount()<5) {
 		m_isMirror = true;
 		prefab::CSoundSource* m_useMirror = nullptr;
-		m_useMirror = NewGO<prefab::CSoundSource>(0);
-		m_useMirror->Init("sound/mirroruse1.wav");
-		m_useMirror->SetVolume(2.0f);
-		m_useMirror->Play(false);
+//		m_useMirror = NewGO<prefab::CSoundSource>(0);
+//		m_useMirror->Init("sound/mirroruse1.wav");
+//		m_useMirror->SetVolume(2.0f);
+//		m_useMirror->Play(false);
 	}
 	else if(Pad(0).IsTrigger(enButtonB) && m_isMirror == true){
 		m_isMirror = false;

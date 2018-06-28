@@ -5,6 +5,7 @@
 #include"Goal.h"
 #include"GameOverProd.h"
 #include"Game.h"
+#include "ResultScene.h"
 //#include "tkEngine/sound/tkSoundSource.h"
 //#include"tkEngine/bulletPhysics/src/LinearMath/btConvexHull.h"
 //#include"tkEngine/DirectXTK/Inc/SimpleMath.h"
@@ -16,9 +17,9 @@ Player::Player()
 Player::~Player()
 {
 	DeleteGO(m_Prod);
-	DeleteGO(m_bgm);
+	//DeleteGO(m_bgm);
 	//DeleteGO(m_wind);
-	DeleteGO(m_animeSound);
+	//DeleteGO(m_animeSound);
 }
 
 bool Player::Start() {
@@ -39,10 +40,10 @@ bool Player::Start() {
 	}
 	m_animation.Init(m_skinModel, m_animClip,enAnimationClip_num);
 	m_animation.Play(enAnimationClip_walk, 0.2f);
-	m_animeSound = NewGO<prefab::CSoundSource>(0);
-	m_animeSound->Init("sound/walk2.wav");
-	m_animeSound->SetVolume(2.0);
-	m_animeSound->Play(true);
+//	m_animeSound = NewGO<prefab::CSoundSource>(0);
+//	m_animeSound->Init("sound/walk2.wav");
+//	m_animeSound->SetVolume(2.0);
+//	m_animeSound->Play(true);
 
 
 	m_rotation.Multiply(m_rotation);
@@ -74,13 +75,16 @@ bool Player::Start() {
 	m_game = FindGO<Game>("Game");
 	m_mirror = FindGO<Mirror>("Mirror");
 	m_goal = FindGO<Goal>("Goal");
+
+	m_testResult = FindGO<ResultScene>("Result");
+
 	m_skinModel.Update(m_position, m_rotation,CVector3::One);
 	m_skinModel.SetShadowCasterFlag(true);
 
-	m_bgm = NewGO<prefab::CSoundSource>(0);
-	m_bgm->Init("sound/game_dangeon.wav");
-	m_bgm->SetVolume(vo);
-	m_bgm->Play(true);
+//	m_bgm = NewGO<prefab::CSoundSource>(0);
+//	m_bgm->Init("sound/game_dangeon.wav");
+//	m_bgm->SetVolume(vo);
+//	m_bgm->Play(true);
 
 	//m_wind = NewGO<prefab::CSoundSource>(0);
 
@@ -291,11 +295,15 @@ void Player::Dead(CRenderContext& rc) {
 
 void Player::Update()
 {
-	SoundEngine().SetListenerPosition(MainCamera().GetPosition());
+	if (m_testResult->GetResultFlag()) {
+		Result();
+		return;
+	}
+//	SoundEngine().SetListenerPosition(MainCamera().GetPosition());
 	CVector3 frontXZ = MainCamera().GetForward();
 	frontXZ.y = 0.0f;
 	frontXZ.Normalize();
-	SoundEngine().SetListenerFront(frontXZ);
+//	SoundEngine().SetListenerFront(frontXZ);
 
 	if (flag == 1 
 		&& m_goal->GetGoalFlag() == 0 
@@ -310,10 +318,10 @@ void Player::Update()
 		/*m_wind->SetVolume(1.5);*/
 		if (WindCall <= Windtimer) {
 			prefab::CSoundSource* m_wind = nullptr;
-				m_wind = NewGO<prefab::CSoundSource>(0);
-				m_wind->Init("sound/kaze2_.wav");
-				m_wind->SetVolume(1.5);
-				m_wind->Play(false);
+//				m_wind = NewGO<prefab::CSoundSource>(0);
+//				m_wind->Init("sound/kaze2_.wav");
+//				m_wind->SetVolume(1.5);
+//				m_wind->Play(false);
 			if (vo > 0.6) {
 				vo -= 0.09;
 				if (vo < 0.6)
@@ -390,8 +398,8 @@ void Player::Render(CRenderContext& rc)
 			hpscale = 0.0f;
 			PressFlag = 1;
 			m_prodcount = 1;
-			m_bgm->Pause();
-			m_animeSound->Pause();
+//			m_bgm->Pause();
+//			m_animeSound->Pause();
 			/*if (m_wind->IsPlaying() == true) {
 				m_wind->Pause();
 			}*/
@@ -504,4 +512,13 @@ void Player::PostRender(CRenderContext& rc) {
 				MainCamera2D().GetProjectionMatrix());
 
 		}
+}
+void Player::Result()
+{
+	//CVector3 Goalvec = { 0.0f,0.0f,-1.0f };
+	//CQuaternion qRot = CQuaternion::Identity;
+	//qRot.Multiply(Goalvec);
+	m_rotation.SetRotationDeg(CVector3::AxisY, 180.0f);
+	m_rot.MakeRotationFromQuaternion(m_rotation);
+	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 }

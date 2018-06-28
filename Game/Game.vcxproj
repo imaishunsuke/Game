@@ -765,6 +765,7 @@
     <MeshContentTask Include="Assets\modelData\testobj.FBX" />
     <MeshContentTask Include="Assets\modelData\titletorokko.FBX" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx" />
+    <MeshContentTask Include="Assets\modelData\wall.FBX" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\shader\bloom.fx">
@@ -883,6 +884,7 @@
     <ImageContentTask Include="Assets\sprite\mirror.png" />
   </ItemGroup>
   <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Clear.png" />
     <ImageContentTask Include="Assets\sprite\title.jpg" />
     <ImageContentTask Include="Assets\modelData\mp.png" />
     <Image Include="Assets\modelData\utc_nomal.tga" />
@@ -976,6 +978,11 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\modelData\EnemyBall.tks">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\level\level01.tks">
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>

@@ -3,7 +3,7 @@
 
 class Torokko;
 class Goal;
-
+class ResultScene;
 class Game;
 class GameOverProd;
 
@@ -26,6 +26,7 @@ public:
 	void Turn();
 	void Line();
 	void Rotation();
+	void Result();
 	void Dead(CRenderContext& rc);
 	
 	void SetDamageFlag(int flag) {
@@ -149,4 +150,7 @@ private:
 	prefab::CSoundSource* m_animeSound = nullptr;
 	double vo = 1.0;
 	double winvo = 0.5;
+
+	ResultScene* m_testResult = nullptr;
+
 };

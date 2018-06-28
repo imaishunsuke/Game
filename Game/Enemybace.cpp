@@ -9,9 +9,11 @@ Enemybace::Enemybace()
 
 Enemybace::~Enemybace()
 {
-	for (auto& ChipData : m_enemyDataList) {
-		delete ChipData;
-	}
+	//for (auto& ChipData : m_enemyDataList) {
+	//	delete ChipData;
+	//}
+	//m_enemyMap.erase(m_enemyMap.begin(),m_enemyMap.end());
+	//for(enemyMap)
 }
 void Enemybace::OnDestroy()
 {
@@ -60,6 +62,16 @@ void Enemybace::Build(const wchar_t* fileDataPath) {
 		//m_enemyBallList.emplace_back(enemyChip);
 	}
 }
+
+//void Enemybace::CharaConCreate(float r, float height, float gravity, CVector3 Pos,
+//	CCharacterController::ColliderType type) {
+//	m_charaCon.Init(
+//		r,
+//		height,
+//		gravity,
+//		Pos,
+//		type);
+//}
 //void Enemybace::Create()
 //{
 //	LevelData* level = new LevelData();

@@ -1,11 +1,12 @@
 #pragma once
 #include "tkEngine/physics/tkMeshCollider.h"
 #include "tkEngine/physics/tkRigidBody.h"
+//#include "tkEngine/character/tkCharacterController.h"
 class Enemybace : public IGameObject
 {
 public:
 	Enemybace();
-	~Enemybace();
+	virtual ~Enemybace();
 	//bool Start();
 	//void Update();
 	//void Render(CRenderContext& rc);
@@ -27,6 +28,8 @@ public:
 		CVector3 scale) = 0;
 	
 
+		/*virtual void CharaConCreate(float r, float height, float gravity, CVector3 Pos,
+			CCharacterController::ColliderType type);*/
 	//template<class T> void SetInstance(T fn) {
 	//	return NewGO<T>;
 	//}
@@ -67,7 +70,9 @@ public:
 	const std::list<LevelData*> GetDataList() {		
 		return m_enemyDataList;
 	}
-
+protected:
+	/*std::vector<Enemybace*> m_enemyMap;
+	CCharacterController m_charaCon;*/
 private:
 	CSkinModel m_skinModel;				//スキンモデル
 	CSkinModelData m_skinModelData;		//スキンモデルデータ
@@ -79,4 +84,5 @@ private:
 	//CRigidBody m_rigidBody;				//剛体。
 	std::map<wchar_t*, Enemybace*> m_enemyMapChip;
 	std::list<LevelData*>	m_enemyDataList;
+
 };

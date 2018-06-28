@@ -1,6 +1,7 @@
 #pragma once
 #include "tkEngine/light/tkDirectionLight.h"
 #include "tkEngine/light/tkPointLight.h"
+
 class LightChip : public IGameObject
 {
 public:
