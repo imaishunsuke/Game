@@ -170,7 +170,7 @@
 		//std::vector<LevelData*> it = GetDataList();
 		int num = level->numMapChip;
 		for (int i = 1; i < num; i++) {
-			EnemyBall* m_enemy = NewGO<EnemyBall>(0);
+			EnemyBall* m_enemy = NewGO<EnemyBall>(0,"EnemyBall");
 			m_enemy->Init(level->modelFilePath.c_str(), level->Pos, level->Rotation, CVector3::One);
 			m_enemyBallList.emplace_back(m_enemy);
 		}
@@ -278,8 +278,8 @@ bool EnemyBall::Start()
 
 		diff.Normalize();
 		//プレイヤーの移動速度が決定したら調整する----------------------------------
-		m_moveSpeed.x = diff.x * 20.0f;
-		m_moveSpeed.z = diff.z * 20.0f;
+		m_moveSpeed.x = diff.x * 10.0f;
+		m_moveSpeed.z = diff.z * 10.0f;
 		//--------------------------------------------------------------------------	
 		m_axisX.Cross(diff, up);
 		m_axisX.Normalize();

@@ -73,6 +73,7 @@ bool Player::Start() {
 	WindCall = 4.0f;
 	m_gpos = m_position;
 	m_game = FindGO<Game>("Game");
+	m_enemyball = FindGO<EnemyBall>("EnemyBall");
 	m_mirror = FindGO<Mirror>("Mirror");
 	m_goal = FindGO<Goal>("Goal");
 
@@ -311,8 +312,18 @@ void Player::Update()
 		Move();
 		//‰ñ“]
 		Rotation();
+		if (hpdscale <= 0.0)
+		{
+			Dcount = 5;
+		}
 		Windtimer = Windtimer + GameTime().GetFrameDeltaTime();
-		if (Pad(0).IsTrigger(enButtonX)) {
+		CVector3 epos, diff;
+		epos = m_enemyball->GetEnePos();
+		diff.x = m_position.x - epos.x;
+		diff.y = m_position.y - epos.y;
+		diff.z = m_position.z - epos.z;
+		if (diff.Length()<=5.0) {
+			dameflag = 1;
 			//ƒGƒtƒFƒNƒg‚ðì¬B
 			prefab::CEffect* effect = NewGO<prefab::CEffect>(0);
 			//ƒGƒtƒFƒNƒg‚ðÄ¶B
@@ -322,6 +333,36 @@ void Player::Update()
 			emitPos.y += 2.0;
 			effect->SetPosition(emitPos);
 			effect->SetScale(emitScale);
+			CVector3 MovePos;
+			MovePos.x = m_enemyball->GetMoveSpeed().x * 10;
+			MovePos.z = m_enemyball->GetMoveSpeed().z * 10;
+			MovePos.y = m_enemyball->GetMoveSpeed().y * 10;
+			m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), MovePos, m_collidertype);
+			if (dameflag == 1) {
+				if (dameflag == 1) {
+					if ((lifecount == 0 && nlcount == 0)
+						|| (lifecount == 1 && nlcount == 0)
+						|| (lifecount == 2 && nlcount == 0)
+						|| (lifecount == 3 && nlcount == 0)
+						|| (lifecount == 4 && nlcount == 0))
+					{
+						hpscale = hpscale - 0.12;
+					}
+				if (nlcount <= 0) {
+					nlcount = 0.0;
+				}
+				//lifecount‚ª5‚É‚È‚Á‚½‚çƒQ[ƒ€ƒI[ƒo[
+				dameflag = 0;
+			}
+			//‚Q•bŠÔ–³“G
+			if (nlcount > 0) {
+				nlcount = nlcount + GameTime().GetFrameDeltaTime();
+				if (2 <= nlcount) {
+					nlcount = 0;
+					dameflag = 0;
+				}
+			}
+			}
 		}
 		m_wind->SetVolume(1.5);
 		if (WindCall <= Windtimer) {
@@ -353,40 +394,40 @@ void Player::Update()
 		}
 	}
 
-	if (dameflag == 1) {
-		if (nlcount <= 0) {
-			nlcount = 0.01;
-		}
-		//lifecount‚ª5‚É‚È‚Á‚½‚çƒQ[ƒ€ƒI[ƒo[
-		if ((lifecount == 0 && hpscale <= 0.8)
-			|| (lifecount == 1 && hpscale <= 0.6)
-			|| (lifecount == 2 && hpscale <= 0.4)
-			|| (lifecount == 3 && hpscale <= 0.2)
-			|| (lifecount == 4 && hpscale <= 0.0))
-		{
-			lifecount = lifecount + 1;
-		}
-		dameflag = 0;
-	}
-		//‚Q•bŠÔ–³“G
-		if (nlcount > 0) {
-			nlcount = nlcount + GameTime().GetFrameDeltaTime();
-			if (2 <= nlcount) {
-				nlcount = 0;
-				dameflag = 0;
-			}
-		}
-		if (dameflag == 1) {
-			if ((lifecount == 0 && nlcount == 0)
-				|| (lifecount == 1 && nlcount == 0)
-				|| (lifecount == 2 && nlcount == 0)
-				|| (lifecount == 3 && nlcount == 0)
-				|| (lifecount == 4 && nlcount == 0))
-			{
-				hpscale = hpscale - 0.1;
-			}
+	//if (dameflag == 1) {
+	//	if (nlcount <= 0) {
+	//		nlcount = 0.01;
+	//	}
+	//	//lifecount‚ª5‚É‚È‚Á‚½‚çƒQ[ƒ€ƒI[ƒo[
+	//	if ((lifecount == 0 && hpscale <= 0.8)
+	//		|| (lifecount == 1 && hpscale <= 0.6)
+	//		|| (lifecount == 2 && hpscale <= 0.4)
+	//		|| (lifecount == 3 && hpscale <= 0.2)
+	//		|| (lifecount == 4 && hpscale <= 0.0))
+	//	{
+	//		lifecount = lifecount + 1;
+	//	}
+	//	dameflag = 0;
+	//}
+	//	//‚Q•bŠÔ–³“G
+	//	if (nlcount > 0) {
+	//		nlcount = nlcount + GameTime().GetFrameDeltaTime();
+	//		if (2 <= nlcount) {
+	//			nlcount = 0;
+	//			dameflag = 0;
+	//		}
+	//	}
+	//	if (dameflag == 1) {
+	//		if ((lifecount == 0 && nlcount == 0)
+	//			|| (lifecount == 1 && nlcount == 0)
+	//			|| (lifecount == 2 && nlcount == 0)
+	//			|| (lifecount == 3 && nlcount == 0)
+	//			|| (lifecount == 4 && nlcount == 0))
+	//		{
+	//			hpscale = hpscale - 0.1;
+	//		}
 
-		}
+	//	}
 		if (hpdscale > hpscale) {
 			hpdscale = hpdscale - 0.02;
 			m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });

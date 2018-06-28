@@ -91,6 +91,13 @@ namespace tkEngine{
 			return m_isHitWall;
 		}
 		/*!
+		* @brief	エネミーボールに当たっているか判定。
+		*/
+		bool IsHitEnemyBall() const
+		{
+			return m_isHitEnemy;
+		}
+		/*!
 		* @brief	コライダーを取得。
 		*/
 		CCapsuleCollider* GetCollider()
@@ -130,6 +137,7 @@ namespace tkEngine{
 		bool 				m_isJump = false;				//ジャンプ中？
 		bool				m_isOnGround = true;			//地面の上にいる？
 		bool				m_isHitWall = true;
+		bool				m_isHitEnemy = false;			//エネミーの当たり
 		CCapsuleCollider	m_collider;						//コライダー。
 		float				m_radius = 0.0f;
 		float				m_height = 0.0f;		

@@ -23,7 +23,7 @@ namespace tkEngine {
 			float dist = FLT_MAX;								//衝突点までの距離。一番近い衝突点を求めるため。FLT_MAXは単精度の浮動小数点が取りうる最大の値。
 			int ignoreCollisionAttr;				//無視するコリジョン属性のビットパターン。
 			Mirror* m_mirror = nullptr;
-																//衝突したときに呼ばれるコールバック関数。
+			//衝突したときに呼ばれるコールバック関数。
 			virtual	btScalar	addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
 			{
 				if (convexResult.m_hitCollisionObject == me
@@ -81,20 +81,20 @@ namespace tkEngine {
 			int ignoreCollisionAttr;				//無視するコリジョン属性のビットパターン。
 			Player* pl = nullptr;
 			Mirror* m_mirror = nullptr;
-													//衝突したときに呼ばれるコールバック関数。
+			//衝突したときに呼ばれるコールバック関数。
 			virtual	btScalar	addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
-			{	
+			{
 				if (ignoreCollisionAttr & (1 << convexResult.m_hitCollisionObject->getUserIndex())) {
 					return 0.0f;
 				}
 				if (convexResult.m_hitCollisionObject == me
-					|| ( convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Wall 
+					|| (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_Wall
 						&& m_mirror->GetIsMirror())/*ミラーを使っている*/
-				)
+					)
 				{
 					//自分に衝突した。or 障害物に衝突した。
 					//toro->dameflag = 0;
-					return 0.0f;	
+					return 0.0f;
 				}
 				//衝突点の法線を引っ張ってくる。
 				CVector3 hitNormalTmp;
@@ -123,6 +123,36 @@ namespace tkEngine {
 				return 0.0f;
 			}
 		};
+		//衝突したときに呼ばれる関数オブジェクト(エネミーボール用)
+	//	struct SweepResultEnemyBall : public btCollisionWorld::ConvexResultCallback
+	//	{
+	//		bool isHit = false;						//衝突フラグ。
+	//		CVector3 hitPos = CVector3::Zero;		//衝突点。
+	//		CVector3 startPos = CVector3::Zero;		//レイの始点。
+	//		float dist = FLT_MAX;					//衝突点までの距離。一番近い衝突点を求めるため。FLT_MAXは単精度の浮動小数点が取りうる最大の値。
+	//		CVector3 hitNormal = CVector3::Zero;	//衝突点の法線。
+	//		btCollisionObject* me = nullptr;		//自分自身。自分自身との衝突を除外するためのメンバ。
+	//		int ignoreCollisionAttr;				//無視するコリジョン属性のビットパターン。
+	//		Player* pl = nullptr;
+	//		Mirror* m_mirror = nullptr;
+	//		//衝突したときに呼ばれるコールバック関数。
+	//		virtual	btScalar	addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
+	//		{
+	//			if (ignoreCollisionAttr & (1 << convexResult.m_hitCollisionObject->getUserIndex())) {
+	//				return 0.0f;
+	//			}
+	//			if (convexResult.m_hitCollisionObject == me
+	//				|| (convexResult.m_hitCollisionObject->getUserIndex() == enCollisionAttr_throughEnemy
+	//					))
+	//			{
+	//				//自分に衝突した。or 障害物に衝突した。
+	//				isHit = true;
+	//				//toro->dameflag = 0;
+	//				return 0.0f;
+	//			}
+	//			return 0.0f;
+	//		}
+	//	};
 	}
 	void CCharacterController::Init(float radius, float height, float gravity, const CVector3& position,ColliderType type)
 	{
@@ -237,6 +267,28 @@ namespace tkEngine {
 					//終点は次の移動先。XZ平面での衝突を調べるので、yはposTmp.yを設定する。
 					end.setOrigin(btVector3(nextPosition.x, posTmp.y, nextPosition.z));
 				}
+				//エネミーボールの衝突
+				//SweepResultEnemyBall callBack;
+				//callBack.me = m_rigidBody.GetBody();
+				//callBack.startPos = posTmp;
+				//callBack.ignoreCollisionAttr = m_ignoreCollisionAttrs;
+				//callBack.pl = m_player;
+				//callBack.m_mirror = m_mirror;
+				//if (type == Capsule) {
+				//	//衝突検出。
+				//	PhysicsWorld().ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), start, end, callBack);
+				//}
+				//if (type == Sphere) {
+				//	//衝突検出。
+				//	PhysicsWorld().ConvexSweepTest((const btConvexShape*)m_sphereCollider.GetBody(), start, end, callBack);
+				//}
+				////エネミーボールに当たっていなければ
+				//m_isHitEnemy = false;
+				//if (callBack.isHit) {
+				//	//当たった。
+				//	//エネミーボール
+				//	m_isHitEnemy = true;
+				//}
 				SweepResultWall callback;
 				callback.me = m_rigidBody.GetBody();
 				callback.startPos = posTmp;
@@ -345,7 +397,7 @@ namespace tkEngine {
 			callback.me = m_rigidBody.GetBody();
 			callback.startPos.Set(start.getOrigin());
 			//衝突検出。
-			if(fabsf(endPos.y - callback.startPos.y) > FLT_EPSILON){
+			if (fabsf(endPos.y - callback.startPos.y) > FLT_EPSILON) {
 				if (type == Capsule) {
 					PhysicsWorld().ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), start, end, callback);
 				}
@@ -382,6 +434,7 @@ namespace tkEngine {
 				}
 			}
 		}
+		
 		//移動確定
 		m_position = nextPosition;
 		btRigidBody* btBody = m_rigidBody.GetBody();

@@ -78,7 +78,6 @@
     <ClCompile Include="GameOverProd.cpp" />
     <ClCompile Include="vrlevel.cpp" />
     <ClCompile Include="vrMapChip.cpp" />
-    <ClCompile Include="ResultPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -118,7 +117,6 @@
     <ClInclude Include="GameOverProd.h" />
     <ClInclude Include="vrlevel.h" />
     <ClInclude Include="vrMapChip.h" />
-    <ClInclude Include="ResultPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -545,6 +543,8 @@
     <CustomBuild Include="Assets\effect\dame.efk">
       <Filter>Assets\effect</Filter>
     </CustomBuild>
+    <CustomBuild Include="Assets\sound\Motion-Pop01.wav" />
+    <CustomBuild Include="Assets\level\level01.tks" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\fade.png">

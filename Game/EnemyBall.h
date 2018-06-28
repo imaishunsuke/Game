@@ -15,6 +15,12 @@ class Goal;
 		EnemyBall();
 		~EnemyBall();
 
+		CVector3 GetEnePos() {
+			return m_position;
+		}
+		CVector3 GetMoveSpeed() {
+			return m_moveSpeed;
+		}
 		bool Start();
 		void Update();
 		void Render(CRenderContext& rc);

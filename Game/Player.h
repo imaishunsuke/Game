@@ -7,6 +7,7 @@ class Goal;
 class ResultScene;
 class Game;
 class GameOverProd;
+class EnemyBall;
 
 class Player:public IGameObject
 {
@@ -29,6 +30,7 @@ public:
 	void Rotation();
 	void Result();
 	void Dead(CRenderContext& rc);
+	void Con();
 	
 	void SetDamageFlag(int flag) {
 		dameflag = flag;
@@ -121,7 +123,7 @@ private:
 	int lifecount = 0;									//ライフカウンタ(モデル差し替え)
 	int dameflag = 0;									//ダメージフラグ
 	int flag = 0;
-	float nlcount = 1;									//無敵カウンタ
+	float nlcount = 0;									//無敵カウンタ
 	float scale;										//文字の拡大率
 	int scalefg = 0;									//文字拡大フラグ
 	float count = 1;									//文字カウンター
@@ -138,7 +140,7 @@ private:
 	/*Game* m_game = nullptr;
 	title* m_title = nullptr;*/
 	Game*m_game = nullptr;
-
+	EnemyBall*m_enemyball = nullptr;
 	enum EnAnimationClip {
 		enAnimationClip_walk,
 		enAnimationClip_num
