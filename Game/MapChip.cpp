@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "MapChip.h"
-#include"Mirror.h"
-#include "Player.h"
-#include "GameCamera.h"
+#include "Mirror.h"
+ #include "GameCamera.h"
 #include"GameOverProd.h"
-#include "tkEngine/sound/tkSoundSource.h"
+//#include "tkEngine/sound/tkSoundSource.h"
 
 MapChip::MapChip()
 {

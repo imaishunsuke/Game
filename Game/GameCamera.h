@@ -2,6 +2,7 @@
 #include"Player.h"
 #include"Goal.h"
 #include"Player.h"
+#include "ResultScene.h"
 //ばねカメラを使用したい場合はtkSpringCamera.hをインクルードする必要がある。
 #include "tkEngine/camera/tkSpringCamera.h"
 
@@ -28,4 +29,5 @@ private:
 	Player*m_player=nullptr;
 	Goal* m_goal = nullptr;
 	int Flag = 0;
+	ResultScene* testScene = nullptr;
 };

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GameCamera.h"
 #include "Goal.h"
-
+#include "ResultScene.h"
 
 GameCamera::GameCamera()
 {
@@ -14,6 +14,7 @@ GameCamera::~GameCamera()
 
 bool GameCamera::Start()
 {
+	testScene = FindGO<ResultScene>("Result");
 	m_player = FindGO<Player>("Player");
 	m_goal = FindGO<Goal>("Goal");
 	//カメラのニアクリップとファークリップを設定する。
@@ -38,7 +39,8 @@ bool GameCamera::Start()
 }
 void GameCamera::Update()
 {
-	if (m_goal->GetGoalFlag() == 0) {							//ゴールしていないなら
+	if (m_goal->GetGoalFlag() == 0 && testScene->GetResultFlag() == false/*&& m_player->PressFlag == 0*/) {							//ゴールしていないなら
+		//m_player = FindGO<Player>("Player");
 		CVector3 toCameraPos = CVector3::Zero;
 		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
 		float height = toCameraPos.y;
@@ -101,32 +103,42 @@ void GameCamera::Update()
 			m_springCamera.SetPosition(pos);
 		}
 	}
-	if (m_goal->GetGoalFlag()==1 ) {					//ゴール用カメラ
-		m_player->SetRotationY(90.0f);
-		CVector3 toCameraPos = CVector3::Zero;
-		toCameraPos = m_springCamera.GetPosition() - m_springCamera.GetTarget();
+/*	if (m_goal->GetGoalFlag()==1 ) {*/					//ゴール用カメラ
+	if(testScene->GetResultFlag() == true){
+
+		float toPoslen = 2.5f; //ターゲットの場所を決めるための長さ
+		CVector3 ForwordPos = CVector3::Zero;
+		ForwordPos.x = m_player->GetMatrix().m[2][0] + m_player->GetPosition().x;
+		ForwordPos.y = 0.0f;
+		ForwordPos.z = m_player->GetMatrix().m[2][2] + m_player->GetPosition().z;
 		CVector3 target = CVector3::Zero;
-		target.x = m_player->GetMatrix().m[2][0] * 10.0f + m_player->GetPosition().x;
-		target.z = m_player->GetMatrix().m[2][2] * 10.0f + m_player->GetPosition().z;
-		target.y = 5.0f;	
-		toCameraPos.y = 0.0f;
-		float toCameraPoslen = 0.0f;
-		toCameraPoslen = toCameraPos.Length();
-		CVector3 playerposX = CVector3::Zero;
-		CVector3 diff = target;
-		diff.y = 0.0f;
-		diff.Normalize();
-		playerposX.Cross({ 0.0f,1.0f,0.0f },diff);
-		playerposX.Normalize();
-		playerposX.x *= -toCameraPoslen;
-		playerposX.z *= -toCameraPoslen;
+		target.Cross(CVector3::Up,ForwordPos);
+		target.x = -target.x;
+		target.y = -target.y;
+		target.z = -target.z;
+		target.Normalize();
+		target.x *= -toPoslen;
+		target.y = 0.0f;
+		target.z *= -toPoslen;
+
+		float toCameraPoslen = 9.5f;//カメラの位置を決めるための長さ
+		ForwordPos.Normalize();
+		ForwordPos.x *= toCameraPoslen;
+		ForwordPos.y = 4.0f;
+		ForwordPos.z *= toCameraPoslen;
 		CVector3 pos = CVector3::Zero;
-		pos = target + playerposX;
+		pos = target + ForwordPos;
+		target.y = 3.0f;
+
+
 		m_springCamera.SetTarget(target);
 		m_springCamera.SetPosition(pos);
+		m_springCamera.SetDampingRate(1.6f);
+		//m_springCamera.SetFar(20.0f);
+		m_springCamera.SetViewAngle(CMath::DegToRad(40.0f));
 	}
 
-	if (m_player->GetPressFlag() == 1)
+	if (m_player->GetPressFlag() == 1 && testScene->GetResultFlag() == false)
 	{
 		if (Flag == 0) {
 			CVector3 target = m_player->GetPosition();

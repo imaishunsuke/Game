@@ -127,7 +127,7 @@ namespace tkEngine{
 			*/
 			void SetVolume(float vol)
 			{
-				m_sourceVoice->SetVolume(vol);
+//				m_sourceVoice->SetVolume(vol);
 			}
 			/*!
 			* @brief	ƒ{ƒŠƒ…[ƒ€‚ðŽæ“¾B
@@ -135,7 +135,7 @@ namespace tkEngine{
 			float GetVolume() const
 			{
 				float vol;
-				m_sourceVoice->GetVolume(&vol);
+//				m_sourceVoice->GetVolume(&vol);
 				return vol;
 			}
 			/*!

@@ -78,6 +78,7 @@
     <ClCompile Include="GameOverProd.cpp" />
     <ClCompile Include="vrlevel.cpp" />
     <ClCompile Include="vrMapChip.cpp" />
+    <ClCompile Include="ResultPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -117,6 +118,7 @@
     <ClInclude Include="GameOverProd.h" />
     <ClInclude Include="vrlevel.h" />
     <ClInclude Include="vrMapChip.h" />
+    <ClInclude Include="ResultPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -223,12 +225,6 @@
     <MeshContentTask Include="Assets\modelData\ground1.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\ground2.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -257,6 +253,9 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_9.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_10.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\Corner_Blocks_3.fbx">
@@ -328,10 +327,10 @@
     <MeshContentTask Include="Assets\modelData\aa.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\ground5.FBX">
+    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\Block_Ruin_Wall_10.fbx">
+    <MeshContentTask Include="Assets\modelData\EnemyBall.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\wall.FBX">
@@ -528,23 +527,17 @@
     <CustomBuild Include="Assets\modelData\EnemyBall.tks">
       <Filter>Assets\modelData</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\sound\kaze2_.wav">
+    <CustomBuild Include="Assets\sound\game_dangeon.wav">
       <Filter>Assets\sound</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\sound\title1.wav">
+    <CustomBuild Include="Assets\sound\kaze_.wav">
       <Filter>Assets\sound</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\sound\walk2.wav">
+    <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
       <Filter>Assets\sound</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\sound\mirroruse1.wav">
-      <Filter>Assets\sound</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Assets\sound\si.wav">
-      <Filter>Assets\sound</Filter>
-    </CustomBuild>
-    <CustomBuild Include="Assets\sound\Rock.wav">
-      <Filter>Assets\sound</Filter>
+    <CustomBuild Include="Assets\level\level01.tks">
+      <Filter>Assets\level</Filter>
     </CustomBuild>
     <CustomBuild Include="Assets\level\level01.tks">
       <Filter>Assets\level</Filter>
@@ -594,6 +587,9 @@
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\title.jpg">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Clear.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>

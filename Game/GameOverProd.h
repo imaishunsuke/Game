@@ -9,6 +9,7 @@ public:
 	~GameOverProd();
 	bool Start();
 	void Update();
+
 	int GetDiser() {
 		return Diser;
 	}
@@ -25,9 +26,14 @@ private:
 		Dead,
 		
 	};
+private:
 	Product m_step;
 	Player*m_pl = nullptr;
 	GameCamera*m_camera = nullptr;
+public:
+	void SetProduct(Product product) {
+		m_step = product;
+	}
 	prefab::CSoundSource* m_animeSound = nullptr;
 	int soundf = 0;
 };

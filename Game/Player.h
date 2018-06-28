@@ -4,7 +4,7 @@
 
 class Torokko;
 class Goal;
-
+class ResultScene;
 class Game;
 class GameOverProd;
 
@@ -27,6 +27,7 @@ public:
 	void Turn();
 	void Line();
 	void Rotation();
+	void Result();
 	void Dead(CRenderContext& rc);
 	
 	void SetDamageFlag(int flag) {
@@ -109,7 +110,7 @@ private:
 	CVector3 m_cf = CVector3::Zero;
 	CVector3 m_sen = CVector3::Zero;					//線分
 	CSkinModelData m_skinModelData1;						//スキンモデルデータ。
-
+	GameOverProd* m_Prod = nullptr;
 
 	float x;
 	float y;
@@ -137,16 +138,20 @@ private:
 	/*Game* m_game = nullptr;
 	title* m_title = nullptr;*/
 	Game*m_game = nullptr;
-	GameOverProd* m_Prod = nullptr;
+
 	enum EnAnimationClip {
 		enAnimationClip_walk,
 		enAnimationClip_num
 	};
 	CAnimationClip m_animClip[enAnimationClip_num];
 	CAnimation m_animation;
-	
+
 	prefab::CSoundSource* m_bgm = nullptr;
+	prefab::CSoundSource* m_wind = nullptr;
 	prefab::CSoundSource* m_animeSound = nullptr;
 	double vo = 1.0;
 	double winvo = 0.5;
+
+	ResultScene* m_testResult = nullptr;
+
 };

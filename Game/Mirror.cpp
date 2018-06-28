@@ -10,7 +10,7 @@ Mirror::Mirror()
 
 Mirror::~Mirror()
 {
-	//DeleteGO(m_useMirror);
+	DeleteGO(m_useMirror);
 }
 bool Mirror::Start()
 {
@@ -39,7 +39,7 @@ bool Mirror::Start()
 	Mirlen = diff.Length();
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	
-	/*m_useMirror = NewGO<prefab::CSoundSource>(0);*/
+	m_useMirror = NewGO<prefab::CSoundSource>(0);
 	return true;
 }
 
