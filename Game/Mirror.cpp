@@ -10,7 +10,7 @@ Mirror::Mirror()
 
 Mirror::~Mirror()
 {
-	//DeleteGO(m_useMirror);
+	DeleteGO(m_useMirror);
 }
 bool Mirror::Start()
 {
@@ -39,7 +39,7 @@ bool Mirror::Start()
 	Mirlen = diff.Length();
 	m_skinModel.Update(m_position, m_rotation, CVector3::One);
 	
-	/*m_useMirror = NewGO<prefab::CSoundSource>(0);*/
+	m_useMirror = NewGO<prefab::CSoundSource>(0);
 	return true;
 }
 
@@ -60,10 +60,10 @@ void Mirror::Update()
 		&&pl->GetLifeCount()<5) {
 		m_isMirror = true;
 		prefab::CSoundSource* m_useMirror = nullptr;
-//		m_useMirror = NewGO<prefab::CSoundSource>(0);
-//		m_useMirror->Init("sound/mirroruse1.wav");
-//		m_useMirror->SetVolume(2.0f);
-//		m_useMirror->Play(false);
+		m_useMirror = NewGO<prefab::CSoundSource>(0);
+		m_useMirror->Init("sound/mirroruse1.wav");
+		m_useMirror->SetVolume(2.0f);
+		m_useMirror->Play(false);
 	}
 	else if(Pad(0).IsTrigger(enButtonB) && m_isMirror == true){
 		m_isMirror = false;

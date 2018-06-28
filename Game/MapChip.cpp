@@ -100,10 +100,10 @@ void MapChip::Update()
 		if (m_skinModel.GetditherRate()<=0.0
 			&&m_overprod->GetStep()==m_overprod->GetDiser())
 		{
-//			m_PressDead = NewGO<prefab::CSoundSource>(0);
-//			m_PressDead->Init("sound/Motion-Pop01.wav");
-//			m_PressDead->SetVolume(2.0);
-//			m_PressDead->Play(false);
+			m_PressDead = NewGO<prefab::CSoundSource>(0);
+			m_PressDead->Init("sound/Motion-Pop01.wav");
+			m_PressDead->SetVolume(2.0);
+			m_PressDead->Play(false);
 			m_overprod->SetDeadStep();
 		}
 	}

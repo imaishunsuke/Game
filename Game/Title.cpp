@@ -38,9 +38,9 @@ void Title::OnDestroy()
 }
 bool Title::Start()
 {
-//	m_Stitle = NewGO<prefab::CSoundSource>(0);
-//	m_Stitle->Init("sound/title1.wav");
-//	m_Stitle->Play(true);
+	m_Stitle = NewGO<prefab::CSoundSource>(0);
+	m_Stitle->Init("sound/title1.wav");
+	m_Stitle->Play(true);
 	dirLight = NewGO<prefab::CDirectionLight>(0);
 	//ƒ‰ƒCƒg‚Ì•ûŒü‚ðÝ’è
 	dirLight->SetDirection({ 0.707f,-0.707f,0.0f });
