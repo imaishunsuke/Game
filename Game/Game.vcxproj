@@ -972,9 +972,6 @@
     <CustomBuild Include="Assets\sound\game_dangeon.wav">
       <FileType>Document</FileType>
     </CustomBuild>
-    <CustomBuild Include="Assets\sound\kaze_.wav">
-      <FileType>Document</FileType>
-    </CustomBuild>
     <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
       <FileType>Document</FileType>
     </CustomBuild>
@@ -996,6 +993,26 @@
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Assets\effect\dame.efk">
+      <FileType>Document</FileType>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Assets\sound\kaze2_.wav">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\mirroruse1.wav">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\Rock.wav">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\si.wav">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\title1.wav">
+      <FileType>Document</FileType>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\walk2.wav">
       <FileType>Document</FileType>
     </CustomBuild>
   </ItemGroup>

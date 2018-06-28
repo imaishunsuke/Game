@@ -30,4 +30,5 @@ private:
 	Goal* m_goal = nullptr;
 	int Flag = 0;
 	ResultScene* testScene = nullptr;
+	bool ClearCameraFlag = false;
 };
