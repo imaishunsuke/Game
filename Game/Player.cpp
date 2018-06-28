@@ -295,10 +295,10 @@ void Player::Dead(CRenderContext& rc) {
 
 void Player::Update()
 {
-	if (m_testResult->GetResultFlag()) {
-		Result();
-		return;
-	}
+	//if (m_goal->GetGoalFlag()) {
+	//	Result();
+	//	return;
+	//}
 	SoundEngine().SetListenerPosition(MainCamera().GetPosition());
 	CVector3 frontXZ = MainCamera().GetForward();
 	frontXZ.y = 0.0f;

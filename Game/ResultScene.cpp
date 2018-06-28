@@ -40,12 +40,14 @@ bool ResultScene::Start()
 }
 void ResultScene::Update()
 {
-	if (Pad(0).IsTrigger(enButtonLB1))
+	/*if (Pad(0).IsTrigger(enButtonLB1))
 	{
 		ResultFlag = true;
-	}
+	}*/
 	//ResultFlagはゴールフラグに変える
-	if (ResultFlag == true)
+
+	//if (ResultFlag == true)
+	if(m_goal->GetGoalFlag())
 	{
 		if (m_ptLight == nullptr) {
 			m_ptLight = NewGO<prefab::CPointLight>(0);
@@ -78,8 +80,8 @@ void ResultScene::Update()
 }
 void ResultScene::PostRender(CRenderContext& rc)
 {
-	if (ResultFlag == true) {
-		//if (m_goal->GetGoalFlag() == 1) {
+	//if (ResultFlag == true) {
+		if (m_goal->GetGoalFlag() == 1) {
 			//2Dの深度を設定する
 		//rc.OMSetDepthStencilState(DepthStencilState::spriteRender, 0);
 		m_sprite.Draw(rc, MainCamera2D().GetViewMatrix(), MainCamera2D().GetProjectionMatrix());

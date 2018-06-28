@@ -163,7 +163,19 @@ void Game::Update()
 			GameOverFlag = 1;
 		}
 	}
-	
+	if (m_isWaitFadeout && m_goal->GetTitleFlag())
+	{
+		if (!m_fade->IsFade()) {
+			NewGO<Title>(0, nullptr);
+			DeleteGO(this);
+		}
+	}
+	else {
+		if (m_goal->GetTitleFlag()) {
+			m_isWaitFadeout = true;
+			m_fade->StartFadeOut();
+		}
+	}
 	//if (m_isWaitFadeout && GameOverFlag == 0)
 	//{
 	//	if (!m_fade->IsFade()) {

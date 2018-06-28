@@ -100,37 +100,49 @@ void GameCamera::Update()
 			m_springCamera.SetPosition(pos);
 		}
 	}
-/*	if (m_goal->GetGoalFlag()==1 ) {*/					//ゴール用カメラ
-	if(testScene->GetResultFlag() == true){
+	if (m_goal->GetGoalFlag()==1 ) {					//ゴール用カメラ
+	//if(testScene->GetResultFlag() == true){
+	//ばねカメラの初期化。
+		if (ClearCameraFlag == false) {
+			m_springCamera.Init(
+				MainCamera(),		//ばねカメラの処理を行うカメラを指定する。
+				500.0f,			//カメラの移動速度の最大値。
+				false,				//カメラと地形とのあたり判定を取るかどうかのフラグ。trueだとあたり判定を行う。
+				0.0f				//カメラに設定される球体コリジョンの半径。第３引数がtrueの時に有効になる。
+			);
+			ClearCameraFlag = true;
+		}
+		m_player->Result();
 
 		float toPoslen = 2.5f; //ターゲットの場所を決めるための長さ
 		CVector3 ForwordPos = CVector3::Zero;
-		ForwordPos.x = m_player->GetMatrix().m[2][0] + m_player->GetPosition().x;
+		ForwordPos.x = m_player->GetMatrix().m[2][0]/* + m_player->GetPosition().x*/;
 		ForwordPos.y = 0.0f;
-		ForwordPos.z = m_player->GetMatrix().m[2][2] + m_player->GetPosition().z;
+		ForwordPos.z = m_player->GetMatrix().m[2][2]/* + m_player->GetPosition().z*/;
 		CVector3 target = CVector3::Zero;
 		target.Cross(CVector3::Up,ForwordPos);
 		target.x = -target.x;
 		target.y = -target.y;
 		target.z = -target.z;
 		target.Normalize();
-		target.x *= -toPoslen;
+		target.x *= toPoslen;
 		target.y = 0.0f;
-		target.z *= -toPoslen;
+		target.z *= toPoslen;
 
 		float toCameraPoslen = 9.5f;//カメラの位置を決めるための長さ
-		ForwordPos.Normalize();
+		//ForwordPos.Normalize();
 		ForwordPos.x *= toCameraPoslen;
 		ForwordPos.y = 4.0f;
 		ForwordPos.z *= toCameraPoslen;
 		CVector3 pos = CVector3::Zero;
-		pos = target + ForwordPos;
+		pos = target + ForwordPos + m_player->GetPosition();
 		target.y = 3.0f;
-
+		target.x = target.x+m_player->GetPosition().x;
+		target.z = target.z+m_player->GetPosition().z;
 
 		m_springCamera.SetTarget(target);
 		m_springCamera.SetPosition(pos);
-		m_springCamera.SetDampingRate(1.6f);
+		m_springCamera.SetDampingRate(2.0f);
 		//m_springCamera.SetFar(20.0f);
 		m_springCamera.SetViewAngle(CMath::DegToRad(40.0f));
 	}

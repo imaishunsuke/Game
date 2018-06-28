@@ -7,6 +7,7 @@
 #include "tkEngine/physics/tkRigidBody.h"
 class Player;
 class Goal;
+class EnemyBall;
 
 
 	class EnemyBall : public Enemybace
@@ -23,7 +24,9 @@ class Goal;
 		void Init(const wchar_t* modelFilePath, CVector3 pos, CQuaternion rotation, CVector3 scale);
 		void Create();
 		const CVector3& Physics(CVector3& moveSpeed, float DeltaTime);
-
+		void Set(const CVector3& hitNormal) {
+			m_hitNormal = hitNormal;
+		}
 	private:
 		//ÉÅÉìÉoïœêî
 		CSkinModel m_skinModel;
@@ -57,6 +60,8 @@ class Goal;
 		bool				m_isOnGround = true;			//ínñ ÇÃè„Ç…Ç¢ÇÈÅH
 		float				m_radius = 0.0f;
 		bool				m_isHitWall = true;
+		CVector3			m_hitNormal = CVector3::Zero;
+		EnemyBall*			m_enemyball = nullptr;
 	};
 
 

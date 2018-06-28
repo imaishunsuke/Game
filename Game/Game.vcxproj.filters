@@ -530,9 +530,6 @@
     <CustomBuild Include="Assets\sound\game_dangeon.wav">
       <Filter>Assets\sound</Filter>
     </CustomBuild>
-    <CustomBuild Include="Assets\sound\kaze_.wav">
-      <Filter>Assets\sound</Filter>
-    </CustomBuild>
     <CustomBuild Include="Assets\sound\Motion-Pop01.wav">
       <Filter>Assets\sound</Filter>
     </CustomBuild>
@@ -544,6 +541,26 @@
     </CustomBuild>
     <CustomBuild Include="Assets\effect\dame.efk">
       <Filter>Assets\effect</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\Motion-Pop01.wav" />
+    <CustomBuild Include="Assets\level\level01.tks" />
+    <CustomBuild Include="Assets\sound\kaze2_.wav">
+      <Filter>Assets\sound</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\mirroruse1.wav">
+      <Filter>Assets\sound</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\Rock.wav">
+      <Filter>Assets\sound</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\si.wav">
+      <Filter>Assets\sound</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\title1.wav">
+      <Filter>Assets\sound</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Assets\sound\walk2.wav">
+      <Filter>Assets\sound</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

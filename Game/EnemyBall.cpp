@@ -69,6 +69,7 @@
 			int ignoreCollisionAttr;				//無視するコリジョン属性のビットパターン。
 			Player* pl = nullptr;
 			Mirror* m_mirror = nullptr;
+			EnemyBall* enemyball = nullptr;
 			//衝突したときに呼ばれるコールバック関数。
 			virtual	btScalar	addSingleResult(btCollisionWorld::LocalConvexResult& convexResult, bool normalInWorldSpace)
 			{
@@ -105,6 +106,7 @@
 						hitPos = hitPosTmp;
 						dist = distTmp;
 						hitNormal = hitNormalTmp;
+						enemyball->Set(hitNormal);
 					}
 				}
 				return 0.0f;
@@ -170,7 +172,7 @@
 		//std::vector<LevelData*> it = GetDataList();
 		int num = level->numMapChip;
 		for (int i = 1; i < num; i++) {
-			EnemyBall* m_enemy = NewGO<EnemyBall>(0);
+			EnemyBall* m_enemy = NewGO<EnemyBall>(0,"EnemyBall");
 			m_enemy->Init(level->modelFilePath.c_str(), level->Pos, level->Rotation, CVector3::One);
 			m_enemyBallList.emplace_back(m_enemy);
 		}
@@ -247,6 +249,7 @@ bool EnemyBall::Start()
 	m_position = { 0.0,18.0,200.0 };
 	CVector3 plPos = m_player->GetPosition();
 	diff = plPos - m_position;
+	m_moveSpeed = { 3.0f,0.0f,2.0f };			//初期速度を与える
 	m_enemySound = NewGO<prefab::CSoundSource>(0);
 	m_enemySound->Init("sound/Rock.wav", true);
 	m_enemySound->SetPosition(m_position);
@@ -254,13 +257,25 @@ bool EnemyBall::Start()
 	m_enemySound->Play(true);
 	return true;
 }
-	void EnemyBall::Update()
-	{
-		m_enemySound->SetPosition(m_position);
+void EnemyBall::Update()
+{
+	m_enemySound->SetPosition(m_position);
 
-		m_moveSpeed.y -= 98.0f * GameTime().GetFrameDeltaTime();
-		//for (int i = 1; i < it->numMapChip; i++) {
-			if (m_isHitWall == true) {
+	m_moveSpeed.y -= 98.0f * GameTime().GetFrameDeltaTime();
+	//for (int i = 1; i < it->numMapChip; i++) {
+	CVector3 len;
+	len = m_player->GetPosition() - m_position;
+	if (m_isHitWall == true) {
+		CVector3 a;
+		a.x = -m_moveSpeed.x * m_hitNormal.x;
+		a.y = -m_moveSpeed.y * m_hitNormal.y;
+		a.z = -m_moveSpeed.z * m_hitNormal.z;
+		diff.x = m_moveSpeed.x + 2.0f * a.x * m_hitNormal.x;
+		diff.y = m_moveSpeed.y + 2.0f * a.y * m_hitNormal.y;
+		diff.z = m_moveSpeed.z + 2.0f * a.z * m_hitNormal.z;
+	}
+
+	if (m_isHitWall == true && len.Length()<2.0f) {
 		CVector3 plPos = m_player->GetPosition();
 		diff = plPos - m_position;
 		}
@@ -324,6 +339,10 @@ bool EnemyBall::Start()
 		{
 			m_player = FindGO<Player>("Player");
 		}
+		if (m_enemyball == nullptr)
+		{
+			m_enemyball = FindGO<EnemyBall>("EnemyBall");
+		}
 		//次の移動先となる座標を計算する。
 		CVector3 nextPosition = m_startPosition;
 		//速度からこのフレームでの移動量を求める。オイラー積分。
@@ -368,6 +387,7 @@ bool EnemyBall::Start()
 				callback.me = m_rigidBody.GetBody();
 				callback.startPos = posTmp;
 				callback.pl = m_player;
+				callback.enemyball = m_enemyball;
 				//callback.ignoreCollisionAttr = m_ignoreCollisionAttrs;
 				//衝突検出。
 				PhysicsWorld().ConvexSweepTest((const btConvexShape*)m_collider.GetBody(), start, end, callback);
