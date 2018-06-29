@@ -114,8 +114,11 @@ private:
 	CSkinModelData m_skinModelData1;						//スキンモデルデータ。
 	GameOverProd* m_Prod = nullptr;
 
-	float x;
-	float y;
+	bool m_Mutekiflag = false;
+	float mtcount = 0.0;
+	float addmt = 0.0;
+	float mt2 = 0.0;
+
 	float plposlen;
 	float angle;
 	float hpscale = 1;

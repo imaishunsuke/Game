@@ -85,7 +85,15 @@ void Mirror::Update()
 		&& mpflag == 0) {
 		mpscale -= GameTime().GetFrameDeltaTime()*0.17;
 	}
-
+	if (m_isMirror == false
+		&& pl->GetFlag() == 1
+		&& mpflag == 0) {
+		mpscale += GameTime().GetFrameDeltaTime()*0.04;
+		if (mpscale >= 1) {
+			mpscale = 1;
+			mpflag = 0;
+		}
+	}
 	if (mpscale <= 0) {
 		mpscale = 0;
 		mpflag = 1;

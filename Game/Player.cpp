@@ -306,7 +306,7 @@ void Player::Update()
 
 	if (flag == 1 
 		&& m_goal->GetGoalFlag() == 0 
-		&& m_prodcount == 0) {
+		&& Dcount<5) {
 
 		//移動
 		Move();
@@ -322,23 +322,24 @@ void Player::Update()
 		diff.x = m_position.x - epos.x;
 		diff.y = m_position.y - epos.y;
 		diff.z = m_position.z - epos.z;
-		if (diff.Length()<=5.0) {
+		if (diff.Length() <= 5.0) {
 			dameflag = 1;
-			//エフェクトを作成。
-			prefab::CEffect* effect = NewGO<prefab::CEffect>(0);
-			//エフェクトを再生。
-			effect->Play(L"effect/dame.efk");
-			CVector3 emitPos = m_position;
-			CVector3 emitScale = { 0.7,0.7,0.7 };
-			emitPos.y += 2.0;
-			effect->SetPosition(emitPos);
-			effect->SetScale(emitScale);
-			CVector3 MovePos;
-			MovePos.x = m_enemyball->GetMoveSpeed().x * 10;
-			MovePos.z = m_enemyball->GetMoveSpeed().z * 10;
-			MovePos.y = m_enemyball->GetMoveSpeed().y * 10;
-			m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), MovePos, m_collidertype);
-			if (dameflag == 1) {
+			if (nlcount == 0.0) {
+				//エフェクトを作成。
+				prefab::CEffect* effect = NewGO<prefab::CEffect>(0);
+				//エフェクトを再生。
+				effect->Play(L"effect/dame.efk");
+				CVector3 emitPos = m_position;
+				CVector3 emitScale = { 0.7,0.7,0.7 };
+				emitPos.y += 2.0;
+				effect->SetPosition(emitPos);
+				effect->SetScale(emitScale);
+				CVector3 MovePos;
+				MovePos.x = m_enemyball->GetMoveSpeed().x * 10;
+				MovePos.z = m_enemyball->GetMoveSpeed().z * 10;
+				MovePos.y = m_enemyball->GetMoveSpeed().y * 10;
+				m_position = m_charaCon.Execute(GameTime().GetFrameDeltaTime(), MovePos, m_collidertype);
+			
 				if (dameflag == 1) {
 					if ((lifecount == 0 && nlcount == 0)
 						|| (lifecount == 1 && nlcount == 0)
@@ -347,21 +348,27 @@ void Player::Update()
 						|| (lifecount == 4 && nlcount == 0))
 					{
 						hpscale = hpscale - 0.12;
+						nlcount = 1.0;
+						mtcount = 1;
+						addmt = 0.0;
 					}
-				if (nlcount <= 0) {
-					nlcount = 0.0;
 				}
-				//lifecountが5になったらゲームオーバー
+				////２秒間無敵
+				//if (nlcount >= 0) {
+				//	nlcount = nlcount + GameTime().GetFrameDeltaTime();
+				//	if (1 <= nlcount) {
+				//		nlcount = 0;
+				//		dameflag = 0;
+				//	}
+				//}
+			}
+		}
+		//２秒間無敵
+		if (nlcount >= 1) {
+			nlcount = nlcount + GameTime().GetFrameDeltaTime();
+			if (2 <= nlcount) {
+				nlcount = 0;
 				dameflag = 0;
-			}
-			//２秒間無敵
-			if (nlcount > 0) {
-				nlcount = nlcount + GameTime().GetFrameDeltaTime();
-				if (2 <= nlcount) {
-					nlcount = 0;
-					dameflag = 0;
-				}
-			}
 			}
 		}
 		m_wind->SetVolume(1.5);
@@ -393,41 +400,6 @@ void Player::Update()
 			}
 		}
 	}
-
-	//if (dameflag == 1) {
-	//	if (nlcount <= 0) {
-	//		nlcount = 0.01;
-	//	}
-	//	//lifecountが5になったらゲームオーバー
-	//	if ((lifecount == 0 && hpscale <= 0.8)
-	//		|| (lifecount == 1 && hpscale <= 0.6)
-	//		|| (lifecount == 2 && hpscale <= 0.4)
-	//		|| (lifecount == 3 && hpscale <= 0.2)
-	//		|| (lifecount == 4 && hpscale <= 0.0))
-	//	{
-	//		lifecount = lifecount + 1;
-	//	}
-	//	dameflag = 0;
-	//}
-	//	//２秒間無敵
-	//	if (nlcount > 0) {
-	//		nlcount = nlcount + GameTime().GetFrameDeltaTime();
-	//		if (2 <= nlcount) {
-	//			nlcount = 0;
-	//			dameflag = 0;
-	//		}
-	//	}
-	//	if (dameflag == 1) {
-	//		if ((lifecount == 0 && nlcount == 0)
-	//			|| (lifecount == 1 && nlcount == 0)
-	//			|| (lifecount == 2 && nlcount == 0)
-	//			|| (lifecount == 3 && nlcount == 0)
-	//			|| (lifecount == 4 && nlcount == 0))
-	//		{
-	//			hpscale = hpscale - 0.1;
-	//		}
-
-	//	}
 		if (hpdscale > hpscale) {
 			hpdscale = hpdscale - 0.02;
 			m_hdsprite.Update(m_hpdosition = { -625.0,345.0,0 }, CQuaternion::Identity, CVector3{ hpdscale,1.0,1.0 }, { 0.0,1.0 });
@@ -467,13 +439,39 @@ void Player::Render(CRenderContext& rc)
 		Dtime = 0.0f;
 		Dcount = 0;
 	}
+ mt2 = (mtcount*mtcount);
+ addmt += GameTime().GetFrameDeltaTime()*120;
+ if (mt2>=addmt)
+ {
+	 m_Mutekiflag = false;
+ }
+ else
+ {
+	 m_Mutekiflag = true;
+ }
 	//プレイヤー描画
-	m_skinModel.Draw(rc, 
-		MainCamera().GetViewMatrix(), 
-		MainCamera().GetProjectionMatrix(),
-		CMatrix::Identity,
-		CMatrix::Identity
-	);	
+ if (Dcount<5&&nlcount >= 1 /*&& nlcount <= 1.8*/ && m_Mutekiflag == true) {
+	 addmt = 0.0;
+	 mtcount++;
+ }
+ else if (Dcount<5&&nlcount >= 1 /*&& nlcount <= 1.8*/ && m_Mutekiflag==false)
+ {
+	 m_skinModel.Draw(rc,
+		 MainCamera().GetViewMatrix(),
+		 MainCamera().GetProjectionMatrix(),
+		 CMatrix::Identity,
+		 CMatrix::Identity
+	 );
+ }
+ else
+ {
+	 m_skinModel.Draw(rc,
+		 MainCamera().GetViewMatrix(),
+		 MainCamera().GetProjectionMatrix(),
+		 CMatrix::Identity,
+		 CMatrix::Identity
+	 );
+ }
 }
 void Player::PostRender(CRenderContext& rc) {
 	//スタート
